@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="login-screen w-screen h-screen flex justify-start bg-[url('img/app/background.jpg')] bg-center bg-cover">
-            <div class="h-full w-500 shadow-2xl bg-opacity-50 backdrop-filter backdrop-blur-md flex flex-col justify-center p-10">
+            <div class="h-full w-500 shadow-2xl bg-gray-50 bg-opacity-50 backdrop-filter backdrop-blur-md flex flex-col justify-center p-10">
                 <h4 class="text-4xl font-bold text-orange-400 mb-20 text-center">LOGIN</h4>
 
                 <form
@@ -11,10 +11,10 @@
                 >
                     <span v-if="$page.props.errors" class="text-red-500 text-lg font-bold">{{ $page.props.errors.error }}</span>
                     <div class="flex flex-col mb-3">
-                        <label class="text-xl font-bold mb-2 text-blue-900">Email</label>
+                        <label class="text-xl font-bold mb-2 text-orange-500">Email</label>
                         <input
                             v-model="form.email"
-                            class="h-12 text-base placeholder-black rounded-2xl bg-transparent focus:outline-orange-400 focus:border-orange-400 transition-all"
+                            class="h-12 text-base rounded-2xl bg-transparent hover:border-orange-500 focus:border-orange-500 focus:outline-none transition-all"
                             type="text"
                             name="email"
                             placeholder="Digite seu email..."
@@ -23,10 +23,10 @@
                     </div>
 
                     <div class="flex flex-col mb-3">
-                        <label class="text-xl font-bold mb-2 text-blue-900">Senha</label>
+                        <label class="text-xl font-bold mb-2 text-orange-500">Senha</label>
                         <input
                             v-model="form.password"
-                            class="h-12 text-base placeholder-black rounded-2xl bg-transparent focus:outline-orange-400 focus:border-orange-400 transition-all"
+                            class="h-12 text-base rounded-2xl bg-transparent hover:border-orange-500 focus:border-orange-500 transition-all"
                             type="password"
                             name="password"
                             placeholder="Digite sua senha..."
@@ -40,7 +40,7 @@
                             class="bg-transparent rounded-md mr-2 outline-none"
                             name="remember"
                         >
-                        <span class="font-bold text-base text-blue-900">Lembrar de mim</span>
+                        <span class="font-bold text-base text-orange-500">Lembrar de mim</span>
                     </div>
 
                     <button
