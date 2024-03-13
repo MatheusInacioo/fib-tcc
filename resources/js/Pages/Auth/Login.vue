@@ -14,7 +14,7 @@
                         <label class="text-xl font-bold mb-2 text-orange-500">Email</label>
                         <input
                             v-model="form.email"
-                            class="h-12 text-base rounded-2xl bg-transparent hover:border-orange-500 focus:border-orange-500 focus:outline-none transition-all"
+                            class="h-12 text-base rounded-2xl bg-transparent border-black hover:border-orange-500 focus:border-none transition-all"
                             type="text"
                             name="email"
                             placeholder="Digite seu email..."
@@ -24,13 +24,23 @@
 
                     <div class="flex flex-col mb-3">
                         <label class="text-xl font-bold mb-2 text-orange-500">Senha</label>
-                        <input
-                            v-model="form.password"
-                            class="h-12 text-base rounded-2xl bg-transparent hover:border-orange-500 focus:border-orange-500 transition-all"
-                            type="password"
-                            name="password"
-                            placeholder="Digite sua senha..."
-                        >
+                        <div class="flex border border-black rounded-2xl hover:border-orange-500 focus:border-orange-500 transition-all">
+                            <input
+                                v-model="form.password"
+                                class="w-full h-12 text-base rounded-l-2xl bg-transparent border-none outline-none"
+                                :type="showPassword ? 'text' : 'password'"
+                                name="password"
+                                placeholder="Digite sua senha..."
+                            >
+                            <button
+                                type="button"
+                                @click="showPassword = !showPassword">
+                                <i
+                                    class="text-xl w-10"
+                                    :class="{'bx bx-hide' : showPassword, 'bx bx-show': !showPassword}"
+                                ></i>
+                            </button>
+                        </div>
                         <span v-if="form.errors.password" class="text-red-500 text-lg font-bold mb-3">{{ form.errors.password }}</span>
                     </div>
                     <div class="flex items-center">
@@ -67,6 +77,12 @@ import { useForm } from '@inertiajs/vue3';
             })
 
             return { form }
+        },
+
+        data() {
+            return {
+                showPassword: false,
+            }
         }
     }
 </script>

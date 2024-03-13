@@ -8,11 +8,11 @@
             :key="button.id"
             class="menu-item px-12 group"
         >
-            <div class="flex items-center hover:bg-orange-500 hover:rounded-xl hover:text-white transition-all hover:scale-110 p-2">
-                <i :class="button.icon + ' mr-5 text-2xl text-orange-400 group-hover:text-white'"></i>
+            <div class="flex items-center h-8 hover:bg-orange-500 hover:rounded-xl hover:text-white transition-all hover:scale-110 p-2">
+                <i :class="button.icon + ' mr-5 text-xl text-orange-400 group-hover:text-white'"></i>
                 <a
                     :href="route(button.route)"
-                    class="text-lg font-bold"
+                    class="text-base font-bold"
                 >
                     {{ button.title }}
                 </a>
