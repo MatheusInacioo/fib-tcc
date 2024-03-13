@@ -6,13 +6,13 @@
         <div
             v-for="button in buttons"
             :key="button.id"
-            class="menu-item px-12 mb-4"
+            class="menu-item px-12 group"
         >
-            <div class="flex items-center">
-                <i :class="button.icon + ' mr-5 text-2xl font-bold text-orange-400'"></i>
+            <div class="flex items-center hover:bg-orange-500 hover:rounded-xl hover:text-white transition-all hover:scale-110 p-2">
+                <i :class="button.icon + ' mr-5 text-2xl text-orange-400 group-hover:text-white'"></i>
                 <a
                     :href="route(button.route)"
-                    class="text-xl font-bold"
+                    class="text-lg font-bold"
                 >
                     {{ button.title }}
                 </a>
