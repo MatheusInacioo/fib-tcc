@@ -6,12 +6,12 @@
 
                 <form
                     method="POST"
-                    class="flex flex-col"
+                    class="flex flex-col font-poppins"
                     @submit.prevent="form.post(route('login.store'))"
                 >
-                    <span v-if="$page.props.errors" class="text-red-500 text-lg font-bold">{{ $page.props.errors.error }}</span>
+                    <span v-if="$page.props.errors" class="text-red-500 text-base font-semibold">{{ $page.props.errors.error }}</span>
                     <div class="flex flex-col mb-3">
-                        <label class="text-xl font-bold mb-2 text-orange-500">Email</label>
+                        <label class="text-xl font-semibold mb-2 text-orange-500">Email</label>
                         <input
                             v-model="form.email"
                             class="h-12 text-base rounded-2xl bg-transparent border-black hover:border-orange-500 focus:border-none transition-all"
@@ -19,11 +19,11 @@
                             name="email"
                             placeholder="Digite seu email..."
                         >
-                        <span v-if="form.errors.email" class="text-red-500 text-lg font-bold">{{ form.errors.email }}</span>
+                        <span v-if="form.errors.email" class="text-red-500 text-base font-semibold">{{ form.errors.email }}</span>
                     </div>
 
                     <div class="flex flex-col mb-3">
-                        <label class="text-xl font-bold mb-2 text-orange-500">Senha</label>
+                        <label class="text-xl font-semibold mb-2 text-orange-500">Senha</label>
                         <div class="flex border border-black rounded-2xl hover:border-orange-500 focus:border-orange-500 transition-all">
                             <input
                                 v-model="form.password"
@@ -37,11 +37,11 @@
                                 @click="showPassword = !showPassword">
                                 <i
                                     class="text-xl w-10"
-                                    :class="{'bx bx-hide' : showPassword, 'bx bx-show': !showPassword}"
+                                    :class="{ 'bx bx-hide' : showPassword, 'bx bx-show' : !showPassword }"
                                 ></i>
                             </button>
                         </div>
-                        <span v-if="form.errors.password" class="text-red-500 text-lg font-bold mb-3">{{ form.errors.password }}</span>
+                        <span v-if="form.errors.password" class="text-red-500 text-base font-semibold mb-3">{{ form.errors.password }}</span>
                     </div>
                     <div class="flex items-center">
                         <input
@@ -50,12 +50,12 @@
                             class="bg-transparent rounded-md mr-2 outline-none"
                             name="remember"
                         >
-                        <span class="font-bold text-base text-orange-500">Lembrar de mim</span>
+                        <span class="text-base font-semibold text-orange-500">Lembrar de mim</span>
                     </div>
 
                     <button
                         type="submit"
-                        class="w-full h-10 mt-10 bg-orange-400 rounded-2xl text-white text-lg font-bold shadow-xl"
+                        class="w-full h-10 mt-10 bg-orange-400 rounded-2xl text-white text-lg font-poppins font-semibold shadow-xl hover:scale-105 transition-all"
                     >
                         Entrar
                     </button>

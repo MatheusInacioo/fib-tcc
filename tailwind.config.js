@@ -14,6 +14,8 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                poppins: ['Poppins', 'arial', 'sans-serif'],
+                roboto:  ['Roboto', 'arial', 'sans-serif'],
             },
             colors: {
                 bk_green: '#02362E',
