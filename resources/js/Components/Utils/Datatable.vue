@@ -34,7 +34,7 @@
                         :key="index"
                         @click="sort(index)"
                         :class="{ 'sortable' : column.sortable, 'text-center' : index > 0 }"
-                        class="px-6 py-3 text-left text-base font-bold text-gray-500 uppercase tracking-wider"
+                        class="px-6 py-3 text-left md:text-sm text-base font-bold text-gray-500 uppercase tracking-wider"
                     >
                         {{ column.label }}
 
@@ -56,7 +56,7 @@
                 </tr>
             </thead>
 
-            <tbody class="bg-white divide-y divide-gray-200 rounded-xl">
+            <tbody class="bg-white divide-y divide-gray-200">
                 <tr
                     v-for="(item, index) in paginatedData"
                     :key="index"
@@ -65,7 +65,7 @@
                     <td
                         v-for="(column, i) in columns"
                         :key="i"
-                        class="px-6 py-3 whitespace-nowrap"
+                        class="px-6 py-3 md:py-1 md:text-sm sm:text-xs"
                         :class="{ 'text-center' : i > 0 }"
                     >
                         {{ item[column.name]}}
