@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Inertia\Inertia;
 
 class CustomerController extends Controller
 {
     public function index()
     {
-        // $customers = Customer::all();
+        $customers = User::all();
 
         return Inertia::render('Customers/Index', [
-            // 'customers' => $customers,
+            'customers' => $customers,
         ]);
     }
 

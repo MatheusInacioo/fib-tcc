@@ -2,7 +2,7 @@
     <div class="holder">
         <div
             v-if="showBar"
-            class="sidebar w-64 h-full flex flex-col bg-white shadow-xl"
+            class="sidebar w-64 h-full flex flex-col bg-white border border-l-gray-200 shadow-lg"
         >
             <div class="sidebar-header h-24 px-8 flex justify-between items-center mb-4">
                 <h4 class="text-4xl font-bold text-orange-500 text-center">LOGO</h4>

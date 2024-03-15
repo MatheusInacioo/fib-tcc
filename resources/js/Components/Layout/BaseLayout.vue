@@ -3,7 +3,7 @@
         <Sidebar/>
         <div class="main-screen flex flex-col h-full w-full p-4 bg-gray-100">
             <Topbar/>
-            <div class=" flex flex-col w-full h-full bg-white rounded-xl shadow-lg p-4">
+            <div class=" flex flex-col w-full h-full bg-white rounded-xl shadow-lg p-4 border border-gray-200">
                 <slot></slot>
             </div>
         </div>

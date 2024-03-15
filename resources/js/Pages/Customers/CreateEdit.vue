@@ -6,11 +6,115 @@
 
         <div class="h-px w-full bg-orange-500 my-4"></div>
 
-        <form @submit.prevent="saveForm()">
-            <div class="form-row flex">
-                <div class="form-field flex flex-col">
-
+        <form
+            @submit.prevent="saveForm()"
+            class="w-full h-full"
+        >
+            <div class="form-row flex mb-5">
+                <div class="form-field flex flex-col mr-6">
+                    <span class="font-medium text-xl ml-1 mb-2">Nome</span>
+                    <input
+                        class="w-340 rounded-xl"
+                        type="text"
+                        name="name"
+                        id="name"
+                        placeholder="Nome do cliente ou empresa"
+                    >
                 </div>
+
+                <div class="form-field flex flex-col mr-6">
+                    <span class="font-medium text-xl ml-1 mb-2">Nome</span>
+                    <input
+                        class="w-340 rounded-xl"
+                        type="text"
+                        name="name"
+                        id="name"
+                        placeholder="Nome do cliente ou empresa"
+                    >
+                </div>
+
+                <div class="form-field flex flex-col mr-6">
+                    <span class="font-medium text-xl ml-1 mb-2">Nome</span>
+                    <input
+                        class="w-340 rounded-xl"
+                        type="text"
+                        name="name"
+                        id="name"
+                        placeholder="Nome do cliente ou empresa"
+                    >
+                </div>
+
+                <div class="form-field flex flex-col mr-6">
+                    <span class="font-medium text-xl ml-1 mb-2">Nome</span>
+                    <input
+                        class="w-340 rounded-xl"
+                        type="text"
+                        name="name"
+                        id="name"
+                        placeholder="Nome do cliente ou empresa"
+                    >
+                </div>
+            </div>
+
+            <div class="form-row flex mb-5">
+                <div class="form-field flex flex-col mr-6">
+                    <span class="font-medium text-xl ml-1 mb-2">Nome</span>
+                    <input
+                        class="w-340 rounded-xl"
+                        type="text"
+                        name="name"
+                        id="name"
+                        placeholder="Nome do cliente ou empresa"
+                    >
+                </div>
+
+                <div class="form-field flex flex-col mr-6">
+                    <span class="font-medium text-xl ml-1 mb-2">Nome</span>
+                    <input
+                        class="w-340 rounded-xl"
+                        type="text"
+                        name="name"
+                        id="name"
+                        placeholder="Nome do cliente ou empresa"
+                    >
+                </div>
+
+                <div class="form-field flex flex-col mr-6">
+                    <span class="font-medium text-xl ml-1 mb-2">Nome</span>
+                    <input
+                        class="w-340 rounded-xl"
+                        type="text"
+                        name="name"
+                        id="name"
+                        placeholder="Nome do cliente ou empresa"
+                    >
+                </div>
+
+                <div class="form-field flex flex-col mr-6">
+                    <span class="font-medium text-xl ml-1 mb-2">Nome</span>
+                    <input
+                        class="w-340 rounded-xl"
+                        type="text"
+                        name="name"
+                        id="name"
+                        placeholder="Nome do cliente ou empresa"
+                    >
+                </div>
+            </div>
+
+            <div class="flex">
+                <a
+                    :href="route('customers.index')"
+                    class="h-10 p-2 rounded-xl text-white font-medium text-base bg-gray-400 hover:scale-105 transition-all"
+                >
+                    Cancelar
+                </a>
+                <button
+                    type="submit"
+                    class="h-10 p-2 rounded-xl text-white font-medium text-base ml-3 bg-orange-500 hover:scale-105 transition-all"
+                >
+                    Salvar
+                </button>
             </div>
         </form>
     </BaseLayout>
@@ -53,11 +157,11 @@ export default {
         },
 
         createCustomer() {
-            this.form.post(route('customers.store'));
+            return this.form.post(route('customers.store'));
         },
 
         updateCustomer() {
-            this.form.post(route('customers.update', this.customer.id));
+            return this.form.put(route('customers.update', this.customer.id));
         },
     }
 }
