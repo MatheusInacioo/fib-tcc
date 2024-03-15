@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,11 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [LoginController::class, 'index'])->name('login.index');
+Route::get('/', [LoginController::class, 'index'])->name('login');
+Route::post('/login', [LoginController::class, 'store'])->name('login.store');
+Route::get('/logout', [LoginController::class, 'destroy'])->name('login.destroy');
 
-Route::controller(LoginController::class)->group(function () {
-    Route::post('/login', 'store')->name('login.store');
-    Route::get('/logout', 'destroy')->name('login.destroy');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+    Route::resource('/customers', CustomerController::class)->except(['show']);
+
+    // Route::resource('/suppliers', SupplierController::class)->except(['show']);
 });
-
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');

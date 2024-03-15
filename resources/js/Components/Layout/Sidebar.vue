@@ -69,7 +69,7 @@
                     {
                         title: 'Clientes',
                         icon: 'bx bx-group',
-                        route: 'dashboard.index',
+                        route: 'customers.index',
                     },
                     {
                         title: 'Fornecedores',

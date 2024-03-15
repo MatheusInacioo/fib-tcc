@@ -26,7 +26,7 @@ class LoginController extends Controller
         ], $data['remember']);
 
         if(! $authenticated) {
-            return redirect()->route('login.index')->withErrors(['error' => 'Email ou senha inválidos']);
+            return redirect()->route('login')->withErrors(['error' => 'Email ou senha inválidos']);
         }
 
         return redirect()->route('dashboard.index');
@@ -35,6 +35,6 @@ class LoginController extends Controller
     public function destroy () {
         Auth::logout();
 
-        return redirect()->route('login.index');
+        return redirect()->route('login');
     }
 }

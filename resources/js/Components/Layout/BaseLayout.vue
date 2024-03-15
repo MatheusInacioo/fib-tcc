@@ -1,7 +1,7 @@
 <template>
-    <div class="h-screen w-screen flex font-roboto">
+    <div class="h-screen w-screen flex font-poppins">
         <Sidebar/>
-        <div class="main-screen flex flex-col h-full w-full p-4 bg-gray-200">
+        <div class="main-screen flex flex-col h-full w-full p-4 bg-gray-100">
             <Topbar/>
             <div class=" flex flex-col w-full h-full bg-white rounded-xl shadow-lg p-4">
                 <slot></slot>
