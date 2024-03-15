@@ -27,7 +27,7 @@
 
         <div
             v-if="! showBar"
-            class="sidebar w-auto h-full flex flex-col bg-white shadow-xl"
+            class="sidebar w-auto h-full flex flex-col bg-white border border-l-gray-200 shadow-lg"
         >
             <div class="sidebar-header h-24 flex justify-center items-center mb-4">
                 <button @click="showBar = !showBar">

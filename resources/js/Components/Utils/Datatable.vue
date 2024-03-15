@@ -19,7 +19,7 @@
                 :href="route(info.button.route)"
                 class="flex justify-center items-center w-40 h-10 bg-orange-500 rounded-xl text-white text-lg font-poppins font-semibold shadow-xl hover:scale-105 transition-all"
             >
-                <i :class="info.button.icon"></i>
+                <i :class="info.button.icon + ' font-semibold mr-2'"></i>
                 <p class="font-medium">{{ info.button.title }}</p>
             </a>
         </div>
@@ -34,7 +34,7 @@
                         :key="index"
                         @click="sort(index)"
                         :class="{ 'sortable' : column.sortable, 'text-center' : index > 0 }"
-                        class="px-6 py-3 text-left text-base font-medium text-gray-500 uppercase tracking-wider"
+                        class="px-6 py-3 text-left text-base font-bold text-gray-500 uppercase tracking-wider"
                     >
                         {{ column.label }}
 
@@ -65,7 +65,7 @@
                     <td
                         v-for="(column, i) in columns"
                         :key="i"
-                        class="px-6 py-2 whitespace-nowrap"
+                        class="px-6 py-3 whitespace-nowrap"
                         :class="{ 'text-center' : i > 0 }"
                     >
                         {{ item[column.name]}}
@@ -77,14 +77,14 @@
                                 :href="route('customers.edit', item.id)"
                                 class="hover:scale-110 transition-all"
                             >
-                                <i class="bx bx-edit mr-3 text-xl text-gray-400"></i>
+                                <i class="bx bxs-edit mr-3 text-xl text-gray-400"></i>
                             </a>
 
                             <a
                                 :href="route('customers.destroy', item.id)"
                                 class="hover:scale-110 transition-all"
                             >
-                                <i class="bx bx-trash text-xl text-red-500"></i>
+                                <i class="bx bxs-trash text-xl text-red-500"></i>
                             </a>
                         </div>
                     </td>
@@ -237,9 +237,5 @@ export default {
             }
         }
     },
-
-    created() {
-        console.log(this.info);
-    }
 };
 </script>
