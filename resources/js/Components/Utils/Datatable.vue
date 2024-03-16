@@ -34,7 +34,7 @@
                         :key="index"
                         @click="sort(index)"
                         :class="{ 'sortable' : column.sortable, 'text-center' : index > 0 }"
-                        class="px-6 py-3 text-left md:text-sm text-base font-bold text-gray-500 uppercase tracking-wider"
+                        class="px-6 py-3 text-left text-sm lg:text-base font-bold text-gray-500 uppercase tracking-wider"
                     >
                         {{ column.label }}
 
@@ -65,7 +65,7 @@
                     <td
                         v-for="(column, i) in columns"
                         :key="i"
-                        class="px-6 py-3 md:py-1 md:text-sm sm:text-xs"
+                        class="px-6 py-1 text-sm lg:text-base lg:py-3"
                         :class="{ 'text-center' : i > 0 }"
                     >
                         {{ item[column.name]}}

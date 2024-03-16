@@ -49,7 +49,7 @@ class CustomerController extends Controller
     {
         try {
             $data = $request->getCustomerData();
-            dd($data);
+            
             $customer->update($data);
 
             return redirect()->route('customers.index')->with('create-success', 'Cliente atualizado com sucesso.');

@@ -11,11 +11,11 @@
             class="w-full h-full"
         >
             <div class="form-row flex mb-5">
-                <div class="form-field flex flex-col mr-6 md:mr-4">
-                    <span class="font-medium text-lg md:text-base ml-1 mb-2">Nome da empresa</span>
+                <div class="form-field flex flex-col lg:mr-6 mr-4">
+                    <span class="font-medium lg:text-lg text-base ml-1 mb-2">Nome da empresa</span>
                     <input
                         v-model="form.name"
-                        class="border-gray-300 w-340 md:w-72 md:text-sm rounded-xl"
+                        class="border-gray-300 lg:w-340 w-72 lg:text-base text-sm rounded-xl"
                         type="text"
                         name="name"
                         id="name"
@@ -24,11 +24,11 @@
                     <div v-if="form.errors.name" class="form-error font-medium text-red-500 text-base">{{ form.errors.name }}</div>
                 </div>
 
-                <div class="form-field flex flex-col mr-6 md:mr-4">
-                    <span class="font-medium text-lg md:text-base ml-1 mb-2">CNPJ</span>
+                <div class="form-field flex flex-col lg:mr-6 mr-4">
+                    <span class="font-medium lg:text-lg text-base ml-1 mb-2">CNPJ</span>
                     <input
                         v-model="form.cnpj"
-                        class="border-gray-300 w-340 md:w-72 md:text-sm rounded-xl"
+                        class="border-gray-300 lg:w-340 w-72 lg:text-base text-sm rounded-xl"
                         type="text"
                         name="cnpj"
                         id="cnpj"
@@ -39,11 +39,11 @@
                     <div v-if="form.errors.cnpj" class="form-error font-medium text-red-500 text-base">{{ form.errors.cnpj }}</div>
                 </div>
 
-                <div class="form-field flex flex-col mr-6 md:mr-4">
-                    <span class="font-medium text-lg md:text-base ml-1 mb-2">Email da empresa</span>
+                <div class="form-field flex flex-col lg:mr-6 mr-4">
+                    <span class="font-medium lg:text-lg text-base ml-1 mb-2">Email da empresa</span>
                     <input
                         v-model="form.email"
-                        class="border-gray-300 w-340 md:w-72 md:text-sm rounded-xl"
+                        class="border-gray-300 lg:w-340 w-72 lg:text-base text-sm rounded-xl"
                         type="email"
                         name="email"
                         id="email"
@@ -52,11 +52,11 @@
                     <div v-if="form.errors.email" class="form-error font-medium text-red-500 text-base">{{ form.errors.email }}</div>
                 </div>
 
-                <div class="form-field flex flex-col mr-6 md:mr-4">
-                    <span class="font-medium text-lg md:text-base ml-1 mb-2">Endereço</span>
+                <div class="form-field flex flex-col lg:mr-6 mr-4">
+                    <span class="font-medium lg:text-lg text-base ml-1 mb-2">Endereço</span>
                     <input
                         v-model="form.address"
-                        class="border-gray-300 w-340 md:w-72 md:text-sm rounded-xl"
+                        class="border-gray-300 lg:w-340 w-72 lg:text-base text-sm rounded-xl"
                         type="text"
                         name="address"
                         id="address"
@@ -67,11 +67,11 @@
             </div>
 
             <div class="form-row flex mb-5">
-                <div class="form-field flex flex-col mr-6 md:mr-4">
-                    <span class="font-medium text-lg md:text-base ml-1 mb-2">Telefone da empresa</span>
+                <div class="form-field flex flex-col lg:mr-6 mr-4">
+                    <span class="font-medium lg:text-lg text-base ml-1 mb-2">Telefone da empresa</span>
                     <input
                         v-model="form.phone"
-                        class="border-gray-300 w-340 md:w-72 md:text-sm rounded-xl"
+                        class="border-gray-300 lg:w-340 w-72 lg:text-base text-sm rounded-xl"
                         type="text"
                         name="phone"
                         id="phone"
@@ -82,11 +82,11 @@
                     <div v-if="form.errors.phone" class="form-error font-medium text-red-500 text-base">{{ form.errors.phone }}</div>
                 </div>
 
-                <div class="form-field flex flex-col mr-6 md:mr-4">
-                    <span class="font-medium text-lg md:text-base ml-1 mb-2">Nome do responsável</span>
+                <div class="form-field flex flex-col lg:mr-6 mr-4">
+                    <span class="font-medium lg:text-lg text-base ml-1 mb-2">Nome do responsável</span>
                     <input
                         v-model="form.responsible"
-                        class="border-gray-300 w-340 md:w-72 md:text-sm rounded-xl"
+                        class="border-gray-300 lg:w-340 w-72 lg:text-base text-sm rounded-xl"
                         type="text"
                         name="responsible"
                         id="responsible"
@@ -95,11 +95,11 @@
                     <div v-if="form.errors.responsible" class="form-error font-medium text-red-500 text-base">{{ form.errors.responsible }}</div>
                 </div>
 
-                <div class="form-field flex flex-col mr-6 md:mr-4">
-                    <span class="font-medium text-lg md:text-base ml-1 mb-2">Celular do responsável</span>
+                <div class="form-field flex flex-col lg:mr-6 mr-4">
+                    <span class="font-medium lg:text-lg text-base ml-1 mb-2">Celular do responsável</span>
                     <input
                         v-model="form.responsible_phone"
-                        class="border-gray-300 w-340 md:w-72 md:text-sm rounded-xl"
+                        class="border-gray-300 lg:w-340 w-72 lg:text-base text-sm rounded-xl"
                         type="text"
                         name="responsible-phone"
                         id="responsible-phone"
@@ -110,11 +110,11 @@
                     <div v-if="form.errors.responsible_phone" class="form-error font-medium text-red-500 text-base">{{ form.errors.responsible_phone }}</div>
                 </div>
 
-                <div class="form-field flex flex-col mr-6 md:mr-4">
-                    <span class="font-medium text-lg md:text-base ml-1 mb-2">Segmento de atuação</span>
+                <div class="form-field flex flex-col lg:mr-6 mr-4">
+                    <span class="font-medium lg:text-lg text-base ml-1 mb-2">Segmento de atuação</span>
                     <input
                         v-model="form.segment"
-                        class="border-gray-300 w-340 md:w-72 md:text-sm rounded-xl"
+                        class="border-gray-300 lg:w-340 w-72 lg:text-base text-sm rounded-xl"
                         type="text"
                         name="segment"
                         id="segment"
