@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CustomerRequest;
 use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
-use App\Models\User;
 use Exception;
 use Inertia\Inertia;
 
@@ -41,7 +40,7 @@ class CustomerController extends Controller
 
             return redirect()->route('customers.index')->with('create-success', 'Cliente cadastrado com sucesso.');
         } catch(Exception $ex) {
-            return redirect()->route('customers.index')->with('error', 'Ocorreu um erro ao cadastrar o cliente: ' . $ex->getMessage());
+            return redirect()->route('customers.index')->with('create-error', 'Ocorreu um erro ao cadastrar o cliente: ' . $ex->getMessage());
         }
     }
 
@@ -49,23 +48,23 @@ class CustomerController extends Controller
     {
         try {
             $data = $request->getCustomerData();
-            
+
             $customer->update($data);
 
             return redirect()->route('customers.index')->with('create-success', 'Cliente atualizado com sucesso.');
         } catch(Exception $ex) {
-            return redirect()->route('customers.index')->with('error', 'Ocorreu um erro ao autalizar os dados do cliente: ' . $ex->getMessage());
+            return redirect()->route('customers.index')->with('update-error', 'Ocorreu um erro ao autalizar os dados do cliente: ' . $ex->getMessage());
         }
     }
 
-    public function destroy(Customer $customer)
+    public function destroy($customerId)
     {
         try {
-            $customer->delete();
+            Customer::find($customerId)->delete();
 
             return redirect()->route('customers.index')->with('destroy-success', 'Cliente excluído com sucesso.');
         } catch(Exception $ex) {
-            return redirect()->route('customers.index')->with('error', 'Ocorreu um erro ao excluir o cliente: ' . $ex->getMessage());
+            return redirect()->route('customers.index')->with('destroy-error', 'Ocorreu um erro ao excluir o cliente: ' . $ex->getMessage());
         }
     }
 }

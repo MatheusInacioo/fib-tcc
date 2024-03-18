@@ -23,7 +23,8 @@ Route::get('/logout', [LoginController::class, 'destroy'])->name('login.destroy'
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-    Route::resource('/customers', CustomerController::class)->except(['show']);
+    Route::resource('/customers', CustomerController::class)->except(['show', 'destroy']);
+    Route::post('/customer/destroy/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
 
     // Route::resource('/suppliers', SupplierController::class)->except(['show']);
 });

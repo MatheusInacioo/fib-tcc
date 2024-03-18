@@ -3,6 +3,7 @@
         <div class="flex items-center justify-between px-4 py-2">
             <div class="flex items-center">
                 <p class="font-medium text-2xl mr-4">{{ info.title }}</p>
+
                 <div class="flex items-center border-b border-orange-500 w-80 ml-4 my-4">
                     <input
                         type="text"
@@ -12,7 +13,6 @@
                     >
                     <i class="bx bx-search text-xl"></i>
                 </div>
-
             </div>
 
             <a
@@ -37,11 +37,10 @@
                         class="px-6 py-3 text-left text-sm lg:text-base font-bold text-gray-500 uppercase tracking-wider"
                     >
                         {{ column.label }}
-
                         <span v-if="column.sortable">
                             <span
                                 v-if="sortColumn === index && sortOrder === 'asc'"
-                                lass="ml-1"
+                                class="ml-1"
                             >
                                 <i class="bx bx-up-arrow-alt"></i>
                             </span>
@@ -79,25 +78,23 @@
                             >
                                 <i class="bx bxs-edit mr-3 text-xl text-gray-400"></i>
                             </a>
-
-                            <a
-                                :href="route('customers.destroy', item.id)"
+                            <button
+                                type="button"
+                                @click="deleteItem(item.id)"
                                 class="hover:scale-110 transition-all"
                             >
                                 <i class="bx bxs-trash text-xl text-red-500"></i>
-                            </a>
+                            </button>
                         </div>
                     </td>
                 </tr>
             </tbody>
-
         </table>
-        <div
 
+        <div
             class="w-full my-4 flex justify-between items-center"
         >
             <p class="font-medium text-base ml-6">Página {{ currentPage }} de {{ totalPages }}</p>
-
             <div
                 v-if="data.length > itemsPerPage"
                 class="flex"
@@ -120,11 +117,23 @@
                 </button>
             </div>
         </div>
+
+        <ConfirmationModal
+            :show-modal="showModal"
+            @confirm-delete="confirmDelete()"
+            @close-modal="toggleModal()"
+        />
     </div>
 </template>
 
 <script>
+import ConfirmationModal from '@/Components/Utils/ConfirmationModal.vue';
+
 export default {
+    components: {
+        ConfirmationModal,
+    },
+
     props: {
         info: {},
 
@@ -146,6 +155,8 @@ export default {
 
     data() {
         return {
+            showModal: false,
+            selectedItem: null,
             currentPage: 1,
             sortColumn: null,
             sortOrder: null,
@@ -235,7 +246,42 @@ export default {
             if (this.currentPage > 1) {
                 this.currentPage--;
             }
-        }
+        },
+
+        setDeletionRoute() {
+            var tableTitle = this.info.title;
+
+            switch(tableTitle) {
+                case "Clientes":
+                    return 'customers.destroy'
+                case "Fornecedores":
+                    return 'suppliers.destroy'
+                default:
+                    null;
+            }
+        },
+
+        deleteItem(itemId) {
+            this.toggleModal();
+            this.selectedItem = itemId;
+        },
+
+        async confirmDelete() {
+            try {
+                var deletionRoute = this.setDeletionRoute();
+
+                await axios.post(this.route(deletionRoute, this.selectedItem));
+
+                this.selectedItem = null;
+                this.toggleModal();
+            } catch (error) {
+                console.error(error);
+            }
+        },
+
+        toggleModal() {
+            this.showModal = ! this.showModal;
+        },
     },
 };
 </script>

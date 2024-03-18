@@ -15,11 +15,21 @@
             </a>
         </div>
 
-        <Datatable
+        <div
             v-else
-            :info="tableInfo"
-            :columns="columns"
-            :data="customers"
+            class="h-full w-full flex flex-col"
+        >
+            <Datatable
+                :info="tableInfo"
+                :columns="columns"
+                :data="customers"
+            />
+        </div>
+
+        <NotificationModal
+            :show-modal="showModal"
+            :message="message"
+            @close-modal="toggleModal()"
         />
     </BaseLayout>
 </template>
@@ -27,11 +37,13 @@
 <script>
 import BaseLayout from '@/Components/Layout/BaseLayout.vue';
 import Datatable from '@/Components/Utils/Datatable.vue';
+import NotificationModal from '@/Components/Utils/NotificationModal.vue';
 
 export default {
     components: {
         BaseLayout,
         Datatable,
+        NotificationModal,
     },
 
     props: {
@@ -40,6 +52,8 @@ export default {
 
     data() {
         return {
+            message: '',
+            showModal: false,
             tableInfo: {
                 title: 'Clientes',
                 button: {
@@ -93,6 +107,36 @@ export default {
                     searchable: false,
                 },
             ]
+        }
+    },
+
+    methods: {
+        toggleModal() {
+            this.showModal = ! this.showModal;
+        },
+    },
+
+    created() {
+        var flash = this.$page.props.flash;
+
+        if(flash) {
+            this.showModal = true;
+
+             if(flash['create-success']) {
+                this.message = flash['create-success'];
+             } else if (flash['update-success']) {
+                this.message = flash['update-success'];
+             } else if (flash['destroy-success']) {
+                this.message = flash['destroy-success'];
+             }
+
+             if(flash['create-error']) {
+                this.message = flash['create-error'];
+             } else if (flash['update-error']) {
+                this.message = flash['update-error'];
+             } else if (flash['destroy-error']) {
+                this.message = flash['destroy-error'];
+             }
         }
     },
 }

@@ -2,7 +2,7 @@
     <Transition name="modal-overlay">
         <div
             v-show="showModal"
-            id="notification-modal"
+            id="confirmation-modal"
             tabindex="-1"
             class="absolute w-screen h-screen top-0 left-0 inset-0 z-50 overflow-y-auto overflow-x-hidden flex items-center justify-center bg-gray-800 bg-opacity-75"
         >
@@ -15,17 +15,24 @@
                         class="bg-white rounded-lg shadow-lg w-full h-80 p-4 md:p-5 flex flex-col"
                     >
                         <div class="text-center h-full flex flex-col justify-between">
-                            <i class="bx bx-check-circle text-green-500 text-8xl"></i>
+                            <i class="bx bx-error text-yellow-500 text-8xl"></i>
                             <h3 class="mb-5 text-lg font-normal text-black">
-                                {{ message }}
+                                Deseja realmente excluir esse item? <br />
+                                Esta ação é irreversível.
                             </h3>
-                            <div class="flex justify-center w-full">
+                            <div class="flex justify-between w-full">
                                 <button
                                     type="button"
-                                    class="w-20 px-2 py-2 bg-orange-500 text-white rounded-lg hover:scale-110 transition-all"
+                                    class="inline-block w-24 px-2 py-2 bg-gray-400 text-white rounded-lg hover:scale-110 transition-all"
                                     @click="closeModal()"
                                 >
-                                    OK
+                                    Cancelar
+                                </button>
+                                <button
+                                    @click="confirmDelete()"
+                                    class="inline-block w-24 px-4 py-2 bg-orange-500 text-white rounded-lg hover:scale-110 transition-all"
+                                >
+                                    Excluir
                                 </button>
                             </div>
                         </div>
@@ -39,18 +46,22 @@
 <script>
 export default {
     props: {
+        settings: {
+            itemId: null,
+            route: null,
+        },
+
         showModal: {
             type: Boolean,
             default: false,
         },
-
-        message: {
-            type: String,
-            default: '',
-        },
     },
 
     methods: {
+        confirmDelete() {
+            this.$emit('confirm-delete');
+        },
+
         closeModal() {
             this.$emit('close-modal');
         },
