@@ -1,7 +1,7 @@
 <template>
     <BaseLayout>
         <div class="flex justify-between items-center">
-            <p class="font-medium text-2xl">{{ pageTitle }}</p>
+            <p class="font-medium text-xl 2xl:text-2xl">{{ pageTitle }}</p>
         </div>
 
         <div class="h-px w-full bg-orange-500 my-4"></div>
@@ -11,24 +11,24 @@
             class="w-full h-full"
         >
             <div class="form-row flex mb-5">
-                <div class="form-field flex flex-col lg:mr-6 mr-4">
-                    <span class="font-medium lg:text-lg text-base ml-1 mb-2">Nome da empresa</span>
+                <div class="form-field flex flex-col 2lx:mr-6 mr-4">
+                    <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Nome da empresa</span>
                     <input
                         v-model="form.name"
-                        class="border-gray-300 lg:w-340 w-72 lg:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] w-[250px] 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="name"
                         id="name"
                         placeholder="Nome fantasia da empresa"
                     >
-                    <div v-if="form.errors.name" class="form-error font-medium text-red-500 text-base">{{ form.errors.name }}</div>
+                    <div v-if="form.errors.name" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.name }}</div>
                 </div>
 
-                <div class="form-field flex flex-col lg:mr-6 mr-4">
-                    <span class="font-medium lg:text-lg text-base ml-1 mb-2">CNPJ</span>
+                <div class="form-field flex flex-col 2lx:mr-6 mr-4">
+                    <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">CNPJ</span>
                     <input
                         v-model="form.cnpj"
-                        class="border-gray-300 lg:w-340 w-72 lg:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] w-[250px] 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="cnpj"
                         id="cnpj"
@@ -36,42 +36,42 @@
                         data-maska="##.###.###/0001-##"
                         placeholder="00.000.000/0001-00"
                     >
-                    <div v-if="form.errors.cnpj" class="form-error font-medium text-red-500 text-base">{{ form.errors.cnpj }}</div>
+                    <div v-if="form.errors.cnpj" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.cnpj }}</div>
                 </div>
 
-                <div class="form-field flex flex-col lg:mr-6 mr-4">
-                    <span class="font-medium lg:text-lg text-base ml-1 mb-2">Email da empresa</span>
+                <div class="form-field flex flex-col 2lx:mr-6 mr-4">
+                    <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Email da empresa</span>
                     <input
                         v-model="form.email"
-                        class="border-gray-300 lg:w-340 w-72 lg:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] w-[250px] 2xl:text-base text-sm rounded-xl"
                         type="email"
                         name="email"
                         id="email"
                         placeholder="Ex: email@email.com"
                     >
-                    <div v-if="form.errors.email" class="form-error font-medium text-red-500 text-base">{{ form.errors.email }}</div>
+                    <div v-if="form.errors.email" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.email }}</div>
                 </div>
 
-                <div class="form-field flex flex-col lg:mr-6 mr-4">
-                    <span class="font-medium lg:text-lg text-base ml-1 mb-2">Endereço</span>
+                <div class="form-field flex flex-col 2lx:mr-6 mr-4">
+                    <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Endereço</span>
                     <input
                         v-model="form.address"
-                        class="border-gray-300 lg:w-340 w-72 lg:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] w-[250px] 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="address"
                         id="address"
                         placeholder="Endereço físico da empresa"
                     >
-                    <div v-if="form.errors.address" class="form-error font-medium text-red-500 text-base">{{ form.errors.address }}</div>
+                    <div v-if="form.errors.address" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.address }}</div>
                 </div>
             </div>
 
             <div class="form-row flex mb-5">
-                <div class="form-field flex flex-col lg:mr-6 mr-4">
-                    <span class="font-medium lg:text-lg text-base ml-1 mb-2">Telefone da empresa</span>
+                <div class="form-field flex flex-col 2lx:mr-6 mr-4">
+                    <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Telefone da empresa</span>
                     <input
                         v-model="form.phone"
-                        class="border-gray-300 lg:w-340 w-72 lg:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] w-[250px] 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="phone"
                         id="phone"
@@ -79,27 +79,27 @@
                         data-maska="(##)####-####"
                         placeholder="(00)0000-0000"
                     >
-                    <div v-if="form.errors.phone" class="form-error font-medium text-red-500 text-base">{{ form.errors.phone }}</div>
+                    <div v-if="form.errors.phone" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.phone }}</div>
                 </div>
 
-                <div class="form-field flex flex-col lg:mr-6 mr-4">
-                    <span class="font-medium lg:text-lg text-base ml-1 mb-2">Nome do responsável</span>
+                <div class="form-field flex flex-col 2lx:mr-6 mr-4">
+                    <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Nome do responsável</span>
                     <input
                         v-model="form.responsible"
-                        class="border-gray-300 lg:w-340 w-72 lg:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] w-[250px] 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="responsible"
                         id="responsible"
                         placeholder="Nome do responsável pela empresa"
                     >
-                    <div v-if="form.errors.responsible" class="form-error font-medium text-red-500 text-base">{{ form.errors.responsible }}</div>
+                    <div v-if="form.errors.responsible" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.responsible }}</div>
                 </div>
 
-                <div class="form-field flex flex-col lg:mr-6 mr-4">
-                    <span class="font-medium lg:text-lg text-base ml-1 mb-2">Celular do responsável</span>
+                <div class="form-field flex flex-col 2lx:mr-6 mr-4">
+                    <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Celular do responsável</span>
                     <input
                         v-model="form.responsible_phone"
-                        class="border-gray-300 lg:w-340 w-72 lg:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] w-[250px] 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="responsible-phone"
                         id="responsible-phone"
@@ -107,33 +107,33 @@
                         data-maska="(##)#####-####"
                         placeholder="(00)00000-0000"
                     >
-                    <div v-if="form.errors.responsible_phone" class="form-error font-medium text-red-500 text-base">{{ form.errors.responsible_phone }}</div>
+                    <div v-if="form.errors.responsible_phone" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.responsible_phone }}</div>
                 </div>
 
-                <div class="form-field flex flex-col lg:mr-6 mr-4">
-                    <span class="font-medium lg:text-lg text-base ml-1 mb-2">Segmento de atuação</span>
+                <div class="form-field flex flex-col 2lx:mr-6 mr-4">
+                    <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Segmento de atuação</span>
                     <input
                         v-model="form.segment"
-                        class="border-gray-300 lg:w-340 w-72 lg:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] w-[250px] 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="segment"
                         id="segment"
                         placeholder="Ex: Atacado"
                     >
-                    <div v-if="form.errors.segment" class="form-error font-medium text-red-500 text-base">{{ form.errors.segment }}</div>
+                    <div v-if="form.errors.segment" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.segment }}</div>
                 </div>
             </div>
 
             <div class="flex">
                 <a
                     :href="route('customers.index')"
-                    class="h-10 p-2 rounded-xl text-white font-medium text-base bg-gray-400 hover:scale-105 transition-all"
+                    class="2xl:h-10 p-2 rounded-xl text-white font-medium text-sm 2xl:text-base bg-gray-400 hover:scale-105 transition-all"
                 >
                     Cancelar
                 </a>
                 <button
                     type="submit"
-                    class="h-10 p-2 rounded-xl text-white font-medium text-base ml-3 bg-orange-500 hover:scale-105 transition-all"
+                    class="2xl:h-10 p-2 rounded-xl text-white font-medium text-sm 2xl:text-base ml-3 bg-orange-500 hover:scale-105 transition-all"
                 >
                     Salvar
                 </button>

@@ -24,6 +24,7 @@ export default {
                 bk_dark_green_hover: '#4d7f76',
                 bk_darker_green: '#082c24',
             },
+            
             height: {
                 '400': '400px',
                 '540': '540px',

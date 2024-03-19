@@ -2,22 +2,22 @@
     <div class="rounded-xl shadow-lg border border-gray-200 ">
         <div class="flex items-center justify-between px-4 py-2">
             <div class="flex items-center">
-                <p class="font-medium text-2xl mr-4">{{ info.title }}</p>
+                <p class="font-medium 2xl:text-2xl text-xl mr-4">{{ info.title }}</p>
 
-                <div class="flex items-center border-b border-orange-500 w-80 ml-4 my-4">
+                <div class="flex items-center border-b border-orange-500 2xl:w-80 w-64 ml-4 my-4">
                     <input
                         type="text"
                         v-model="searchQuery"
                         placeholder="Buscar..."
                         class="w-full border-none focus:outline-none"
                     >
-                    <i class="bx bx-search text-xl"></i>
+                    <i class="bx bx-search text-lg 2xl:text-xl"></i>
                 </div>
             </div>
 
             <a
                 :href="route(info.button.route)"
-                class="flex justify-center items-center w-40 h-10 bg-orange-500 rounded-xl text-white text-lg font-poppins font-semibold shadow-xl hover:scale-105 transition-all"
+                class="flex justify-center items-center 2xl:w-40 2xl:h-10 bg-orange-500 rounded-xl text-white p-2 text-base 2xl:text-lg font-poppins font-semibold shadow-xl hover:scale-105 transition-all"
             >
                 <i :class="info.button.icon + ' font-semibold mr-2'"></i>
                 <p class="font-medium">{{ info.button.title }}</p>
@@ -26,75 +26,77 @@
 
         <div class="h-px bg-orange-500 mb-4 mx-4"></div>
 
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-100">
-                <tr>
-                    <th
-                        v-for="(column, index) in columns"
-                        :key="index"
-                        @click="sort(index)"
-                        :class="{ 'sortable' : column.sortable, 'text-center' : index > 0 }"
-                        class="px-6 py-3 text-left text-sm lg:text-base font-bold text-gray-500 uppercase tracking-wider"
-                    >
-                        {{ column.label }}
-                        <span v-if="column.sortable">
-                            <span
-                                v-if="sortColumn === index && sortOrder === 'asc'"
-                                class="ml-1"
-                            >
-                                <i class="bx bx-up-arrow-alt"></i>
-                            </span>
-                            <span
-                                v-else-if="sortColumn === index && sortOrder === 'desc'"
-                                class="ml-1"
-                            >
-                                <i class="bx bx-down-arrow-alt"></i>
-                            </span>
-                        </span>
-                    </th>
-                </tr>
-            </thead>
-
-            <tbody class="bg-white divide-y divide-gray-200">
-                <tr
-                    v-for="(item, index) in paginatedData"
-                    :key="index"
-                    class="hover:bg-gray-100 transition-all"
-                >
-                    <td
-                        v-for="(column, i) in columns"
-                        :key="i"
-                        class="px-6 py-1 text-sm lg:text-base lg:py-3"
-                        :class="{ 'text-center' : i > 0 }"
-                    >
-                        {{ item[column.name]}}
-                        <div
-                            v-if="column.name == 'actions'"
-                            class="flex justify-center"
+        <div class="flex max-h-[450px] 2xl:max-h-full overflow-y-auto w-full">
+            <table class="min-w-full divide-y divide-gray-200 border border-gray-200">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th
+                            v-for="(column, index) in columns"
+                            :key="index"
+                            @click="sort(index)"
+                            :class="{ 'sortable' : column.sortable, 'text-center' : index > 0 }"
+                            class="px-6 py-3 text-left text-sm 2xl:text-base font-bold text-gray-500 uppercase tracking-wider"
                         >
-                            <a
-                                :href="route('customers.edit', item.id)"
-                                class="hover:scale-110 transition-all"
+                            {{ column.label }}
+                            <span v-if="column.sortable">
+                                <span
+                                    v-if="sortColumn === index && sortOrder === 'asc'"
+                                    class="ml-1"
+                                >
+                                    <i class="bx bx-up-arrow-alt"></i>
+                                </span>
+                                <span
+                                    v-else-if="sortColumn === index && sortOrder === 'desc'"
+                                    class="ml-1"
+                                >
+                                    <i class="bx bx-down-arrow-alt"></i>
+                                </span>
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <tr
+                        v-for="(item, index) in paginatedData"
+                        :key="index"
+                        class="hover:bg-gray-100 transition-all"
+                    >
+                        <td
+                            v-for="(column, i) in columns"
+                            :key="i"
+                            class="px-6 py-1 text-xs 2xl:text-base 2xl:py-3"
+                            :class="{ 'text-center' : i > 0 }"
+                        >
+                            {{ item[column.name]}}
+                            <div
+                                v-if="column.name == 'actions'"
+                                class="flex justify-center"
                             >
-                                <i class="bx bxs-edit mr-3 text-xl text-gray-400"></i>
-                            </a>
-                            <button
-                                type="button"
-                                @click="deleteItem(item.id)"
-                                class="hover:scale-110 transition-all"
-                            >
-                                <i class="bx bxs-trash text-xl text-red-500"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                                <a
+                                    :href="route('customers.edit', item.id)"
+                                    class="hover:scale-110 transition-all"
+                                >
+                                    <i class="bx bxs-edit text-lg mr-2 2xl:mr-3 2xl:text-xl text-gray-400"></i>
+                                </a>
+                                <button
+                                    type="button"
+                                    @click="deleteItem(item.id)"
+                                    class="hover:scale-110 transition-all"
+                                >
+                                    <i class="bx bxs-trash text-lg 2xl:text-xl text-red-500"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
         <div
             class="w-full my-4 flex justify-between items-center"
         >
-            <p class="font-medium text-base ml-6">Página {{ currentPage }} de {{ totalPages }}</p>
+            <p class="font-medium text-sm 2xl:text-base ml-6">Página {{ currentPage }} de {{ totalPages }}</p>
             <div
                 v-if="data.length > itemsPerPage"
                 class="flex"
@@ -102,17 +104,17 @@
                 <button
                     @click="previousPage"
                     :disabled="currentPage === 1"
-                    class=" flex items-center hover:scale-110 transition-all text-black text-2xl font-bold py-2 px-4"
+                    class=" flex items-center hover:scale-110 transition-all text-black backdrop:font-bold py-2 px-4"
                 >
                     <i class="bx bx-chevron-left"></i>
-                    <p class="font-medium text-base">Anterior</p>
+                    <p class="font-medium text-sm 2xl:text-base">Anterior</p>
                 </button>
                 <button
                     @click="nextPage"
                     :disabled="currentPage === totalPages"
-                    class=" flex items-center hover:scale-110 transition-all text-black text-2xl font-bold py-2 px-4"
+                    class=" flex items-center hover:scale-110 transition-all text-black font-bold py-2 px-4"
                 >
-                    <p class="font-medium text-base">Próxima</p>
+                    <p class="font-medium text-sm 2xl:text-base">Próxima</p>
                     <i class="bx bx-chevron-right"></i>
                 </button>
             </div>
