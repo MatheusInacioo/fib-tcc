@@ -20,8 +20,7 @@
             class="h-full w-full flex flex-col"
         >
             <Datatable
-                :info="tableInfo"
-                :columns="columns"
+                :settings="tableSettings"
                 :data="users"
             />
         </div>
@@ -54,7 +53,7 @@ export default {
         return {
             message: '',
             showModal: false,
-            tableInfo: {
+            tableSettings: {
                 title: 'Usuários',
                 button_title: 'Novo Usuário',
                 routes: {

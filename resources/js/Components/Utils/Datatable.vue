@@ -2,7 +2,7 @@
     <div class="rounded-xl shadow-lg border border-gray-200 ">
         <div class="flex items-center justify-between px-4 py-2">
             <div class="flex items-center">
-                <p class="font-medium 2xl:text-2xl text-xl mr-4">{{ info.title }}</p>
+                <p class="font-medium 2xl:text-2xl text-xl mr-4">{{ settings.title }}</p>
 
                 <div class="flex items-center border-b border-orange-500 2xl:w-80 w-64 ml-4 my-4">
                     <input
@@ -16,11 +16,11 @@
             </div>
 
             <a
-                :href="route(info.routes.create)"
+                :href="route(settings.routes.create)"
                 class="flex justify-center items-center w-auto 2xl:h-10 bg-orange-500 rounded-xl text-white p-2 text-base 2xl:text-lg font-poppins font-semibold shadow-xl hover:scale-105 transition-all"
             >
                 <i class="bx bx-plus font-semibold mr-2"></i>
-                <p class="font-medium">{{ info.button_title }}</p>
+                <p class="font-medium">{{ settings.button_title }}</p>
             </a>
         </div>
 
@@ -31,7 +31,7 @@
                 <thead class="bg-gray-100">
                     <tr>
                         <th
-                            v-for="(column, index) in info.columns"
+                            v-for="(column, index) in settings.columns"
                             :key="index"
                             @click="sort(index)"
                             :class="{ 'sortable' : column.sortable, 'text-center' : index > 0 }"
@@ -63,7 +63,7 @@
                         class="hover:bg-gray-100 transition-all"
                     >
                         <td
-                            v-for="(column, i) in info.columns"
+                            v-for="(column, i) in settings.columns"
                             :key="i"
                             class="px-6 py-1 text-xs 2xl:text-base 2xl:py-3"
                             :class="{ 'text-center' : i > 0 }"
@@ -74,7 +74,7 @@
                                 class="flex justify-center"
                             >
                                 <a
-                                    :href="route(info.routes.edit, item.id)"
+                                    :href="route(settings.routes.edit, item.id)"
                                     class="hover:scale-110 transition-all"
                                 >
                                     <i class="bx bxs-edit text-lg mr-2 2xl:mr-3 2xl:text-xl text-gray-400"></i>
@@ -137,7 +137,7 @@ export default {
     },
 
     props: {
-        info: {},
+        settings: {},
 
         data: {
             type: Array,
@@ -152,7 +152,7 @@ export default {
 
     data() {
         return {
-            tableTitle: this.info.title,
+            tableTitle: this.settings.title,
             showModal: false,
             selectedItem: null,
             currentPage: 1,
@@ -176,7 +176,7 @@ export default {
 
         sortedData() {
             if (this.sortColumn !== null) {
-                const column = this.info.columns[this.sortColumn];
+                const column = this.settings.columns[this.sortColumn];
 
                 return this.data.slice().sort((a, b) => {
                     let comparison = 0;
@@ -202,7 +202,7 @@ export default {
             }
 
             return this.sortedData.filter(item => {
-                return this.info.columns.some(column => {
+                return this.settings.columns.some(column => {
                     if (column.searchable) {
                         const value = item[column.name];
 
@@ -217,7 +217,7 @@ export default {
 
     methods: {
         sort(index) {
-            const column = this.info.columns[index];
+            const column = this.settings.columns[index];
 
             if (column.sortable) {
                 if (this.sortColumn === index) {
@@ -253,7 +253,7 @@ export default {
 
         async confirmDelete() {
             try {
-                await axios.post(this.route(this.info.routes.delete, this.selectedItem));
+                await axios.post(this.route(this.settings.routes.delete, this.selectedItem));
 
                 this.selectedItem = null;
                 this.toggleModal();

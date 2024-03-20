@@ -20,7 +20,7 @@
             class="h-full w-full flex flex-col"
         >
             <Datatable
-                :info="tableInfo"
+                :settings="tableSettings"
                 :data="customers"
             />
         </div>
@@ -53,7 +53,7 @@ export default {
         return {
             message: '',
             showModal: false,
-            tableInfo: {
+            tableSettings: {
                 title: 'Clientes',
                 button_title: 'Novo Cliente',
                 routes: {
