@@ -56,39 +56,39 @@ export default {
             showModal: false,
             tableInfo: {
                 title: 'Usuários',
-                button: {
-                    title: 'Novo Usuário',
-                    route: 'users.create',
-                    icon: 'bx bx-plus',
+                button_title: 'Novo Usuário',
+                routes: {
+                    create: 'users.create',
+                    edit: 'users.edit',
+                    delete: 'users.destroy',
                 },
+                columns: [
+                    {
+                        label: 'ID',
+                        name: 'id',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
+                        label: 'Nome',
+                        name: 'name',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
+                        label: 'Email',
+                        name: 'email',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
+                        label: 'Ações',
+                        name: 'actions',
+                        sortable: false,
+                        searchable: false,
+                    },
+                ],
             },
-
-            columns: [
-                {
-                    label: 'ID',
-                    name: 'id',
-                    sortable: true,
-                    searchable: true,
-                },
-                {
-                    label: 'Nome',
-                    name: 'name',
-                    sortable: true,
-                    searchable: true,
-                },
-                {
-                    label: 'Email',
-                    name: 'email',
-                    sortable: true,
-                    searchable: true,
-                },
-                {
-                    label: 'Ações',
-                    name: 'actions',
-                    sortable: false,
-                    searchable: false,
-                },
-            ]
         }
     },
 

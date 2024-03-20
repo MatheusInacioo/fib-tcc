@@ -16,11 +16,11 @@
             </div>
 
             <a
-                :href="route(info.button.route)"
+                :href="route(info.routes.create)"
                 class="flex justify-center items-center w-auto 2xl:h-10 bg-orange-500 rounded-xl text-white p-2 text-base 2xl:text-lg font-poppins font-semibold shadow-xl hover:scale-105 transition-all"
             >
-                <i :class="info.button.icon + ' font-semibold mr-2'"></i>
-                <p class="font-medium">{{ info.button.title }}</p>
+                <i class="bx bx-plus font-semibold mr-2"></i>
+                <p class="font-medium">{{ info.button_title }}</p>
             </a>
         </div>
 
@@ -31,7 +31,7 @@
                 <thead class="bg-gray-100">
                     <tr>
                         <th
-                            v-for="(column, index) in columns"
+                            v-for="(column, index) in info.columns"
                             :key="index"
                             @click="sort(index)"
                             :class="{ 'sortable' : column.sortable, 'text-center' : index > 0 }"
@@ -63,7 +63,7 @@
                         class="hover:bg-gray-100 transition-all"
                     >
                         <td
-                            v-for="(column, i) in columns"
+                            v-for="(column, i) in info.columns"
                             :key="i"
                             class="px-6 py-1 text-xs 2xl:text-base 2xl:py-3"
                             :class="{ 'text-center' : i > 0 }"
@@ -74,7 +74,7 @@
                                 class="flex justify-center"
                             >
                                 <a
-                                    :href="route(editRoute, item.id)"
+                                    :href="route(info.routes.edit, item.id)"
                                     class="hover:scale-110 transition-all"
                                 >
                                     <i class="bx bxs-edit text-lg mr-2 2xl:mr-3 2xl:text-xl text-gray-400"></i>
@@ -139,11 +139,6 @@ export default {
     props: {
         info: {},
 
-        columns: {
-            type: Array,
-            default: () => []
-        },
-
         data: {
             type: Array,
             default: () => []
@@ -181,7 +176,7 @@ export default {
 
         sortedData() {
             if (this.sortColumn !== null) {
-                const column = this.columns[this.sortColumn];
+                const column = this.info.columns[this.sortColumn];
 
                 return this.data.slice().sort((a, b) => {
                     let comparison = 0;
@@ -207,7 +202,7 @@ export default {
             }
 
             return this.sortedData.filter(item => {
-                return this.columns.some(column => {
+                return this.info.columns.some(column => {
                     if (column.searchable) {
                         const value = item[column.name];
 
@@ -218,37 +213,11 @@ export default {
                 });
             });
         },
-
-        editRoute() {
-            switch(this.tableTitle) {
-                case "Clientes":
-                    return 'customers.edit'
-                case "Fornecedores":
-                    return 'suppliers.edit'
-                case "Usuários":
-                    return 'users.edit'
-                default:
-                    null;
-            }
-        },
-
-        deleteRoute() {
-            switch(this.tableTitle) {
-                case "Clientes":
-                    return 'customers.destroy'
-                case "Fornecedores":
-                    return 'suppliers.destroy'
-                case "Usuários":
-                    return 'users.destroy'
-                default:
-                    null;
-            }
-        },
     },
 
     methods: {
         sort(index) {
-            const column = this.columns[index];
+            const column = this.info.columns[index];
 
             if (column.sortable) {
                 if (this.sortColumn === index) {
@@ -284,7 +253,7 @@ export default {
 
         async confirmDelete() {
             try {
-                await axios.post(this.route(this.deleteRoute, this.selectedItem));
+                await axios.post(this.route(this.info.routes.delete, this.selectedItem));
 
                 this.selectedItem = null;
                 this.toggleModal();

@@ -21,7 +21,6 @@
         >
             <Datatable
                 :info="tableInfo"
-                :columns="columns"
                 :data="customers"
             />
         </div>
@@ -56,57 +55,57 @@ export default {
             showModal: false,
             tableInfo: {
                 title: 'Clientes',
-                button: {
-                    title: 'Novo Cliente',
-                    route: 'customers.create',
-                    icon: 'bx bx-plus',
+                button_title: 'Novo Cliente',
+                routes: {
+                    create: 'customers.create',
+                    edit: 'customers.edit',
+                    delete: 'customers.destroy',
                 },
+                columns: [
+                    {
+                        label: 'ID',
+                        name: 'id',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
+                        label: 'Nome',
+                        name: 'name',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
+                        label: 'CNPJ',
+                        name: 'cnpj',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
+                        label: 'Email',
+                        name: 'email',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
+                        label: 'Responsável',
+                        name: 'responsible',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
+                        label: 'Segmento',
+                        name: 'segment',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
+                        label: 'Ações',
+                        name: 'actions',
+                        sortable: false,
+                        searchable: false,
+                    },
+                ],
             },
-
-            columns: [
-                {
-                    label: 'ID',
-                    name: 'id',
-                    sortable: true,
-                    searchable: true,
-                },
-                {
-                    label: 'Nome',
-                    name: 'name',
-                    sortable: true,
-                    searchable: true,
-                },
-                {
-                    label: 'CNPJ',
-                    name: 'cnpj',
-                    sortable: true,
-                    searchable: true,
-                },
-                {
-                    label: 'Email',
-                    name: 'email',
-                    sortable: true,
-                    searchable: true,
-                },
-                {
-                    label: 'Responsável',
-                    name: 'responsible',
-                    sortable: true,
-                    searchable: true,
-                },
-                {
-                    label: 'Segmento',
-                    name: 'segment',
-                    sortable: true,
-                    searchable: true,
-                },
-                {
-                    label: 'Ações',
-                    name: 'actions',
-                    sortable: false,
-                    searchable: false,
-                },
-            ]
         }
     },
 

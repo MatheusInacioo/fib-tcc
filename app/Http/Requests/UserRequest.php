@@ -15,12 +15,12 @@ class UserRequest extends FormRequest
     {
         $rules =  [
             'name' => 'required|string',
-            'email' => 'required|email|max:255|regex:/^[a-z]+@[a-z0-9.-]+\.[a-z]{2,}$/i',
-            'password' => 'required|string',
+            'email' => 'required|email|max:50|regex:/^[a-z0-9._]+@[a-z0-9.-]+\.[a-z]{2,}$/i',
+            'password' => 'required',
         ];
 
         if($this->method() == 'PUT') {
-            $rules['password'] == 'nullable';
+            $rules['password'] = 'nullable';
         }
 
         return $rules;
@@ -31,6 +31,8 @@ class UserRequest extends FormRequest
         $messages = [
             'name.required' => 'Campo obrigatório',
             'email.required' => 'Campo obrigatório',
+            'email.regex' => 'Formato de email inválido',
+            'email.max' => 'O email deve ter no máximo :max caracteres',
             'password.required' => 'Campo obrigatório',
         ];
 
