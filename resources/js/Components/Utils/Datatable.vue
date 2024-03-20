@@ -17,7 +17,7 @@
 
             <a
                 :href="route(info.button.route)"
-                class="flex justify-center items-center 2xl:w-40 2xl:h-10 bg-orange-500 rounded-xl text-white p-2 text-base 2xl:text-lg font-poppins font-semibold shadow-xl hover:scale-105 transition-all"
+                class="flex justify-center items-center w-auto 2xl:h-10 bg-orange-500 rounded-xl text-white p-2 text-base 2xl:text-lg font-poppins font-semibold shadow-xl hover:scale-105 transition-all"
             >
                 <i :class="info.button.icon + ' font-semibold mr-2'"></i>
                 <p class="font-medium">{{ info.button.title }}</p>
@@ -74,7 +74,7 @@
                                 class="flex justify-center"
                             >
                                 <a
-                                    :href="route('customers.edit', item.id)"
+                                    :href="route(editRoute, item.id)"
                                     class="hover:scale-110 transition-all"
                                 >
                                     <i class="bx bxs-edit text-lg mr-2 2xl:mr-3 2xl:text-xl text-gray-400"></i>
@@ -157,6 +157,7 @@ export default {
 
     data() {
         return {
+            tableTitle: this.info.title,
             showModal: false,
             selectedItem: null,
             currentPage: 1,
@@ -216,7 +217,33 @@ export default {
                     return false;
                 });
             });
-        }
+        },
+
+        editRoute() {
+            switch(this.tableTitle) {
+                case "Clientes":
+                    return 'customers.edit'
+                case "Fornecedores":
+                    return 'suppliers.edit'
+                case "Usuários":
+                    return 'users.edit'
+                default:
+                    null;
+            }
+        },
+
+        deleteRoute() {
+            switch(this.tableTitle) {
+                case "Clientes":
+                    return 'customers.destroy'
+                case "Fornecedores":
+                    return 'suppliers.destroy'
+                case "Usuários":
+                    return 'users.destroy'
+                default:
+                    null;
+            }
+        },
     },
 
     methods: {
@@ -250,19 +277,6 @@ export default {
             }
         },
 
-        setDeletionRoute() {
-            var tableTitle = this.info.title;
-
-            switch(tableTitle) {
-                case "Clientes":
-                    return 'customers.destroy'
-                case "Fornecedores":
-                    return 'suppliers.destroy'
-                default:
-                    null;
-            }
-        },
-
         deleteItem(itemId) {
             this.toggleModal();
             this.selectedItem = itemId;
@@ -270,12 +284,12 @@ export default {
 
         async confirmDelete() {
             try {
-                var deletionRoute = this.setDeletionRoute();
-
-                await axios.post(this.route(deletionRoute, this.selectedItem));
+                await axios.post(this.route(this.deleteRoute, this.selectedItem));
 
                 this.selectedItem = null;
                 this.toggleModal();
+
+                window.location.reload();
             } catch (error) {
                 console.error(error);
             }
