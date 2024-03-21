@@ -99,24 +99,80 @@
             <p class="font-medium text-sm 2xl:text-base ml-6">Página {{ currentPage }} de {{ totalPages }}</p>
             <div
                 v-if="data.length > itemsPerPage"
-                class="flex"
+                class="flex px-4"
             >
-                <button
-                    @click="previousPage"
-                    :disabled="currentPage === 1"
-                    class=" flex items-center hover:scale-110 transition-all text-black backdrop:font-bold py-2 px-4"
-                >
-                    <i class="bx bx-chevron-left"></i>
-                    <p class="font-medium text-sm 2xl:text-base">Anterior</p>
-                </button>
-                <button
-                    @click="nextPage"
-                    :disabled="currentPage === totalPages"
-                    class=" flex items-center hover:scale-110 transition-all text-black font-bold py-2 px-4"
-                >
-                    <p class="font-medium text-sm 2xl:text-base">Próxima</p>
-                    <i class="bx bx-chevron-right"></i>
-                </button>
+                <div class="border rounded-lg flex divide-x ">
+                    <button
+                        @click="firstPage"
+                        :disabled="currentPage === 1"
+                        class=" flex items-center hover:scale-110 hover:bg-gray-200 transition-all text-black backdrop:font-bold"
+                    >
+                        <i class="bx bx-chevrons-left text-2xl"></i>
+                    </button>
+                    <button
+                        @click="previousPage"
+                        :disabled="currentPage === 1"
+                        class=" flex items-center hover:scale-110 hover:bg-gray-200 transition-all text-black backdrop:font-bold"
+                    >
+                        <i class="bx bx-chevron-left text-2xl"></i>
+                    </button>
+                    <template v-if="totalPages <= 5">
+                        <button
+                            v-for="page in totalPages"
+                            :key="page"
+                            class="w-6 flex items-center justify-center hover:scale-110 hover:bg-gray-200 transition-all text-black backdrop:font-bold"
+                            @click="goToPage(page)"
+                        >
+                            {{ page }}
+                        </button>
+                    </template>
+                    <template v-else>
+                        <template v-if="currentPage < 4">
+                            <button
+                                v-for="page in 5"
+                                :key="page"
+                                class="w-6 flex items-center justify-center hover:scale-110 hover:bg-gray-200 transition-all text-black backdrop:font-bold"
+                                @click="goToPage(page)"
+                            >
+                                {{ page }}
+                            </button>
+                        </template>
+                        <template v-else-if="currentPage > totalPages - 3">
+                            <button
+                                v-for="page in 5"
+                                :key="page"
+                                class="w-6 flex items-center justify-center hover:scale-110 hover:bg-gray-200 transition-all text-black backdrop:font-bold"
+                                @click="goToPage(totalPages - 5 + page)"
+                            >
+                                {{ totalPages - 5 + page }}
+                            </button>
+                        </template>
+                        <template v-else>
+                            <button
+                                v-for="page in 5"
+                                :key="page"
+                                class="w-6 flex items-center justify-center hover:scale-110 hover:bg-gray-200 transition-all text-black backdrop:font-bold"
+                                @click="goToPage(currentPage - 3 + page)"
+                            >
+                                {{ currentPage - 3 + page }}
+                            </button>
+                        </template>
+                    </template>
+                    <button
+                        @click="nextPage"
+                        :disabled="currentPage === totalPages"
+                        class=" flex items-center hover:scale-110 hover:bg-gray-200 transition-all text-black font-bold"
+                    >
+                        <i class="bx bx-chevron-right text-2xl"></i>
+                    </button>
+                    <button
+                        @click="lastPage"
+                        :disabled="currentPage === totalPages"
+                        class=" flex items-center hover:scale-110 hover:bg-gray-200 transition-all text-black font-bold"
+                    >
+                        <i class="bx bx-chevrons-right text-2xl"></i>
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -234,6 +290,12 @@ export default {
             }
         },
 
+        firstPage() {
+            if (this.currentPage > 1) {
+                this.currentPage = 1;
+            }
+        },
+
         nextPage() {
             if (this.currentPage < this.totalPages) {
                 this.currentPage++;
@@ -244,6 +306,16 @@ export default {
             if (this.currentPage > 1) {
                 this.currentPage--;
             }
+        },
+
+        lastPage() {
+            if (this.currentPage < this.totalPages) {
+                this.currentPage = this.totalPages;
+            }
+        },
+
+        goToPage(page) {
+            this.currentPage = page;
         },
 
         deleteItem(itemId) {
