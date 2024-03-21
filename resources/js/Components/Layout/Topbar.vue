@@ -5,7 +5,7 @@
                  @click="toggleDropdown = !toggleDropdown"
                  class="user-dropdown flex h-10 items-center transition-all hover:scale-110"
              >
-                 <p class="text-base 2xl:text-lg font-medium mr-2">{{ $page.props.auth.user.name }}</p>
+                 <p class="text-base 2xl:text-lg font-medium mr-2">{{ userName }}</p>
                  <i class="bx bx-user-circle 2xl:text-4xl text-3xl"></i>
              </div>
 
@@ -17,7 +17,7 @@
                     <div class="flex p-4 border-b border-b-gray-300 hover:bg-gray-200 hover:scale-110 transition-all">
                         <i class="bx bx-user-circle 2xl:text-4xl text-3xl mr-2"></i>
                         <div class="flex flex-col">
-                            <p class="text-xs 2xl:text-base font-medium mr-2">{{ $page.props.auth.user.name }}</p>
+                            <p class="text-xs 2xl:text-base font-medium mr-2">{{ userName }}</p>
                             <small class="text-gray-400">Admin</small>
                         </div>
                     </div>
@@ -28,6 +28,7 @@
                      >
                          <a
                              :href="route(button.route)"
+                             :class="{ 'hover:rounded-b-lg' : button.title == 'Sair' }"
                              class="flex items-center hover:bg-gray-200 transition-all hover:scale-110 px-4 py-2"
                          >
                              <i :class="button.icon + ' mr-3 text-base 2xl:text-xl text-gray-800'"></i>
@@ -42,28 +43,29 @@
 
  <script>
  export default {
-     data() {
-         return {
-             toggleDropdown: false,
-             buttons: [
-                 {
-                     title: 'Usuários',
-                     icon: 'bx bx-group',
-                     route: 'users.index',
-                 },
-                 {
-                     title: 'Configurações',
-                     icon: 'bx bx-cog',
-                     route: 'dashboard.index',
-                 },
-                 {
-                     title: 'Sair',
-                     icon: 'bx bx-log-out',
-                     route: 'login.destroy',
-                 },
-             ],
-         }
-     },
+    data() {
+        return {
+           userName: this.$page.props.auth.user.name,
+           toggleDropdown: false,
+           buttons: [
+               {
+                   title: 'Usuários',
+                   icon: 'bx bx-group',
+                   route: 'users.index',
+               },
+               {
+                   title: 'Configurações',
+                   icon: 'bx bx-cog',
+                   route: 'dashboard.index',
+               },
+               {
+                   title: 'Sair',
+                   icon: 'bx bx-log-out',
+                   route: 'login.destroy',
+               },
+           ],
+        }
+    },
  };
  </script>
 

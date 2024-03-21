@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CrmController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,18 +19,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [LoginController::class, 'index'])->name('login');
-Route::post('/login', [LoginController::class, 'store'])->name('login.store');
-Route::get('/logout', [LoginController::class, 'destroy'])->name('login.destroy');
+// Login routes
+Route::controller(LoginController::class)->group(function () {
+    Route::get('/', 'index')->name('login');
+    Route::post('/login', 'store')->name('login.store');
+    Route::get('/logout', 'destroy')->name('login.destroy');
+});
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware('auth')->group(function () {
+    // Dashboard main page
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
+    // Customer routes
     Route::resource('/customers', CustomerController::class)->except(['show', 'destroy']);
     Route::post('/customer/destroy/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
 
+    // User routes
     Route::resource('/users', UserController::class)->except(['show', 'destroy']);
     Route::post('/users/destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
-    // Route::resource('/suppliers', SupplierController::class)->except(['show']);
+    // Supplier routes @todo
+    // Route::resource('/suppliers', SupplierController::class)->except(['show', 'destroy']);
+    // Route::post('/suppliers/destroy/{id}', [SupplierController::class, 'destroy'])->name('suppliers.destroy');
+
+    // CRM routes
+    Route::resource('/crm', CrmController::class)->except(['show', 'destroy']);
+    Route::post('/crm/destroy/{id}', [CrmController::class, 'destroy'])->name('crm.destroy');
 });

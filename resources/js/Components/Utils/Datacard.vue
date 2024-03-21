@@ -8,8 +8,18 @@
             'border-l-green-500' : cardId == 3
         }"
     >
-        <div class="flex flex-col w-full ">
-            <p class="text-2xl font-semibold">TÍTULO</p>
+        <div class="flex flex-col w-full justify-center">
+            <p
+                :class="{
+                    'text-yellow-500' : cardId == 1,
+                    'text-blue-500' : cardId == 2,
+                    'text-green-500' : cardId == 3,
+                }"
+                class="text-2xl font-semibold"
+            >
+                {{ cardTitle }}
+            </p>
+            <p>0</p>
         </div>
         <div class="w-1/4 flex items-center justify-center">
             <i
@@ -32,5 +42,20 @@ export default {
     props: {
         cardId: {},
     },
+
+    computed: {
+        cardTitle() {
+            switch(this.cardId) {
+                case 1:
+                    return 'AVISOS';
+                case 2:
+                    return 'PRODUTOS';
+                case 3:
+                    return 'FATURAMENTO';
+                default:
+                    return 'TÍTULO';
+            }
+        }
+    }
 }
 </script>

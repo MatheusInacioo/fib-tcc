@@ -1,6 +1,6 @@
 <template>
     <BaseLayout>
-        <p class="font-medium 2xl:text-3xl text-xl mr-4 mb-4">Dashboard</p>
+        <p class="font-medium 2xl:text-2xl text-xl mr-4 mb-4">Dashboard</p>
         <div class="flex h-full overflow-y-auto">
             <div class="flex h-1/3">
                 <Datacard

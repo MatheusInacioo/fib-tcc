@@ -34,7 +34,7 @@
                             v-for="(column, index) in settings.columns"
                             :key="index"
                             @click="sort(index)"
-                            :class="{ 'sortable' : column.sortable, 'text-center' : index > 0 }"
+                            :class="{ 'sortable cursor-pointer' : column.sortable, 'text-center' : index > 0 }"
                             class="px-6 py-3 text-left text-sm 2xl:text-base font-bold text-gray-500 uppercase tracking-wider"
                         >
                             {{ column.label }}
@@ -75,14 +75,14 @@
                             >
                                 <a
                                     :href="route(settings.routes.edit, item.id)"
-                                    class="hover:scale-110 transition-all"
+                                    class="hover:scale-125 transition-all"
                                 >
                                     <i class="bx bxs-edit text-lg mr-2 2xl:mr-3 2xl:text-xl text-gray-400"></i>
                                 </a>
                                 <button
                                     type="button"
                                     @click="deleteItem(item.id)"
-                                    class="hover:scale-110 transition-all"
+                                    class="hover:scale-125 transition-all"
                                 >
                                     <i class="bx bxs-trash text-lg 2xl:text-xl text-red-500"></i>
                                 </button>
@@ -296,15 +296,15 @@ export default {
             }
         },
 
-        nextPage() {
-            if (this.currentPage < this.totalPages) {
-                this.currentPage++;
-            }
-        },
-
         previousPage() {
             if (this.currentPage > 1) {
                 this.currentPage--;
+            }
+        },
+
+        nextPage() {
+            if (this.currentPage < this.totalPages) {
+                this.currentPage++;
             }
         },
 
