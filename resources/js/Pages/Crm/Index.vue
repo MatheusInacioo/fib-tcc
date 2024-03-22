@@ -19,7 +19,7 @@
             v-else
             class="h-full w-full flex flex-col"
         >
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between items-center mb-8">
                 <p class="font-medium 2xl:text-2xl text-xl">CRM Dashboard</p>
                 <a
                     :href="route('crm.create')"
@@ -30,12 +30,11 @@
                 </a>
             </div>
 
-            <div class="h-px w-full bg-primary my-4"></div>
-
             <div class="flex h-full w-full overflow-x-auto scrollbar-thin">
                 <Databoard
                     v-for="board in boards"
-                    :data="board"
+                    :title="board"
+                    :data="crmData"
                 />
             </div>
         </div>
