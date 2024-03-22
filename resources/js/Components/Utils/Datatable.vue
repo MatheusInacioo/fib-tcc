@@ -1,34 +1,32 @@
 <template>
-    <div class="rounded-xl shadow-lg border border-gray-200 ">
+    <div class="rounded-xl shadow-lg border border-gray-200">
         <div class="flex items-center justify-between px-4 py-2">
             <div class="flex items-center">
                 <p class="font-medium 2xl:text-2xl text-xl mr-4">{{ settings.title }}</p>
 
-                <div class="flex items-center border-b border-orange-500 2xl:w-80 w-64 ml-4 my-4">
+                <div class="flex items-center 2xl:w-80 w-64 ml-4 my-4 bg-white rounded-lg border border-gray-200 hover:border-gray-500 transition-all">
                     <input
                         type="text"
                         v-model="searchQuery"
                         placeholder="Buscar..."
-                        class="w-full border-none focus:outline-none"
+                        class="w-full border-none focus:outline-none rounded-l-lg"
                     >
-                    <i class="bx bx-search text-lg 2xl:text-xl"></i>
+                    <i class="bx bx-search text-lg 2xl:text-xl mx-2"></i>
                 </div>
             </div>
 
             <a
                 :href="route(settings.routes.create)"
-                class="flex justify-center items-center w-auto 2xl:h-10 bg-orange-500 rounded-xl text-white p-2 text-base 2xl:text-lg font-poppins font-semibold shadow-xl hover:scale-105 transition-all"
+                class="flex justify-center items-center w-auto 2xl:h-10 bg-primary rounded-xl text-white p-2 text-base 2xl:text-lg font-semibold shadow-xl hover:scale-105 transition-all"
             >
-                <i class="bx bx-plus font-semibold mr-2"></i>
-                <p class="font-medium">{{ settings.button_title }}</p>
+                <i class="bx bx-plus font-semibold mr-2 text-secondary"></i>
+                <p class="font-medium text-secondary">{{ settings.button_title }}</p>
             </a>
         </div>
 
-        <div class="h-px bg-orange-500 mb-4 mx-4"></div>
-
         <div class="flex max-h-[450px] 2xl:max-h-full overflow-y-auto w-full">
-            <table class="min-w-full divide-y divide-gray-200 border border-gray-200">
-                <thead class="bg-gray-100">
+            <table class="min-w-full divide-y h-full divide-gray-200 border border-gray-200">
+                <thead class="bg-gray-200">
                     <tr>
                         <th
                             v-for="(column, index) in settings.columns"
@@ -84,7 +82,7 @@
                                     @click="deleteItem(item.id)"
                                     class="hover:scale-125 transition-all"
                                 >
-                                    <i class="bx bxs-trash text-lg 2xl:text-xl text-red-500"></i>
+                                    <i class="bx bxs-trash text-lg 2xl:text-xl text-danger"></i>
                                 </button>
                             </div>
                         </td>
@@ -94,7 +92,7 @@
         </div>
 
         <div
-            class="w-full my-4 flex justify-between items-center"
+            class="w-full py-4 flex justify-between items-center"
         >
             <p class="font-medium text-sm 2xl:text-base ml-6">Página {{ currentPage }} de {{ totalPages }}</p>
             <div

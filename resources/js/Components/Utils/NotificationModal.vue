@@ -22,7 +22,7 @@
                             <div class="flex justify-center w-full">
                                 <button
                                     type="button"
-                                    class="w-20 px-2 py-2 bg-orange-500 text-white rounded-lg hover:scale-110 transition-all"
+                                    class="w-20 px-2 py-2 bg-primary text-white rounded-lg hover:scale-110 transition-all"
                                     @click="closeModal()"
                                 >
                                     OK

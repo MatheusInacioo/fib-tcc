@@ -9,7 +9,7 @@
             <Transition name="modal-body">
                 <div
                     v-if="showModal"
-                    class="flex items-center justify-center h-400 px-4 text-center w-500"
+                    class="flex items-center justify-center h-[400px] px-4 text-center w-[500px]"
                 >
                     <div
                         class="bg-white rounded-lg shadow-lg w-full h-80 p-4 md:p-5 flex flex-col"
@@ -30,7 +30,7 @@
                                 </button>
                                 <button
                                     @click="confirmDelete()"
-                                    class="inline-block w-24 px-4 py-2 bg-orange-500 text-white rounded-lg hover:scale-110 transition-all"
+                                    class="inline-block w-24 px-4 py-2 bg-primary text-secondary rounded-lg hover:scale-110 transition-all"
                                 >
                                     Excluir
                                 </button>

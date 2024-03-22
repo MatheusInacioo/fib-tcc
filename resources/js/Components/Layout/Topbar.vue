@@ -21,12 +21,12 @@
                      v-if="toggleDropdown"
                      class="absolute top-[75px] right-[30px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl"
                  >
-                    <div class="flex p-4 border-b border-b-gray-300 bg-orange-500">
+                    <div class="flex p-4 border-b border-b-gray-300 bg-primary">
                         <div class="flex hover:scale-110 transition-all cursor-pointer">
-                            <i class="bx bxs-user-circle 2xl:text-4xl text-white text-3xl mr-2"></i>
+                            <i class="bx bxs-user-circle 2xl:text-4xl text-secondary text-3xl mr-2"></i>
                             <div class="flex flex-col">
-                                <p class="text-xs 2xl:text-base text-white font-semibold mr-2">{{ userName }}</p>
-                                <small class="text-white">Admin</small>
+                                <p class="text-xs 2xl:text-base text-secondary font-semibold mr-2">{{ userName }}</p>
+                                <small class="text-secondary">Admin</small>
                             </div>
                         </div>
                     </div>
@@ -62,11 +62,11 @@
                    icon: 'bx bx-group',
                    route: 'users.index',
                },
-               {
-                   title: 'Configurações',
-                   icon: 'bx bx-cog',
-                   route: 'dashboard.index',
-               },
+            //    {
+            //        title: 'Configurações',
+            //        icon: 'bx bx-cog',
+            //        route: 'dashboard.index',
+            //    },
                {
                    title: 'Sair',
                    icon: 'bx bx-log-out',

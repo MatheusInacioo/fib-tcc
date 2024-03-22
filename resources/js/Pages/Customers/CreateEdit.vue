@@ -4,7 +4,7 @@
             <p class="font-medium text-xl 2xl:text-2xl">{{ pageTitle }}</p>
         </div>
 
-        <div class="h-px w-full bg-orange-500 my-4"></div>
+        <div class="h-px w-full bg-primary my-4"></div>
 
         <form
             @submit.prevent="saveForm()"
@@ -133,7 +133,7 @@
                 </a>
                 <button
                     type="submit"
-                    class="2xl:h-10 p-2 rounded-xl text-white font-medium text-sm 2xl:text-base ml-3 bg-orange-500 hover:scale-105 transition-all"
+                    class="2xl:h-10 p-2 rounded-xl text-secondary font-medium text-sm 2xl:text-base ml-3 bg-primary hover:scale-105 transition-all"
                 >
                     Salvar
                 </button>

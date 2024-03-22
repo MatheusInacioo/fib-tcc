@@ -3,17 +3,17 @@
         :id="cardId"
         class="datacard-holder flex max-h-full min-w-[420px] border border-l-8 shadow-lg mr-5 p-2 rounded-lg"
         :class="{
-            'border-l-yellow-500' : cardId == 1,
+            'border-l-warning' : cardId == 1,
             'border-l-blue-500' : cardId == 2,
-            'border-l-green-500' : cardId == 3
+            'border-l-success' : cardId == 3
         }"
     >
         <div class="flex flex-col w-full justify-center">
             <p
                 :class="{
-                    'text-yellow-500' : cardId == 1,
+                    'text-warning' : cardId == 1,
                     'text-blue-500' : cardId == 2,
-                    'text-green-500' : cardId == 3,
+                    'text-success' : cardId == 3,
                 }"
                 class="text-2xl font-semibold"
             >
@@ -25,9 +25,9 @@
             <i
             class="text-8xl"
             :class="{
-                'text-yellow-500' : cardId == 1,
+                'text-warning' : cardId == 1,
                 'text-blue-500' : cardId == 2,
-                'text-green-500' : cardId == 3,
+                'text-success' : cardId == 3,
                 'bx bx-error' : cardId == 1,
                 'bx bx-package' : cardId == 2,
                 'bx bx-dollar' : cardId == 3,

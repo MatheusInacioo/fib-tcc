@@ -8,7 +8,7 @@
             <p class="font-semibold text-2xl mb-5">Nenhum registro encontrado</p>
             <a
                 :href="route('crm.create')"
-                class="flex justify-center items-center w-40 h-10 bg-orange-500 rounded-xl text-white text-lg font-poppins font-semibold shadow-xl hover:scale-105 transition-all"
+                class="flex justify-center items-center w-40 h-10 bg-primary rounded-xl text-white text-lg font-poppins font-semibold shadow-xl hover:scale-105 transition-all"
             >
                 <i class="bx bx-plus font-semibold mr-2"></i>
                 <p class="font-medium">Cadastrar</p>
@@ -23,14 +23,14 @@
                 <p class="font-medium 2xl:text-2xl text-xl">CRM Dashboard</p>
                 <a
                     :href="route('crm.create')"
-                    class="flex justify-center items-center w-40 h-10 bg-orange-500 rounded-xl text-white text-lg font-poppins font-semibold shadow-xl hover:scale-105 transition-all"
+                    class="flex justify-center items-center w-40 h-10 bg-primary rounded-xl text-white text-lg font-poppins font-semibold shadow-xl hover:scale-105 transition-all"
                 >
                     <i class="bx bx-plus font-semibold mr-2"></i>
                     <p class="font-medium">Cadastrar</p>
                 </a>
             </div>
 
-            <div class="h-px w-full bg-orange-500 my-4"></div>
+            <div class="h-px w-full bg-primary my-4"></div>
 
             <div class="flex h-full w-full overflow-x-auto scrollbar-thin">
                 <Databoard
@@ -72,8 +72,8 @@ export default {
                 'Contato',
                 'Negociação',
                 'Assinatura Pendente',
-                'Sem Interesse',
                 'Standby',
+                'Sem Interesse',
             ],
         }
     },

@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="login-screen w-screen h-screen flex justify-start bg-[url('img/app/background.jpg')] bg-center bg-cover">
-            <div class="h-full w-500 shadow-2xl bg-gray-50 bg-opacity-50 backdrop-filter backdrop-blur-md flex flex-col justify-center p-10">
-                <h4 class="text-4xl font-bold text-orange-400 mb-20 text-center">LOGIN</h4>
+            <div class="h-full w-[500px] shadow-2xl bg-gray-50 bg-opacity-50 backdrop-filter backdrop-blur-md flex flex-col justify-center p-10">
+                <h4 class="text-4xl font-bold text-primary mb-20 text-center">LOGIN</h4>
 
                 <form
                     method="POST"
@@ -11,10 +11,10 @@
                 >
                     <span v-if="$page.props.errors" class="text-red-500 text-base font-semibold">{{ $page.props.errors.error }}</span>
                     <div class="flex flex-col mb-3">
-                        <label class="text-xl font-semibold mb-2 text-orange-500">Email</label>
+                        <label class="text-xl font-semibold mb-2 text-primary">Email</label>
                         <input
                             v-model="form.email"
-                            class="h-12 text-base rounded-2xl bg-transparent border-black hover:border-orange-500 focus:border-none transition-all"
+                            class="h-12 text-base rounded-2xl bg-transparent border-black hover:border-primary focus:border-none transition-all"
                             type="text"
                             name="email"
                             placeholder="Digite seu email..."
@@ -23,8 +23,8 @@
                     </div>
 
                     <div class="flex flex-col mb-3">
-                        <label class="text-xl font-semibold mb-2 text-orange-500">Senha</label>
-                        <div class="flex border border-black rounded-2xl hover:border-orange-500 focus:border-orange-500 transition-all">
+                        <label class="text-xl font-semibold mb-2 text-primary">Senha</label>
+                        <div class="flex border border-black rounded-2xl hover:border-primary focus:border-primary transition-all">
                             <input
                                 v-model="form.password"
                                 class="w-full h-12 text-base rounded-l-2xl bg-transparent border-none outline-none"
@@ -50,12 +50,12 @@
                             class="bg-transparent rounded-md mr-2 outline-none"
                             name="remember"
                         >
-                        <span class="text-base font-semibold text-orange-500">Lembrar de mim</span>
+                        <span class="text-base font-semibold text-primary">Lembrar de mim</span>
                     </div>
 
                     <button
                         type="submit"
-                        class="w-full h-10 mt-10 bg-orange-400 rounded-2xl text-white text-lg font-poppins font-semibold shadow-xl hover:scale-105 transition-all"
+                        class="w-full h-10 mt-10 bg-primary rounded-2xl text-white text-lg font-poppins font-semibold shadow-xl hover:scale-105 transition-all"
                     >
                         Entrar
                     </button>

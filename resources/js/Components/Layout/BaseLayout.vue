@@ -1,5 +1,5 @@
 <template>
-    <div class="h-screen w-screen flex font-poppins">
+    <div class="h-screen w-screen flex font-roboto">
         <Sidebar/>
         <div class="main-screen flex flex-col h-full w-full 2xl:p-4 p-3 bg-gray-100 overflow-hidden">
             <Topbar/>
