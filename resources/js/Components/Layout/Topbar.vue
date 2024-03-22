@@ -5,26 +5,35 @@
                  @click="toggleDropdown = !toggleDropdown"
                  class="user-dropdown flex h-10 items-center transition-all hover:scale-110"
              >
-                 <p class="text-base 2xl:text-lg font-medium mr-2">{{ userName }}</p>
-                 <i class="bx bx-user-circle 2xl:text-4xl text-3xl"></i>
+                <i
+                    :class="{
+                        'bx bx-chevron-down' : !toggleDropdown,
+                        'bx bx-chevron-up' : toggleDropdown,
+                    }"
+                    class="mr-1 text-2xl"
+                ></i>
+                <p class="text-base 2xl:text-lg font-medium mr-2">{{ userName }}</p>
+                <i class="bx bx-user-circle 2xl:text-4xl text-3xl"></i>
              </div>
 
              <transition name="dropdown">
                  <div
                      v-if="toggleDropdown"
-                     class="absolute top-[75px] right-[30px] px-2 flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl"
+                     class="absolute top-[75px] right-[30px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl"
                  >
-                    <div class="flex p-4 border-b border-b-gray-300 hover:bg-gray-200 hover:scale-110 transition-all">
-                        <i class="bx bx-user-circle 2xl:text-4xl text-3xl mr-2"></i>
-                        <div class="flex flex-col">
-                            <p class="text-xs 2xl:text-base font-medium mr-2">{{ userName }}</p>
-                            <small class="text-gray-400">Admin</small>
+                    <div class="flex p-4 border-b border-b-gray-300 bg-orange-500">
+                        <div class="flex hover:scale-110 transition-all cursor-pointer">
+                            <i class="bx bxs-user-circle 2xl:text-4xl text-white text-3xl mr-2"></i>
+                            <div class="flex flex-col">
+                                <p class="text-xs 2xl:text-base text-white font-semibold mr-2">{{ userName }}</p>
+                                <small class="text-white">Admin</small>
+                            </div>
                         </div>
                     </div>
                      <div
                          v-for="button in buttons"
                          :key="button.id"
-                         class="group"
+                         class="group px-2"
                      >
                          <a
                              :href="route(button.route)"
