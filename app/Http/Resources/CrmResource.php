@@ -16,6 +16,16 @@ class CrmResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'name' => $this->name,
+            'cnpj' => $this->cnpj,
+            'email' => $this->email,
+            'address' => $this->address,
+            'phone' => $this->phone,
+            'responsible' => $this->responsible,
+            'responsible_phone' => $this->responsible_phone,
+            'segment' => $this->segment,
+            'type' => $this->type,
+            'status' => $this->status,
         ];
     }
 }

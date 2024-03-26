@@ -43,6 +43,6 @@ Route::middleware('auth')->group(function () {
     // Route::post('/suppliers/destroy/{id}', [SupplierController::class, 'destroy'])->name('suppliers.destroy');
 
     // CRM routes
-    Route::resource('/crm', CrmController::class)->except(['show', 'destroy']);
+    Route::resource('/crm', CrmController::class)->except(['show', 'destroy', 'edit']);
     Route::post('/crm/destroy/{id}', [CrmController::class, 'destroy'])->name('crm.destroy');
 });

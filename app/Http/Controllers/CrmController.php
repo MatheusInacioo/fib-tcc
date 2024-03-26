@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CrmRequest;
-use App\Http\Resources\CrmResource;
 use App\Models\Crm;
+use App\Models\CrmAttendance;
 use Exception;
 use Inertia\Inertia;
 
@@ -12,31 +12,29 @@ class CrmController extends Controller
 {
     public function index()
     {
-        // $data = Crm::all();
+        $records = Crm::all();
+
+        foreach($records as $record) {
+            $attendances = CrmAttendance::where('crm_id', $record->id)->get();
+
+            $record['attendances'] = $attendances;
+        }
 
         return Inertia::render('Crm/Index', [
-            'crmData' => '',
-        ]);
-    }
-
-    public function create()
-    {
-        return Inertia::render('Crm/CreateEdit');
-    }
-
-    public function edit(Crm $Crm)
-    {
-        return Inertia::render('Crm/CreateEdit', [
-            'crmData' => CrmResource::make($Crm),
+            'crm' => $records,
         ]);
     }
 
     public function store(CrmRequest $request)
     {
         try {
-            $data = $request->getCrmData();
+            $crmData = $request->getCrmData();
+            $attendanceData = $request->getAttendanceData();
 
-            Crm::create($data);
+            $crm = Crm::create($crmData);
+
+            $attendanceData['crm_id'] = $crm->id;
+            CrmAttendance::create($attendanceData);
 
             return redirect()->route('crm.index')->with('create-success', 'Cadastro realizado com sucesso.');
         } catch(Exception $ex) {
@@ -47,9 +45,11 @@ class CrmController extends Controller
     public function update(CrmRequest $request, Crm $crm)
     {
         try {
-            $data = $request->getCrmData();
+            $crmData = $request->getCrmData();
+            $attendanceData = $request->getAttendanceData();
 
-            $crm->update($data);
+            $crm->update($crmData);
+            CrmAttendance::create($attendanceData);
 
             return redirect()->route('crm.index')->with('create-success', 'Cadastro atualizado com sucesso.');
         } catch(Exception $ex) {
@@ -60,6 +60,8 @@ class CrmController extends Controller
     public function destroy($crmId)
     {
         try {
+            CrmAttendance::where('crm_id', $crmId)->delete();
+
             Crm::find($crmId)->delete();
 
             return redirect()->route('crm.index')->with('destroy-success', 'Cadastro excluído com sucesso.');

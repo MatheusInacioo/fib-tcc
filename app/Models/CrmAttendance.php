@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Crm extends Model
+class CrmAttendance extends Model
 {
     use HasFactory;
 
-    protected $table = 'crm_data';
+    protected $table = 'crm_attendances';
 
     /**
      * The attributes that are mass assignable.
@@ -17,15 +17,8 @@ class Crm extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'cnpj',
-        'email',
-        'address',
-        'phone',
-        'responsible',
-        'responsible_phone',
-        'segment',
-        'type',
-        'status',
+        'crm_id',
+        'description',
+        'user',
     ];
 }

@@ -13,16 +13,55 @@ class CrmRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'name' => 'required|string',
+            'cnpj' => 'required|string',
+            'email' => 'required|string',
+            'address' => 'nullable',
+            'phone' => 'nullable',
+            'responsible' => 'nullable',
+            'responsible_phone' => 'nullable',
+            'segment' => 'nullable',
+            'type' => 'required|string',
+            'status' => 'required|string',
+            'description' => 'nullable',
+        ];
     }
 
     public function messages(): array
     {
-        return [];
+        return [
+            'name.required' => 'Campo obrigatório',
+            'cnpj.required' => 'Campo obrigatório',
+            'email.required' => 'Campo obrigatório',
+            'segment.required' => 'Campo obrigatório',
+            'type.required' => 'Campo obrigatório',
+            'status.required' => 'Campo obrigatório',
+        ];
     }
 
-    public function getUserData(): array
+    public function getCrmData(): array
     {
-        return [];
+        return [
+            'name' => $this->input('name'),
+            'cnpj' => $this->input('cnpj'),
+            'email' => $this->input('email'),
+            'address' => $this->input('address'),
+            'phone' => $this->input('phone'),
+            'responsible' => $this->input('responsible'),
+            'responsible_phone' => $this->input('responsible_phone'),
+            'segment' => $this->input('segment'),
+            'type' => $this->input('type'),
+            'status' => $this->input('status'),
+        ];
+    }
+
+    public function getAttendanceData(): array
+    {
+        return [
+            'crm_id' => $this->id ?? null,
+            'description' => $this->input('description'),
+            'user' => auth()->user()->name,
+        ];
     }
 }

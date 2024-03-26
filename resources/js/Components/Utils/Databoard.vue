@@ -6,23 +6,93 @@
         </div>
         <div class="databoard-body flex-nowrap h-full p-4 flex flex-col bg-gray-100 rounded-b-lg overflow-y-auto scrollbar-thin">
             <div class="max-h-full">
-                <Boardcard/>
+                <Boardcard
+                    v-for="item in filteredItems"
+                    :key="item.id"
+                    :item="item"
+                    @edit-item="editItem(item)"
+                    @delete-item="deleteItem(item.id)"
+                />
             </div>
         </div>
+
+        <ConfirmationModal
+            :show-modal="showConfirmationModal"
+            @confirm-delete="confirmDelete()"
+            @close-modal="toggleConfirmationModal()"
+        />
+
+        <CrmModal
+            :show-modal="showCrmModal"
+            :item="selectedItem"
+            @close-modal="toggleCrmModal()"
+        />
     </div>
 </template>
 
 <script>
     import Boardcard from '@/Components/Utils/Boardcard.vue';
+    import ConfirmationModal from '@/Components/Utils/ConfirmationModal.vue';
+    import CrmModal from '@/Pages/Crm/CrmModal.vue'
 
     export default {
         components: {
             Boardcard,
+            ConfirmationModal,
+            CrmModal,
         },
 
         props: {
             title: '',
-            data: {},
-        }
+            crm: {},
+        },
+
+        data() {
+            return {
+                showConfirmationModal: false,
+                showCrmModal: false,
+                selectedItem: {},
+            }
+        },
+
+        computed: {
+            filteredItems() {
+                return this.crm.filter(item => item.status === this.title);
+            },
+        },
+
+        methods: {
+            toggleConfirmationModal() {
+                this.showConfirmationModal = ! this.showConfirmationModal;
+            },
+
+            toggleCrmModal() {
+                this.showCrmModal = ! this.showCrmModal;
+            },
+
+            editItem(item) {
+                this.selectedItem = item;
+
+                this.toggleCrmModal();
+            },
+
+            deleteItem(itemId) {
+                this.toggleConfirmationModal();
+                this.selectedItem = itemId;
+            },
+
+            async confirmDelete() {
+                try {
+                    await axios.post(this.route('crm.destroy', this.selectedItem));
+
+                    this.selectedItem = null;
+                    this.toggleConfirmationModal();
+
+                    window.location.reload();
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+        },
     }
 </script>

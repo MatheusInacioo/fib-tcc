@@ -1,7 +1,6 @@
 <template>
     <Transition name="modal-overlay">
         <div
-            @click="showModal = false"
             v-show="showModal"
             id="confirmation-modal"
             tabindex="-1"
@@ -16,7 +15,7 @@
                         class="bg-white rounded-lg shadow-lg w-full h-full p-4 flex flex-col"
                     >
                         <div class="flex justify-between w-full items-center">
-                            <p class="2xl:text-2xl text-xl font-medium">Novo Cadastro</p>
+                            <p class="2xl:text-2xl text-xl font-medium">{{ modalTitle }}</p>
                             <button
                                 class="2xl:w-8 2xl:h-8 bg-transparent border-none text-primary 2xl:text-4xl hover:scale-125 transition-all flex justify-center items-center"
                                 @click="closeModal()"
@@ -28,16 +27,13 @@
                         <div class="w-full h-px bg-primary my-4"></div>
 
                         <div class="h-full overflow-y-auto scrollbar-thin">
-                            <form
-                                @submit.prevent="saveForm()"
-                                class="w-full h-full"
-                            >
+                            <form class="w-full">
                                 <div class="form-row flex mb-5">
                                     <div class="form-field flex flex-col 2lx:mr-6 mr-4">
                                         <span class="font-medium 2xlg:text-lg text-base ml-1 mb-1">Nome da empresa</span>
                                         <input
                                             v-model="form.name"
-                                            class="border-gray-300 w-[280px] 2xl:text-base text-sm rounded-xl"
+                                            class="border-gray-300 w-[280px] 2xl:text-base text-sm rounded-lg"
                                             type="text"
                                             name="name"
                                             id="name"
@@ -50,7 +46,7 @@
                                         <span class="font-medium 2xlg:text-lg text-base ml-1 mb-1">CNPJ</span>
                                         <input
                                             v-model="form.cnpj"
-                                            class="border-gray-300 w-[280px] 2xl:text-base text-sm rounded-xl"
+                                            class="border-gray-300 w-[280px] 2xl:text-base text-sm rounded-lg"
                                             type="text"
                                             name="cnpj"
                                             id="cnpj"
@@ -65,7 +61,7 @@
                                         <span class="font-medium 2xlg:text-lg text-base ml-1 mb-1">Email da empresa</span>
                                         <input
                                             v-model="form.email"
-                                            class="border-gray-300 w-[280px] 2xl:text-base text-sm rounded-xl"
+                                            class="border-gray-300 w-[280px] 2xl:text-base text-sm rounded-lg"
                                             type="email"
                                             name="email"
                                             id="email"
@@ -76,11 +72,26 @@
                                 </div>
 
                                 <div class="form-row flex mb-5">
+                                    <div class="form-field flex flex-col 2lx:mr-6 mr-4 w-full">
+                                        <span class="font-medium 2xlg:text-lg text-base ml-1 mb-1">Endereço da empresa</span>
+                                        <input
+                                            v-model="form.address"
+                                            class="border-gray-300 2xl:text-base text-sm rounded-lg"
+                                            type="text"
+                                            name="address"
+                                            id="address"
+                                            placeholder="Endereço da empresa"
+                                        >
+                                        <div v-if="form.errors.address" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.address }}</div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row flex mb-5">
                                     <div class="form-field flex flex-col 2lx:mr-6 mr-4">
                                         <span class="font-medium 2xlg:text-lg text-base ml-1 mb-1">Telefone da empresa</span>
                                         <input
                                             v-model="form.phone"
-                                            class="border-gray-300 w-[280px] 2xl:text-base text-sm rounded-xl"
+                                            class="border-gray-300 w-[280px] 2xl:text-base text-sm rounded-lg"
                                             type="text"
                                             name="phone"
                                             id="phone"
@@ -95,7 +106,7 @@
                                         <span class="font-medium 2xlg:text-lg text-base ml-1 mb-1">Nome do responsável</span>
                                         <input
                                             v-model="form.responsible"
-                                            class="border-gray-300 w-[280px] 2xl:text-base text-sm rounded-xl"
+                                            class="border-gray-300 w-[280px] 2xl:text-base text-sm rounded-lg"
                                             type="text"
                                             name="responsible"
                                             id="responsible"
@@ -108,7 +119,7 @@
                                         <span class="font-medium 2xlg:text-lg text-base ml-1 mb-1">Celular do responsável</span>
                                         <input
                                             v-model="form.responsible_phone"
-                                            class="border-gray-300 w-[280px] 2xl:text-base text-sm rounded-xl"
+                                            class="border-gray-300 w-[280px] 2xl:text-base text-sm rounded-lg"
                                             type="text"
                                             name="responsible-phone"
                                             id="responsible-phone"
@@ -123,14 +134,20 @@
                                 <div class="form-row flex mb-5">
                                     <div class="form-field flex flex-col 2lx:mr-6 mr-4">
                                         <span class="font-medium 2xlg:text-lg text-base ml-1 mb-1">Segmento de atuação</span>
-                                        <input
+                                        <select
                                             v-model="form.segment"
-                                            class="border-gray-300 w-[280px] 2xl:text-base text-sm rounded-xl"
-                                            type="text"
                                             name="segment"
                                             id="segment"
-                                            placeholder="Ex: Atacado"
+                                            class="border-gray-300 w-[280px] 2xl:text-base text-sm rounded-lg"
                                         >
+                                            <option
+                                                v-for="segment in segments"
+                                                :key="segment.id"
+                                                :value="segment"
+                                            >
+                                                {{ segment }}
+                                            </option>
+                                        </select>
                                         <div v-if="form.errors.segment" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.segment }}</div>
                                     </div>
 
@@ -140,11 +157,10 @@
                                             v-model="form.type"
                                             name="type"
                                             id="type"
-                                            class="border-gray-300 w-[280px] 2xl:text-base text-sm rounded-xl"
+                                            class="border-gray-300 w-[280px] 2xl:text-base text-sm rounded-lg"
                                         >
-                                            <option selected disabled value="">Selecione...</option>
                                             <option
-                                                v-for="type in companyTypes"
+                                                v-for="type in types"
                                                 :key="type.id"
                                                 :value="type"
                                             >
@@ -160,9 +176,8 @@
                                             v-model="form.status"
                                             name="status"
                                             id="status"
-                                            class="border-gray-300 w-[280px] 2xl:text-base text-sm rounded-xl"
+                                            class="border-gray-300 w-[280px] 2xl:text-base text-sm rounded-lg"
                                         >
-                                            <option selected disabled value="">Selecione...</option>
                                             <option
                                                 v-for="status in statuses"
                                                 :key="status.id"
@@ -171,22 +186,56 @@
                                                 {{ status }}
                                             </option>
                                         </select>
-                                        <div v-if="form.errors.phone" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.status }}</div>
+                                        <div v-if="form.errors.status" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.status }}</div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row flex mb-5">
+                                    <div class="form-field flex flex-col w-full">
+                                        <span class="font-medium 2xlg:text-lg text-base ml-1 mb-1">Descrição</span>
+                                        <textarea
+                                            v-model="form.description"
+                                            class="border-gray-300 h-[150px] w-full 2xl:text-base text-sm rounded-lg"
+                                            name="description"
+                                            id="description"
+                                            maxlength="500"
+                                            placeholder="Descrição sobre o atendimento (máx. 500 caracteres)"
+                                        ></textarea>
+                                        <div v-if="form.errors.description" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.description }}</div>
                                     </div>
                                 </div>
                             </form>
+
+                            <div
+                                v-if="item.attendances"
+                                class="w-full flex flex-col"
+                            >
+                                <p class="font-medium text-xl mb-4">Histórico de Atendimento</p>
+                                <div
+                                    v-for="attendance in item.attendances"
+                                    :key="attendance.id"
+                                    class="flex w-full mb-4"
+                                >
+                                    <i class="bx bx-message-dots text-primary text-2xl mr-2"></i>
+                                    <div class="flex flex-col">
+                                        <p class="text-gray-400 mb-2 text-base">{{ formatAttendanceDate(attendance.created_at) + ' - ' + attendance.user }}</p>
+                                        <p class="text-base italic">{{ attendance.description }}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="flex justify-between w-full items-center pt-4">
-                            <a
-                                :href="route('crm.index')"
-                                class="2xl:h-10 p-2 rounded-xl text-white font-medium text-sm 2xl:text-base bg-gray-400 hover:scale-105 transition-all"
+                            <button
+                                type="button"
+                                class="2xl:h-10 w-24 p-2 rounded-xl text-white font-medium text-sm 2xl:text-base bg-gray-400 hover:scale-105 transition-all"
+                                @click="closeModal()"
                             >
                                 Cancelar
-                            </a>
+                            </button>
                             <button
-                                type="submit"
-                                class="2xl:h-10 p-2 rounded-xl text-secondary font-medium text-sm 2xl:text-base ml-3 bg-primary hover:scale-105 transition-all"
+                                @click="saveForm()"
+                                class="2xl:h-10 w-24 p-2 rounded-xl text-secondary font-medium text-sm 2xl:text-base ml-3 bg-primary hover:scale-105 transition-all"
                             >
                                 Salvar
                             </button>
@@ -206,9 +255,9 @@ export default {
     directives: { maska: vMaska },
 
     props: {
-        settings: {
-            itemId: null,
-            route: null,
+        item: {
+            type: Object,
+            default: () => ({}),
         },
 
         showModal: {
@@ -229,6 +278,7 @@ export default {
             segment: null,
             type: null,
             status: null,
+            description: null,
         });
 
         return { form }
@@ -236,7 +286,7 @@ export default {
 
     data() {
         return {
-            companyTypes: [
+            types: [
                 'Cliente',
                 'Fornecedor',
                 'Distribuidor',
@@ -249,14 +299,78 @@ export default {
                 'Standby',
                 'Sem Interesse',
             ],
+
+            segments: [
+                'Atacado',
+                'Varejo',
+                'Transportes',
+                'Distribuidora',
+                'Alimentação',
+            ],
         }
+    },
+
+    computed: {
+        modalTitle() {
+            return this.itemExists ? 'Editar Cadastro' : 'Novo Cadastro';
+        },
+
+        itemExists() {
+            return this.item.id ? true : false;
+        },
     },
 
     methods: {
         closeModal() {
             this.$emit('close-modal');
         },
+
+        saveForm() {
+            this.itemExists ? this.updateCrm() : this.createCrm();
+
+            this.closeModal();
+        },
+
+        createCrm() {
+            return this.form.post(route('crm.store'));
+        },
+
+        updateCrm() {
+            return this.form.put(route('crm.update', this.item.data.id));
+        },
+
+        buildForm(data) {
+            this.form.name = data.name;
+            this.form.cnpj = data.cnpj;
+            this.form.email = data.email;
+            this.form.address = data.address;
+            this.form.phone = data.phone;
+            this.form.responsible = data.responsible;
+            this.form.responsible_phone = data.responsible_phone;
+            this.form.segment = data.segment;
+            this.form.type = data.type;
+            this.form.status = data.status;
+            this.form.description = data.description;
+        },
+
+        formatAttendanceDate(dateString) {
+            const date = new Date(dateString);
+
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+
+            return `${day}/${month}/${year} às ${hours}:${minutes}`;
+        },
     },
+
+    created() {
+        if (this.itemExists && this.showModal) {
+            this.buildForm(this.item);
+        }
+    }
 };
 </script>
 
