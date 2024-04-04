@@ -6,7 +6,6 @@
                 <Datacard
                     v-for="index in 3"
                     :key="index"
-                    :card-id="index"
                 />
             </div>
         </div>

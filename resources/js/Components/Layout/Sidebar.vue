@@ -11,7 +11,7 @@
                         class="2xl:w-6 2xl:h-6 absolute left-[244px] top-[35px] bg-secondary text-primary 2xl:text-xl rounded-xl hover:scale-125 transition-all border border-gray-400 flex justify-center items-center"
                         @click="showBar = !showBar"
                     >
-                        <i class="bx bx-chevron-left"</i>
+                        <i class="bx bx-chevron-left"></i>
                     </button>
                 </div>
                 <div
@@ -83,7 +83,7 @@
                     {
                         title: 'Fornecedores',
                         icon: 'bx bx-package',
-                        route: 'dashboard.index',
+                        route: 'suppliers.index',
                     },
                     {
                         title: 'Sair',

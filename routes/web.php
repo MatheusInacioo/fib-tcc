@@ -38,9 +38,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('/users', UserController::class)->except(['show', 'destroy']);
     Route::post('/users/destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
-    // Supplier routes @todo
-    // Route::resource('/suppliers', SupplierController::class)->except(['show', 'destroy']);
-    // Route::post('/suppliers/destroy/{id}', [SupplierController::class, 'destroy'])->name('suppliers.destroy');
+    // Supplier routes 
+    Route::resource('/suppliers', SupplierController::class)->except(['show', 'destroy']);
+    Route::post('/suppliers/destroy/{id}', [SupplierController::class, 'destroy'])->name('suppliers.destroy');
 
     // CRM routes
     Route::resource('/crm', CrmController::class)->except(['show', 'destroy', 'edit']);
