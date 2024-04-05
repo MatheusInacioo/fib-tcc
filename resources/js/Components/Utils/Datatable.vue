@@ -8,7 +8,7 @@
                     <input
                         type="text"
                         v-model="searchQuery"
-                        placeholder="Buscar..."
+                        placeholder="Buscar Registros..."
                         class="w-full border-none focus:outline-none rounded-l-lg"
                     >
                     <i class="bx bx-search text-lg 2xl:text-xl mx-2"></i>
