@@ -288,8 +288,8 @@ export default {
         return {
             types: [
                 'Cliente',
-                'Fornecedor',
                 'Distribuidor',
+                'Fornecedor',
             ],
 
             statuses: [
@@ -301,11 +301,11 @@ export default {
             ],
 
             segments: [
-                'Atacado',
-                'Varejo',
-                'Transportes',
-                'Distribuidora',
                 'Alimentação',
+                'Atacado',
+                'Distribuidora',
+                'Transportes',
+                'Varejo',
             ],
         }
     },
@@ -350,7 +350,7 @@ export default {
             this.form.segment = data.segment;
             this.form.type = data.type;
             this.form.status = data.status;
-            this.form.description = data.description;
+            this.form.description = null;
         },
 
         formatAttendanceDate(dateString) {
@@ -367,7 +367,7 @@ export default {
     },
 
     created() {
-        if (this.itemExists && this.showModal) {
+        if (this.itemExists) {
             this.buildForm(this.item);
         }
     }

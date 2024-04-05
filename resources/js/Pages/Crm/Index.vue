@@ -8,7 +8,7 @@
             <p class="font-semibold text-2xl mb-5">Nenhum registro encontrado</p>
             <button
                 @click="toggleCrmModal()"
-                class="flex justify-center items-center w-40 h-10 bg-primary rounded-xl text-white text-lg font-poppins font-semibold shadow-xl hover:scale-105 transition-all"
+                class="flex justify-center items-center w-40 h-10 bg-primary rounded-xl text-white text-lg font-semibold shadow-xl hover:scale-105 transition-all"
             >
                 <i class="bx bx-plus font-semibold mr-2 text-secondary"></i>
                 <p class="font-medium text-secondary">Cadastrar</p>
@@ -23,7 +23,7 @@
                 <p class="font-medium 2xl:text-2xl text-xl">CRM Dashboard</p>
                 <button
                     @click="toggleCrmModal()"
-                    class="flex justify-center items-center w-40 h-10 bg-primary rounded-xl text-white text-lg font-poppins font-semibold shadow-xl hover:scale-105 transition-all"
+                    class="flex justify-center items-center w-40 h-10 bg-primary rounded-xl text-white text-lg font-semibold shadow-xl hover:scale-105 transition-all"
                 >
                     <i class="bx bx-plus font-semibold mr-2 text-secondary"></i>
                     <p class="font-medium text-secondary">Cadastrar</p>
@@ -43,6 +43,12 @@
             :show-modal="showCrmModal"
             @close-modal="toggleCrmModal()"
         />
+
+        <NotificationModal
+            :show-modal="showNotificationModal"
+            :message="message"
+            @close-modal="showNotificationModal = false"
+        />
     </BaseLayout>
 </template>
 
@@ -50,12 +56,14 @@
 import BaseLayout from '@/Components/Layout/BaseLayout.vue';
 import Databoard from '@/Components/Utils/Databoard.vue';
 import CrmModal from './CrmModal.vue';
+import NotificationModal from '@/Components/Utils/NotificationModal.vue';
 
 export default {
     components: {
         BaseLayout,
         Databoard,
         CrmModal,
+        NotificationModal,
     },
 
     props: {
@@ -64,8 +72,9 @@ export default {
 
     data() {
         return {
-            message: '',
+            message: {},
             showCrmModal: false,
+            showNotificationModal: false,
             boards: [
                 'Contato',
                 'Negociação',
@@ -80,6 +89,28 @@ export default {
         toggleCrmModal() {
             this.showCrmModal = ! this.showCrmModal;
         },
+    },
+
+    created() {
+        setTimeout(() => {
+            var flashMessage = this.$page.props.flash;
+
+            if(flashMessage.success) {
+                this.showNotificationModal = true;
+
+                this.message = {
+                    type: 'success',
+                    content: flashMessage.success,
+                }
+            } else if (flashMessage.error) {
+                this.showNotificationModal = true;
+
+                this.message = {
+                    type: 'error',
+                    content: flashMessage.error,
+                }
+            }
+        }, 200);
     },
 }
 </script>

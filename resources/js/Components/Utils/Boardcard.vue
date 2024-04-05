@@ -7,23 +7,23 @@
                 @click="editItem()"
                 class="font-roboto font-semibold text-base cursor-pointer"
             >
-                {{ item.name }}
+                {{'#' + item.id + ' ' + item.name }}
         </div>
             <p
                 v-if="item.responsible_phone && !item.phone"
-                class="text-sm text-gray-500 font-medium"
+                class="text-xs text-gray-500 font-medium"
             >
                 {{ item.responsible_phone }}
             </p>
             <p
                 v-if="item.phone && !item.responsible_phone"
-                class="text-sm text-gray-500 font-medium"
+                class="text-xs text-gray-500 font-medium"
             >
                 {{ item.phone }}
             </p>
             <p
                 v-if="item.phone && item.responsible_phone"
-                class="text-sm text-gray-500 font-medium"
+                class="text-xs text-gray-500 font-medium"
             >
                 {{ item.responsible_phone }}
             </p>

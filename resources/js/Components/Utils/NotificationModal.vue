@@ -9,23 +9,33 @@
             <Transition name="modal-body">
                 <div
                     v-if="showModal"
-                    class="flex items-center justify-center h-400 px-4 text-center w-500"
+                    class="flex items-center justify-center h-[400px] px-4 text-center w-[500px]"
                 >
                     <div
-                        class="bg-white rounded-lg shadow-lg w-full h-80 p-4 md:p-5 flex flex-col"
+                        class="bg-white rounded-lg shadow-lg min-h-80 w-full p-4 md:p-5 flex flex-col"
                     >
-                        <div class="text-center h-full flex flex-col justify-between">
-                            <i class="bx bx-check-circle text-green-500 text-8xl"></i>
+                        <div class="text-center min-h-80 flex flex-col justify-between">
+                            <i
+                                class="text-8xl"
+                                :class="{
+                                    'bx bx-check-circle text-success' : message.type == 'success',
+                                    'bx bx-error-circle text-danger' : message.type == 'error'
+                                }"
+                            ></i>
                             <h3 class="mb-5 text-lg font-normal text-black">
-                                {{ message }}
+                                {{ message.content }}
                             </h3>
                             <div class="flex justify-center w-full">
                                 <button
                                     type="button"
-                                    class="w-20 px-2 py-2 bg-primary text-white rounded-lg hover:scale-110 transition-all"
+                                    class="w-20 px-2 py-2 text-white rounded-lg hover:scale-110 transition-all"
+                                    :class="{
+                                        'bg-success' : message.type == 'success',
+                                        'bg-danger' : message.type == 'error',
+                                    }"
                                     @click="closeModal()"
                                 >
-                                    OK
+                                    <p class="text-base font-semibold">OK</p>
                                 </button>
                             </div>
                         </div>
@@ -45,8 +55,8 @@ export default {
         },
 
         message: {
-            type: String,
-            default: '',
+            type: Object,
+            default: () => ({}),
         },
     },
 

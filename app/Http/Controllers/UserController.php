@@ -38,9 +38,9 @@ class UserController extends Controller
 
             User::create($data);
 
-            return redirect()->route('users.index')->with('create-success', 'Usuário cadastrado com sucesso.');
+            return redirect()->route('users.index')->with('success', 'Usuário cadastrado com sucesso.');
         } catch(Exception $ex) {
-            return redirect()->route('users.index')->with('create-error', 'Ocorreu um erro ao cadastrar o usuário: ' . $ex->getMessage());
+            return redirect()->route('users.index')->with('error', 'Ocorreu um erro ao cadastrar o usuário: ' . $ex->getMessage());
         }
     }
 
@@ -48,12 +48,13 @@ class UserController extends Controller
     {
         try {
             $data = $request->getUserData();
+            $data['password'] ?? $data['password'] = $user->password;
 
             $user->update($data);
 
-            return redirect()->route('users.index')->with('create-success', 'Usuário atualizado com sucesso.');
+            return redirect()->route('users.index')->with('success', 'Usuário atualizado com sucesso.');
         } catch(Exception $ex) {
-            return redirect()->route('users.index')->with('update-error', 'Ocorreu um erro ao autalizar os dados do usuário: ' . $ex->getMessage());
+            return redirect()->route('users.index')->with('error', 'Ocorreu um erro ao autalizar os dados do usuário: ' . $ex->getMessage());
         }
     }
 
@@ -62,9 +63,9 @@ class UserController extends Controller
         try {
             User::find($userId)->delete();
 
-            return redirect()->route('users.index')->with('destroy-success', 'Usuário excluído com sucesso.');
+            return redirect()->route('users.index')->with('success', 'Usuário excluído com sucesso.');
         } catch(Exception $ex) {
-            return redirect()->route('users.index')->with('destroy-error', 'Ocorreu um erro ao excluir o usuário: ' . $ex->getMessage());
+            return redirect()->route('users.index')->with('error', 'Ocorreu um erro ao excluir o usuário: ' . $ex->getMessage());
         }
     }
 }

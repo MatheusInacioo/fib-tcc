@@ -206,7 +206,6 @@ export default {
 
     data() {
         return {
-            tableTitle: this.settings.title,
             showModal: false,
             selectedItem: null,
             currentPage: 1,

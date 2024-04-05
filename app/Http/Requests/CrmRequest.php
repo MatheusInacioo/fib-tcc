@@ -16,7 +16,7 @@ class CrmRequest extends FormRequest
         return [
             'name' => 'required|string',
             'cnpj' => 'required|string',
-            'email' => 'required|string',
+            'email' => 'required|email|max:50|regex:/^[a-z0-9._]+@[a-z0-9.-]+\.[a-z]{2,}$/i',
             'address' => 'nullable',
             'phone' => 'nullable',
             'responsible' => 'nullable',
@@ -31,9 +31,13 @@ class CrmRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'email.required' => 'Campo obrigatório.',
+            'email.email' => 'Formato de email inválido.',
+            'email.max' => 'O email deve ter no máximo :max caracteres.',
+            'email.regex' => 'Formato de email inválido',
+            
             'name.required' => 'Campo obrigatório',
             'cnpj.required' => 'Campo obrigatório',
-            'email.required' => 'Campo obrigatório',
             'segment.required' => 'Campo obrigatório',
             'type.required' => 'Campo obrigatório',
             'status.required' => 'Campo obrigatório',
