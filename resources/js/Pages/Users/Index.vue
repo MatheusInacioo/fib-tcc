@@ -1,14 +1,14 @@
 <template>
     <BaseLayout>
         <div
-            v-if="! users"
+            v-if="users == 0"
             class="h-full w-full flex flex-col items-center justify-center"
         >
             <i class="bx bx-error-circle text-red-500 text-8xl mb-5"></i>
             <p class="font-semibold text-2xl mb-5">Nenhum usuário encontrado</p>
             <a
                 :href="route('users.create')"
-                class="flex justify-center items-center w-40 h-10 bg-primary rounded-xl text-white text-lg font-poppins font-semibold shadow-xl hover:scale-105 transition-all"
+                class="flex justify-center items-center min-w-40 p-2 h-10 bg-primary rounded-xl text-white text-lg font-semibold shadow-xl hover:scale-105 transition-all"
             >
                 <i class="bx bx-plus font-semibold"></i>
                 <p class="font-medium">Novo Usuário</p>
