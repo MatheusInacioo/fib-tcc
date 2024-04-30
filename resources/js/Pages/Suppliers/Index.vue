@@ -116,27 +116,27 @@ export default {
     },
 
     created() {
-        var flash = this.$page.props.flash;
+        // var flash = this.$page.props.flash;
 
-        if(flash) {
-            this.showModal = true;
+        // if(flash) {
+        //     this.showModal = true;
 
-             if(flash['create-success']) {
-                this.message = flash['create-success'];
-             } else if (flash['update-success']) {
-                this.message = flash['update-success'];
-             } else if (flash['destroy-success']) {
-                this.message = flash['destroy-success'];
-             }
+        //      if(flash['create-success']) {
+        //         this.message = flash['create-success'];
+        //      } else if (flash['update-success']) {
+        //         this.message = flash['update-success'];
+        //      } else if (flash['destroy-success']) {
+        //         this.message = flash['destroy-success'];
+        //      }
 
-             if(flash['create-error']) {
-                this.message = flash['create-error'];
-             } else if (flash['update-error']) {
-                this.message = flash['update-error'];
-             } else if (flash['destroy-error']) {
-                this.message = flash['destroy-error'];
-             }
-        }
+        //      if(flash['create-error']) {
+        //         this.message = flash['create-error'];
+        //      } else if (flash['update-error']) {
+        //         this.message = flash['update-error'];
+        //      } else if (flash['destroy-error']) {
+        //         this.message = flash['destroy-error'];
+        //      }
+        // }
     },
 }
 </script>

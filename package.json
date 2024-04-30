@@ -19,6 +19,8 @@
         "vue": "^3.4.0"
     },
     "dependencies": {
-        "maska": "^2.1.11"
+        "chart.js": "^4.4.2",
+        "maska": "^2.1.11",
+        "vue-chartjs": "^5.3.1"
     }
 }
