@@ -4,21 +4,11 @@
         <div class="flex h-full overflow-y-auto">
             <div class="flex w-full h-full">
                 <div class="flex flex-col mr-4 w-1/2 h-full">
-                    <div class="h-1/2 w-full rounded-lg border border-gray-200 mb-4 p-4">
-                        <Bar
-                            aria-label="Entradas"
-                            id="entryBarChart"
-                            :options="entryChartOptions"
-                            :data="entryChartData"
-                        />
+                    <div class="h-1/2 w-full rounded-lg border border-gray-200 mb-4 p-2">
+                        <canvas id="entryChart"></canvas>
                     </div>
-                    <div class="h-1/2 w-full rounded-lg border border-gray-200 p-4">
-                        <Bar
-                            aria-label="Saídas"
-                            id="exitBarChart"
-                            :options="exitChartOptions"
-                            :data="exitChartData"
-                        />
+                    <div class="h-1/2 w-full rounded-lg border border-gray-200 p-2">
+                        <canvas id="exitChart"></canvas>
                     </div>
                 </div>
                 <div class="flex rounded-lg shadow-lg w-1/2 h-full border border-gray-200">
@@ -30,80 +20,87 @@
 </template>
 
 <script>
+    import Chart from 'chart.js/auto';
     import BaseLayout from '@/Components/Layout/BaseLayout.vue'; 
-    import { Bar } from 'vue-chartjs';
-    import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
-
-    ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
     export default {
         components: {
             BaseLayout,
-            Bar,
-        },
-
-        props: {
-
         },
 
         data() {
             return {
-                entryChartData: {
-                    labels: [ 
-                        'January', 
-                        'February', 
-                        'March', 
-                        'April', 
-                        'May',
-                        'June',
-                        'July',
-                        'August',
-                        'September',
-                        'October',
-                        'November',
-                        'December',
-                     ],
-                    datasets: [
-                        {
-                            label: 'Entradas',
-                            backgroundColor: '#5591f2',
-                            data: [5, 20, 15, 35, 10, 100, 45, 93, 66, 31, 51, 44]
-                        }
-                    ]
+                entryChartSettings: {
+                    type: 'bar',
+                    name: 'Entradas',
+                    labels: [
+                        'Janeiro',
+                        'Fevereiro',
+                        'Março',
+                        'Abril',
+                        'Maio',
+                        'Junho',
+                        'Julho',
+                        'Agosto',
+                        'Setembro',
+                        'Outubro',
+                        'Novembro',
+                        'Dezembro'
+                    ],
+                    data: [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24],
                 },
 
-                entryChartOptions: {
-                  responsive: true
-                },
-
-                exitChartData: {
-                    labels: [ 
-                        'January', 
-                        'February', 
-                        'March', 
-                        'April', 
-                        'May',
-                        'June',
-                        'July',
-                        'August',
-                        'September',
-                        'October',
-                        'November',
-                        'December',
-                     ],
-                    datasets: [
-                        {
-                            label: 'Saídas',
-                            backgroundColor: '#5591f2',
-                            data: [50, 40, 55, 100, 70, 33, 41, 44, 52, 15, 28, 37]
-                        }
-                    ]
-                },
-
-                exitChartOptions: {
-                  responsive: true
-                },
+                exitChartSettings: {
+                    type: 'bar',
+                    name: 'Saídas',
+                    labels: [
+                        'Janeiro',
+                        'Fevereiro',
+                        'Março',
+                        'Abril',
+                        'Maio',
+                        'Junho',
+                        'Julho',
+                        'Agosto',
+                        'Setembro',
+                        'Outubro',
+                        'Novembro',
+                        'Dezembro'
+                    ],
+                    data: [23, 21, 19, 17, 15, 13, 11, 9, 7, 5, 3, 1],
+                }
             }
+        },
+
+        methods: {
+            buildChart(ctx, chart) {
+                new Chart(ctx, {
+                    type: chart.type,
+                    data: {
+                        labels: chart.labels,
+                        datasets: [{
+                            label: chart.name,
+                            data: chart.data,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        },
+
+        mounted() {
+            const entryChart = document.getElementById('entryChart');
+            const exitChart = document.getElementById('exitChart');
+
+            this.buildChart(entryChart, this.entryChartSettings);
+            this.buildChart(exitChart, this.exitChartSettings);
         }
     }
 </script>
