@@ -86,6 +86,11 @@
                         route: 'suppliers.index',
                     },
                     {
+                        title: 'Produtos',
+                        icon: 'bx bx-purchase-tag-alt',
+                        route: 'products.index',
+                    },
+                    {
                         title: 'Sair',
                         icon: 'bx bx-log-out',
                         route: 'login.destroy',
