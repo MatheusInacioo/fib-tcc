@@ -48,6 +48,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/products/destroy/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 
     // User routes
-    // Route::resource('/users', UserController::class)->except(['show', 'destroy']);
-    // Route::post('/users/destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::resource('/users', UserController::class)->except(['show', 'destroy']);
+    Route::post('/users/destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 });

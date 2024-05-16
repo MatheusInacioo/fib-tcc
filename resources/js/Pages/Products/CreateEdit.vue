@@ -179,7 +179,21 @@
                         name="description"
                         id="description"
                         maxlength="500"
-                        placeholder="Descrição do produto (máx. 500 caracteres)"
+                        placeholder="Descrição sobre o produto (máx. 500 caracteres)"
+                    ></textarea>
+                    <div v-if="form.errors.description" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.description }}</div>
+                </div>
+            </div>
+
+            <div class="form-row mb-5">
+                <div class="form-field flex flex-col 2lx:mr-6 mr-4">
+                    <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Informações Adicionais</span>
+                    <textarea
+                        v-model="form.additional_info"
+                        class="border-gray-300 h-[150px] w-full 2xl:text-base text-sm rounded-lg"
+                        name="additional_info"
+                        id="additional_info"
+                        placeholder="Informações adicionais do produto (max.)"
                     ></textarea>
                     <div v-if="form.errors.additional_info" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.additional_info }}</div>
                 </div>
@@ -274,6 +288,8 @@ export default {
             this.form.total_amount = data.total_amount;
             this.form.minimum_amount = data.minimum_amount;
             this.form.storage_location = data.storage_location;
+            this.form.expiry_date = data.expiry_date;
+            this.form.description = data.description;
             this.form.additional_info = data.additional_info;
         },
 
