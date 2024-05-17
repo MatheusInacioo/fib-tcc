@@ -32,7 +32,9 @@
                         type="text"
                         name="sku"
                         id="sku"
-                        placeholder="SKU do Produto"
+                        v-maska
+                        data-maska="P####S#####K##"
+                        placeholder="P0000S00000K00"
                     >
                     <div v-if="form.errors.sku" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.sku }}</div>
                 </div>
@@ -156,7 +158,7 @@
                 </div>
 
                 <div class="form-field flex flex-col 2lx:mr-6 mr-4">
-                    <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Data de Vencimento</span>
+                    <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Data de Vencimento (se houver)</span>
                     <input
                         v-model="form.expiry_date"
                         class="border-gray-300 2xl:w-[370px] w-[250px] 2xl:text-base text-sm rounded-xl"
@@ -170,8 +172,8 @@
 
             </div>
 
-            <div class="form-row mb-5">
-                <div class="form-field flex flex-col 2lx:mr-6 mr-4">
+            <div class="form-row flex mb-5">
+                <div class="form-field flex flex-col 2lx:mr-6 mr-4 w-full">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Descrição do Produto</span>
                     <textarea
                         v-model="form.description"
@@ -183,17 +185,15 @@
                     ></textarea>
                     <div v-if="form.errors.description" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.description }}</div>
                 </div>
-            </div>
 
-            <div class="form-row mb-5">
-                <div class="form-field flex flex-col 2lx:mr-6 mr-4">
+                <div class="form-field flex flex-col 2lx:mr-6 mr-4 w-full">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Informações Adicionais</span>
                     <textarea
                         v-model="form.additional_info"
                         class="border-gray-300 h-[150px] w-full 2xl:text-base text-sm rounded-lg"
                         name="additional_info"
                         id="additional_info"
-                        placeholder="Informações adicionais do produto (max.)"
+                        placeholder="Informações adicionais do produto (max. 200 caracteres)"
                     ></textarea>
                     <div v-if="form.errors.additional_info" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.additional_info }}</div>
                 </div>
@@ -220,8 +220,11 @@
 <script>
 import BaseLayout from '@/Components/Layout/BaseLayout.vue';
 import { useForm } from '@inertiajs/vue3';
+import { vMaska } from "maska"
 
 export default {
+    directives: { maska: vMaska },
+
     components: {
         BaseLayout,
     },

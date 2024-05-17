@@ -30,4 +30,11 @@ class Product extends Model
     {
         return $this->belongsTo(Supplier::class);
     }
+
+    public function getSupplierName() 
+    {
+        $supplierName = Supplier::find($this->supplier_id)->value('name');
+
+        return $supplierName;
+    }
 }

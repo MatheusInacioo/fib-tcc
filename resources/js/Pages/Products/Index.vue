@@ -21,7 +21,7 @@
         >
             <Datatable
                 :settings="tableSettings"
-                :data="products"
+                :data="formattedProducts"
             />
         </div>
 
@@ -46,13 +46,17 @@ export default {
     },
 
     props: {
-        products: [],
+        products: {
+            type: Array,
+            default: () => ([]),
+        },
     },
 
     data() {
         return {
             message: {},
             showModal: false,
+            formattedProducts: [],
             tableSettings: {
                 title: 'Produtos',
                 button_title: 'Novo produto',
@@ -88,7 +92,7 @@ export default {
                     },
                     {
                         label: 'Fornecedor',
-                        name: 'supplier',
+                        name: 'supplier_name',
                         sortable: true,
                         searchable: true,
                     },
@@ -110,6 +114,11 @@ export default {
     },
 
     created() {
+        this.formattedProducts = this.products.map(product => ({
+            ...product,
+            supplier_name: product.supplier.name,
+        }));
+
         setTimeout(() => {
             var flashMessage = this.$page.props.flash;
 
