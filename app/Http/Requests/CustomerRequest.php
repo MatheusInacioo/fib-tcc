@@ -15,7 +15,7 @@ class CustomerRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'cnpj' => 'required|string',
+            'cnpj' => 'required|unique:customers|string',
             'email' => 'required|string',
             'address' => 'required|string',
             'phone' => 'required|string',
@@ -36,6 +36,8 @@ class CustomerRequest extends FormRequest
             'responsible.required' => 'Campo obrigatório',
             'responsible_phone.required' => 'Campo obrigatório',
             'segment.required' => 'Campo obrigatório',
+
+            'cnpj.unique' => 'CNPJ já cadastrado como cliente',
         ];
     }
 

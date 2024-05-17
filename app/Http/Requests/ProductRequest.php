@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProductRequest extends FormRequest
@@ -13,13 +14,13 @@ class ProductRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'name' => 'required|string',
             'sku' => 'required|string',
             'brand' => 'required|string',
             'supplier_id' => 'required|int',
-            'purchase_price' => 'required|decimal',
-            'sale_price' => 'required|decimal',
+            'purchase_price' => 'required|decimal:0,2',
+            'sale_price' => 'required|decimal:0,2',
             'total_amount' => 'required|int',
             'minimum_amount' => 'required|int',
             'storage_location' => 'required|string',
@@ -27,6 +28,12 @@ class ProductRequest extends FormRequest
             'description' => 'required|string',
             'additional_info' => 'nullable|string',
         ];
+
+        if (!$this->route('product') || $this->isSkuChanged()) {
+            $rules['sku'] .= '|unique:products';
+        }
+
+        return $rules;
     }
 
     public function messages(): array
@@ -42,7 +49,20 @@ class ProductRequest extends FormRequest
             'minimum_amount.required' => 'Campo obrigatório',
             'storage_location.required' => 'Campo obrigatório',
             'description.required' => 'Campo obrigatório',
+
+            'purchase_price.decimal' => 'No máximo 2 casas decimais',
+            'sale_price.decimal' => 'No máximo 2 casas decimais',
+            'sku.unique' => 'SKU já cadastrado',
         ];
+    }
+
+    private function isSkuChanged(): bool
+    {
+        $productId = $this->route('product')->id ?? null;
+        $requestedSku = $this->input('sku');
+        $currentProduct = $productId ? Product::findOrFail($productId) : null;
+
+        return $currentProduct && $requestedSku !== $currentProduct->sku;
     }
 
     public function getProductData(): array
