@@ -39,6 +39,7 @@
             </transition>
         </div>
 
+        <!-- Mobile Burger Menu -->
         <button
             @click="toggleMenu = !toggleMenu"
         >
@@ -47,7 +48,7 @@
             <transition name="burger-menu">
                 <div
                     v-if="toggleMenu"
-                    class="absolute top-[75px] left-[30px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl mobile:w-full mobile:left-[0px]"
+                    class="absolute top-[75px] left-[0px] flex flex-col min-w-[250px] z-10 bg-white border border-gray-200 shadow-lg rounded-xl mx-2"
                 >
                     <div class="px-2">
                         <a
@@ -75,6 +76,7 @@
                 </div>
             </transition>
         </button>
+        <!--  -->
 
         <div class="max-w-[500px] dropdown-holder flex flex-col">
             <div
@@ -96,9 +98,9 @@
             <transition name="dropdown">
                 <div
                     v-if="toggleDropdown"
-                    class="absolute top-[75px] right-[30px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl mobile:w-full mobile:right-[0px]"
+                    class="absolute top-[75px] right-[30px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl mobile:right-[0px] mobile:rounded-xl mobile:w-[95%] mobile:mx-2"
                 >
-                    <div class="flex p-4 border-b border-b-gray-300 bg-primary">
+                    <div class="flex p-4 border-b border-b-gray-300 bg-primary mobile:rounded-t-xl">
                         <div class="flex hover:scale-110 transition-all cursor-pointer">
                             <i class="bx bxs-user-circle 2xl:text-4xl text-secondary text-3xl mr-2 mobile:text-4xl"></i>
                             <div class="flex flex-col">
@@ -148,7 +150,7 @@
                    route: 'login.destroy',
                },
            ],
-           
+
            menus: [
                 {
                     title: 'CRM',
@@ -201,8 +203,8 @@
     computed: {
         filteredMenus() {
             if (!this.searchQuery) return this.menus;
-            
-            return this.menus.filter(menu => 
+
+            return this.menus.filter(menu =>
                 menu.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
                 (menu.submenus && menu.submenus.some(submenu => submenu.title.toLowerCase().includes(this.searchQuery.toLowerCase())))
             );

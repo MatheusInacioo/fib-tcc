@@ -8,7 +8,7 @@
                 <div class="sidebar-header h-24 px-8 flex justify-center items-center mb-4">
                     <h4 class="text-2xl 2xl:text-4xl font-bold text-secondary text-center">LOGO</h4>
                     <button
-                        class="2xl:w-6 2xl:h-6 absolute left-[244px] top-[35px] bg-secondary text-primary 2xl:text-xl rounded-xl hover:scale-125 transition-all border border-gray-400 flex justify-center items-center"
+                        class="2xl:w-6 2xl:h-6 absolute left-[1vw] top-[35px] bg-secondary text-primary 2xl:text-xl rounded-xl hover:scale-125 transition-all border border-gray-400 flex justify-center items-center"
                         @click="showBar = !showBar"
                     >
                         <i class="bx bx-chevron-left"></i>
