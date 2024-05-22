@@ -26,14 +26,14 @@ class Product extends Model
         'additional_info',
     ];
 
-    public function supplier() 
+    public function supplier()
     {
         return $this->belongsTo(Supplier::class);
     }
 
-    public function getSupplierName() 
+    public function getSupplierName()
     {
-        $supplierName = Supplier::find($this->supplier_id)->value('name');
+        $supplierName = Supplier::where('id', $this->supplier_id)->value('name');
 
         return $supplierName;
     }

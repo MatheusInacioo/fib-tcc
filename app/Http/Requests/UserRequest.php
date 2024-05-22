@@ -15,7 +15,7 @@ class UserRequest extends FormRequest
     {
         $rules =  [
             'name' => 'required|string',
-            'email' => 'required|email|max:50|regex:/^[a-z0-9._]+@[a-z0-9.-]+\.[a-z]{2,}$/i',
+            'email' => 'required|unique:users|email|max:50|regex:/^[a-z0-9._]+@[a-z0-9.-]+\.[a-z]{2,}$/i',
             'password' => 'required',
         ];
 

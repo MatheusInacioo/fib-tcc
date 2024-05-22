@@ -286,6 +286,7 @@ export default {
             this.form.sku = data.sku;
             this.form.brand = data.brand;
             this.form.supplier_id = data.supplier_id;
+            this.supplierQuery = data.supplier_name;
             this.form.purchase_price = data.purchase_price;
             this.form.sale_price = data.sale_price;
             this.form.total_amount = data.total_amount;
@@ -311,7 +312,6 @@ export default {
     },
 
     created() {
-        // console.log(this.suppliers);
         if(this.productExists) {
             this.buildForm(this.product.data);
         }
