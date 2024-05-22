@@ -1,5 +1,5 @@
 <template>
-    <div class="topbar flex justify-between items-center h-16 bg-white 2xl:mb-4 mb-2 px-5 rounded-xl shadow-lg border border-gray-200">
+    <div class="mobile:bg-primary topbar flex justify-between items-center h-16 bg-white 2xl:mb-4 mb-2 px-5 rounded-xl shadow-lg border border-gray-200">
         <div class="w-[320px] max-w-[500px] searchbar-holder flex flex-col">
             <div class="flex items-center 2xl:w-full my-4 bg-white border-b border-b-primary transition-all">
                 <input
@@ -39,6 +39,43 @@
             </transition>
         </div>
 
+        <button
+            @click="toggleMenu = !toggleMenu"
+        >
+            <i class="bx bx-menu text-3xl text-secondary web:hidden"></i>
+
+            <transition name="burger-menu">
+                <div
+                    v-if="toggleMenu"
+                    class="absolute top-[75px] left-[30px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl mobile:w-full mobile:left-[0px]"
+                >
+                    <div class="px-2">
+                        <a
+                            :href="route('dashboard.index')"
+                            class="flex items-center hover:bg-gray-200 transition-all px-4 py-2"
+                        >
+                            <i class="bx bx-home mr-3 text-2xl text-primary"></i>
+                            <p class="font-medium text-gray-800 text-lg"> Início </p>
+                        </a>
+                    </div>
+
+                    <div
+                        v-for="menu in menus"
+                        :key="menu.id"
+                        class="px-2"
+                    >
+                        <a
+                            :href="route(menu.route)"
+                            class="flex items-center hover:bg-gray-200 transition-all px-4 py-2"
+                        >
+                            <i :class="menu.icon + ' mr-3 text-2xl text-primary'"></i>
+                            <p class="font-medium text-gray-800 text-lg"> {{ menu.title }} </p>
+                        </a>
+                    </div>
+                </div>
+            </transition>
+        </button>
+
         <div class="max-w-[500px] dropdown-holder flex flex-col">
             <div
                 @click="toggleDropdown = !toggleDropdown"
@@ -49,23 +86,24 @@
                         'bx bx-chevron-down' : !toggleDropdown,
                         'bx bx-chevron-up' : toggleDropdown,
                     }"
-                    class="mr-1 text-2xl"
+                    class="mr-1 text-2xl mobile:hidden"
                 ></i>
-                <p class="text-base 2xl:text-lg font-medium mr-2">{{ userName }}</p>
-                <i class="bx bx-user-circle 2xl:text-4xl text-3xl"></i>
+                <p class="text-base 2xl:text-lg font-medium mr-2 mobile:hidden">{{ userName }}</p>
+                <i class="web:hidden bx bxs-user-circle text-4xl text-white"></i>
+                <i class="mobile:hidden bx bx-user-circle 2xl:text-4xl text-3xl"></i>
             </div>
 
             <transition name="dropdown">
                 <div
                     v-if="toggleDropdown"
-                    class="absolute top-[75px] right-[30px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl"
+                    class="absolute top-[75px] right-[30px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl mobile:w-full mobile:right-[0px]"
                 >
                     <div class="flex p-4 border-b border-b-gray-300 bg-primary">
                         <div class="flex hover:scale-110 transition-all cursor-pointer">
-                            <i class="bx bxs-user-circle 2xl:text-4xl text-secondary text-3xl mr-2"></i>
+                            <i class="bx bxs-user-circle 2xl:text-4xl text-secondary text-3xl mr-2 mobile:text-4xl"></i>
                             <div class="flex flex-col">
-                                <p class="text-xs 2xl:text-base text-secondary font-semibold mr-2">{{ userName }}</p>
-                                <small class="text-secondary">Admin</small>
+                                <p class="text-xs 2xl:text-base text-secondary font-semibold mr-2 mobile:text-xl">{{ userName }}</p>
+                                <small class="text-secondary mobile:text-base">Admin</small>
                             </div>
                         </div>
                     </div>
@@ -80,8 +118,8 @@
                             :class="{ 'hover:rounded-b-lg' : button.title == 'Sair' }"
                             class="flex items-center hover:bg-gray-200 transition-all hover:scale-110 px-4 py-2"
                         >
-                            <i :class="button.icon + ' mr-3 text-base 2xl:text-xl text-gray-800'"></i>
-                            <p class="text-sm 2xl:text-base font-medium text-gray-800"> {{ button.title }} </p>
+                            <i :class="button.icon + ' mr-3 text-base 2xl:text-xl text-gray-800 mobile:text-2xl'"></i>
+                            <p class="text-sm 2xl:text-base font-medium text-gray-800 mobile:text-lg"> {{ button.title }} </p>
                         </a>
                     </div>
                 </div>
@@ -96,6 +134,7 @@
         return {
            userName: this.$page.props.auth.user.name,
            toggleDropdown: false,
+           toggleMenu: false,
            searchQuery: '',
            buttons: [
                {
@@ -113,6 +152,7 @@
            menus: [
                 {
                     title: 'CRM',
+                    icon: 'bx bx-clipboard',
                     route: 'crm.index',
                     submenus: [
                         {
@@ -123,6 +163,7 @@
                 },
                 {
                     title: 'Clientes',
+                    icon: 'bx bx-group',
                     route: 'customers.index',
                     submenus: [
                         {
@@ -133,11 +174,23 @@
                 },
                 {
                     title: 'Fornecedores',
+                    icon: 'bx bx-package',
                     route: 'suppliers.index',
                     submenus: [
                         {
                             title: 'Novo Fornecedor',
                             route: 'suppliers.create',
+                        }
+                    ],
+                },
+                {
+                    title: 'Produtos',
+                    icon: 'bx bx-purchase-tag-alt',
+                    route: 'products.index',
+                    submenus: [
+                        {
+                            title: 'Novo Produto',
+                            route: 'products.create',
                         }
                     ],
                 },
@@ -161,6 +214,8 @@
  <style scoped>
     .dropdown-enter-active,
     .dropdown-leave-active,
+    .burger-menu-enter-active,
+    .burger-menu-leave-active,
     .searchbar-enter-active,
     .searchbar-leave-active {
         transition: all 0.3s cubic-bezier(0.52, 0.02, 0.19, 1.02);
@@ -168,6 +223,8 @@
 
     .dropdown-enter-from,
     .dropdown-leave-to,
+    .burger-menu-enter-from,
+    .burger-menu-leave-to,
     .searchbar-enter-from,
     .searchbar-leave-to {
         opacity: 0;
@@ -176,9 +233,21 @@
 
     .dropdown-enter-to,
     .dropdown-leave-from,
+    .burger-menu-enter-to,
+    .burger-menu-leave-from,
     .searchbar-enter-to,
     .searchbar-leave-from {
         opacity: 1;
         transform: translateY(0);
+    }
+
+    @media screen and (max-width: 1200px) {
+        .searchbar-holder {
+            display: none !important;
+        }
+
+        .topbar {
+            justify-content: space-between !important;
+        }
     }
  </style>

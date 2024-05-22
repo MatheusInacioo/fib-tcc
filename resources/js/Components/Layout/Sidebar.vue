@@ -1,5 +1,5 @@
 <template>
-    <div class="holder">
+    <div class="holder mobile:hidden">
         <Transition :name="showBar ? 'sidebar-transition' : 'sidebar-transition-reverse'">
             <div
                 v-if="showBar"

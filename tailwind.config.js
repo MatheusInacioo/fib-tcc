@@ -15,7 +15,7 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
                 poppins: ['Poppins', 'arial', 'sans-serif'],
-                roboto:  ['Roboto', 'arial', 'sans-serif'],
+                roboto: ['Roboto', 'arial', 'sans-serif'],
             },
             colors: {
                 primary: '#f97316',
@@ -23,6 +23,10 @@ export default {
                 danger: '#ef4444',
                 success: '#22c55e',
                 warning: '#eab308',
+            },
+            screens: {
+                'mobile': { 'max': '1200px' },
+                'web': { 'min': '1201px' },
             },
         },
     },

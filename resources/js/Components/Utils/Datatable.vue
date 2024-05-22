@@ -1,7 +1,7 @@
 <template>
     <div class="rounded-xl shadow-lg border border-gray-200">
-        <div class="flex items-center justify-between px-4 py-2">
-            <div class="flex items-center">
+        <div class="flex w-full items-center justify-between px-4 py-2">
+            <div class="flex items-center mobile:hidden">
                 <p class="font-medium 2xl:text-2xl text-xl mr-4">{{ settings.title }}</p>
 
                 <div class="flex items-center 2xl:w-80 w-64 ml-4 my-4 bg-white rounded-lg border border-gray-200 hover:border-gray-500 transition-all">
@@ -15,9 +15,33 @@
                 </div>
             </div>
 
+            <div class=" web:hidden flex flex-col w-full">
+                <p class="font-medium 2xl:text-2xl text-xl mb-2">{{ settings.title }}</p>
+
+                <div class="flex justify-between w-full">
+                    <div class="flex items-center w-60 bg-white rounded-lg border border-gray-200 hover:border-gray-500 transition-all">
+                        <input
+                            type="text"
+                            v-model="searchQuery"
+                            placeholder="Buscar Registros..."
+                            class="w-full border-none focus:outline-none rounded-l-lg"
+                        >
+                        <i class="bx bx-search text-lg 2xl:text-xl mx-2"></i>
+    
+                    </div>
+
+                    <a
+                        :href="route(settings.routes.create)"
+                        class="flex justify-center items-center w-10 h-10 bg-primary rounded-xl text-white p-2 text-base font-semibold shadow-xl hover:scale-105 transition-all"
+                    >
+                        <i class="bx bx-plus text-xl font-semibold text-secondary"></i>
+                    </a>
+                </div>
+            </div>
+
             <a
                 :href="route(settings.routes.create)"
-                class="flex justify-center items-center w-auto 2xl:h-10 bg-primary rounded-xl text-white p-2 text-base 2xl:text-lg font-semibold shadow-xl hover:scale-105 transition-all"
+                class="flex justify-center items-center w-auto 2xl:h-10 bg-primary rounded-xl text-white p-2 text-base 2xl:text-lg font-semibold shadow-xl hover:scale-105 transition-all mobile:hidden"
             >
                 <i class="bx bx-plus font-semibold mr-2 text-secondary"></i>
                 <p class="font-medium text-secondary">{{ settings.button_title }}</p>
