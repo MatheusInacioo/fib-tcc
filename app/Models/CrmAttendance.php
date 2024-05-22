@@ -21,4 +21,9 @@ class CrmAttendance extends Model
         'description',
         'user',
     ];
+
+    public function crm()
+    {
+        return $this->belongsTo(Crm::class);
+    }
 }

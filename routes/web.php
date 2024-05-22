@@ -32,18 +32,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     // CRM routes
-    Route::resource('/crm', CrmController::class)->except(['show', 'destroy', 'edit']);
+    Route::resource('/crm', CrmController::class)->except(['show', 'destroy']);
     Route::post('/crm/destroy/{id}', [CrmController::class, 'destroy'])->name('crm.destroy');
 
     // Customer routes
     Route::resource('/customers', CustomerController::class)->except(['show', 'destroy']);
     Route::post('/customer/destroy/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
 
-    // Supplier routes 
+    // Supplier routes
     Route::resource('/suppliers', SupplierController::class)->except(['show', 'destroy']);
     Route::post('/suppliers/destroy/{id}', [SupplierController::class, 'destroy'])->name('suppliers.destroy');
 
-    // Product routes 
+    // Product routes
     Route::resource('/products', ProductController::class)->except(['show', 'destroy']);
     Route::post('/products/destroy/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 

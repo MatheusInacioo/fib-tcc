@@ -28,4 +28,16 @@ class Crm extends Model
         'type',
         'status',
     ];
+
+    public function attendances()
+    {
+        return $this->hasMany(CrmAttendance::class);
+    }
+
+    public function getAttendances()
+    {
+        $attendances = CrmAttendance::where('crm_id', $this->id)->get();
+
+        return $attendances;
+    }
 }

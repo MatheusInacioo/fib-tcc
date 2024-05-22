@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CrmRequest;
+use App\Http\Resources\CrmResource;
 use App\Models\Crm;
 use App\Models\CrmAttendance;
 use Exception;
@@ -14,14 +15,22 @@ class CrmController extends Controller
     {
         $records = Crm::all();
 
-        foreach($records as $record) {
-            $attendances = CrmAttendance::where('crm_id', $record->id)->get();
-
-            $record['attendances'] = $attendances;
-        }
-
         return Inertia::render('Crm/Index', [
             'crm' => $records,
+        ]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('Crm/CreateEdit', [
+            'item' => CrmResource::make(new Crm),
+        ]);
+    }
+
+    public function edit(Crm $crm)
+    {
+        return Inertia::render('Crm/CreateEdit', [
+            'item' => CrmResource::make($crm),
         ]);
     }
 

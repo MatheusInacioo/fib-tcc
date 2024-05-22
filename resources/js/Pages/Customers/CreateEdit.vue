@@ -15,7 +15,7 @@
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Nome da empresa</span>
                     <input
                         v-model="form.name"
-                        class="border-gray-300 2xl:w-[370px] min-min-w-[250px] mobile:w-full 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile:w-full 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="name"
                         id="name"

@@ -26,6 +26,7 @@ class CrmResource extends JsonResource
             'segment' => $this->segment,
             'type' => $this->type,
             'status' => $this->status,
+            'attendances' => $this->getAttendances(),
         ];
     }
 }

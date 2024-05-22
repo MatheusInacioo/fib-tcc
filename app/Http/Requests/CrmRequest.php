@@ -35,7 +35,7 @@ class CrmRequest extends FormRequest
             'email.email' => 'Formato de email inválido.',
             'email.max' => 'O email deve ter no máximo :max caracteres.',
             'email.regex' => 'Formato de email inválido',
-            
+
             'name.required' => 'Campo obrigatório',
             'cnpj.required' => 'Campo obrigatório',
             'segment.required' => 'Campo obrigatório',
@@ -63,8 +63,8 @@ class CrmRequest extends FormRequest
     public function getAttendanceData(): array
     {
         return [
-            'crm_id' => $this->id ?? null,
-            'description' => $this->input('description'),
+            'crm_id' => $this->route('crm')->id ?? null,
+            'description' => $this->input('description') ?? auth()->user()->name . " fez uma alteração no cadastro. Nenhuma descrição registrada.",
             'user' => auth()->user()->name,
         ];
     }

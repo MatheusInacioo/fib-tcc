@@ -3,12 +3,12 @@
         class="boardcard flex justify-between min-h-28 bg-white rounded-lg shadow-lg hover:scale-105 transition-all mb-4 p-2"
     >
         <div class="flex flex-col justify-between">
-            <div
-                @click="editItem()"
+            <a
+                :href="route('crm.edit', item.id)"
                 class="font-roboto font-semibold text-base cursor-pointer"
             >
                 {{'#' + item.id + ' ' + item.name }}
-        </div>
+            </a>
             <p
                 v-if="item.responsible_phone && !item.phone"
                 class="text-xs text-gray-500 font-medium"
@@ -60,10 +60,6 @@
         methods: {
             deleteItem() {
                 this.$emit('deleteItem');
-            },
-
-            editItem() {
-                this.$emit('editItem');
             },
         },
     }

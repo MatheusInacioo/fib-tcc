@@ -32,7 +32,7 @@
 
                     <a
                         :href="route(settings.routes.create)"
-                        class="flex justify-center items-center w-10 h-10 bg-primary rounded-xl text-white p-2 text-base font-semibold shadow-xl hover:scale-105 transition-all"
+                        class="flex justify-center items-center w-14 h-10 bg-primary rounded-xl text-white p-2 text-base font-semibold shadow-xl hover:scale-105 transition-all"
                     >
                         <i class="bx bx-plus text-xl font-semibold text-secondary"></i>
                     </a>
