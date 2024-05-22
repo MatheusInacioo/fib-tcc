@@ -1,20 +1,52 @@
 <template>
     <BaseLayout>
-        <p class="font-medium 2xl:text-2xl text-xl mr-4 mb-4">Dashboard</p>
-        <div class="flex h-full overflow-y-auto">
-            <div class="flex w-full h-full">
-                <div class="flex flex-col mr-4 w-1/2 h-full">
-                    <div class="h-1/2 w-full rounded-lg border border-gray-200 mb-4 p-2">
-                        <canvas id="entryChart"></canvas>
-                    </div>
-                    <div class="h-1/2 w-full rounded-lg border border-gray-200 p-2">
-                        <canvas id="exitChart"></canvas>
-                    </div>
+        <p class="font-medium 2xl:text-2xl text-xl">Dashboard</p>
+
+        <div class="h-px w-full bg-primary my-4 mobile:my-2"></div>
+
+        <div class="w-full min-h-64 rounded-xl shadow-xl flex flex-col justify-between 2xl:p-4 p-2 border border-gray-200 mb-4">
+            <div class="flex justify-between items-center">
+                <span class="text-2xl font-medium">Resumo do dia</span>
+                <span class="text-lg font-medium text-gray-500">Registros das últimas 24h</span>
+            </div>
+
+            <div class="w-full flex justify-between">
+                <div class="flex flex-col justify-between mb-14">
+                    <span class="text-2xl font-medium mb-2">Faturamento</span>
+                    <span class="text-xl text-gray-500">R$ 0.00</span>
                 </div>
-                <div class="flex rounded-lg shadow-lg w-1/2 h-full border border-gray-200">
-                    
+                <div class="flex flex-col justify-between mb-14">
+                    <span class="text-2xl font-medium mb-2">Título</span>
+                    <span class="text-xl text-gray-500">R$ 0.00</span>
+                </div>
+                <div class="flex flex-col justify-between mb-14">
+                    <span class="text-2xl font-medium mb-2">Título</span>
+                    <span class="text-xl text-gray-500">R$ 0.00</span>
+                </div>
+                <div class="flex flex-col justify-between mb-14">
+                    <span class="text-2xl font-medium mb-2">Título</span>
+                    <span class="text-xl text-gray-500">R$ 0.00</span>
+                </div>
+                <div class="flex flex-col justify-between mb-14">
+                    <span class="text-2xl font-medium mb-2">Título</span>
+                    <span class="text-xl text-gray-500">R$ 0.00</span>
                 </div>
             </div>
+        </div>
+        
+        <div class="w-full h-full rounded-xl flex flex-col justify-between shadow-xl 2xl:p-4 p-2 border border-gray-200 mb-4">
+            <p class="font-medium 2xl:text-2xl text-xl">Entradas</p>
+
+            <canvas class="max-h-[95%]" id="entryChart"></canvas>
+        </div>
+
+        <div class="w-full h-full flex justify-between">
+           <div class="flex flex-col justify-between rounded-xl shadow-xl 2xl:p-4 p-2 min-h-[250px] w-full border border-gray-200">
+
+           </div>
+           <div class="flex flex-col justify-between rounded-xl shadow-xl 2xl:p-4 p-2 min-h-[250px] w-full border border-gray-200">
+
+           </div>
         </div>
     </BaseLayout>
 </template>
@@ -81,7 +113,12 @@
                         datasets: [{
                             label: chart.name,
                             data: chart.data,
-                            borderWidth: 1
+                            borderWidth: 1,
+                            maxBarThickness: 30,
+                            borderRadius: {
+                                topRight: 15,
+                                topLeft: 15
+                            }
                         }]
                     },
                     options: {
