@@ -1,50 +1,73 @@
 <template>
     <BaseLayout>
-        <div class="w-full web:min-h-64 rounded-xl shadow-xl flex flex-col justify-between 2xl:p-4 p-2 border border-gray-200 mb-4 mobile:h-full mobile:justify-start">
-            <div class="flex justify-between items-center mobile:hidden">
-                <span class="text-2xl font-medium">Resumo do dia</span>
-                <span class="text-lg font-medium text-gray-500">Registros das últimas 24h</span>
+        <span class="text-2xl font-medium">Resumo do dia</span>
+
+        <div class="min-h-px w-full bg-primary my-4 mobile:my-2"></div>
+
+        <div class="flex mobile:flex-col mobile:items-center web:mb-4">
+            <div class="info-card w-[350px] min-h-52 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile:mb-4 web:mr-8 transition-all hover:scale-105">
+                <div class="flex justify-between items-center h-[33%] bg-green-500 rounded-t-xl p-4">
+                    <span class="text-2xl font-medium mb-2 text-white">Faturamento</span>
+                    <i class="bx bx-dollar text-white text-3xl"></i>
+                </div>
+
+                <div class="h-full p-4 flex flex-col justify-between">
+                    <span class="text-2xl font-medium mb-2 text-black">R$0,00</span>
+                    <div class="text-lg font-medium text-green-500">+ 0.00% em relação ao dia anterior</div>
+                </div>
             </div>
 
-            <span class="text-2xl mb-4 font-medium web:hidden">Resumo do dia (24h)</span>
+            <div class="info-card w-[350px] min-h-52 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile:mb-4 web:mr-8 transition-all hover:scale-105">
+                <div class="flex justify-between items-center h-[33%] bg-blue-500 rounded-t-xl p-4">
+                    <span class="text-2xl font-medium mb-2 text-white">Visão Geral</span>
+                    <i class="bx bx-package text-white text-3xl"></i>
+                </div>
 
-            <div class="w-full flex justify-between mobile:flex-col">
-                <div class="flex flex-col justify-between mb-14 mobile:mb-4">
-                    <span class="text-2xl font-medium mb-2">Faturamento</span>
-                    <span class="text-xl text-gray-500">R$ 0.00</span>
+                <div class="h-full p-4 flex flex-col justify-between">
+                    <span class="text-xl font-medium mb-2 text-black">0 entradas</span>
+                    <span class="text-xl font-medium mb-2 text-black">0 saídas</span>
+                    <div class="text-lg font-medium text-green-500">+ 0.00% em relação ao dia anterior</div>
                 </div>
-                <div class="flex flex-col justify-between mb-14 mobile:mb-4">
-                    <span class="text-2xl font-medium mb-2">Título</span>
-                    <span class="text-xl text-gray-500">R$ 0.00</span>
+            </div>
+
+            <div class="info-card w-[350px] min-h-52 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile:mb-4 web:mr-8 transition-all hover:scale-105">
+                <div class="flex justify-between items-center h-[33%] bg-yellow-500 rounded-t-xl p-4">
+                    <span class="text-2xl font-medium mb-2 text-white">Notificações</span>
+                    <i class="bx bx-info-circle text-white text-3xl"></i>
                 </div>
-                <div class="flex flex-col justify-between mb-14 mobile:mb-4">
-                    <span class="text-2xl font-medium mb-2">Título</span>
-                    <span class="text-xl text-gray-500">R$ 0.00</span>
+
+                <div class="h-full p-4 flex flex-col justify-between">
+                    <span class="text-xl font-medium mb-2 text-black">0 pedidos agendados para hoje</span>
                 </div>
-                <div class="flex flex-col justify-between mb-14 mobile:mb-4">
-                    <span class="text-2xl font-medium mb-2">Título</span>
-                    <span class="text-xl text-gray-500">R$ 0.00</span>
+            </div>
+
+            <div class="info-card w-[350px] min-h-52 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile:mb-4 web:mr-8 transition-all hover:scale-105">
+                <div class="flex justify-between items-center h-[33%] bg-red-500 rounded-t-xl p-4">
+                    <span class="text-2xl font-medium mb-2 text-white">Alertas</span>
+                    <i class="bx bx-error text-white text-3xl"></i>
                 </div>
-                <div class="flex flex-col justify-between mb-14 mobile:mb-4">
-                    <span class="text-2xl font-medium mb-2">Título</span>
-                    <span class="text-xl text-gray-500">R$ 0.00</span>
+
+                <div class="h-full p-4 flex flex-col justify-between">
+                    <span class="text-xl font-medium mb-2 text-black">0 produtos com baixa quantidade em estoque</span>
                 </div>
             </div>
         </div>
-        
-        <div class="w-full h-full rounded-xl flex flex-col justify-between shadow-xl 2xl:p-4 p-2 border border-gray-200 mb-4">
-            <p class="font-medium 2xl:text-2xl text-xl">Entradas</p>
 
-            <canvas class="max-h-[95%]" id="entryChart"></canvas>
+        <div class="w-full rounded-xl shadow-lg mb-4 border border-gray-200">
+            <div class="flex flex-col web:justify-between rounded-xl shadow-xl 2xl:p-4 p-2 web:max-h-[400px] mobile:min-h-[500px] w-full border border-gray-200 mobile:mb-4">
+                <p class="font-medium 2xl:text-2xl text-xl">Faturamento</p>
+
+                <canvas class="web:max-h-[85%]" id="stockChart"></canvas>
+            </div>
         </div>
 
-        <div class="w-full h-full flex mobile:flex-col">
-            <div class="flex flex-col justify-between rounded-xl shadow-xl 2xl:p-4 p-2 web:min-h-[300px] mobile:min-h-[500px] w-full border border-gray-200 mr-4 mobile:mb-4">
-                <p class="font-medium 2xl:text-2xl text-xl">Estoque</p>
+        <div class="flex mobile:flex-col w-full">
+            <div class="flex flex-col web:justify-between rounded-xl shadow-xl 2xl:p-4 p-2 web:min-h-[300px] mobile:min-h-[500px] w-[50%] mobile:w-full max-w-full border border-gray-200 mr-4 mobile:mb-4">
+                <p class="font-medium 2xl:text-2xl text-xl">Entradas</p>
 
-                <canvas class="web:max-h-[95%]" id="stockChart"></canvas>
+                <canvas class="web:max-h-[95%]" id="entryChart"></canvas>
             </div>
-            <div class="flex flex-col justify-between rounded-xl shadow-xl 2xl:p-4 p-2 web:min-h-[300px] mobile:min-h-[500px] w-full border border-gray-200">
+            <div class="flex flex-col web:justify-between rounded-xl shadow-xl 2xl:p-4 p-2 web:min-h-[300px] mobile:min-h-[500px] w-[50%] mobile:w-full max-w-full border border-gray-200">
                 <p class="font-medium 2xl:text-2xl text-xl">Saídas</p>
 
                 <canvas class="web:max-h-[95%]" id="exitChart"></canvas>
@@ -55,7 +78,7 @@
 
 <script>
     import Chart from 'chart.js/auto';
-    import BaseLayout from '@/Components/Layout/BaseLayout.vue'; 
+    import BaseLayout from '@/Components/Layout/BaseLayout.vue';
 
     export default {
         components: {
@@ -85,7 +108,7 @@
                 },
 
                 exitChartSettings: {
-                    type: 'line',
+                    type: 'bar',
                     name: 'Saídas',
                     labels: [
                         'Janeiro',
@@ -105,8 +128,8 @@
                 },
 
                 stockChartSettings: {
-                    type: 'bar',
-                    name: 'Estoque',
+                    type: 'line',
+                    name: 'Faturamento',
                     labels: [
                         'Janeiro',
                         'Fevereiro',
@@ -121,7 +144,7 @@
                         'Novembro',
                         'Dezembro'
                     ],
-                    data: [23, 21, 19, 17, 15, 13, 11, 9, 7, 5, 3, 1],
+                    data: [13, 21, 22, 14, 15, 23, 11, 9, 18, 5, 3, 2],
                 },
             }
         },
@@ -136,23 +159,37 @@
                             label: chart.name,
                             data: chart.data,
                             borderWidth: 1,
-                            maxBarThickness: 30,
+                            maxBarThickness: window.innerWidth < 800 ? 15 : 20,
                             aspectRatio: 0.8,
+                            tension: 0.1,
                             borderRadius: {
                                 topRight: 15,
                                 topLeft: 15
-                            }
+                            },
+                            animation: {
+                              duration: 500
+                            },
                         }]
                     },
                     options: {
-                        indexAxis: window.innerWidth <= 800 ? 'y' : 'x',
+                        indexAxis: window.innerWidth < 800 ? 'y' : 'x',
                         responsive: true,
+                        aspectRatio: window.innerWidth < 800 ? 0.8 : 2,
                         scales: {
                             y: {
                                 beginAtZero: true
                             }
-                        }
-                    }
+                        },
+                        elements: {
+                            bar: {
+                              borderRadius: {
+                                topRight: 15,
+                                bottomRight: window.innerWidth < 800 ? 15 : 0,
+                                topLeft: window.innerWidth < 800 ? 0 : 15,
+                              }
+                            }
+                        },
+                    },
                 });
             }
         },
