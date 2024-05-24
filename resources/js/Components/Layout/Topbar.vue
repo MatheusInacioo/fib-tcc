@@ -176,7 +176,7 @@
                 },
                 {
                     title: 'Fornecedores',
-                    icon: 'bx bxs-truck',
+                    icon: 'bx bx-package',
                     route: 'suppliers.index',
                     submenus: [
                         {

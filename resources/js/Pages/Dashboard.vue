@@ -5,7 +5,7 @@
         <div class="min-h-px w-full bg-primary my-4 mobile:my-2"></div>
 
         <div class="flex mobile:flex-col mobile:items-center web:mb-4">
-            <div class="info-card w-[350px] min-h-52 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile:mb-4 web:mr-8 transition-all hover:scale-105">
+            <div class="info-card w-[350px] min-h-52 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile:mb-4 web:mr-8 transition-all web:hover:scale-105">
                 <div class="flex justify-between items-center h-[33%] bg-green-500 rounded-t-xl p-4">
                     <span class="text-2xl font-medium mb-2 text-white">Faturamento</span>
                     <i class="bx bx-dollar text-white text-3xl"></i>
@@ -17,10 +17,10 @@
                 </div>
             </div>
 
-            <div class="info-card w-[350px] min-h-52 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile:mb-4 web:mr-8 transition-all hover:scale-105">
+            <div class="info-card w-[350px] min-h-52 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile:mb-4 web:mr-8 transition-all web:hover:scale-105">
                 <div class="flex justify-between items-center h-[33%] bg-blue-500 rounded-t-xl p-4">
                     <span class="text-2xl font-medium mb-2 text-white">Visão Geral</span>
-                    <i class="bx bx-package text-white text-3xl"></i>
+                    <i class="bx bx-line-chart text-white text-3xl"></i>
                 </div>
 
                 <div class="h-full p-4 flex flex-col justify-between">
@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-            <div class="info-card w-[350px] min-h-52 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile:mb-4 web:mr-8 transition-all hover:scale-105">
+            <div class="info-card w-[350px] min-h-52 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile:mb-4 web:mr-8 transition-all web:hover:scale-105">
                 <div class="flex justify-between items-center h-[33%] bg-yellow-500 rounded-t-xl p-4">
                     <span class="text-2xl font-medium mb-2 text-white">Notificações</span>
                     <i class="bx bx-info-circle text-white text-3xl"></i>
@@ -41,7 +41,7 @@
                 </div>
             </div>
 
-            <div class="info-card w-[350px] min-h-52 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile:mb-4 web:mr-8 transition-all hover:scale-105">
+            <div class="info-card w-[350px] min-h-52 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile:mb-4 web:mr-8 transition-all web:hover:scale-105">
                 <div class="flex justify-between items-center h-[33%] bg-red-500 rounded-t-xl p-4">
                     <span class="text-2xl font-medium mb-2 text-white">Alertas</span>
                     <i class="bx bx-error text-white text-3xl"></i>
