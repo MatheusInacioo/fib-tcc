@@ -4,51 +4,55 @@
 
         <div class="min-h-px w-full bg-primary my-4 mobile-std:my-2"></div>
 
-        <div class="flex mobile-std:flex-col mobile-std:items-center web:mb-4">
-            <div class="info-card w-[350px] min-h-52 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile-std:mb-4 web:mr-8 transition-all hover:scale-105">
-                <div class="flex justify-between items-center h-[33%] bg-green-500 rounded-t-xl p-4">
-                    <span class="text-2xl font-medium mb-2 text-white">Faturamento</span>
-                    <i class="bx bx-dollar text-white text-3xl"></i>
+        <div class="flex mobile-std:flex-col mobile-std:items-center web:mb-4 mobile-lg:justify-evenly">
+            <div class="web:flex web:w-[50%] web:justify-evenly mobile-lg:flex-col mobile-lg:justify-between">
+                <div class="info-card w-[350px] min-h-52 mobile-std:w-[320px] mobile-std:min-h-48 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile-std:mb-4 mobile-lg:mb-4 web:mr-8 transition-all hover:scale-105">
+                    <div class="flex justify-between items-center h-[33%] bg-green-500 rounded-t-xl p-4">
+                        <span class="text-2xl mobile-std:text-xl font-medium mb-2 text-white">Faturamento</span>
+                        <i class="bx bx-dollar text-white text-3xl mobile-std:text-2xl"></i>
+                    </div>
+
+                    <div class="h-full p-4 flex flex-col justify-between">
+                        <span class="text-2xl mobile-std:text-xl font-medium mb-2 text-black">R$0,00</span>
+                        <div class="text-lg mobile-std:text-sm font-medium text-green-500">+ 0.00% em relação ao dia anterior</div>
+                    </div>
                 </div>
 
-                <div class="h-full p-4 flex flex-col justify-between">
-                    <span class="text-2xl font-medium mb-2 text-black">R$0,00</span>
-                    <div class="text-lg font-medium text-green-500">+ 0.00% em relação ao dia anterior</div>
-                </div>
-            </div>
+                <div class="info-card w-[350px] min-h-52 mobile-std:w-[320px] mobile-std:min-h-48 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile-std:mb-4 mobile-lg:mb-4 web:mr-8 transition-all hover:scale-105">
+                    <div class="flex justify-between items-center h-[33%] bg-blue-500 rounded-t-xl p-4">
+                        <span class="text-2xl mobile-std:text-xl font-medium mb-2 text-white">Visão Geral</span>
+                        <i class="bx bx-package text-white text-3xl mobile-std:text-2xl"></i>
+                    </div>
 
-            <div class="info-card w-[350px] min-h-52 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile-std:mb-4 web:mr-8 transition-all hover:scale-105">
-                <div class="flex justify-between items-center h-[33%] bg-blue-500 rounded-t-xl p-4">
-                    <span class="text-2xl font-medium mb-2 text-white">Visão Geral</span>
-                    <i class="bx bx-package text-white text-3xl"></i>
-                </div>
-
-                <div class="h-full p-4 flex flex-col justify-between">
-                    <span class="text-xl font-medium mb-2 text-black">0 entradas</span>
-                    <span class="text-xl font-medium mb-2 text-black">0 saídas</span>
-                    <div class="text-lg font-medium text-green-500">+ 0.00% em relação ao dia anterior</div>
-                </div>
-            </div>
-
-            <div class="info-card w-[350px] min-h-52 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile-std:mb-4 web:mr-8 transition-all hover:scale-105">
-                <div class="flex justify-between items-center h-[33%] bg-yellow-500 rounded-t-xl p-4">
-                    <span class="text-2xl font-medium mb-2 text-white">Notificações</span>
-                    <i class="bx bx-info-circle text-white text-3xl"></i>
-                </div>
-
-                <div class="h-full p-4 flex flex-col justify-between">
-                    <span class="text-xl font-medium mb-2 text-black">0 pedidos agendados para hoje</span>
+                    <div class="h-full p-4 flex flex-col justify-between">
+                        <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">0 entradas</span>
+                        <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">0 saídas</span>
+                        <div class="text-lg mobile-std:text-sm font-medium text-green-500">+ 0.00% em relação ao dia anterior</div>
+                    </div>
                 </div>
             </div>
 
-            <div class="info-card w-[350px] min-h-52 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile-std:mb-4 web:mr-8 transition-all hover:scale-105">
-                <div class="flex justify-between items-center h-[33%] bg-red-500 rounded-t-xl p-4">
-                    <span class="text-2xl font-medium mb-2 text-white">Alertas</span>
-                    <i class="bx bx-error text-white text-3xl"></i>
+            <div class="web:flex web:w-[50%] mobile-lg:flex-col mobile-lg:justify-between">
+                <div class="info-card w-[350px] min-h-52 mobile-std:w-[320px] mobile-std:min-h-48 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile-std:mb-4 mobile-lg:mb-4 web:mr-8 transition-all hover:scale-105">
+                    <div class="flex justify-between items-center h-[33%] bg-yellow-500 rounded-t-xl p-4">
+                        <span class="text-2xl mobile-std:text-xl font-medium mb-2 text-white">Notificações</span>
+                        <i class="bx bx-info-circle text-white text-3xl mobile-std:text-2xl"></i>
+                    </div>
+
+                    <div class="h-full p-4 flex flex-col justify-between">
+                        <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">0 pedidos agendados para hoje</span>
+                    </div>
                 </div>
 
-                <div class="h-full p-4 flex flex-col justify-between">
-                    <span class="text-xl font-medium mb-2 text-black">0 produtos com baixa quantidade em estoque</span>
+                <div class="info-card w-[350px] min-h-52 mobile-std:w-[320px] mobile-std:min-h-48 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile-std:mb-4 mobile-lg:mb-4 web:mr-8 transition-all hover:scale-105">
+                    <div class="flex justify-between items-center h-[33%] bg-red-500 rounded-t-xl p-4">
+                        <span class="text-2xl mobile-std:text-xl font-medium mb-2 text-white">Alertas</span>
+                        <i class="bx bx-error text-white text-3xl mobile-std:text-2xl"></i>
+                    </div>
+
+                    <div class="h-full p-4 flex flex-col justify-between">
+                        <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">0 produtos com baixa quantidade em estoque</span>
+                    </div>
                 </div>
             </div>
         </div>

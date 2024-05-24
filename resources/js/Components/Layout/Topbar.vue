@@ -1,6 +1,6 @@
 <template>
     <div class="mobile-std:bg-primary topbar flex justify-between items-center h-16 bg-white 2xl:mb-4 mb-2 px-5 rounded-xl shadow-lg border border-gray-200">
-        <div class="w-[320px] max-w-[500px] searchbar-holder flex flex-col">
+        <div class="w-[320px] max-w-[500px] searchbar-holder flex flex-col mobile-std:hidden">
             <div class="flex items-center 2xl:w-full my-4 bg-white border-b border-b-primary transition-all">
                 <input
                     type="text"
@@ -43,7 +43,7 @@
         <button
             @click="toggleMenu = !toggleMenu"
         >
-            <i class="bx bx-menu text-3xl text-secondary web:hidden"></i>
+            <i class="bx bx-menu text-3xl text-secondary web:hidden mobile-lg:hidden"></i>
 
             <transition name="burger-menu">
                 <div
@@ -91,7 +91,7 @@
                     class="mr-1 text-2xl mobile-std:hidden"
                 ></i>
                 <p class="text-base 2xl:text-lg font-medium mr-2 mobile-std:hidden">{{ userName }}</p>
-                <i class="web:hidden bx bxs-user-circle text-4xl text-white"></i>
+                <i class="web:hidden mobile-lg:hidden bx bxs-user-circle text-4xl text-white"></i>
                 <i class="mobile-std:hidden bx bx-user-circle 2xl:text-4xl text-3xl"></i>
             </div>
 
@@ -241,15 +241,5 @@
     .searchbar-leave-from {
         opacity: 1;
         transform: translateY(0);
-    }
-
-    @media screen and (max-width: 1200px) {
-        .searchbar-holder {
-            display: none !important;
-        }
-
-        .topbar {
-            justify-content: space-between !important;
-        }
     }
  </style>
