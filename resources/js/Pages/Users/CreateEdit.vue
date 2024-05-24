@@ -4,18 +4,18 @@
             <p class="font-medium text-xl 2xl:text-2xl">{{ pageTitle }}</p>
         </div>
 
-        <div class="h-px w-full bg-primary my-4 mobile:my-2"></div>
+        <div class="h-px w-full bg-primary my-4 mobile-std:my-2"></div>
 
         <form
             @submit.prevent="saveForm()"
             class="w-full h-full"
         >
-            <div class="form-row flex mb-5 mobile:flex-col">
-                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile:mr-0 mobile:mb-4">
+            <div class="form-row flex mb-5 mobile-std:flex-col">
+                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0 mobile-std:mb-4">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Nome do usuário</span>
                     <input
                         v-model="form.name"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile:w-full 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="name"
                         id="name"
@@ -25,11 +25,11 @@
                 </div>
 
 
-                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile:mr-0 mobile:mb-4">
+                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0 mobile-std:mb-4">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Email do usurário</span>
                     <input
                         v-model="form.email"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile:w-full 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full 2xl:text-base text-sm rounded-xl"
                         type="email"
                         name="email"
                         id="email"
@@ -38,14 +38,14 @@
                     <div v-if="form.errors.email" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.email }}</div>
                 </div>
 
-                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile:mr-0">
+                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">
                         <p v-if="! user">Senha</p>
                         <p v-else>Nova senha (opcional)</p>
                     </span>
                     <input
                         v-model="form.password"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile:w-full 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="password"
                         id="password"
@@ -55,7 +55,7 @@
                 </div>
             </div>
 
-            <div class="flex mobile:justify-between">
+            <div class="flex mobile-std:justify-between">
                 <a
                     :href="route('users.index')"
                     class="w-24 2xl:h-10 p-2 rounded-xl text-white font-medium text-sm 2xl:text-base text-center bg-gray-400 hover:scale-105 transition-all"

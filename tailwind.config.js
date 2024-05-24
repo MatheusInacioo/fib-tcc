@@ -25,8 +25,9 @@ export default {
                 warning: '#eab308',
             },
             screens: {
-                'mobile': { 'max': '800px' },
-                'web': { 'min': '801px' },
+                'mobile-std': { 'max': '800px' },
+                'mobile-lg': { 'min': '801px', 'max': '1024px' },
+                'web': { 'min': '1025px' },
             },
         },
     },

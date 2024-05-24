@@ -23,10 +23,10 @@
                 <p class="font-medium 2xl:text-2xl text-xl">CRM Dashboard</p>
                 <a
                     :href="route('crm.create')"
-                    class="flex justify-center items-center w-40 p-2 h-10 mobile:w-14 bg-primary rounded-xl text-white text-lg font-semibold shadow-xl hover:scale-105 transition-all"
+                    class="flex justify-center items-center w-40 p-2 h-10 mobile-std:w-14 bg-primary rounded-xl text-white text-lg font-semibold shadow-xl hover:scale-105 transition-all"
                 >
-                    <i class="bx bx-plus font-semibold mr-2 text-secondary mobile:mr-0"></i>
-                    <p class="mobile:hidden font-medium text-secondary">Cadastrar</p>
+                    <i class="bx bx-plus font-semibold mr-2 text-secondary mobile-std:mr-0"></i>
+                    <p class="mobile-std:hidden font-medium text-secondary">Cadastrar</p>
                 </a>
             </div>
 

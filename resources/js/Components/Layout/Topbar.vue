@@ -1,6 +1,6 @@
 <template>
-    <div class="mobile:bg-primary topbar flex justify-between items-center h-16 bg-white 2xl:mb-4 mb-2 px-5 rounded-xl shadow-lg border border-gray-200">
-        <div class="w-[320px] max-w-[500px] searchbar-holder flex flex-col">
+    <div class="mobile-std:bg-primary topbar flex justify-between items-center h-16 bg-white 2xl:mb-4 mb-2 px-5 rounded-xl shadow-lg border border-gray-200">
+        <div class="w-[320px] max-w-[500px] searchbar-holder flex flex-col mobile-std:hidden">
             <div class="flex items-center 2xl:w-full my-4 bg-white border-b border-b-primary transition-all">
                 <input
                     type="text"
@@ -43,7 +43,7 @@
         <button
             @click="toggleMenu = !toggleMenu"
         >
-            <i class="bx bx-menu text-3xl text-secondary web:hidden"></i>
+            <i class="bx bx-menu text-3xl text-secondary web:hidden mobile-lg:hidden"></i>
 
             <transition name="burger-menu">
                 <div
@@ -88,24 +88,24 @@
                         'bx bx-chevron-down' : !toggleDropdown,
                         'bx bx-chevron-up' : toggleDropdown,
                     }"
-                    class="mr-1 text-2xl mobile:hidden"
+                    class="mr-1 text-2xl mobile-std:hidden"
                 ></i>
-                <p class="text-base 2xl:text-lg font-medium mr-2 mobile:hidden">{{ userName }}</p>
-                <i class="web:hidden bx bxs-user-circle text-4xl text-white"></i>
-                <i class="mobile:hidden bx bx-user-circle 2xl:text-4xl text-3xl"></i>
+                <p class="text-base 2xl:text-lg font-medium mr-2 mobile-std:hidden">{{ userName }}</p>
+                <i class="web:hidden mobile-lg:hidden bx bxs-user-circle text-4xl text-white"></i>
+                <i class="mobile-std:hidden bx bx-user-circle 2xl:text-4xl text-3xl"></i>
             </div>
 
             <transition name="dropdown">
                 <div
                     v-if="toggleDropdown"
-                    class="absolute top-[75px] right-[30px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl mobile:right-[0px] mobile:rounded-xl mobile:w-[95%] mobile:mx-2"
+                    class="absolute top-[75px] right-[30px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl mobile-std:right-[0px] mobile-std:rounded-xl mobile-std:w-[95%] mobile-std:mx-2"
                 >
-                    <div class="flex p-4 border-b border-b-gray-300 bg-primary mobile:rounded-t-xl">
+                    <div class="flex p-4 border-b border-b-gray-300 bg-primary mobile-std:rounded-t-xl">
                         <div class="flex hover:scale-110 transition-all cursor-pointer">
-                            <i class="bx bxs-user-circle 2xl:text-4xl text-secondary text-3xl mr-2 mobile:text-4xl"></i>
+                            <i class="bx bxs-user-circle 2xl:text-4xl text-secondary text-3xl mr-2 mobile-std:text-4xl"></i>
                             <div class="flex flex-col">
-                                <p class="text-xs 2xl:text-base text-secondary font-semibold mr-2 mobile:text-xl">{{ userName }}</p>
-                                <small class="text-secondary mobile:text-base">Admin</small>
+                                <p class="text-xs 2xl:text-base text-secondary font-semibold mr-2 mobile-std:text-xl">{{ userName }}</p>
+                                <small class="text-secondary mobile-std:text-base">Admin</small>
                             </div>
                         </div>
                     </div>
@@ -120,8 +120,8 @@
                             :class="{ 'hover:rounded-b-lg' : button.title == 'Sair' }"
                             class="flex items-center hover:bg-gray-200 transition-all hover:scale-110 px-4 py-2"
                         >
-                            <i :class="button.icon + ' mr-3 text-base 2xl:text-xl text-gray-800 mobile:text-2xl'"></i>
-                            <p class="text-sm 2xl:text-base font-medium text-gray-800 mobile:text-lg"> {{ button.title }} </p>
+                            <i :class="button.icon + ' mr-3 text-base 2xl:text-xl text-gray-800 mobile-std:text-2xl'"></i>
+                            <p class="text-sm 2xl:text-base font-medium text-gray-800 mobile-std:text-lg"> {{ button.title }} </p>
                         </a>
                     </div>
                 </div>
@@ -241,15 +241,5 @@
     .searchbar-leave-from {
         opacity: 1;
         transform: translateY(0);
-    }
-
-    @media screen and (max-width: 1200px) {
-        .searchbar-holder {
-            display: none !important;
-        }
-
-        .topbar {
-            justify-content: space-between !important;
-        }
     }
  </style>
