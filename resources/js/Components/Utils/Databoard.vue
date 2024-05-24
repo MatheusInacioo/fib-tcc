@@ -1,5 +1,5 @@
 <template>
-    <div class="databoard-holder flex flex-col max-h-full min-w-[420px] border border-gray-200 rounded-xl shadow-lg mr-5 mb-4 mobile:min-w-[350px]">
+    <div class="databoard-holder flex flex-col max-h-full min-w-[420px] border border-gray-200 rounded-xl shadow-lg mr-5 mb-4 mobile-std:min-w-[350px]">
         <div class="databoard-header h-1/6 p-4 flex justify-between items-center rounded-t-lg bg-primary">
             <p class="text-2xl font-medium text-secondary">{{ title }}</p>
             <i class="bx bx-show text-3xl text-secondary"></i>

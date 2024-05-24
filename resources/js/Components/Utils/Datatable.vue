@@ -1,7 +1,7 @@
 <template>
     <div class="rounded-xl shadow-lg border border-gray-200">
         <div class="flex w-full items-center justify-between px-4 py-2">
-            <div class="flex items-center mobile:hidden">
+            <div class="flex items-center mobile-std:hidden">
                 <p class="font-medium 2xl:text-2xl text-xl mr-4">{{ settings.title }}</p>
 
                 <div class="flex items-center 2xl:w-80 w-64 ml-4 my-4 bg-white rounded-lg border border-gray-200 hover:border-gray-500 transition-all">
@@ -41,7 +41,7 @@
 
             <a
                 :href="route(settings.routes.create)"
-                class="flex justify-center items-center w-auto 2xl:h-10 bg-primary rounded-xl text-white p-2 text-base 2xl:text-lg font-semibold shadow-xl hover:scale-105 transition-all mobile:hidden"
+                class="flex justify-center items-center w-auto 2xl:h-10 bg-primary rounded-xl text-white p-2 text-base 2xl:text-lg font-semibold shadow-xl hover:scale-105 transition-all mobile-std:hidden"
             >
                 <i class="bx bx-plus font-semibold mr-2 text-secondary"></i>
                 <p class="font-medium text-secondary">{{ settings.button_title }}</p>
@@ -118,7 +118,7 @@
         <div
             class="w-full py-4 flex justify-between items-center"
         >
-            <p class="mobile:hidden font-medium text-base ml-6">Página {{ currentPage }} de {{ totalPages }}</p>
+            <p class="mobile-std:hidden font-medium text-base ml-6">Página {{ currentPage }} de {{ totalPages }}</p>
             <p class="web:hidden font-medium text-sm 2xl:text-base ml-6">{{ currentPage }} de {{ totalPages }}</p>
             <div
                 v-if="data.length > itemsPerPage"
@@ -130,14 +130,14 @@
                         :disabled="currentPage === 1"
                         class=" flex items-center hover:scale-110 hover:bg-gray-200 transition-all text-black backdrop:font-bold"
                     >
-                        <i class="bx bx-chevrons-left text-2xl mobile:text-xl"></i>
+                        <i class="bx bx-chevrons-left text-2xl mobile-std:text-xl"></i>
                     </button>
                     <button
                         @click="previousPage"
                         :disabled="currentPage === 1"
                         class=" flex items-center hover:scale-110 hover:bg-gray-200 transition-all text-black backdrop:font-bold"
                     >
-                        <i class="bx bx-chevron-left text-2xl mobile:text-xl"></i>
+                        <i class="bx bx-chevron-left text-2xl mobile-std:text-xl"></i>
                     </button>
                     <template v-if="totalPages <= 5">
                         <button
@@ -186,14 +186,14 @@
                         :disabled="currentPage === totalPages"
                         class=" flex items-center hover:scale-110 hover:bg-gray-200 transition-all text-black font-bold"
                     >
-                        <i class="bx bx-chevron-right text-2xl mobile:text-xl"></i>
+                        <i class="bx bx-chevron-right text-2xl mobile-std:text-xl"></i>
                     </button>
                     <button
                         @click="lastPage"
                         :disabled="currentPage === totalPages"
                         class=" flex items-center hover:scale-110 hover:bg-gray-200 transition-all text-black font-bold"
                     >
-                        <i class="bx bx-chevrons-right text-2xl mobile:text-xl"></i>
+                        <i class="bx bx-chevrons-right text-2xl mobile-std:text-xl"></i>
                     </button>
                 </div>
             </div>
