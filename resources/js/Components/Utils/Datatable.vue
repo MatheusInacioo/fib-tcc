@@ -15,7 +15,7 @@
                 </div>
             </div>
 
-            <div class=" web:hidden flex flex-col w-full">
+            <div class=" web:hidden mobile-lg:hidden flex flex-col w-full">
                 <p class="font-medium 2xl:text-2xl text-xl mb-2">{{ settings.title }}</p>
 
                 <div class="flex justify-between w-full">
@@ -119,7 +119,7 @@
             class="w-full py-4 flex justify-between items-center"
         >
             <p class="mobile-std:hidden font-medium text-base ml-6">Página {{ currentPage }} de {{ totalPages }}</p>
-            <p class="web:hidden font-medium text-sm 2xl:text-base ml-6">{{ currentPage }} de {{ totalPages }}</p>
+            <p class="web:hidden mobile-lg:hidden font-medium text-sm 2xl:text-base ml-6">{{ currentPage }} de {{ totalPages }}</p>
             <div
                 v-if="data.length > itemsPerPage"
                 class="flex px-4"

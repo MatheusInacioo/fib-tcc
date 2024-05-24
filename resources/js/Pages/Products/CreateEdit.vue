@@ -4,7 +4,7 @@
             <p class="font-medium text-xl 2xl:text-2xl">{{ pageTitle }}</p>
         </div>
 
-        <div class="h-px w-full bg-primary my-4 mobile-std:my-2"></div>
+        <div class="min-h-px w-full bg-primary my-4 mobile-std:my-2"></div>
 
         <form
             @submit.prevent="saveForm()"
@@ -15,7 +15,7 @@
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Nome do Produto</span>
                     <input
                         v-model="form.name"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="name"
                         id="name"
@@ -28,7 +28,7 @@
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">SKU</span>
                     <input
                         v-model="form.sku"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="sku"
                         id="sku"
@@ -43,7 +43,7 @@
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Marca</span>
                     <input
                         v-model="form.brand"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="brand"
                         id="brand"
@@ -57,7 +57,7 @@
                     <input
                         v-model="supplierQuery"
                         @input="searchSuppliers()"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
                         type="text"
                         placeholder="Buscar fornecedor..."
                     >
@@ -88,7 +88,7 @@
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Preço de Compra</span>
                     <input
                         v-model="form.purchase_price"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
                         type="number"
                         step="0.01"
                         min="0"
@@ -103,7 +103,7 @@
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Preço de Venda</span>
                     <input
                         v-model="form.sale_price"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
                         type="number"
                         step="0.01"
                         min="0"
@@ -118,7 +118,7 @@
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Quantidade em Estoque</span>
                     <input
                         v-model="form.total_amount"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
                         type="number"
                         min="0"
                         name="total_amount"
@@ -132,7 +132,7 @@
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Quantidade Mínima</span>
                     <input
                         v-model="form.minimum_amount"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
                         type="number"
                         min="0"
                         name="minimum_amount"
@@ -148,7 +148,7 @@
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Localização no Estoque</span>
                     <input
                         v-model="form.storage_location"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="storage_location"
                         id="storage_location"
@@ -161,7 +161,7 @@
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Data de Vencimento (se houver)</span>
                     <input
                         v-model="form.expiry_date"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full 2xl:text-base text-sm rounded-xl"
                         type="date"
                         name="expiry_date"
                         id="expiry_date"

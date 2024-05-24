@@ -4,7 +4,7 @@
             <p class="font-medium text-xl 2xl:text-2xl">{{ pageTitle }}</p>
         </div>
 
-        <div class="h-px w-full bg-primary my-4 mobile-std:my-2"></div>
+        <div class="min-h-px w-full bg-primary my-4 mobile-std:my-2"></div>
 
         <form
             @submit.prevent="saveForm()"
@@ -15,7 +15,7 @@
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Nome do usuário</span>
                     <input
                         v-model="form.name"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="name"
                         id="name"
@@ -29,7 +29,7 @@
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Email do usurário</span>
                     <input
                         v-model="form.email"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full 2xl:text-base text-sm rounded-xl"
                         type="email"
                         name="email"
                         id="email"
@@ -45,7 +45,7 @@
                     </span>
                     <input
                         v-model="form.password"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="password"
                         id="password"

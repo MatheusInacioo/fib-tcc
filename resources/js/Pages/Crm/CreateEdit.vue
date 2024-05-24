@@ -4,7 +4,7 @@
             <p class="font-medium text-xl 2xl:text-2xl">{{ pageTitle }}</p>
         </div>
 
-        <div class="h-px w-full bg-primary my-4 mobile-std:my-2"></div>
+        <div class="min-h-px w-full bg-primary my-4 mobile-std:my-2"></div>
 
         <form
             @submit.prevent="saveForm()"
@@ -15,7 +15,7 @@
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Nome da empresa</span>
                     <input
                         v-model="form.name"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="name"
                         id="name"
@@ -28,7 +28,7 @@
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">CNPJ</span>
                     <input
                         v-model="form.cnpj"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="cnpj"
                         id="cnpj"
@@ -43,7 +43,7 @@
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Email da empresa</span>
                     <input
                         v-model="form.email"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
                         type="email"
                         name="email"
                         id="email"
@@ -56,7 +56,7 @@
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Endereço da empresa</span>
                     <input
                         v-model="form.address"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="address"
                         id="address"
@@ -71,7 +71,7 @@
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Telefone da empresa</span>
                     <input
                         v-model="form.phone"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="phone"
                         id="phone"
@@ -86,7 +86,7 @@
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Nome do responsável</span>
                     <input
                         v-model="form.responsible"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="responsible"
                         id="responsible"
@@ -99,7 +99,7 @@
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Celular do responsável</span>
                     <input
                         v-model="form.responsible_phone"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="responsible-phone"
                         id="responsible-phone"
@@ -118,7 +118,7 @@
                         v-model="form.segment"
                         name="segment"
                         id="segment"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
                     >
                         <option
                             v-for="segment in segments"
@@ -137,7 +137,7 @@
                         v-model="form.type"
                         name="type"
                         id="type"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
                     >
                         <option
                             v-for="type in types"
@@ -156,7 +156,7 @@
                         v-model="form.status"
                         name="status"
                         id="status"
-                        class="border-gray-300 2xl:w-[370px] min-w-[250px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
                     >
                         <option
                             v-for="status in statuses"
