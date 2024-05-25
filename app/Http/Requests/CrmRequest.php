@@ -13,7 +13,7 @@ class CrmRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'name' => 'required|string',
             'cnpj' => 'required|string',
             'email' => 'required|email|max:50|regex:/^[a-z0-9._]+@[a-z0-9.-]+\.[a-z]{2,}$/i',
@@ -26,6 +26,16 @@ class CrmRequest extends FormRequest
             'status' => 'required|string',
             'description' => 'nullable',
         ];
+
+        if ($this->routeIs('crm.close')) {
+            $rules['address'] = 'required|string';
+            $rules['phone'] = 'required|string';
+            $rules['responsible'] = 'required|string';
+            $rules['responsible_phone'] = 'required|string';
+            $rules['segment'] = 'required|string';
+        }
+
+        return $rules;
     }
 
     public function messages(): array
@@ -41,12 +51,17 @@ class CrmRequest extends FormRequest
             'segment.required' => 'Campo obrigatório',
             'type.required' => 'Campo obrigatório',
             'status.required' => 'Campo obrigatório',
+            'address.required' => 'Campo obrigatório',
+            'phone.required' => 'Campo obrigatório',
+            'responsible.required' => 'Campo obrigatório',
+            'responsible_phone.required' => 'Campo obrigatório',
+            'segment.required' => 'Campo obrigatório',
         ];
     }
 
     public function getCrmData(): array
     {
-        $data = [
+        return [
             'name' => $this->input('name'),
             'cnpj' => $this->input('cnpj'),
             'email' => $this->input('email'),
@@ -58,12 +73,6 @@ class CrmRequest extends FormRequest
             'type' => $this->input('type'),
             'status' => $this->input('status'),
         ];
-
-        if ($this->route('crm')->id) {
-            $data['id'] = $this->route('crm')->id;
-        }
-
-        return $data;
     }
 
     public function getAttendanceData(): array
