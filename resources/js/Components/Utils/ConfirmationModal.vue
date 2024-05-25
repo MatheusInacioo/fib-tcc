@@ -16,23 +16,34 @@
                     >
                         <div class="text-center h-full flex flex-col justify-between">
                             <i class="bx bx-error text-yellow-500 text-8xl"></i>
-                            <h3 class="mb-5 text-lg font-normal text-black">
+                            <h3 v-if="! customMessage" class="mb-5 text-lg font-normal text-black">
                                 Deseja realmente excluir esse item? <br />
                                 Esta ação é irreversível.
+                            </h3>
+                            <h3 v-if="customMessage" class="mb-5 text-lg font-normal text-black">
+                                {{ customMessage }}
                             </h3>
                             <div class="flex justify-between w-full">
                                 <button
                                     type="button"
-                                    class="inline-block w-24 px-2 py-2 bg-gray-400 text-white rounded-lg hover:scale-110 transition-all"
+                                    class="flex justify-center w-24 px-2 py-2 bg-gray-400 text-white rounded-lg hover:scale-110 transition-all"
                                     @click="closeModal()"
                                 >
                                     Cancelar
                                 </button>
                                 <button
+                                    v-if="! customMessage"
                                     @click="confirmDelete()"
-                                    class="inline-block w-24 px-4 py-2 bg-primary text-secondary rounded-lg hover:scale-110 transition-all"
+                                    class="flex justify-center w-24 px-4 py-2 bg-primary text-secondary rounded-lg hover:scale-110 transition-all"
                                 >
                                     Excluir
+                                </button>
+                                <button
+                                    v-if="customMessage"
+                                    @click="closeContract()"
+                                    class="flex justify-center w-24 px-4 py-2 bg-primary text-secondary rounded-lg hover:scale-110 transition-all"
+                                >
+                                    Confirmar
                                 </button>
                             </div>
                         </div>
@@ -55,6 +66,11 @@ export default {
             type: Boolean,
             default: false,
         },
+
+        customMessage: {
+            type: String,
+            default: '',
+        },
     },
 
     methods: {
@@ -64,6 +80,10 @@ export default {
 
         closeModal() {
             this.$emit('close-modal');
+        },
+
+        closeContract() {
+            this.$emit('close-contract');
         },
     },
 };

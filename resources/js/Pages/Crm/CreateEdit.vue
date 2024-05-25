@@ -168,6 +168,15 @@
                     </select>
                     <div v-if="form.errors.status" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.status }}</div>
                 </div>
+
+                <button
+                    @click="toggleConfirmationModal()"
+                    type="button"
+                    class="flex justify-center items-center p-2 h-10 bg-primary rounded-xl text-white shadow-xl hover:scale-105 transition-all self-end"
+                >
+                    <i class="bx bx-edit-alt font-semibold mr-2 text-secondary"></i>
+                    <p class="font-medium text-secondary">Fechar Contrato</p>
+                </button>
             </div>
 
             <div class="form-row flex mb-5 mobile-std:flex-col mobile-std:mb-2">
@@ -220,10 +229,18 @@
                 </button>
             </div>
         </form>
+
+        <ConfirmationModal
+            :show-modal="showModal"
+            :custom-message="message"
+            @close-contract="closeContract()"
+            @close-modal="toggleConfirmationModal()"
+        />
     </BaseLayout>
 </template>
 
 <script>
+import ConfirmationModal from '@/Components/Utils/ConfirmationModal.vue';
 import BaseLayout from '@/Components/Layout/BaseLayout.vue';
 import { useForm } from '@inertiajs/vue3';
 import { vMaska } from "maska"
@@ -233,6 +250,7 @@ export default {
 
     components: {
         BaseLayout,
+        ConfirmationModal,
     },
 
     props: {
@@ -262,12 +280,9 @@ export default {
 
     data() {
         return {
-            types: [
-                'Cliente',
-                'Distribuidor',
-                'Fornecedor',
-            ],
-
+            showModal: false,
+            message: '',
+            types: ['Cliente', 'Fornecedor'],
             statuses: [
                 'Contato',
                 'Negociação',
@@ -275,7 +290,6 @@ export default {
                 'Standby',
                 'Sem Interesse',
             ],
-
             segments: [
                 'Alimentação',
                 'Atacado',
@@ -299,8 +313,6 @@ export default {
     methods: {
         saveForm() {
             this.itemExists ? this.updateCrm() : this.createCrm();
-
-            this.closeModal();
         },
 
         createCrm() {
@@ -335,6 +347,22 @@ export default {
             const minutes = String(date.getMinutes()).padStart(2, '0');
 
             return `${day}/${month}/${year} às ${hours}:${minutes}`;
+        },
+
+        closeContract() {
+            try {
+                this.form.post(route('crm.close', this.item.data.id));
+
+                this.toggleConfirmationModal();
+            } catch (error) {
+                console.error(error);
+            }
+        },
+
+        toggleConfirmationModal() {
+            this.message = 'Ao clicar em confirmar, você fechará e registrará o contrato número ' + this.item.data.id + ' como ' + this.form.type + '. Deseja continuar?';
+
+            this.showModal = ! this.showModal;
         },
     },
 

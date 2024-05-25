@@ -6,6 +6,8 @@ use App\Http\Requests\CrmRequest;
 use App\Http\Resources\CrmResource;
 use App\Models\Crm;
 use App\Models\CrmAttendance;
+use App\Models\Customer;
+use App\Models\Supplier;
 use Exception;
 use Inertia\Inertia;
 
@@ -76,6 +78,24 @@ class CrmController extends Controller
             return redirect()->route('crm.index')->with('success', 'Cadastro excluído com sucesso.');
         } catch(Exception $ex) {
             return redirect()->route('crm.index')->with('error', 'Ocorreu um erro ao excluir o cadastro: ' . $ex->getMessage());
+        }
+    }
+
+    public function closeContract(CrmRequest $request, Crm $crm)
+    {
+        try {
+            $contract = $request->getCrmData();
+
+            $contract['type'] == 'Cliente'
+                ? Customer::create($contract)
+                : Supplier::create($contract);
+
+            CrmAttendance::where('crm_id', $crm->id)->delete();
+            $crm->find($crm->id)->delete();
+
+            return redirect()->route('crm.index')->with('success', 'Contrato fechado com sucesso.');
+        } catch(Exception $ex) {
+            return redirect()->route('crm.index')->with('error', 'Ocorreu um erro ao fechar o contrato: ' . $ex->getMessage());
         }
     }
 }

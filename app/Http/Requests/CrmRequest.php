@@ -46,7 +46,7 @@ class CrmRequest extends FormRequest
 
     public function getCrmData(): array
     {
-        return [
+        $data = [
             'name' => $this->input('name'),
             'cnpj' => $this->input('cnpj'),
             'email' => $this->input('email'),
@@ -58,6 +58,12 @@ class CrmRequest extends FormRequest
             'type' => $this->input('type'),
             'status' => $this->input('status'),
         ];
+
+        if ($this->route('crm')->id) {
+            $data['id'] = $this->route('crm')->id;
+        }
+
+        return $data;
     }
 
     public function getAttendanceData(): array
