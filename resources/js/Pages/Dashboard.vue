@@ -6,7 +6,7 @@
 
         <div class="flex mobile-std:flex-col mobile-std:items-center web:mb-4 mobile-lg:justify-evenly">
             <div class="web:flex web:w-[50%] web:justify-around mobile-lg:flex-col mobile-lg:justify-between">
-                <div class="info-card w-[350px] min-h-52 mobile-std:w-[320px] mobile-std:min-h-48 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile-std:mb-4 mobile-lg:mb-4 transition-all hover:scale-105">
+                <div class="info-card w-[350px] h-52 mobile-std:w-[320px] mobile-std:min-h-48 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile-std:mb-4 mobile-lg:mb-4 transition-all hover:scale-105">
                     <div class="flex justify-between items-center h-[33%] bg-green-500 rounded-t-xl p-4">
                         <span class="text-2xl mobile-std:text-xl font-medium mb-2 text-white">Faturamento</span>
                         <i class="bx bx-dollar text-white text-3xl mobile-std:text-2xl"></i>
@@ -18,7 +18,7 @@
                     </div>
                 </div>
 
-                <div class="info-card w-[350px] min-h-52 mobile-std:w-[320px] mobile-std:min-h-48 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile-std:mb-4 mobile-lg:mb-4 transition-all hover:scale-105">
+                <div class="info-card w-[350px] h-52 mobile-std:w-[320px] mobile-std:min-h-48 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile-std:mb-4 mobile-lg:mb-4 transition-all hover:scale-105">
                     <div class="flex justify-between items-center h-[33%] bg-blue-500 rounded-t-xl p-4">
                         <span class="text-2xl mobile-std:text-xl font-medium mb-2 text-white">Visão Geral</span>
                         <i class="bx bx-bar-chart text-white text-3xl mobile-std:text-2xl"></i>
@@ -33,7 +33,7 @@
             </div>
 
             <div class="web:flex web:w-[50%] web:justify-around mobile-lg:flex-col mobile-lg:justify-between">
-                <div class="info-card w-[350px] min-h-52 mobile-std:w-[320px] mobile-std:min-h-48 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile-std:mb-4 mobile-lg:mb-4 transition-all hover:scale-105">
+                <div class="info-card w-[350px] h-52 mobile-std:w-[320px] mobile-std:min-h-48 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile-std:mb-4 mobile-lg:mb-4 transition-all hover:scale-105">
                     <div class="flex justify-between items-center h-[33%] bg-yellow-500 rounded-t-xl p-4">
                         <span class="text-2xl mobile-std:text-xl font-medium mb-2 text-white">Notificações</span>
                         <i class="bx bx-info-circle text-white text-3xl mobile-std:text-2xl"></i>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
 
-                <div class="info-card w-[350px] min-h-52 mobile-std:w-[320px] mobile-std:min-h-48 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile-std:mb-4 mobile-lg:mb-4 transition-all hover:scale-105">
+                <div class="info-card w-[350px] h-52 mobile-std:w-[320px] mobile-std:min-h-48 rounded-xl shadow-xl flex flex-col border border-gray-200 mobile-std:mb-4 mobile-lg:mb-4 transition-all hover:scale-105">
                     <div class="flex justify-between items-center h-[33%] bg-red-500 rounded-t-xl p-4">
                         <span class="text-2xl mobile-std:text-xl font-medium mb-2 text-white">Alertas</span>
                         <i class="bx bx-error text-white text-3xl mobile-std:text-2xl"></i>
