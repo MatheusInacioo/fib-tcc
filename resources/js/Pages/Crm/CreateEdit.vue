@@ -360,7 +360,7 @@ export default {
         },
 
         toggleConfirmationModal() {
-            this.message = 'Ao clicar em confirmar, você fechará e registrará o contrato número ' + this.item.data.id + ' como ' + this.form.type + '. Deseja continuar?';
+            this.message = `Ao clicar em confirmar, o atendimento #${this.item.data.id} será encerrado e cadastrado como <span class="uppercase font-bold">${this.form.type}</span>. <br/> Deseja continuar?`;
 
             this.showModal = ! this.showModal;
         },

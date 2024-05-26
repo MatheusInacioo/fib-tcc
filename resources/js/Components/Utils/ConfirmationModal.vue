@@ -20,13 +20,15 @@
                                 Deseja realmente excluir esse item? <br />
                                 Esta ação é irreversível.
                             </h3>
-                            <h3 v-if="customMessage" class="mb-5 text-lg font-normal text-black">
-                                {{ customMessage }}
-                            </h3>
+                            <h3
+                                v-if="customMessage"
+                                v-html="customMessage"
+                                class="mb-5 text-lg font-normal text-black"
+                            ></h3>
                             <div class="flex justify-between w-full">
                                 <button
                                     type="button"
-                                    class="flex justify-center w-24 px-2 py-2 bg-gray-400 text-white rounded-lg hover:scale-110 transition-all"
+                                    class="flex justify-center w-24 px-2 py-2 bg-gray-400 text-white font-medium rounded-lg hover:scale-110 transition-all"
                                     @click="closeModal()"
                                 >
                                     Cancelar
@@ -34,14 +36,14 @@
                                 <button
                                     v-if="! customMessage"
                                     @click="confirmDelete()"
-                                    class="flex justify-center w-24 px-4 py-2 bg-primary text-secondary rounded-lg hover:scale-110 transition-all"
+                                    class="flex justify-center w-24 px-4 py-2 bg-primary text-secondary font-medium rounded-lg hover:scale-110 transition-all"
                                 >
                                     Excluir
                                 </button>
                                 <button
                                     v-if="customMessage"
                                     @click="closeContract()"
-                                    class="flex justify-center w-24 px-4 py-2 bg-primary text-secondary rounded-lg hover:scale-110 transition-all"
+                                    class="flex justify-center w-24 px-4 py-2 bg-primary text-secondary font-medium rounded-lg hover:scale-110 transition-all"
                                 >
                                     Confirmar
                                 </button>
