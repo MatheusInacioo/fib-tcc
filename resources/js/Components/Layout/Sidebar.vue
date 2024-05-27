@@ -49,12 +49,12 @@
                 >
                     <a
                         :href="route(button.route)"
-                        class="flex items-center h-8 hover:bg-secondary hover:rounded-l-lg hover:text-primary transition-all hover:scale-110 p-2"
+                        class="flex items-center h-8 hover:bg-secondary hover:rounded-lg hover:text-primary transition-all hover:scale-110 p-2"
                     >
                         <i :class="button.icon + ' text-base 2xl:text-xl text-secondary group-hover:text-primary'"></i>
-                        <p class="absolute left-full -ml-[1px] whitespace-nowrap bg-secondary px-2 py-1 rounded-r-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm 2xl:text-base font-medium text-primary">
+                        <span class="menu-text absolute left-full ml-1 whitespace-nowrap bg-secondary px-2 py-1 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm 2xl:text-base font-medium text-primary">
                             {{ button.title }}
-                        </p>
+                        </span>
                     </a>
                 </div>
             </div>
@@ -137,5 +137,13 @@
     .sidebar-transition-reverse-leave-from {
         opacity: 1;
         transform: translateX(0);
+    }
+
+    .menu-item .menu-text {
+        pointer-events: none;
+    }
+
+    .menu-item a:hover .menu-text {
+        opacity: 1;
     }
 </style>
