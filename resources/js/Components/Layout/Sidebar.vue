@@ -45,14 +45,14 @@
                 <div
                     v-for="button in buttons"
                     :key="button.id"
-                    class="menu-item px-4 my-0.5 group"
+                    class="menu-item px-4 my-0.5 group relative"
                 >
                     <a
                         :href="route(button.route)"
                         class="flex items-center h-8 hover:bg-secondary hover:rounded-l-lg hover:text-primary transition-all hover:scale-110 p-2"
                     >
                         <i :class="button.icon + ' text-base 2xl:text-xl text-secondary group-hover:text-primary'"></i>
-                        <p class="absolute left-[25px] whitespace-nowrap ml-2 bg-white px-2 py-1 rounded-r-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm 2xl:text-base font-medium text-black">
+                        <p class="absolute left-full -ml-[1px] whitespace-nowrap bg-secondary px-2 py-1 rounded-r-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm 2xl:text-base font-medium text-primary">
                             {{ button.title }}
                         </p>
                     </a>
