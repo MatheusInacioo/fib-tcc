@@ -19,7 +19,7 @@
                                 class="text-8xl"
                                 :class="{
                                     'bx bx-check-circle text-success' : message.type == 'success',
-                                    'bx bx-error-circle text-danger' : message.type == 'error'
+                                    'bx bx-x-circle text-danger' : message.type == 'error'
                                 }"
                             ></i>
                             <h3 class="mb-5 text-lg font-normal text-black">

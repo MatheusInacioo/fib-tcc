@@ -4,7 +4,7 @@
             v-if="crm == 0"
             class="h-full w-full flex flex-col items-center justify-center"
         >
-            <i class="bx bx-error-circle text-red-500 text-8xl mb-5"></i>
+            <i class="bx bx-x-circle text-red-500 text-8xl mb-5"></i>
             <p class="font-semibold text-2xl mb-5">Nenhum registro encontrado</p>
             <a
                 :href="route('crm.create')"

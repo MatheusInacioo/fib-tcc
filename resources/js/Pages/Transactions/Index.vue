@@ -4,7 +4,7 @@
             v-if="transactions == 0 || ! transactions"
             class="h-full w-full flex flex-col items-center justify-center"
         >
-            <i class="bx bx-error-circle text-red-500 text-8xl mb-5"></i>
+            <i class="bx bx-x-circle text-red-500 text-8xl mb-5"></i>
             <p class="font-semibold mobile-std:text-xl text-2xl mb-5">Nenhuma transação encontrada</p>
             <a
                 :href="route('transactions.create')"
