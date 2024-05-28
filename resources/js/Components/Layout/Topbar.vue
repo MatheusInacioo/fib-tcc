@@ -101,7 +101,7 @@
                     class="absolute top-[75px] right-[30px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl mobile-std:right-[0px] mobile-std:rounded-xl mobile-std:w-[95%] mobile-std:mx-2"
                 >
                     <div class="flex p-4 border-b border-b-gray-300 bg-primary mobile-std:rounded-t-xl">
-                        <a 
+                        <a
                             :href="route('users.edit', this.$page.props.auth.user.id)"
                             class="flex hover:scale-110 transition-all cursor-pointer"
                         >
@@ -155,6 +155,28 @@
            ],
 
            menus: [
+               {
+                   title: 'Transações',
+                   icon: 'bx bx-transfer-alt',
+                   route: 'transactions.index',
+                   submenus: [
+                        {
+                           title: 'Consultar',
+                           route: 'transactions.index',
+                        }
+                    ],
+                },
+               {
+                   title: 'Clientes',
+                   icon: 'bx bx-group',
+                   route: 'customers.index',
+                   submenus: [
+                        {
+                           title: 'Novo Cliente',
+                           route: 'customers.create',
+                        }
+                    ],
+                },
                 {
                     title: 'CRM',
                     icon: 'bx bx-clipboard',
@@ -163,17 +185,6 @@
                         {
                             title: 'Novo Cadastro',
                             route: 'crm.create',
-                        }
-                    ],
-                },
-                {
-                    title: 'Clientes',
-                    icon: 'bx bx-group',
-                    route: 'customers.index',
-                    submenus: [
-                        {
-                            title: 'Novo Cliente',
-                            route: 'customers.create',
                         }
                     ],
                 },

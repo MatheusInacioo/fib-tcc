@@ -74,14 +74,19 @@
                         route: 'dashboard.index',
                     },
                     {
-                        title: 'CRM',
-                        icon: 'bx bx-clipboard',
-                        route: 'crm.index',
+                        title: 'Transações',
+                        icon: 'bx bx-transfer-alt',
+                        route: 'transactions.index',
                     },
                     {
                         title: 'Clientes',
                         icon: 'bx bx-group',
                         route: 'customers.index',
+                    },
+                    {
+                        title: 'CRM',
+                        icon: 'bx bx-clipboard',
+                        route: 'crm.index',
                     },
                     {
                         title: 'Fornecedores',

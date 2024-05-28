@@ -6,6 +6,7 @@ use App\Http\Controllers\CrmController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,14 +32,18 @@ Route::middleware('auth')->group(function () {
     // Dashboard main page
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-    // CRM routes
-    Route::resource('/crm', CrmController::class)->except(['show', 'destroy']);
-    Route::post('/crm/destroy/{id}', [CrmController::class, 'destroy'])->name('crm.destroy');
-    Route::post('/crm/{crm}/close', [CrmController::class, 'closeContract'])->name('crm.close');
+    // Transaction routes
+    Route::resource('/transactions', TransactionController::class)->except(['show', 'destroy']);
+    Route::post('/transaction/destroy/{id}', [TransactionController::class, 'destroy'])->name('transactions.destroy');
 
     // Customer routes
     Route::resource('/customers', CustomerController::class)->except(['show', 'destroy']);
     Route::post('/customer/destroy/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+
+    // CRM routes
+    Route::resource('/crm', CrmController::class)->except(['show', 'destroy']);
+    Route::post('/crm/destroy/{id}', [CrmController::class, 'destroy'])->name('crm.destroy');
+    Route::post('/crm/{crm}/close', [CrmController::class, 'closeContract'])->name('crm.close');
 
     // Supplier routes
     Route::resource('/suppliers', SupplierController::class)->except(['show', 'destroy']);
