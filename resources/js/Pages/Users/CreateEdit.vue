@@ -98,7 +98,13 @@ export default {
 
     computed: {
         pageTitle() {
-            return this.user ? 'Editar Usuário' : 'Novo Usuário';
+            if(! this.user) {
+                return 'Novo Usuário';
+            } else if (this.user.data.id != this.$page.props.auth.user.id) {
+                return 'Editar Usuário';
+            }
+
+            return 'Editar Perfil';
         },
 
         userExists() {
