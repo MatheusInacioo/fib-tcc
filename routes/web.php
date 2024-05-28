@@ -33,7 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     // Transaction routes
-    Route::resource('/transactions', TransactionController::class)->except(['show', 'destroy']);
+    Route::resource('/transactions', TransactionController::class)->except(['show', 'edit', 'destroy']);
+    Route::get('/transaction/view/{id}', [TransactionController::class, 'view'])->name('transactions.view');
     Route::post('/transaction/destroy/{id}', [TransactionController::class, 'destroy'])->name('transactions.destroy');
 
     // Customer routes

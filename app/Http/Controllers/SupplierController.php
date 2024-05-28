@@ -38,9 +38,9 @@ class SupplierController extends Controller
 
             Supplier::create($data);
 
-            return redirect()->route('suppliers.index')->with('create-success', 'Fornecedor cadastrado com sucesso.');
+            return redirect()->route('suppliers.index')->with('success', 'Fornecedor cadastrado com sucesso.');
         } catch(Exception $ex) {
-            return redirect()->route('suppliers.index')->with('create-error', 'Ocorreu um erro ao cadastrar o fornecedor: ' . $ex->getMessage());
+            return redirect()->route('suppliers.index')->with('error', 'Ocorreu um erro ao cadastrar o fornecedor: ' . $ex->getMessage());
         }
     }
 
@@ -51,9 +51,9 @@ class SupplierController extends Controller
 
             $supplier->update($data);
 
-            return redirect()->route('suppliers.index')->with('create-success', 'Fornecedor atualizado com sucesso.');
+            return redirect()->route('suppliers.index')->with('success', 'Fornecedor atualizado com sucesso.');
         } catch(Exception $ex) {
-            return redirect()->route('suppliers.index')->with('update-error', 'Ocorreu um erro ao autalizar os dados do fornecedor: ' . $ex->getMessage());
+            return redirect()->route('suppliers.index')->with('error', 'Ocorreu um erro ao autalizar os dados do fornecedor: ' . $ex->getMessage());
         }
     }
 
@@ -62,9 +62,9 @@ class SupplierController extends Controller
         try {
             Supplier::find($supplierId)->delete();
 
-            return redirect()->route('suppliers.index')->with('destroy-success', 'Fornecedor excluído com sucesso.');
+            return redirect()->route('suppliers.index')->with('success', 'Fornecedor excluído com sucesso.');
         } catch(Exception $ex) {
-            return redirect()->route('suppliers.index')->with('destroy-error', 'Ocorreu um erro ao excluir o fornecedor: ' . $ex->getMessage());
+            return redirect()->route('suppliers.index')->with('error', 'Ocorreu um erro ao excluir o fornecedor: ' . $ex->getMessage());
         }
     }
 }
