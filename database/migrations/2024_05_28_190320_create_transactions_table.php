@@ -20,7 +20,6 @@ return new class extends Migration
             $table->bigInteger('quantity');
             $table->decimal('price', 8, 2);
             $table->decimal('total_amount', 10, 2);
-            $table->string('status');
             $table->string('payment_method');
             $table->longText('notes')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();

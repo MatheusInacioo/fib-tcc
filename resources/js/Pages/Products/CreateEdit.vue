@@ -62,7 +62,7 @@
                         placeholder="Buscar fornecedor..."
                     >
                     <transition name="searchbar">
-                        <div v-if="supplierQuery && filteredSuppliers.length" class="max-h-[450px] overflow-y-scroll absolute top-full mt-1 w-full bg-white border border-gray-300 rounded-xl z-10 scrollbar-thin">
+                        <div v-if="supplierQuery && filteredSuppliers.length" class="max-h-[450px] overflow-y-auto absolute top-full mt-1 w-full bg-white border border-gray-300 rounded-xl z-10 scrollbar-thin">
                             <div
                                 v-for="supplier in filteredSuppliers"
                                 :key="supplier.id"

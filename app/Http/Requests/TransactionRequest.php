@@ -13,16 +13,54 @@ class TransactionRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [];
+        $rules = [
+            'type' => 'required',
+            'product_id' => 'required|integer',
+            'quantity' => 'required|integer',
+            'price' => 'required',
+            'total_amount' => 'required',
+            'payment_method' => 'required|string',
+            'notes' => 'nullable',
+        ];
+
+        if ($this->input('customer_id') && ! $this->input('supplier_id')) {
+            $rules['customer_id'] = 'required|integer';
+            $rules['supplier_id'] = 'nullable';
+        } else if ($this->input('supplier_id') && ! $this->input('customer_id')) {
+            $rules['customer_id'] = 'nullable';
+            $rules['supplier_id'] = 'required|integer';
+        }
+
+        return $rules;
     }
 
     public function messages(): array
     {
-        return [];
+        return [
+            'type.required' => 'Campo obrigatório',
+            'customer_id.required' => 'Campo obrigatório',
+            'supplier_id.required' => 'Campo obrigatório',
+            'product_id.required' => 'Campo obrigatório',
+            'quantity.required' => 'Campo obrigatório',
+            'price.required' => 'Campo obrigatório',
+            'total_amount.required' => 'Campo obrigatório',
+            'payment_method.required' => 'Campo obrigatório',
+        ];
     }
 
     public function getTransactionData(): array
     {
-        return [];
+        return [
+            'type' => $this->input('type'),
+            'customer_id' => $this->input('customer_id'),
+            'supplier_id' => $this->input('supplier_id'),
+            'product_id' => $this->input('product_id'),
+            'quantity' => $this->input('quantity'),
+            'price' => $this->input('price'),
+            'total_amount' => $this->input('total_amount'),
+            'payment_method' => $this->input('payment_method'),
+            'notes' => $this->input('notes'),
+            'user_id' => auth()->user()->id,
+        ];
     }
 }

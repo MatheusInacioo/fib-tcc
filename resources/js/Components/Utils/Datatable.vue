@@ -97,7 +97,7 @@
                             >
                                 <a
                                     v-if="settings.routes.view && ! settings.routes.edit"
-                                    :href="route(settings.routes.edit, item.id)"
+                                    :href="route(settings.routes.view, item.id)"
                                     class="hover:scale-125 transition-all"
                                 >
                                     <i class="bx bx-show text-lg mr-2 2xl:mr-3 2xl:text-xl text-gray-400"></i>

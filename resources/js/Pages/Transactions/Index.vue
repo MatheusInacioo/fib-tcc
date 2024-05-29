@@ -69,14 +69,32 @@ export default {
                         searchable: true,
                     },
                     {
-                        label: 'Nome',
-                        name: 'name',
+                        label: 'Tipo',
+                        name: 'type',
                         sortable: true,
                         searchable: true,
                     },
                     {
-                        label: 'Email',
-                        name: 'email',
+                        label: 'Produto',
+                        name: 'product_name',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
+                        label: 'Valor',
+                        name: 'total_amount',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
+                        label: 'Pagamento',
+                        name: 'payment_method',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
+                        label: 'Usuário',
+                        name: 'user_name',
                         sortable: true,
                         searchable: true,
                     },
@@ -98,6 +116,7 @@ export default {
     },
 
     created() {
+        console.log(this.transactions);
         setTimeout(() => {
             var flashMessage = this.$page.props.flash;
 

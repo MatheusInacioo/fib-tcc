@@ -14,6 +14,22 @@ class TransactionResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'type' => $this->type,
+            'customer_id' => $this->customer_id,
+            'supplier_id' => $this->supplier_id,
+            'product_id' => $this->product_id,
+            'customer_name' => $this->getCustomerName(),
+            'supplier_name' => $this->getSupplierName(),
+            'product_name' => $this->getProductName(),
+            'quantity' => $this->quantity,
+            'price' => $this->price,
+            'total_amount' => $this->total_amount,
+            'payment_method' => $this->payment_method,
+            'notes' => $this->notes,
+            'user_id' => $this->user_id,
+            'user_name' => $this->getUserName(),
+        ];
     }
 }

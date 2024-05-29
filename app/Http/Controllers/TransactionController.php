@@ -16,10 +16,8 @@ class TransactionController extends Controller
 {
     public function index()
     {
-        $transactions = Transaction::all();
-
         return Inertia::render('Transactions/Index', [
-            'transactions' => $transactions,
+            'transactions' => Transaction::all(),
         ]);
     }
 
@@ -28,8 +26,10 @@ class TransactionController extends Controller
         return Inertia::render('Transactions/CreateEdit');
     }
 
-    public function view(Transaction $transaction)
+    public function view($transactionId)
     {
+        $transaction = Transaction::find($transactionId);
+
         return Inertia::render('Transactions/CreateEdit', [
             'transaction' => TransactionResource::make($transaction),
         ]);
@@ -48,34 +48,42 @@ class TransactionController extends Controller
         }
     }
 
-    public function searchSuppliers(Request $request)
+    public function searchSuppliers($search)
     {
-        $search = $request->input('query');
         $suppliers = Supplier::where('name', 'like', '%' . $search . '%')
             ->orWhere('id', 'like', '%' . $search . '%')
             ->get();
 
-        return response()->json($suppliers);
+        return $suppliers;
     }
 
-    public function searchCustomers(Request $request)
+    public function searchCustomers($search)
     {
-        $search = $request->input('query');
         $customers = Customer::where('name', 'like', '%' . $search . '%')
             ->orWhere('id', 'like', '%' . $search . '%')
             ->get();
 
-        return response()->json($customers);
+        return $customers;
     }
 
     public function searchProducts(Request $request)
     {
-        $search = $request->input('query');
-        $products = Product::where('name', 'like', '%' . $search . '%')
-            ->orWhere('id', 'like', '%' . $search . '%')
-            ->get();
+        $query = Product::query();
 
-        return response()->json($products);
+        if ($request['supplier_id']) {
+            $query->where('supplier_id', $request['supplier_id'])
+                ->where(function ($q) use ($request) {
+                    $q->where('name', 'like', '%' . $request['search'] . '%')
+                        ->orWhere('id', 'like', '%' . $request['search'] . '%');
+                });
+        } else {
+            $query->where('name', 'like', '%' . $request['search'] . '%')
+                  ->orWhere('id', 'like', '%' . $request['search'] . '%');
+        }
+
+        $products = $query->get();
+
+        return $products;
     }
 
     public function destroy($transactionId)

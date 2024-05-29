@@ -38,9 +38,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/transactions/view/{id}', 'view')->name('transactions.view');
         Route::get('/transactions/create', 'create')->name('transactions.create');
         Route::post('/transactions', 'store')->name('transactions.store');
-        Route::get('/transactions/search-customers', 'searchCustomers')->name('transactions.customers');
-        Route::get('/transactions/search-suppliers', 'searchSuppliers')->name('transactions.suppliers');
-        Route::get('/transactions/search-products', 'searchProducts')->name('transactions.products');
+        Route::post('/transactions/customers/{search}', 'searchCustomers')->name('transactions.customers');
+        Route::post('/transactions/suppliers/{search}', 'searchSuppliers')->name('transactions.suppliers');
+        Route::post('/transactions/products', 'searchProducts')->name('transactions.products');
         Route::post('/transactions/destroy/{id}', 'destroy')->name('transactions.destroy');
     });
 
