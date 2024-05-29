@@ -33,9 +33,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     // Transaction routes
-    Route::resource('/transactions', TransactionController::class)->except(['show', 'edit', 'destroy']);
-    Route::get('/transaction/view/{id}', [TransactionController::class, 'view'])->name('transactions.view');
-    Route::post('/transaction/destroy/{id}', [TransactionController::class, 'destroy'])->name('transactions.destroy');
+    Route::controller(TransactionController::class)->group(function () {
+        Route::get('/transactions', 'index')->name('transactions.index');
+        Route::get('/transactions/view/{id}', 'view')->name('transactions.view');
+        Route::get('/transactions/create', 'create')->name('transactions.create');
+        Route::post('/transactions', 'store')->name('transactions.store');
+        Route::get('/transactions/search-customers', 'searchCustomers')->name('transactions.customers');
+        Route::get('/transactions/search-suppliers', 'searchSuppliers')->name('transactions.suppliers');
+        Route::get('/transactions/search-products', 'searchProducts')->name('transactions.products');
+        Route::post('/transactions/destroy/{id}', 'destroy')->name('transactions.destroy');
+    });
 
     // Customer routes
     Route::resource('/customers', CustomerController::class)->except(['show', 'destroy']);
