@@ -82,13 +82,19 @@ export default {
                     },
                     {
                         label: 'Valor',
-                        name: 'total_amount',
+                        name: 'formatted_amount',
                         sortable: true,
                         searchable: true,
                     },
                     {
                         label: 'Pagamento',
                         name: 'payment_method',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
+                        label: 'Data',
+                        name: 'date',
                         sortable: true,
                         searchable: true,
                     },
@@ -116,7 +122,6 @@ export default {
     },
 
     created() {
-        console.log(this.transactions);
         setTimeout(() => {
             var flashMessage = this.$page.props.flash;
 

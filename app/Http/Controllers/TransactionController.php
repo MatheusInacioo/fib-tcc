@@ -17,7 +17,7 @@ class TransactionController extends Controller
     public function index()
     {
         return Inertia::render('Transactions/Index', [
-            'transactions' => Transaction::all(),
+            'transactions' => TransactionResource::collection(Transaction::all())->toArray(request()),
         ]);
     }
 
@@ -31,7 +31,7 @@ class TransactionController extends Controller
         $transaction = Transaction::find($transactionId);
 
         return Inertia::render('Transactions/CreateEdit', [
-            'transaction' => TransactionResource::make($transaction),
+            'transaction' => new TransactionResource($transaction),
         ]);
     }
 
@@ -40,7 +40,9 @@ class TransactionController extends Controller
         try {
             $data = $request->getTransactionData();
 
-            Transaction::create($data);
+            $transaction = Transaction::create($data);
+
+            $this->updateProductQuantity($transaction);
 
             return redirect()->route('transactions.index')->with('success', 'Transação criada com sucesso.');
         } catch (Exception $ex) {
@@ -95,5 +97,16 @@ class TransactionController extends Controller
         } catch (Exception $ex) {
             return redirect()->route('transactions.index')->with('error', 'Ocorreu um erro ao excluir a transação: ' . $ex->getMessage());
         }
+    }
+
+    public function updateProductQuantity(Transaction $transaction)
+    {
+        $product = Product::find($transaction->product_id);
+
+        $transaction->type == 0
+            ? $newQuantity = $product->total_amount + $transaction->quantity
+            : $newQuantity = $product->total_amount - $transaction->quantity;
+
+        $product->update(['total_amount' => $newQuantity]);
     }
 }

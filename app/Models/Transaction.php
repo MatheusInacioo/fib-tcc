@@ -24,26 +24,6 @@ class Transaction extends Model
         'user_id',
     ];
 
-    public function supplier()
-    {
-        return $this->belongsTo(Supplier::class);
-    }
-
-    public function customer()
-    {
-        return $this->belongsTo(Customer::class);
-    }
-
-    public function product()
-    {
-        return $this->belongsTo(Product::class);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
     public function getSupplierName()
     {
         $supplierName = Supplier::where('id', $this->supplier_id)->value('name');

@@ -239,10 +239,7 @@
                 </div>
             </div>
 
-            <div
-                v-if="form.payment_method"
-                class="flex mobile-std:justify-between"
-            >
+            <div class="flex mobile-std:justify-between">
                 <a
                     v-if="transactionExists"
                     :href="route('transactions.index')"
@@ -259,8 +256,13 @@
                 </a>
                 <button
                     v-if="!transactionExists"
+                    :disabled="! form.payment_method"
                     type="submit"
-                    class="w-24 2xl:h-10 p-2 rounded-xl text-secondary font-medium text-sm 2xl:text-base ml-3 bg-primary hover:scale-105 transition-all"
+                    class="w-24 2xl:h-10 p-2 rounded-xl text-secondary font-medium text-sm 2xl:text-base ml-3"
+                    :class="{
+                        'bg-primary hover:scale-105 transition-all' : form.payment_method,
+                        'bg-gray-300' : ! form.payment_method,
+                    }"
                 >
                     Salvar
                 </button>
@@ -338,7 +340,7 @@ export default {
         },
 
         buildForm(data) {
-            this.form.type = data.type;
+            this.form.type = data.type_id;
             this.form.customer_id = data.customer_id;
             this.customerQuery = data.customer_name;
             this.form.supplier_id = data.supplier_id;

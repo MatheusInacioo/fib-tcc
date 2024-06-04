@@ -13,10 +13,8 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('supplier:id,name')->get();
-
         return Inertia::render('Products/Index', [
-            'products' => $products,
+            'products' => ProductResource::collection(Product::all())->toArray(request()),
         ]);
     }
 
