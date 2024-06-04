@@ -99,6 +99,11 @@
                         route: 'products.index',
                     },
                     {
+                        title: 'Configurações',
+                        icon: 'bx bxs-cog',
+                        route: 'settings.index',
+                    },
+                    {
                         title: 'Sair',
                         icon: 'bx bx-log-out',
                         route: 'login.destroy',

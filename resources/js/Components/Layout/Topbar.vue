@@ -102,7 +102,7 @@
                 >
                     <div class="flex p-4 border-b border-b-gray-300 bg-primary mobile-std:rounded-t-xl">
                         <a
-                            :href="route('users.edit', this.$page.props.auth.user.id)"
+                            :href="route('users.edit', user.id)"
                             class="flex hover:scale-110 transition-all cursor-pointer"
                         >
                             <i class="bx bxs-user-circle 2xl:text-4xl text-secondary text-3xl mr-2 mobile-std:text-4xl"></i>
@@ -146,6 +146,11 @@
                    title: 'Usuários',
                    icon: 'bx bx-group',
                    route: 'users.index',
+               },
+               {
+                   title: 'Configurações',
+                   icon: 'bx bxs-cog',
+                   route: 'settings.index',
                },
                {
                    title: 'Sair',
@@ -210,6 +215,17 @@
                         }
                     ],
                 },
+                {
+                    title: 'Configurações',
+                    icon: 'bx bx-cog',
+                    route: 'dashboard.index',
+                    submenus: [
+                        {
+                            title: 'Listar',
+                            route: 'dashboard.index',
+                        }
+                    ],
+                },
             ],
         }
     },
@@ -224,10 +240,6 @@
             );
         }
     },
-
-    created() {
-        console.log(this.user);
-    }
  };
  </script>
 

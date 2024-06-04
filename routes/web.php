@@ -5,6 +5,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CrmController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
@@ -64,4 +65,9 @@ Route::middleware('auth')->group(function () {
     // User routes
     Route::resource('/users', UserController::class)->except(['show', 'destroy']);
     Route::post('/users/destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+
+    // Settings routes
+    Route::controller(SettingsController::class)->group(function () {
+        Route::get('/settings', 'index')->name('settings.index');
+    });
 });
