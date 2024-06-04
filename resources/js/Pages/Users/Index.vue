@@ -81,6 +81,12 @@ export default {
                         searchable: true,
                     },
                     {
+                        label: 'Cargo',
+                        name: 'role_name',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
                         label: 'Ações',
                         name: 'actions',
                         sortable: false,

@@ -24,7 +24,6 @@
                     <div v-if="form.errors.name" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.name }}</div>
                 </div>
 
-
                 <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0 mobile-std:mb-4">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Email do usurário</span>
                     <input
@@ -38,7 +37,7 @@
                     <div v-if="form.errors.email" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.email }}</div>
                 </div>
 
-                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0">
+                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0 mobile-std:mb-4">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">
                         <p v-if="! user">Senha</p>
                         <p v-else>Nova senha (opcional)</p>
@@ -52,6 +51,25 @@
                         placeholder="Senha do usuário"
                     >
                     <div v-if="form.errors.password" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.password }}</div>
+                </div>
+
+                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mb-4 mobile-std:mr-0">
+                    <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Cargo</span>
+                    <select
+                        v-model="form.role_id"
+                        name="role"
+                        id="role"
+                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full 2xl:text-base text-sm rounded-xl"
+                    >
+                        <option
+                            v-for="role in roles"
+                            :key="role.id"
+                            :value="role.id"
+                        >
+                            {{ role.name }}
+                        </option>
+                    </select>
+                    <div v-if="form.errors.role_id" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.role_id }}</div>
                 </div>
             </div>
 
@@ -84,6 +102,7 @@ export default {
 
     props: {
         user: {},
+        roles: {},
     },
 
     setup() {
@@ -91,6 +110,7 @@ export default {
             name: null,
             email: null,
             password: null,
+            role_id: null,
         });
 
         return { form }
@@ -114,6 +134,7 @@ export default {
 
     methods: {
         saveForm() {
+            console.log(this.form.role_id);
             return this.userExists ? this.updateUser() : this.createUser();
         },
 
@@ -128,6 +149,7 @@ export default {
         buildForm(data) {
             this.form.name = data.name;
             this.form.email = data.email;
+            this.form.role_id = data.role_id;
         },
     },
 

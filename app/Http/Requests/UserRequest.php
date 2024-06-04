@@ -17,10 +17,13 @@ class UserRequest extends FormRequest
             'name' => 'required|string',
             'email' => 'required|unique:users|email|max:50|regex:/^[a-z0-9._]+@[a-z0-9.-]+\.[a-z]{2,}$/i',
             'password' => 'required',
+            'role_id' => 'required|integer',
         ];
 
         if($this->method() == 'PUT') {
             $rules['password'] = 'nullable';
+            $rules['role_id'] = 'nullable';
+            $rules['email'] = 'required|email|max:50|regex:/^[a-z0-9._]+@[a-z0-9.-]+\.[a-z]{2,}$/i';
         }
 
         return $rules;
@@ -28,19 +31,14 @@ class UserRequest extends FormRequest
 
     public function messages(): array
     {
-        $messages = [
+        return [
             'name.required' => 'Campo obrigatório',
             'email.required' => 'Campo obrigatório',
             'email.regex' => 'Formato de email inválido',
             'email.max' => 'O email deve ter no máximo :max caracteres',
             'password.required' => 'Campo obrigatório',
+            'role_id.required' => 'Campo obrigatório',
         ];
-
-        if($this->method() == 'PUT') {
-            unset($messages['password.required']);
-        }
-
-        return $messages;
     }
 
     public function getUserData(): array
@@ -49,6 +47,7 @@ class UserRequest extends FormRequest
             'name' => $this->input('name'),
             'email' => $this->input('email'),
             'password' => $this->input('password') ?? null,
+            'role_id' => $this->input('role_id') ?? null,
         ];
     }
 }

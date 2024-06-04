@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
+use App\Models\Role;
 use App\Models\User;
 use Exception;
 use Inertia\Inertia;
@@ -15,19 +16,26 @@ class UserController extends Controller
         $users = User::where('id', '<>', auth()->user()->id)->get();
 
         return Inertia::render('Users/Index', [
-            'users' => $users,
+            'users' => UserResource::collection($users)->toArray(request()),
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('Users/CreateEdit');
+        $roles = Role::select('id', 'name')->get();
+
+        return Inertia::render('Users/CreateEdit', [
+            'roles' => $roles,
+        ]);
     }
 
     public function edit(User $user)
     {
+        $roles = Role::select('id', 'name')->get();
+
         return Inertia::render('Users/CreateEdit', [
             'user' => UserResource::make($user),
+            'roles' => $roles,
         ]);
     }
 

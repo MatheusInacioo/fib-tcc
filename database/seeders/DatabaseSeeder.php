@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             SupplierSeeder::class,
             CrmSeeder::class,
             ProductSeeder::class,
+            RoleSeeder::class,
+            PermissionSeeder::class,
         ]);
     }
 }

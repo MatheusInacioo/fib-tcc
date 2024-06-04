@@ -90,7 +90,7 @@
                     }"
                     class="mr-1 text-2xl mobile-std:hidden"
                 ></i>
-                <p class="text-base 2xl:text-lg font-medium mr-2 mobile-std:hidden">{{ userName }}</p>
+                <p class="text-base 2xl:text-lg font-medium mr-2 mobile-std:hidden">{{ user.name }}</p>
                 <i class="web:hidden mobile-lg:hidden bx bxs-user-circle text-4xl text-white"></i>
                 <i class="mobile-std:hidden bx bx-user-circle 2xl:text-4xl text-3xl"></i>
             </div>
@@ -107,8 +107,8 @@
                         >
                             <i class="bx bxs-user-circle 2xl:text-4xl text-secondary text-3xl mr-2 mobile-std:text-4xl"></i>
                             <div class="flex flex-col">
-                                <p class="text-xs 2xl:text-base text-secondary font-semibold mr-2 mobile-std:text-xl">{{ userName }}</p>
-                                <small class="text-secondary mobile-std:text-base">Admin</small>
+                                <p class="text-xs 2xl:text-base text-secondary font-semibold mr-2 mobile-std:text-xl">{{ user.name }}</p>
+                                <small class="text-secondary mobile-std:text-base">{{ user.role.name }}</small>
                             </div>
                         </a>
                     </div>
@@ -137,7 +137,7 @@
  export default {
     data() {
         return {
-           userName: this.$page.props.auth.user.name,
+           user: this.$page.props.auth.user,
            toggleDropdown: false,
            toggleMenu: false,
            searchQuery: '',
@@ -224,6 +224,10 @@
             );
         }
     },
+
+    created() {
+        console.log(this.user);
+    }
  };
  </script>
 
