@@ -13,7 +13,7 @@ class SupplierRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'name' => 'required|string',
             'cnpj' => 'required|unique:suppliers|string',
             'email' => 'required|string',
@@ -23,6 +23,12 @@ class SupplierRequest extends FormRequest
             'responsible_phone' => 'required|string',
             'segment' => 'required|string',
         ];
+
+        if($this->method() == 'PUT') {
+            $rules['cnpj'] = 'required|string';
+        }
+
+        return $rules;
     }
 
     public function messages(): array

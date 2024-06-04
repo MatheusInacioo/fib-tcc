@@ -37,6 +37,11 @@
             return {
                 buttons: [
                     {
+                        title: 'Usuários',
+                        icon: 'bx bx-group',
+                        route: 'users.index',
+                    },
+                    {
                         title: 'Permissões',
                         icon: 'bx bx-check-square',
                         route: 'dashboard.index',
