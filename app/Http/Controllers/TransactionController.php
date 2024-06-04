@@ -31,7 +31,7 @@ class TransactionController extends Controller
         $transaction = Transaction::find($transactionId);
 
         return Inertia::render('Transactions/CreateEdit', [
-            'transaction' => new TransactionResource($transaction),
+            'transaction' => TransactionResource::make($transaction),
         ]);
     }
 
