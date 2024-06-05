@@ -240,20 +240,22 @@
             </div>
 
             <div class="flex mobile-std:justify-between">
-                <a
+                <button
                     v-if="transactionExists"
-                    :href="route('transactions.index')"
+                    type="button"
+                    @click="goBack()"
                     class="w-24 2xl:h-10 p-2 rounded-xl text-white font-medium text-sm 2xl:text-base text-center bg-primary hover:scale-105 transition-all"
                 >
                     Voltar
-                </a>
-                <a
+                </button>
+                <button
                     v-if="!transactionExists"
-                    :href="route('transactions.index')"
+                    type="button"
+                    @click="goBack()"
                     class="w-24 2xl:h-10 p-2 rounded-xl text-white font-medium text-sm 2xl:text-base text-center bg-gray-400 hover:scale-105 transition-all"
                 >
                     Cancelar
-                </a>
+                </button>
                 <button
                     v-if="!transactionExists"
                     :disabled="! form.payment_method"
@@ -441,6 +443,10 @@ export default {
         updateTotalAmount() {
             this.form.total_amount = this.form.quantity * this.form.price;
         },
+
+        goBack() {
+            window.history.back();
+        }
     },
 
     created() {

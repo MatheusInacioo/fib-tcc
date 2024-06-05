@@ -200,12 +200,13 @@
             </div>
 
             <div class="flex mobile-std:justify-between">
-                <a
-                    :href="route('products.index')"
+                <button
+                    type="button"
+                    @click="goBack()"
                     class="w-24 2xl:h-10 p-2 rounded-xl text-white font-medium text-sm 2xl:text-base text-center bg-gray-400 hover:scale-105 transition-all"
                 >
                     Cancelar
-                </a>
+                </button>
                 <button
                     type="submit"
                     class="w-24 2xl:h-10 p-2 rounded-xl text-secondary font-medium text-sm 2xl:text-base ml-3 bg-primary hover:scale-105 transition-all"
@@ -308,6 +309,10 @@ export default {
             this.form.supplier_id = supplier.id;
             this.supplierQuery = supplier.name;
             this.filteredSuppliers = [];
+        },
+
+        goBack() {
+            window.history.back();
         }
     },
 
