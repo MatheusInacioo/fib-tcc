@@ -143,11 +143,6 @@
            searchQuery: '',
            buttons: [
                {
-                   title: 'Usuários',
-                   icon: 'bx bx-group',
-                   route: 'users.index',
-               },
-               {
                    title: 'Configurações',
                    icon: 'bx bxs-cog',
                    route: 'settings.index',

@@ -2,6 +2,12 @@
     <div class="rounded-xl shadow-lg border border-gray-200">
         <div class="flex w-full items-center justify-between px-4 py-2">
             <div class="flex items-center mobile-std:hidden">
+                <button
+                    type="button"
+                    @click="goBack()"
+                >
+                    <i class="bx bx-left-arrow-alt text-3xl hover:scale-110 transition-all mr-2"></i>
+                </button>
                 <p class="font-medium 2xl:text-2xl text-xl mr-4">{{ settings.title }}</p>
 
                 <div class="flex items-center 2xl:w-80 w-64 ml-4 my-4 bg-white rounded-lg border border-gray-200 hover:border-gray-500 transition-all">
@@ -16,7 +22,16 @@
             </div>
 
             <div class=" web:hidden mobile-lg:hidden flex flex-col w-full">
-                <p class="font-medium 2xl:text-2xl text-xl mb-2">{{ settings.title }}</p>
+                <div class="flex items-center mb-2">
+                    <button
+                        type="button"
+                        @click="goBack()"
+                    >
+                        <i class="bx bx-left-arrow-alt text-2xl hover:scale-110 transition-all mr-2"></i>
+                    </button>
+
+                    <span class="font-medium 2xl:text-2xl text-xl">{{ settings.title }}</span>
+                </div>
 
                 <div class="flex justify-between w-full">
                     <div class="flex items-center w-60 bg-white rounded-lg border border-gray-200 hover:border-gray-500 transition-all">
@@ -368,6 +383,10 @@ export default {
 
         toggleModal() {
             this.showModal = ! this.showModal;
+        },
+
+        goBack() {
+            window.history.back();
         },
     },
 };

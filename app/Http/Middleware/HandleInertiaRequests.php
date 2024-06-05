@@ -35,6 +35,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => fn () => $request->user()
                     ? $request->user()->load('role.permissions')
                     : null,
+                'year' => now()->year,
             ],
             'flash' => [
                 'success' => $request->session()->get('success'),
