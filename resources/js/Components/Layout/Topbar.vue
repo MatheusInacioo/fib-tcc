@@ -81,7 +81,7 @@
         <div class="max-w-[500px] dropdown-holder flex flex-col">
             <div
                 @click="toggleDropdown = !toggleDropdown"
-                class="user-dropdown flex h-10 items-center transition-all hover:scale-110"
+                class="user-dropdown flex h-10 items-center transition-all hover:scale-110 cursor-pointer"
             >
                 <i
                     :class="{

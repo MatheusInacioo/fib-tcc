@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CrmController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SupplierController;
@@ -69,5 +70,12 @@ Route::middleware('auth')->group(function () {
     // Settings routes
     Route::controller(SettingsController::class)->group(function () {
         Route::get('/settings', 'index')->name('settings.index');
+    });
+
+    // Settings routes
+    Route::controller(PermissionController::class)->group(function () {
+        Route::get('/permissions', 'index')->name('permissions.index');
+        Route::post('/permissions', 'store')->name('permissions.store');
+        Route::get('/permissions/fetch', 'getPermissions')->name('permissions.fetch');
     });
 });
