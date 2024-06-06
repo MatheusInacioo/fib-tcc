@@ -6,6 +6,7 @@ use App\Models\Permission;
 use App\Models\Role;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class PermissionController extends Controller
@@ -25,28 +26,38 @@ class PermissionController extends Controller
             $permissions = $request->input('permissions');
             $groupedPermissions = [];
 
+            if(! $permissions) {
+                $roleIds = Role::pluck('id')->toArray();
+
+                foreach($roleIds as $roleId) {
+                    DB::table('role_permission')->where('role_id', $roleId)->delete();
+                }
+
+                return redirect()->route('settings.index')->with('success', 'Permissões atualizadas com sucesso.');
+            }
+
             foreach ($permissions as $permission) {
                 $groupedPermissions[$permission['role_id']][] = $permission['name'];
             }
 
             foreach ($groupedPermissions as $roleId => $permissionNames) {
                 $role = Role::findOrFail($roleId);
-                $permissionIds = Permission::whereIn('name', $permissionNames)->pluck('id')->toArray();
 
-                $existingPermissions = $role->permissions('id');
+                $currentPermissions = $role->permissions->pluck('name')->toArray();
 
-                $permissionsToRemove = array_diff($existingPermissions, $permissionIds);
+                $permissionsToAdd = array_diff($permissionNames, $currentPermissions);
+                $permissionsToRemove = array_diff($currentPermissions, $permissionNames);
 
-                if (!empty($permissionsToRemove)) {
-                    $role->permissions()->detach($permissionsToRemove);
-                }
+                $permissionIdsToAdd = Permission::whereIn('name', $permissionsToAdd)->pluck('id')->toArray();
+                $role->permissions()->attach($permissionIdsToAdd);
 
-                $role->permissions()->sync($permissionIds);
+                $permissionIdsToRemove = Permission::whereIn('name', $permissionsToRemove)->pluck('id')->toArray();
+                $role->permissions()->detach($permissionIdsToRemove);
             }
 
-            return redirect()->route('permissions.index')->with('success', 'Permissões atualizadas com sucesso.');
+            return redirect()->route('settings.index')->with('success', 'Permissões atualizadas com sucesso.');
         } catch (Exception $ex) {
-            return redirect()->route('permissions.index')->with('error', 'Ocorreu um erro ao salvar as permissões: ' . $ex->getMessage());
+            return redirect()->route('settings.index')->with('error', 'Ocorreu um erro ao salvar as permissões: ' . $ex->getMessage());
         }
     }
 

@@ -14,7 +14,7 @@
                 <span class="text-xl font-medium text-secondary">{{ role.name }}</span>
             </div>
 
-            <div class="p-4 h-full">
+            <div class="p-4 h-full overflow-x-auto scrollbar-thin">
                 <table class="min-w-full bg-white">
                     <thead>
                         <tr>
@@ -32,6 +32,7 @@
                         <tr
                             v-for="permission in permissions"
                             :key="permission.action"
+                            class="hover:bg-gray-100 transition-all"
                         >
                             <td class="py-2 px-4">{{ permission.label }}</td>
                             <td
@@ -168,9 +169,6 @@
 
             savePermissions() {
                 axios.post(this.route('permissions.store', { permissions: this.markedPermissions }))
-                    .then(() => {
-                        window.location.reload();
-                    })
                     .catch(error => {
                         console.error(error);
                     });
@@ -184,26 +182,6 @@
 
         created() {
             this.fetchPermissions();
-
-            setTimeout(() => {
-                var flashMessage = this.$page.props.flash;
-
-                if(flashMessage.success) {
-                    this.showNotificationModal = true;
-
-                    this.message = {
-                        type: 'success',
-                        content: flashMessage.success,
-                    }
-                } else if (flashMessage.error) {
-                    this.showNotificationModal = true;
-
-                    this.message = {
-                        type: 'error',
-                        content: flashMessage.error,
-                    }
-                }
-            }, 200);
         },
     }
 </script>

@@ -62,5 +62,27 @@
                 ],
             }
         },
+
+        created() {
+            setTimeout(() => {
+                var flashMessage = this.$page.props.flash;
+
+                if(flashMessage.success) {
+                    this.showNotificationModal = true;
+
+                    this.message = {
+                        type: 'success',
+                        content: flashMessage.success,
+                    }
+                } else if (flashMessage.error) {
+                    this.showNotificationModal = true;
+
+                    this.message = {
+                        type: 'error',
+                        content: flashMessage.error,
+                    }
+                }
+            }, 200);
+        }
     }
 </script>
