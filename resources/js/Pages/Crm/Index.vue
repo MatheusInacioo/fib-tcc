@@ -1,5 +1,6 @@
 <template>
     <BaseLayout>
+        <Head title="CRM"/>
         <div
             v-if="crm == 0"
             class="h-full w-full flex flex-col items-center justify-center"
@@ -55,6 +56,7 @@
 </template>
 
 <script>
+import { Head } from '@inertiajs/vue3';
 import BaseLayout from '@/Components/Layout/BaseLayout.vue';
 import Databoard from '@/Components/Utils/Databoard.vue';
 import CrmModal from './CrmModal.vue';
@@ -62,6 +64,7 @@ import NotificationModal from '@/Components/Utils/NotificationModal.vue';
 
 export default {
     components: {
+        Head,
         BaseLayout,
         Databoard,
         CrmModal,

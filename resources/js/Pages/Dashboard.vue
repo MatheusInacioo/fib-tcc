@@ -1,5 +1,6 @@
 <template>
     <BaseLayout>
+        <Head title="Dashboard"/>
         <span class="text-2xl font-medium">Resumo do dia</span>
 
         <div class="min-h-px w-full bg-primary my-4 mobile-std:my-2"></div>
@@ -138,12 +139,14 @@
 </template>
 
 <script>
+    import { Head } from '@inertiajs/vue3'
     import Chart from 'chart.js/auto';
     import BaseLayout from '@/Components/Layout/BaseLayout.vue';
 
     export default {
         components: {
             BaseLayout,
+            Head,
         },
 
         data() {

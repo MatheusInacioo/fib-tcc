@@ -1,5 +1,6 @@
 <template>
     <BaseLayout>
+        <Head title="Permissões"/>
         <span class="text-2xl mobile-std:text-xl font-medium">Permissões</span>
 
         <div class="min-h-px w-full bg-primary my-4 mobile-std:my-2"></div>
@@ -71,11 +72,12 @@
 </template>
 
 <script>
+    import { Head } from '@inertiajs/vue3';
     import BaseLayout from '@/Components/Layout/BaseLayout.vue';
-import axios from 'axios';
 
     export default {
         components: {
+            Head,
             BaseLayout,
         },
 

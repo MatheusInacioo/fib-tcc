@@ -1,5 +1,6 @@
 <template>
     <BaseLayout>
+        <Head title="Configurações"/>
         <span class="text-2xl mobile-std:text-xl font-medium">Configurações</span>
 
         <div class="min-h-px w-full bg-primary my-4 mobile-std:my-2"></div>
@@ -26,10 +27,12 @@
 </template>
 
 <script>
+    import { Head } from '@inertiajs/vue3';
     import BaseLayout from '@/Components/Layout/BaseLayout.vue';
 
     export default {
         components: {
+            Head,
             BaseLayout,
         },
 

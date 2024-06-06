@@ -1,5 +1,6 @@
 <template>
     <BaseLayout>
+        <Head title="Produtos"/>
         <div
             v-if="products == 0"
             class="h-full w-full flex flex-col items-center justify-center"
@@ -34,12 +35,14 @@
 </template>
 
 <script>
+import { Head } from '@inertiajs/vue3';
 import BaseLayout from '@/Components/Layout/BaseLayout.vue';
 import Datatable from '@/Components/Utils/Datatable.vue';
 import NotificationModal from '@/Components/Utils/NotificationModal.vue';
 
 export default {
     components: {
+        Head,
         BaseLayout,
         Datatable,
         NotificationModal,

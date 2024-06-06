@@ -1,5 +1,6 @@
 <template>
     <BaseLayout>
+        <Head :title="pageTitle"/>
         <div class="flex justify-between items-center">
             <p class="font-medium text-xl 2xl:text-2xl">{{ pageTitle }}</p>
         </div>
@@ -275,10 +276,11 @@
 
 <script>
 import BaseLayout from '@/Components/Layout/BaseLayout.vue';
-import { useForm } from '@inertiajs/vue3';
+import { useForm, Head } from '@inertiajs/vue3';
 
 export default {
     components: {
+        Head,
         BaseLayout,
     },
 

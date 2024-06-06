@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Head title="Login"/>
         <div class="login-screen w-screen h-screen flex justify-start bg-[url('img/app/background.jpg')] bg-center bg-cover">
             <div class="h-full mobile-std:w-full w-[500px] shadow-2xl bg-gray-50 bg-opacity-50 mobile-std:bg-opacity-100 backdrop-filter backdrop-blur-md flex flex-col justify-center p-10">
                 <h4 class="text-4xl font-bold text-primary mb-20 text-center">LOGIN</h4>
@@ -66,9 +67,14 @@
 </template>
 
 <script>
+    import { Head } from '@inertiajs/vue3';
     import { useForm } from '@inertiajs/vue3';
 
     export default {
+        components: {
+            Head,
+        },
+
         setup() {
             const form = useForm({
                 email: null,
