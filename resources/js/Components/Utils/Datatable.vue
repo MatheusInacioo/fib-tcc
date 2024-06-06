@@ -21,46 +21,64 @@
                 </div>
             </div>
 
-            <div class=" web:hidden mobile-lg:hidden flex flex-col w-full">
-                <div class="flex items-center mb-2">
-                    <button
-                        type="button"
-                        @click="goBack()"
-                    >
-                        <i class="bx bx-left-arrow-alt text-2xl hover:scale-110 transition-all mr-2"></i>
-                    </button>
-
-                    <span class="font-medium 2xl:text-2xl text-xl">{{ settings.title }}</span>
-                </div>
-
-                <div class="flex justify-between w-full">
-                    <div class="flex items-center w-60 bg-white rounded-lg border border-gray-200 hover:border-gray-500 transition-all">
-                        <input
-                            type="text"
-                            v-model="searchQuery"
-                            placeholder="Buscar Registros..."
-                            class="w-full border-none focus:outline-none rounded-l-lg"
+            <div class="web:hidden mobile-lg:hidden flex flex-col w-full">
+                <div class="flex w-full items-center justify-between mb-4">
+                    <div class="flex items-center">
+                        <button
+                            type="button"
+                            @click="goBack()"
                         >
-                        <i class="bx bx-search text-lg 2xl:text-xl mx-2"></i>
+                            <i class="bx bx-left-arrow-alt text-2xl hover:scale-110 transition-all mr-2"></i>
+                        </button>
 
+                        <span class="font-medium 2xl:text-2xl text-xl">{{ settings.title }}</span>
                     </div>
 
-                    <a
-                        :href="route(settings.routes.create)"
-                        class="flex justify-center items-center w-14 h-10 bg-primary rounded-xl text-white p-2 text-base font-semibold shadow-xl hover:scale-105 transition-all"
+                    <div class="flex">
+                        <a
+                            :href="route(settings.routes.create)"
+                            class="flex justify-center items-center w-14 h-10 bg-primary rounded-xl text-white p-2 text-base font-semibold shadow-xl hover:scale-105 transition-all mr-2"
+                        >
+                            <i class="bx bxs-download text-xl font-semibold text-secondary"></i>
+                        </a>
+
+                        <a
+                            :href="route(settings.routes.create)"
+                            class="flex justify-center items-center w-14 h-10 bg-primary rounded-xl text-white p-2 text-base font-semibold shadow-xl hover:scale-105 transition-all"
+                        >
+                            <i class="bx bx-plus text-xl font-semibold text-secondary"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex items-center w-full bg-white rounded-lg border border-gray-200 hover:border-gray-500 transition-all">
+                    <input
+                        type="text"
+                        v-model="searchQuery"
+                        placeholder="Buscar Registros..."
+                        class="w-full border-none focus:outline-none rounded-l-lg"
                     >
-                        <i class="bx bx-plus text-xl font-semibold text-secondary"></i>
-                    </a>
+                    <i class="bx bx-search text-lg 2xl:text-xl mx-2"></i>
                 </div>
             </div>
 
-            <a
-                :href="route(settings.routes.create)"
-                class="flex justify-center items-center w-auto 2xl:h-10 bg-primary rounded-xl text-white p-2 text-base 2xl:text-lg font-semibold shadow-xl hover:scale-105 transition-all mobile-std:hidden"
-            >
-                <i class="bx bx-plus font-semibold mr-2 text-secondary"></i>
-                <p class="font-medium text-secondary">{{ settings.button_title }}</p>
-            </a>
+            <div class="flex">
+                <a
+                    :href="route(settings.routes.create)"
+                    class="flex justify-center items-center w-auto 2xl:h-10 bg-primary rounded-xl text-white p-2 text-base 2xl:text-lg font-semibold shadow-xl hover:scale-105 transition-all mobile-std:hidden mr-2"
+                >
+                    <i class="bx bxs-download font-semibold mr-2 text-secondary"></i>
+                    <p class="font-medium text-secondary">Exportar</p>
+                </a>
+
+                <a
+                    :href="route(settings.routes.create)"
+                    class="flex justify-center items-center w-auto 2xl:h-10 bg-primary rounded-xl text-white p-2 text-base 2xl:text-lg font-semibold shadow-xl hover:scale-105 transition-all mobile-std:hidden"
+                >
+                    <i class="bx bx-plus font-semibold mr-2 text-secondary"></i>
+                    <p class="font-medium text-secondary">{{ settings.button_title }}</p>
+                </a>
+            </div>
         </div>
 
         <div class="flex max-h-[450px] 2xl:max-h-full overflow-y-auto w-full">
@@ -125,6 +143,7 @@
                                     <i class="bx bxs-edit text-lg mr-2 2xl:mr-3 2xl:text-xl text-gray-400"></i>
                                 </a>
                                 <button
+                                    v-can="'delete-transactions'"
                                     type="button"
                                     @click="deleteItem(item.id)"
                                     class="hover:scale-125 transition-all"
