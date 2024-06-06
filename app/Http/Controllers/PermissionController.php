@@ -68,7 +68,7 @@ class PermissionController extends Controller
         return $role->permissions()->where('name', $permissionName)->exists();
     }
 
-    public function getPermissions()
+    public function fetchPermissions()
     {
         $roles = Role::with('permissions:id,name')->select('id', 'name')->get();
         $permissions = [];

@@ -76,6 +76,6 @@ Route::middleware('auth')->group(function () {
     Route::controller(PermissionController::class)->group(function () {
         Route::get('/permissions', 'index')->name('permissions.index');
         Route::post('/permissions', 'store')->name('permissions.store');
-        Route::get('/permissions/fetch', 'getPermissions')->name('permissions.fetch');
+        Route::get('/permissions/fetch', 'fetchPermissions')->name('permissions.fetch');
     });
 });

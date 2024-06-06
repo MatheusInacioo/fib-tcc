@@ -213,11 +213,11 @@
                 {
                     title: 'Configurações',
                     icon: 'bx bx-cog',
-                    route: 'dashboard.index',
+                    route: 'settings.index',
                     submenus: [
                         {
                             title: 'Listar',
-                            route: 'dashboard.index',
+                            route: 'settings.index',
                         }
                     ],
                 },

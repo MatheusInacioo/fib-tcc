@@ -43,6 +43,7 @@
                                 <input
                                     type="checkbox"
                                     class="rounded-lg"
+                                    :class="{ 'hidden' : permission.action == 'edit' && item.subject == 'transactions' }"
                                     :checked="hasPermission(role.id, item.subject, permission.action)"
                                     @change="togglePermission(role.id, item.subject, permission.action)"
                                 >
@@ -62,7 +63,6 @@
                 Cancelar
             </button>
             <button
-                type="button"
                 @click="savePermissions()"
                 class="w-24 2xl:h-10 p-2 rounded-xl text-secondary font-medium text-sm 2xl:text-base ml-3 bg-primary hover:scale-105 transition-all"
             >
@@ -168,11 +168,11 @@
             },
 
             savePermissions() {
-                axios.post(this.route('permissions.store', { permissions: this.markedPermissions }))
-                    .catch(error => {
-                        console.error(error);
-                    });
-
+                try {
+                    axios.post(route('permissions.store', { permissions: this.markedPermissions }));
+                } catch (error) {
+                    console.error('Erro ao salvar permissões: ', error)
+                }
             },
 
             goBack() {
