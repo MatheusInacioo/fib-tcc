@@ -57,10 +57,12 @@ export default {
             message: {},
             showModal: false,
             tableSettings: {
+                subject: 'users',
                 title: 'Usuários',
                 button_title: 'Novo Usuário',
                 routes: {
                     create: 'users.create',
+                    export: 'users.export',
                     edit: 'users.edit',
                     delete: 'users.destroy',
                 },

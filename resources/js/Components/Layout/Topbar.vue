@@ -22,12 +22,14 @@
                         class="text-left"
                     >
                         <a
+                            v-if="userHasPermission('list', menu.subject)"
                             :href="route(menu.route)"
                             class="flex items-center transition-all pl-4 w-full py-2 bg-gray-200"
                         >
                             <p class="text-sm 2xl:text-lg hover:scale-105 transition-all font-medium text-gray-800 w-full"> {{ menu.title }} </p>
                         </a>
                         <a
+                            v-if="userHasPermission('list', menu.subject)"
                             v-for="submenu in menu.submenus"
                             :href="route(submenu.route)"
                             class="flex items-center transition-all px-4 py-2"
@@ -66,6 +68,7 @@
                         class="px-2"
                     >
                         <a
+                            v-if="userHasPermission('list', menu.subject)"
                             :href="route(menu.route)"
                             class="flex items-center hover:bg-gray-200 transition-all px-4 py-2"
                         >
@@ -156,21 +159,23 @@
 
            menus: [
                {
-                   title: 'Transações',
-                   icon: 'bx bx-transfer-alt',
-                   route: 'transactions.index',
-                   submenus: [
+                    subject: 'transactions',
+                    title: 'Transações',
+                    icon: 'bx bx-transfer-alt',
+                    route: 'transactions.index',
+                    submenus: [
                         {
                            title: 'Consultar',
                            route: 'transactions.index',
                         }
                     ],
                 },
-               {
-                   title: 'Clientes',
-                   icon: 'bx bx-group',
-                   route: 'customers.index',
-                   submenus: [
+                {
+                    subject: 'customers',
+                    title: 'Clientes',
+                    icon: 'bx bx-group',
+                    route: 'customers.index',
+                    submenus: [
                         {
                            title: 'Novo Cliente',
                            route: 'customers.create',
@@ -178,6 +183,7 @@
                     ],
                 },
                 {
+                    subject: 'crm',
                     title: 'CRM',
                     icon: 'bx bx-clipboard',
                     route: 'crm.index',
@@ -189,6 +195,7 @@
                     ],
                 },
                 {
+                    subject: 'suppliers',
                     title: 'Fornecedores',
                     icon: 'bx bx-package',
                     route: 'suppliers.index',
@@ -200,6 +207,7 @@
                     ],
                 },
                 {
+                    subject: 'products',
                     title: 'Produtos',
                     icon: 'bx bx-purchase-tag-alt',
                     route: 'products.index',
@@ -210,17 +218,7 @@
                         }
                     ],
                 },
-                {
-                    title: 'Configurações',
-                    icon: 'bx bx-cog',
-                    route: 'settings.index',
-                    submenus: [
-                        {
-                            title: 'Listar',
-                            route: 'settings.index',
-                        }
-                    ],
-                },
+
             ],
         }
     },

@@ -36,6 +36,7 @@
 
                     <div class="flex">
                         <a
+                            v-if="userHasPermission('export', settings.subject)"
                             :href="route(settings.routes.create)"
                             class="flex justify-center items-center w-14 h-10 bg-primary rounded-xl text-white p-2 text-base font-semibold shadow-xl hover:scale-105 transition-all mr-2"
                         >
@@ -43,6 +44,7 @@
                         </a>
 
                         <a
+                            v-if="userHasPermission('create', settings.subject)"
                             :href="route(settings.routes.create)"
                             class="flex justify-center items-center w-14 h-10 bg-primary rounded-xl text-white p-2 text-base font-semibold shadow-xl hover:scale-105 transition-all"
                         >
@@ -64,6 +66,7 @@
 
             <div class="flex">
                 <a
+                    v-if="userHasPermission('export', settings.subject)"
                     :href="route(settings.routes.create)"
                     class="flex justify-center items-center w-auto 2xl:h-10 bg-primary rounded-xl text-white p-2 text-base 2xl:text-lg font-semibold shadow-xl hover:scale-105 transition-all mobile-std:hidden mr-2"
                 >
@@ -72,6 +75,7 @@
                 </a>
 
                 <a
+                    v-if="userHasPermission('create', settings.subject)"
                     :href="route(settings.routes.create)"
                     class="flex justify-center items-center w-auto 2xl:h-10 bg-primary rounded-xl text-white p-2 text-base 2xl:text-lg font-semibold shadow-xl hover:scale-105 transition-all mobile-std:hidden"
                 >
@@ -83,7 +87,7 @@
 
         <div class="flex max-h-[450px] 2xl:max-h-full overflow-y-auto w-full">
             <table class="min-w-full divide-y h-full divide-gray-200 border border-gray-200">
-                <thead class="bg-gray-200">
+                <thead class="bg-gray-200 w-full">
                     <tr>
                         <th
                             v-for="(column, index) in settings.columns"
@@ -92,7 +96,13 @@
                             :class="{ 'sortable cursor-pointer' : column.sortable, 'text-center' : index > 0 }"
                             class="px-6 py-3 text-left text-sm 2xl:text-base font-bold text-gray-500 uppercase tracking-wider"
                         >
-                            {{ column.label }}
+                            <span
+                                :class="{
+                                    'hidden' : column.name == 'actions' && ! userHasPermission('edit', settings.subject) || userHasPermission('delete', settings.subjetct)
+                                }"
+                            >
+                                {{ column.label }}
+                            </span>
                             <span v-if="column.sortable">
                                 <span
                                     v-if="sortColumn === index && sortOrder === 'asc'"
@@ -129,20 +139,21 @@
                                 class="flex justify-center"
                             >
                                 <a
-                                    v-if="settings.routes.view && ! settings.routes.edit"
+                                    v-if="settings.subject == 'transactions'"
                                     :href="route(settings.routes.view, item.id)"
                                     class="hover:scale-125 transition-all"
                                 >
                                     <i class="bx bx-show text-lg mr-2 2xl:mr-3 2xl:text-xl text-gray-400"></i>
                                 </a>
                                 <a
-                                    v-if="settings.routes.edit && ! settings.routes.view"
+                                    v-if="settings.subject != 'transactions' && userHasPermission('edit', settings.subject)"
                                     :href="route(settings.routes.edit, item.id)"
                                     class="hover:scale-125 transition-all"
                                 >
                                     <i class="bx bxs-edit text-lg mr-2 2xl:mr-3 2xl:text-xl text-gray-400"></i>
                                 </a>
                                 <button
+                                    v-if="userHasPermission('delete', settings.subject)"
                                     type="button"
                                     @click="deleteItem(item.id)"
                                     class="hover:scale-125 transition-all"

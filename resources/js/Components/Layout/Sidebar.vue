@@ -14,17 +14,42 @@
                         <i class="bx bx-chevron-left"></i>
                     </button>
                 </div>
+
+                <div class="menu-item px-4 my-0.5 group">
+                    <a
+                        :href="route('dashboard.index')"
+                        class="flex items-center h-8 hover:bg-secondary hover:rounded-lg hover:text-orange500 transition-all hover:scale-110 p-2"
+                    >
+                        <i class="bx bx-home-alt-2 mr-3 text-base 2xl:text-xl text-secondary group-hover:text-primary"></i>
+                        <p class="text-sm 2xl:text-base font-medium text-secondary group-hover:text-primary"> Início </p>
+                    </a>
+                </div>
+
                 <div
                     v-for="button in buttons"
                     :key="button.id"
-                    class="menu-item px-4 my-0.5 group"
                 >
+                    <div
+                        v-if="userHasPermission('list', button.subject)"
+                        class="menu-item px-4 my-0.5 group"
+                    >
+                        <a
+                            :href="route(button.route)"
+                            class="flex items-center h-8 hover:bg-secondary hover:rounded-lg hover:text-orange500 transition-all hover:scale-110 p-2"
+                        >
+                            <i :class="button.icon + ' mr-3 text-base 2xl:text-xl text-secondary group-hover:text-primary'"></i>
+                            <p class="text-sm 2xl:text-base font-medium text-secondary group-hover:text-primary"> {{ button.title }} </p>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="menu-item px-4 my-0.5 group">
                     <a
-                        :href="route(button.route)"
+                        :href="route('login.destroy')"
                         class="flex items-center h-8 hover:bg-secondary hover:rounded-lg hover:text-orange500 transition-all hover:scale-110 p-2"
                     >
-                        <i :class="button.icon + ' mr-3 text-base 2xl:text-xl text-secondary group-hover:text-primary'"></i>
-                        <p class="text-sm 2xl:text-base font-medium text-secondary group-hover:text-primary"> {{ button.title }} </p>
+                        <i class="bx bx-log-out mr-3 text-base 2xl:text-xl text-secondary group-hover:text-primary"></i>
+                        <p class="text-sm 2xl:text-base font-medium text-secondary group-hover:text-primary"> Sair </p>
                     </a>
                 </div>
             </div>
@@ -42,18 +67,47 @@
                         <i class="bx bx-chevron-right"></i>
                     </button>
                 </div>
+
+                <div class="menu-item px-4 my-0.5 group relative">
+                    <a
+                        :href="route('dashboard.index')"
+                        class="flex items-center h-8 hover:bg-secondary hover:rounded-lg hover:text-primary transition-all hover:scale-110 p-2"
+                    >
+                        <i class="bx bx-home-alt-2 text-base 2xl:text-xl text-secondary group-hover:text-primary"></i>
+                        <span class="menu-text absolute left-full ml-1 whitespace-nowrap bg-secondary px-2 py-1 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm 2xl:text-base font-medium text-primary">
+                            Início
+                        </span>
+                    </a>
+                </div>
+
                 <div
                     v-for="button in buttons"
                     :key="button.id"
-                    class="menu-item px-4 my-0.5 group relative"
                 >
+                    <div
+                        v-if="userHasPermission('list', button.subject)"
+                        class="menu-item px-4 my-0.5 group relative"
+                    >
+                        <a
+                            :href="route(button.route)"
+                            class="flex items-center h-8 hover:bg-secondary hover:rounded-lg hover:text-primary transition-all hover:scale-110 p-2"
+                        >
+                            <i :class="button.icon + ' text-base 2xl:text-xl text-secondary group-hover:text-primary'"></i>
+                            <span class="menu-text absolute left-full ml-1 whitespace-nowrap bg-secondary px-2 py-1 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm 2xl:text-base font-medium text-primary">
+                                {{ button.title }}
+                            </span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="menu-item px-4 my-0.5 group relative">
                     <a
-                        :href="route(button.route)"
+                        :href="route('login.destroy')"
                         class="flex items-center h-8 hover:bg-secondary hover:rounded-lg hover:text-primary transition-all hover:scale-110 p-2"
                     >
-                        <i :class="button.icon + ' text-base 2xl:text-xl text-secondary group-hover:text-primary'"></i>
+                        <i class="bx bx-log-out text-base 2xl:text-xl text-secondary group-hover:text-primary"></i>
                         <span class="menu-text absolute left-full ml-1 whitespace-nowrap bg-secondary px-2 py-1 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm 2xl:text-base font-medium text-primary">
-                            {{ button.title }}
+                            Sair
                         </span>
                     </a>
                 </div>
@@ -69,31 +123,31 @@
                 showBar: false,
                 buttons: [
                     {
-                        title: 'Início',
-                        icon: 'bx bx-home-alt-2',
-                        route: 'dashboard.index',
-                    },
-                    {
+                        subject: 'transactions',
                         title: 'Transações',
                         icon: 'bx bx-transfer-alt',
                         route: 'transactions.index',
                     },
                     {
+                        subject: 'customers',
                         title: 'Clientes',
                         icon: 'bx bx-group',
                         route: 'customers.index',
                     },
                     {
+                        subject: 'crm',
                         title: 'CRM',
                         icon: 'bx bx-clipboard',
                         route: 'crm.index',
                     },
                     {
+                        subject: 'suppliers',
                         title: 'Fornecedores',
                         icon: 'bx bx-package',
                         route: 'suppliers.index',
                     },
                     {
+                        subject: 'products',
                         title: 'Produtos',
                         icon: 'bx bx-purchase-tag-alt',
                         route: 'products.index',
@@ -102,11 +156,6 @@
                         title: 'Configurações',
                         icon: 'bx bxs-cog',
                         route: 'settings.index',
-                    },
-                    {
-                        title: 'Sair',
-                        icon: 'bx bx-log-out',
-                        route: 'login.destroy',
                     },
                 ],
             }

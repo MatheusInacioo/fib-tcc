@@ -57,10 +57,12 @@ export default {
             message: {},
             showModal: false,
             tableSettings: {
+                subject: 'customers',
                 title: 'Clientes',
                 button_title: 'Novo Cliente',
                 routes: {
                     create: 'customers.create',
+                    export: 'customers.export',
                     edit: 'customers.edit',
                     delete: 'customers.destroy',
                 },

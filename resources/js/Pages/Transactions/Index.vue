@@ -57,10 +57,12 @@ export default {
             message: {},
             showModal: false,
             tableSettings: {
+                subject: 'transactions',
                 title: 'Transações',
                 button_title: 'Nova Transação',
                 routes: {
                     create: 'transactions.create',
+                    export: 'transactions.export',
                     view: 'transactions.view',
                     delete: 'transactions.destroy',
                 },

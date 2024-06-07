@@ -57,10 +57,12 @@ export default {
             message: {},
             showModal: false,
             tableSettings: {
+                subject: 'products',
                 title: 'Produtos',
                 button_title: 'Novo produto',
                 routes: {
                     create: 'products.create',
+                    export: 'products.export',
                     edit: 'products.edit',
                     delete: 'products.destroy',
                 },

@@ -57,10 +57,12 @@ export default {
             message: '',
             showModal: false,
             tableSettings: {
+                subject: 'suppliers',
                 title: 'Fornecedores',
                 button_title: 'Novo Fornecedor',
                 routes: {
                     create: 'suppliers.create',
+                    export: 'suppliers.export',
                     edit: 'suppliers.edit',
                     delete: 'suppliers.destroy',
                 },
