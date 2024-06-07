@@ -2,12 +2,11 @@
     <BaseLayout>
         <Head title="Permissões"/>
         <div class="flex items-center">
-            <button
-                type="button"
-                @click="goBack()"
+            <a
+                :href="route('settings.index')"
             >
                 <i class="bx bx-left-arrow-alt text-3xl hover:scale-110 transition-all mr-2"></i>
-            </button>
+            </a>
             <span class="text-2xl mobile-std:text-xl font-medium">Permissões</span>
         </div>
 
@@ -63,13 +62,12 @@
         </div>
 
         <div class="flex mobile-std:justify-between">
-            <button
-                type="button"
-                @click="goBack()"
+            <a
+                :href="route('settings.index')"
                 class="w-24 2xl:h-10 p-2 rounded-xl text-white font-medium text-sm 2xl:text-base text-center bg-gray-400 hover:scale-105 transition-all"
             >
                 Voltar
-            </button>
+            </a>
             <button
                 @click="savePermissions()"
                 class="w-24 2xl:h-10 p-2 rounded-xl text-secondary font-medium text-sm 2xl:text-base ml-3 bg-primary hover:scale-105 transition-all"

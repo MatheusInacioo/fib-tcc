@@ -2,12 +2,11 @@
     <BaseLayout>
         <Head :title="pageTitle"/>
         <div class="flex items-center">
-            <button
-                type="button"
-                @click="goBack()"
+            <a
+                :href="route('transactions.index')"
             >
                 <i class="bx bx-left-arrow-alt text-3xl hover:scale-110 transition-all mr-2"></i>
-            </button>
+            </a>
             <span class="text-2xl mobile-std:text-xl font-medium">{{ pageTitle }}</span>
         </div>
 
@@ -255,14 +254,13 @@
                 >
                     Voltar
                 </button>
-                <button
+                <a
                     v-if="!transactionExists"
-                    type="button"
-                    @click="goBack()"
+                    :href="route('transactions.index')"
                     class="w-24 2xl:h-10 p-2 rounded-xl text-white font-medium text-sm 2xl:text-base text-center bg-gray-400 hover:scale-105 transition-all"
                 >
                     Cancelar
-                </button>
+                </a>
                 <button
                     v-if="!transactionExists"
                     :disabled="! form.payment_method"
@@ -457,8 +455,6 @@ export default {
         if (this.transactionExists) {
             this.buildForm(this.transaction.data);
         }
-
-        console.log(this.transaction);
     },
 };
 </script>

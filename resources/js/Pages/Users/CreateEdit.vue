@@ -2,12 +2,11 @@
     <BaseLayout>
         <Head :title="pageTitle"/>
         <div class="flex items-center">
-            <button
-                type="button"
-                @click="goBack()"
+            <a
+                :href="route('users.index')"
             >
                 <i class="bx bx-left-arrow-alt text-3xl hover:scale-110 transition-all mr-2"></i>
-            </button>
+            </a>
             <span class="text-2xl mobile-std:text-xl font-medium">{{ pageTitle }}</span>
         </div>
 
@@ -60,7 +59,12 @@
                     <div v-if="form.errors.password" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.password }}</div>
                 </div>
 
-                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mb-4 mobile-std:mr-0">
+                <div
+                    class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mb-4 mobile-std:mr-0"
+                    :class="{
+                        'hidden' : !userIsAdmin
+                    }"
+                >
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Cargo</span>
                     <select
                         v-model="form.role_id"
@@ -81,13 +85,12 @@
             </div>
 
             <div class="flex mobile-std:justify-between">
-                <button
-                    type="button"
-                    @click="goBack()"
+                <a
+                    :href="route('users.index')"
                     class="w-24 2xl:h-10 p-2 rounded-xl text-white font-medium text-sm 2xl:text-base text-center bg-gray-400 hover:scale-105 transition-all"
                 >
                     Cancelar
-                </button>
+                </a>
                 <button
                     type="submit"
                     class="w-24 2xl:h-10 p-2 rounded-xl text-secondary font-medium text-sm 2xl:text-base ml-3 bg-primary hover:scale-105 transition-all"
@@ -143,7 +146,6 @@ export default {
 
     methods: {
         saveForm() {
-            console.log(this.form.role_id);
             return this.userExists ? this.updateUser() : this.createUser();
         },
 
@@ -160,10 +162,6 @@ export default {
             this.form.email = data.email;
             this.form.role_id = data.role_id;
         },
-
-        goBack() {
-            window.history.back();
-        }
     },
 
     created() {
