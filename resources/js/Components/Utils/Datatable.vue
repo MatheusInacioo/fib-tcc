@@ -413,10 +413,6 @@ export default {
         toggleModal() {
             this.showModal = ! this.showModal;
         },
-
-        goBack() {
-            window.history.back();
-        },
     },
 };
 </script>

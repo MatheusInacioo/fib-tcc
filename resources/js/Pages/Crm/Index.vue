@@ -9,7 +9,7 @@
             <p class="font-semibold text-2xl mb-5">Nenhum registro encontrado</p>
             <a
                 :href="route('crm.create')"
-                class="flex justify-center items-center w-40 p-2 h-10 bg-primary rounded-xl text-white text-lg font-semibold shadow-xl hover:scale-105 transition-all"
+                class="flex justify-center items-center w-40 p-2 h-10 bg-primary rounded-xl text-secondary text-lg font-semibold shadow-xl hover:scale-105 transition-all"
             >
                 <i class="bx bx-plus font-semibold mr-2 text-secondary"></i>
                 <p class="font-medium text-secondary">Cadastrar</p>
@@ -21,10 +21,18 @@
             class="h-full w-full flex flex-col"
         >
             <div class="flex justify-between items-center">
-                <p class="font-medium 2xl:text-2xl text-xl">CRM Dashboard</p>
+                <div class="flex items-center">
+                    <button
+                        type="button"
+                        @click="goBack()"
+                    >
+                        <i class="bx bx-left-arrow-alt text-3xl hover:scale-110 transition-all mr-2"></i>
+                    </button>
+                    <span class="text-2xl mobile-std:text-xl font-medium">CRM Dashboard</span>
+                </div>
                 <a
                     :href="route('crm.create')"
-                    class="flex justify-center items-center w-40 p-2 h-10 mobile-std:w-14 bg-primary rounded-xl text-white text-lg font-semibold shadow-xl hover:scale-105 transition-all"
+                    class="flex justify-center items-center w-40 p-2 h-10 mobile-std:w-14 bg-primary rounded-xl text-secondary text-lg font-semibold shadow-xl hover:scale-105 transition-all"
                 >
                     <i class="bx bx-plus font-semibold mr-2 text-secondary mobile-std:mr-0"></i>
                     <p class="mobile-std:hidden font-medium text-secondary">Cadastrar</p>

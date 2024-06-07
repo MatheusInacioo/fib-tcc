@@ -1,8 +1,14 @@
 <template>
     <BaseLayout>
         <Head :title="'CRM - ' + pageTitle"/>
-        <div class="flex justify-between items-center">
-            <p class="font-medium text-xl 2xl:text-2xl">{{ pageTitle }}</p>
+        <div class="flex items-center">
+            <button
+                type="button"
+                @click="goBack()"
+            >
+                <i class="bx bx-left-arrow-alt text-3xl hover:scale-110 transition-all mr-2"></i>
+            </button>
+            <span class="text-2xl mobile-std:text-xl font-medium">{{ pageTitle }}</span>
         </div>
 
         <div class="min-h-px w-full bg-primary my-4 mobile-std:my-2"></div>
@@ -371,10 +377,6 @@ export default {
 
             this.showModal = ! this.showModal;
         },
-
-        goBack() {
-            window.history.back();
-        }
     },
 
     created() {

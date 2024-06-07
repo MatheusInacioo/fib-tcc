@@ -1,7 +1,15 @@
 <template>
     <BaseLayout>
         <Head title="Configurações"/>
-        <span class="text-2xl mobile-std:text-xl font-medium">Configurações</span>
+        <div class="flex items-center">
+            <button
+                type="button"
+                @click="goBack()"
+            >
+                <i class="bx bx-left-arrow-alt text-3xl hover:scale-110 transition-all mr-2"></i>
+            </button>
+            <span class="text-2xl mobile-std:text-xl font-medium">Configurações</span>
+        </div>
 
         <div class="min-h-px w-full bg-primary my-4 mobile-std:my-2"></div>
 

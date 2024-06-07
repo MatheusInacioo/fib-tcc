@@ -1,7 +1,15 @@
 <template>
     <BaseLayout>
         <Head title="Permissões"/>
-        <span class="text-2xl mobile-std:text-xl font-medium">Permissões</span>
+        <div class="flex items-center">
+            <button
+                type="button"
+                @click="goBack()"
+            >
+                <i class="bx bx-left-arrow-alt text-3xl hover:scale-110 transition-all mr-2"></i>
+            </button>
+            <span class="text-2xl mobile-std:text-xl font-medium">Permissões</span>
+        </div>
 
         <div class="min-h-px w-full bg-primary my-4 mobile-std:my-2"></div>
 
@@ -60,7 +68,7 @@
                 @click="goBack()"
                 class="w-24 2xl:h-10 p-2 rounded-xl text-white font-medium text-sm 2xl:text-base text-center bg-gray-400 hover:scale-105 transition-all"
             >
-                Cancelar
+                Voltar
             </button>
             <button
                 @click="savePermissions()"
@@ -184,10 +192,6 @@
                 } catch (error) {
                     console.error('Erro ao salvar permissões: ', error)
                 }
-            },
-
-            goBack() {
-                window.history.back();
             },
         },
 

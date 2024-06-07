@@ -56,7 +56,7 @@
 
                     <button
                         type="submit"
-                        class="w-full h-10 mt-10 bg-primary rounded-2xl text-white text-lg font-poppins font-semibold shadow-xl hover:scale-105 transition-all"
+                        class="w-full h-10 mt-10 bg-primary rounded-2xl text-secondary text-lg font-poppins font-semibold shadow-xl hover:scale-105 transition-all"
                     >
                         Entrar
                     </button>

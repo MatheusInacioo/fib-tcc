@@ -9,7 +9,7 @@
             <p class="font-semibold text-2xl mb-5">Nenhum usuário encontrado</p>
             <a
                 :href="route('users.create')"
-                class="flex justify-center items-center min-w-40 p-2 h-10 bg-primary rounded-xl text-white text-lg font-semibold shadow-xl hover:scale-105 transition-all"
+                class="flex justify-center items-center min-w-40 p-2 h-10 bg-primary rounded-xl text-secondary text-lg font-semibold shadow-xl hover:scale-105 transition-all"
             >
                 <i class="bx bx-plus font-semibold"></i>
                 <p class="font-medium">Novo Usuário</p>

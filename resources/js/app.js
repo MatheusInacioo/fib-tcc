@@ -6,6 +6,7 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import permissions from './Mixins/permissions.js';
+import navigation from './Mixins/navigation.js';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -18,6 +19,7 @@ createInertiaApp({
             .use(ZiggyVue);
 
         app.mixin(permissions);
+        app.mixin(navigation);
         app.mount(el);
     },
     progress: {

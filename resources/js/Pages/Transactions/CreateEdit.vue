@@ -1,8 +1,14 @@
 <template>
     <BaseLayout>
         <Head :title="pageTitle"/>
-        <div class="flex justify-between items-center">
-            <p class="font-medium text-xl 2xl:text-2xl">{{ pageTitle }}</p>
+        <div class="flex items-center">
+            <button
+                type="button"
+                @click="goBack()"
+            >
+                <i class="bx bx-left-arrow-alt text-3xl hover:scale-110 transition-all mr-2"></i>
+            </button>
+            <span class="text-2xl mobile-std:text-xl font-medium">{{ pageTitle }}</span>
         </div>
 
         <div class="min-h-px w-full bg-primary my-4 mobile-std:my-2"></div>
@@ -264,7 +270,7 @@
                     class="w-24 2xl:h-10 p-2 rounded-xl text-secondary font-medium text-sm 2xl:text-base ml-3"
                     :class="{
                         'bg-primary hover:scale-105 transition-all' : form.payment_method,
-                        'bg-gray-300' : ! form.payment_method,
+                        'bg-gray-300 text-white' : ! form.payment_method,
                     }"
                 >
                     Salvar
@@ -445,10 +451,6 @@ export default {
         updateTotalAmount() {
             this.form.total_amount = this.form.quantity * this.form.price;
         },
-
-        goBack() {
-            window.history.back();
-        }
     },
 
     created() {
