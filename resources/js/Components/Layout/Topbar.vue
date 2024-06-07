@@ -116,57 +116,65 @@
                         </a>
                     </div>
 
-                    <div
-                        v-for="button in buttons"
-                        :key="button.id"
-                        class="group px-2"
-                    >
+                    <div class="group px-2">
                         <a
-                            :href="route(button.route)"
-                            :class="{ 'hover:rounded-b-lg' : button.title == 'Sair' }"
+                            :href="route('settings.index')"
                             class="flex items-center hover:bg-gray-200 transition-all hover:scale-110 px-4 py-2"
                         >
-                            <i :class="button.icon + ' mr-3 text-base 2xl:text-xl text-gray-800 mobile-std:text-2xl'"></i>
-                            <p class="text-sm 2xl:text-base font-medium text-gray-800 mobile-std:text-lg"> {{ button.title }} </p>
+                            <i class="bx bxs-cog mr-3 text-base 2xl:text-xl text-gray-800 mobile-std:text-2xl"></i>
+                            <p class="text-sm 2xl:text-base font-medium text-gray-800 mobile-std:text-lg"> Configurações </p>
+                        </a>
+
+                        <a
+                            @click="toggleConfirmationModal()"
+                            class="flex items-center hover:bg-gray-200 transition-all hover:rounded-b-lg hover:scale-110 px-4 py-2"
+                        >
+                            <i class="bx bx-log-out mr-3 text-base 2xl:text-xl text-gray-800 mobile-std:text-2xl"></i>
+                            <p class="text-sm 2xl:text-base font-medium text-gray-800 mobile-std:text-lg"> Sair </p>
                         </a>
                     </div>
                 </div>
             </transition>
         </div>
+
+        <ConfirmationModal
+            :show-modal="showModal"
+            :custom-message="message"
+            @exit-system="exitSystem()"
+            @close-modal="toggleConfirmationModal()"
+        />
     </div>
  </template>
 
  <script>
+ import ConfirmationModal from '@/Components/Utils/ConfirmationModal.vue';
+
  export default {
+    components: {
+        ConfirmationModal,
+    },
+
     data() {
         return {
-           user: this.$page.props.auth.user,
-           toggleDropdown: false,
-           toggleMenu: false,
-           searchQuery: '',
-           buttons: [
-               {
-                   title: 'Configurações',
-                   icon: 'bx bxs-cog',
-                   route: 'settings.index',
-               },
-               {
-                   title: 'Sair',
-                   icon: 'bx bx-log-out',
-                   route: 'login.destroy',
-               },
-           ],
-
-           menus: [
-               {
+            user: this.$page.props.auth.user,
+            toggleDropdown: false,
+            toggleMenu: false,
+            searchQuery: '',
+            showModal: false,
+            message: {
+                content: '',
+                subject: 'exit-system',
+            },
+            menus: [
+                {
                     subject: 'transactions',
                     title: 'Transações',
                     icon: 'bx bx-transfer-alt',
                     route: 'transactions.index',
                     submenus: [
                         {
-                           title: 'Consultar',
-                           route: 'transactions.index',
+                            title: 'Consultar',
+                            route: 'transactions.index',
                         }
                     ],
                 },
@@ -232,6 +240,18 @@
                 (menu.submenus && menu.submenus.some(submenu => submenu.title.toLowerCase().includes(this.searchQuery.toLowerCase())))
             );
         }
+    },
+
+    methods: {
+        toggleConfirmationModal() {
+            this.message.content = 'Deseja realmente sair do sistema?';
+
+            this.showModal = ! this.showModal;
+        },
+
+        exitSystem() {
+            this.$inertia.visit(route('login.destroy'));
+        },
     },
  };
  </script>

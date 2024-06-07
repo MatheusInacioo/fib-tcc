@@ -171,6 +171,7 @@
                 </div>
 
                 <button
+                    v-if="itemExists"
                     @click="toggleConfirmationModal()"
                     type="button"
                     class="flex justify-center items-center p-2 h-10 bg-primary rounded-xl text-white shadow-xl hover:scale-105 transition-all self-end"
@@ -284,7 +285,10 @@ export default {
     data() {
         return {
             showModal: false,
-            message: '',
+            message: {
+                content: '',
+                subject: 'close-contract',
+            },
             types: ['Cliente', 'Fornecedor'],
             statuses: [
                 'Contato',
@@ -363,7 +367,7 @@ export default {
         },
 
         toggleConfirmationModal() {
-            this.message = `Ao clicar em confirmar, o atendimento #${this.item.data.id} será encerrado e cadastrado como <span class="uppercase font-bold">${this.form.type}</span>. <br/> Deseja continuar?`;
+            this.message.content = `Ao clicar em confirmar, o atendimento #${this.item.data.id} será encerrado e cadastrado como <span class="uppercase font-bold">${this.form.type}</span>. <br/> Deseja continuar?`;
 
             this.showModal = ! this.showModal;
         },

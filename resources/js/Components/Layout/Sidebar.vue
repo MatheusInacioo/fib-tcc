@@ -45,7 +45,17 @@
 
                 <div class="menu-item px-4 my-0.5 group">
                     <a
-                        :href="route('login.destroy')"
+                        :href="route('settings.index')"
+                        class="flex items-center h-8 hover:bg-secondary hover:rounded-lg hover:text-orange500 transition-all hover:scale-110 p-2"
+                    >
+                        <i class="bx bxs-cog mr-3 text-base 2xl:text-xl text-secondary group-hover:text-primary"></i>
+                        <p class="text-sm 2xl:text-base font-medium text-secondary group-hover:text-primary"> Configurações </p>
+                    </a>
+                </div>
+
+                <div class="menu-item px-4 my-0.5 group">
+                    <a
+                        @click="toggleConfirmationModal()"
                         class="flex items-center h-8 hover:bg-secondary hover:rounded-lg hover:text-orange500 transition-all hover:scale-110 p-2"
                     >
                         <i class="bx bx-log-out mr-3 text-base 2xl:text-xl text-secondary group-hover:text-primary"></i>
@@ -102,25 +112,55 @@
 
                 <div class="menu-item px-4 my-0.5 group relative">
                     <a
-                        :href="route('login.destroy')"
+                        :href="route('settings.index')"
+                        class="flex items-center h-8 hover:bg-secondary hover:rounded-lg hover:text-primary transition-all hover:scale-110 p-2"
+                    >
+                        <i class="bx bxs-cog text-base 2xl:text-xl text-secondary group-hover:text-primary"></i>
+                        <span class="menu-text absolute left-full ml-1 whitespace-nowrap bg-secondary px-2 py-1 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm 2xl:text-base font-medium text-primary">
+                            Configurações
+                        </span>
+                    </a>
+                </div>
+
+                <div class="menu-item px-4 my-0.5 group relative">
+                    <button
+                        @click="toggleConfirmationModal()"
                         class="flex items-center h-8 hover:bg-secondary hover:rounded-lg hover:text-primary transition-all hover:scale-110 p-2"
                     >
                         <i class="bx bx-log-out text-base 2xl:text-xl text-secondary group-hover:text-primary"></i>
                         <span class="menu-text absolute left-full ml-1 whitespace-nowrap bg-secondary px-2 py-1 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm 2xl:text-base font-medium text-primary">
                             Sair
                         </span>
-                    </a>
+                    </button>
                 </div>
             </div>
         </Transition>
+
+        <ConfirmationModal
+            :show-modal="showModal"
+            :custom-message="message"
+            @exit-system="exitSystem()"
+            @close-modal="toggleConfirmationModal()"
+        />
     </div>
 </template>
 
 <script>
+    import ConfirmationModal from '@/Components/Utils/ConfirmationModal.vue';
+
     export default {
+        components: {
+            ConfirmationModal,
+        },
+
         data() {
             return {
                 showBar: false,
+                showModal: false,
+                message: {
+                    content: '',
+                    subject: 'exit-system',
+                },
                 buttons: [
                     {
                         subject: 'transactions',
@@ -152,14 +192,21 @@
                         icon: 'bx bx-purchase-tag-alt',
                         route: 'products.index',
                     },
-                    {
-                        title: 'Configurações',
-                        icon: 'bx bxs-cog',
-                        route: 'settings.index',
-                    },
                 ],
             }
-        }
+        },
+
+        methods: {
+            toggleConfirmationModal() {
+                this.message.content = 'Deseja realmente sair do sistema?';
+
+                this.showModal = ! this.showModal;
+            },
+
+            exitSystem() {
+                this.$inertia.visit(route('login.destroy'));
+            },
+        },
     }
 </script>
 
