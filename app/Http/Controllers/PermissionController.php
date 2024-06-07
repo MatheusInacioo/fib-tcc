@@ -23,7 +23,7 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         try {
-            $permissions = $request->input('permissions');
+            $permissions = $request->input('markedPermissions');
             $groupedPermissions = [];
 
             if(! $permissions) {

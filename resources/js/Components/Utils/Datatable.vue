@@ -143,7 +143,6 @@
                                     <i class="bx bxs-edit text-lg mr-2 2xl:mr-3 2xl:text-xl text-gray-400"></i>
                                 </a>
                                 <button
-                                    v-can="'delete-transactions'"
                                     type="button"
                                     @click="deleteItem(item.id)"
                                     class="hover:scale-125 transition-all"

@@ -73,7 +73,7 @@
 </template>
 
 <script>
-    import { Head } from '@inertiajs/vue3';
+    import { useForm, Head } from '@inertiajs/vue3';
     import BaseLayout from '@/Components/Layout/BaseLayout.vue';
 
     export default {
@@ -84,6 +84,14 @@
 
         props: {
             roles: {},
+        },
+
+        setup() {
+            const form = useForm({
+                markedPermissions: [],
+            });
+
+            return { form }
         },
 
         data() {
@@ -132,7 +140,6 @@
                         action: 'delete',
                    },
                 ],
-                markedPermissions: [],
             }
         },
 
@@ -141,7 +148,7 @@
                 try {
                     const response = await axios.get(this.route('permissions.fetch'));
 
-                    this.markedPermissions = response.data;
+                    this.form.markedPermissions = response.data;
                 } catch (error) {
                     console.error('Erro ao buscar permissões:', error);
                 }
@@ -150,17 +157,17 @@
             hasPermission(roleId, subject, action) {
                 const permissionName = `${action}-${subject}`;
 
-                return this.markedPermissions.some(p => p.role_id === roleId && p.name === permissionName);
+                return this.form.markedPermissions.some(p => p.role_id === roleId && p.name === permissionName);
             },
 
             togglePermission(roleId, subject, permission) {
                 const permissionName = `${permission}-${subject}`;
-                const existingPermissionIndex = this.markedPermissions.findIndex(p => p.role_id === roleId && p.name === permissionName);
+                const existingPermissionIndex = this.form.markedPermissions.findIndex(p => p.role_id === roleId && p.name === permissionName);
 
                 if (existingPermissionIndex !== -1) {
-                    this.markedPermissions.splice(existingPermissionIndex, 1);
+                    this.form.markedPermissions.splice(existingPermissionIndex, 1);
                 } else {
-                    this.markedPermissions.push({
+                    this.form.markedPermissions.push({
                         role_id: roleId,
                         name: permissionName
                     });
@@ -169,7 +176,7 @@
 
             savePermissions() {
                 try {
-                    axios.post(route('permissions.store', { permissions: this.markedPermissions }));
+                    return this.form.post(route('permissions.store'));
                 } catch (error) {
                     console.error('Erro ao salvar permissões: ', error)
                 }

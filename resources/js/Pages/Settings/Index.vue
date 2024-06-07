@@ -23,21 +23,31 @@
                 <span class="text-xl mobile-std:text-lg font-medium text-black">{{ button.title }}</span>
             </a>
         </div>
+
+        <NotificationModal
+            :show-modal="showModal"
+            :message="message"
+            @close-modal="toggleModal()"
+        />
     </BaseLayout>
 </template>
 
 <script>
     import { Head } from '@inertiajs/vue3';
     import BaseLayout from '@/Components/Layout/BaseLayout.vue';
+    import NotificationModal from '@/Components/Utils/NotificationModal.vue';
 
     export default {
         components: {
             Head,
             BaseLayout,
+            NotificationModal,
         },
 
         data() {
             return {
+                message: {},
+                showModal: false,
                 buttons: [
                     {
                         title: 'Usuários',
@@ -63,19 +73,25 @@
             }
         },
 
+        methods: {
+            toggleModal() {
+                this.showModal = ! this.showModal;
+            },
+        },
+
         created() {
             setTimeout(() => {
                 var flashMessage = this.$page.props.flash;
 
                 if(flashMessage.success) {
-                    this.showNotificationModal = true;
+                    this.showModal = true;
 
                     this.message = {
                         type: 'success',
                         content: flashMessage.success,
                     }
                 } else if (flashMessage.error) {
-                    this.showNotificationModal = true;
+                    this.showModal = true;
 
                     this.message = {
                         type: 'error',
