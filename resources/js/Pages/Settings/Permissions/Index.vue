@@ -117,6 +117,10 @@
                         label: 'Produtos',
                         subject: 'products',
                    },
+                   {
+                        label: 'Usuários',
+                        subject: 'users',
+                   },
                 ],
                 permissions: [
                    {
