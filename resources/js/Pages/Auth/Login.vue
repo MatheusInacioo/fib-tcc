@@ -7,7 +7,7 @@
 
                 <form
                     method="POST"
-                    class="flex flex-col font-poppins"
+                    class="flex flex-col font-roboto"
                     @submit.prevent="form.post(route('login.store'))"
                 >
                     <span v-if="$page.props.errors" class="text-red-500 text-base font-semibold">{{ $page.props.errors.error }}</span>
@@ -56,7 +56,7 @@
 
                     <button
                         type="submit"
-                        class="w-full h-10 mt-10 bg-primary rounded-2xl text-secondary text-lg font-poppins font-semibold shadow-xl hover:scale-105 transition-all"
+                        class="w-full h-10 mt-10 bg-primary rounded-2xl text-secondary text-lg font-roboto font-semibold shadow-xl hover:scale-105 transition-all"
                     >
                         Entrar
                     </button>

@@ -94,7 +94,7 @@
                     class="mr-1 text-2xl mobile-std:hidden"
                 ></i>
                 <p class="text-base 2xl:text-lg font-medium mr-2 mobile-std:hidden">{{ user.name }}</p>
-                <i class="web:hidden mobile-lg:hidden bx bxs-user-circle text-4xl text-white"></i>
+                <i class="web:hidden mobile-lg:hidden bx bxs-user-circle text-4xl text-secondary"></i>
                 <i class="mobile-std:hidden bx bx-user-circle 2xl:text-4xl text-3xl"></i>
             </div>
 
