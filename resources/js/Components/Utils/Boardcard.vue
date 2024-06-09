@@ -35,6 +35,7 @@
         </div>
         <div class="flex justify-center items-center">
             <button
+                v-if="userHasPermission('delete', 'crm')"
                 type="button"
                 class="hover:scale-125 transition-all"
                 @click="deleteItem(item.id)"

@@ -27,7 +27,9 @@
                 :href="route(button.route)"
                 class="h-[80px] w-[95%] mobile-std:w-full p-4 rounded-xl shadow-lg mb-4 flex items-center border border-gray-200 hover:scale-105 transition-all bg-white"
                 :class="{
-                    'hidden' : button.title == 'Permissões' && !userIsAdmin || button.title == 'Cargos' && !userIsAdmin
+                    'hidden' :
+                        button.title == 'Permissões' && !userIsAdmin ||
+                        button.title == 'Usuários' && !userHasPermission('list', 'users')
                 }"
             >
                 <i :class="button.icon + ' mr-4 text-2xl text-primary'"></i>

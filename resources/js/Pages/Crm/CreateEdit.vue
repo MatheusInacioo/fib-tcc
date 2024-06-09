@@ -190,7 +190,7 @@
                     v-if="itemExists"
                     @click="toggleConfirmationModal()"
                     type="button"
-                    class="flex justify-center items-center mt-4 mobile-std:mt-0 p-2 h-10 w-[160px] bg-primary rounded-xl text-white shadow-xl hover:scale-105 transition-all self-center"
+                    class="flex justify-center items-center mt-4 mobile-std:mt-0 mobile-std:mb-4 p-2 h-10 w-[160px] bg-primary rounded-xl text-white shadow-xl hover:scale-105 transition-all self-center"
                 >
                     <i class="bx bx-edit-alt font-semibold mr-2 text-secondary"></i>
                     <p class="font-medium text-secondary">Fechar Contrato</p>
