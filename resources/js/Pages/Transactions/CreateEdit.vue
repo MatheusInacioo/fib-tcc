@@ -246,14 +246,13 @@
             </div>
 
             <div class="flex mobile-std:justify-between">
-                <button
+                <a
                     v-if="transactionExists"
-                    type="button"
-                    @click="goBack()"
+                    :href="route('transactions.index')"
                     class="w-24 2xl:h-10 p-2 rounded-xl text-white font-medium text-sm 2xl:text-base text-center bg-primary hover:scale-105 transition-all"
                 >
                     Voltar
-                </button>
+                </a>
                 <a
                     v-if="!transactionExists"
                     :href="route('transactions.index')"
