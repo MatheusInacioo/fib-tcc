@@ -12,12 +12,13 @@ class CustomerSeeder extends Seeder
      */
     public function run(): void
     {
-        for($i = 0; $i <= 100; $i++) {
+        for($i = 0; $i < 100; $i++) {
             Customer::create([
                 'name' => fake()->company(),
                 'cnpj' => fake()->numerify('##.###.###/0001-##'),
                 'email' => fake()->unique()->safeEmail(),
                 'address' => fake()->address(),
+                'zip_code' => fake()->numerify('(#####-###'),
                 'phone' => fake()->numerify('(##)####-####'),
                 'responsible' => fake()->name(),
                 'responsible_phone' => fake()->numerify('(##)#####-####'),

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Permission;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class PermissionSeeder extends Seeder
 {
@@ -45,7 +46,12 @@ class PermissionSeeder extends Seeder
         ];
 
         foreach($permissions as $permissionName) {
-            Permission::create(['name' => $permissionName]);
+            $createdPermission = Permission::create(['name' => $permissionName]);
+
+            DB::table('role_permission')->insert([
+                'role_id' => 1,
+                'permission_id' => $createdPermission->id,
+            ]);
         }
     }
 }

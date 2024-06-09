@@ -18,6 +18,7 @@ class CrmRequest extends FormRequest
             'cnpj' => 'required|string',
             'email' => 'required|email|max:50|regex:/^[a-z0-9._]+@[a-z0-9.-]+\.[a-z]{2,}$/i',
             'address' => 'nullable',
+            'zip_code' => 'nullable',
             'phone' => 'nullable',
             'responsible' => 'nullable',
             'responsible_phone' => 'nullable',
@@ -29,6 +30,7 @@ class CrmRequest extends FormRequest
 
         if ($this->routeIs('crm.close')) {
             $rules['address'] = 'required|string';
+            $rules['zip_code'] = 'required|string';
             $rules['phone'] = 'required|string';
             $rules['responsible'] = 'required|string';
             $rules['responsible_phone'] = 'required|string';
@@ -41,9 +43,9 @@ class CrmRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => 'Campo obrigatório.',
-            'email.email' => 'Formato de email inválido.',
-            'email.max' => 'O email deve ter no máximo :max caracteres.',
+            'email.required' => 'Campo obrigatório',
+            'email.email' => 'Formato de email inválido',
+            'email.max' => 'O email deve ter no máximo :max caracteres',
             'email.regex' => 'Formato de email inválido',
 
             'name.required' => 'Campo obrigatório',
@@ -52,6 +54,7 @@ class CrmRequest extends FormRequest
             'type.required' => 'Campo obrigatório',
             'status.required' => 'Campo obrigatório',
             'address.required' => 'Campo obrigatório',
+            'zip_code.required' => 'Campo obrigatório',
             'phone.required' => 'Campo obrigatório',
             'responsible.required' => 'Campo obrigatório',
             'responsible_phone.required' => 'Campo obrigatório',
@@ -66,6 +69,7 @@ class CrmRequest extends FormRequest
             'cnpj' => $this->input('cnpj'),
             'email' => $this->input('email'),
             'address' => $this->input('address'),
+            'zip_code' => $this->input('zip_code'),
             'phone' => $this->input('phone'),
             'responsible' => $this->input('responsible'),
             'responsible_phone' => $this->input('responsible_phone'),

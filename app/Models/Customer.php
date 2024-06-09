@@ -19,6 +19,7 @@ class Customer extends Model
         'cnpj',
         'email',
         'address',
+        'zip_code',
         'phone',
         'responsible',
         'responsible_phone',

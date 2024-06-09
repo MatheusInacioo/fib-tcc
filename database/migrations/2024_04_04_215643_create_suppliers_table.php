@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('cnpj');
             $table->string('email');
-            $table->string('address');
             $table->string('phone');
+            $table->string('address');
+            $table->string('zip_code');
             $table->string('responsible');
             $table->string('responsible_phone');
             $table->string('segment');

@@ -20,6 +20,7 @@ class CrmResource extends JsonResource
             'cnpj' => $this->cnpj,
             'email' => $this->email,
             'address' => $this->address,
+            'zip_code' => $this->zip_code,
             'phone' => $this->phone,
             'responsible' => $this->responsible,
             'responsible_phone' => $this->responsible_phone,

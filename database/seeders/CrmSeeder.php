@@ -18,6 +18,7 @@ class CrmSeeder extends Seeder
                 'cnpj' => fake()->numerify('##.###.###/0001-##'),
                 'email' => fake()->unique()->safeEmail(),
                 'address' => fake()->address(),
+                'zip_code' => fake()->numerify('#####-###'),
                 'phone' => fake()->numerify('(##)####-####'),
                 'responsible' => fake()->name(),
                 'responsible_phone' => fake()->numerify('(##)#####-####'),
