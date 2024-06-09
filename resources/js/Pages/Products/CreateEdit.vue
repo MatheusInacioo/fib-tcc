@@ -16,12 +16,12 @@
             @submit.prevent="saveForm()"
             class="w-full h-full"
         >
-            <div class="form-row flex mb-5 mobile-std:flex-col mobile-std:mb-2">
-                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0">
+            <div class="form-row grid grid-cols-4 mobile-std:grid-cols-1 mobile-lg:grid-cols-3">
+                <div class="form-field flex flex-col mr-4 mobile-std:mr-0">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Nome do Produto</span>
                     <input
                         v-model="form.name"
-                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="name"
                         id="name"
@@ -30,11 +30,11 @@
                     <div v-if="form.errors.name" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.name }}</div>
                 </div>
 
-                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0">
+                <div class="form-field flex flex-col mr-4 mobile-std:mr-0">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">SKU</span>
                     <input
                         v-model="form.sku"
-                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="sku"
                         id="sku"
@@ -45,11 +45,11 @@
                     <div v-if="form.errors.sku" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.sku }}</div>
                 </div>
 
-                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0">
+                <div class="form-field flex flex-col mr-4 mobile-std:mr-0">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Marca</span>
                     <input
                         v-model="form.brand"
-                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="brand"
                         id="brand"
@@ -58,12 +58,12 @@
                     <div v-if="form.errors.brand" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.brand }}</div>
                 </div>
 
-                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0 relative">
+                <div class="form-field flex flex-col mr-4 mobile-std:mr-0 relative">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Fornecedor</span>
                     <input
                         v-model="supplierQuery"
                         @input="searchSuppliers()"
-                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
                         type="text"
                         placeholder="Buscar fornecedor..."
                     >
@@ -87,14 +87,12 @@
                     >
                     <div v-if="form.errors.supplier_id" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.supplier_id }}</div>
                 </div>
-            </div>
 
-            <div class="form-row flex mb-5 mobile-std:flex-col mobile-std:mb-2">
-                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0">
+                <div class="form-field flex flex-col mr-4 mobile-std:mr-0">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Preço de Compra</span>
                     <input
                         v-model="form.purchase_price"
-                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
                         type="number"
                         step="0.01"
                         min="0"
@@ -105,11 +103,11 @@
                     <div v-if="form.errors.purchase_price" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.purchase_price }}</div>
                 </div>
 
-                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0">
+                <div class="form-field flex flex-col mr-4 mobile-std:mr-0">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Preço de Venda</span>
                     <input
                         v-model="form.sale_price"
-                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
                         type="number"
                         step="0.01"
                         min="0"
@@ -120,11 +118,11 @@
                     <div v-if="form.errors.sale_price" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.sale_price }}</div>
                 </div>
 
-                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0">
+                <div class="form-field flex flex-col mr-4 mobile-std:mr-0">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Quantidade em Estoque</span>
                     <input
                         v-model="form.total_amount"
-                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
                         type="number"
                         min="0"
                         name="total_amount"
@@ -134,11 +132,11 @@
                     <div v-if="form.errors.total_amount" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.total_amount }}</div>
                 </div>
 
-                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0">
+                <div class="form-field flex flex-col mr-4 mobile-std:mr-0">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Quantidade Mínima</span>
                     <input
                         v-model="form.minimum_amount"
-                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
                         type="number"
                         min="0"
                         name="minimum_amount"
@@ -147,14 +145,12 @@
                     >
                     <div v-if="form.errors.minimum_amount" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.minimum_amount }}</div>
                 </div>
-            </div>
 
-            <div class="form-row flex mb-5 mobile-std:flex-col mobile-std:mb-2">
-                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0">
+                <div class="form-field flex flex-col mr-4 mobile-std:mr-0">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Localização no Estoque</span>
                     <input
                         v-model="form.storage_location"
-                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="storage_location"
                         id="storage_location"
@@ -163,11 +159,11 @@
                     <div v-if="form.errors.storage_location" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.storage_location }}</div>
                 </div>
 
-                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0">
-                    <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Data de Vencimento (se houver)</span>
+                <div class="form-field flex flex-col mr-4 mobile-std:mr-0">
+                    <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Data de Vencimento <small>(se houver)</small></span>
                     <input
                         v-model="form.expiry_date"
-                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
                         type="date"
                         name="expiry_date"
                         id="expiry_date"
@@ -175,15 +171,14 @@
                     >
                     <div v-if="form.errors.expiry_date" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.expiry_date }}</div>
                 </div>
-
             </div>
 
-            <div class="form-row flex mb-5 mobile-std:flex-col mobile-std:mb-2">
-                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0 w-full">
+            <div class="grid grid-cols-2 mobile-std:grid-cols-1 mb-4">
+                <div class="form-field flex flex-col mr-4 mobile-std:mr-0">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Descrição do Produto</span>
                     <textarea
                         v-model="form.description"
-                        class="border-gray-300 h-[150px] w-full 2xl:text-base text-sm rounded-lg mobile-std:mb-4"
+                        class="border-gray-300 h-[150px] 2xl:text-base text-sm rounded-lg mobile-std:mb-4"
                         name="description"
                         id="description"
                         maxlength="500"
@@ -192,11 +187,11 @@
                     <div v-if="form.errors.description" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.description }}</div>
                 </div>
 
-                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0 w-full">
+                <div class="form-field flex flex-col">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Informações Adicionais</span>
                     <textarea
                         v-model="form.additional_info"
-                        class="border-gray-300 h-[150px] w-full 2xl:text-base text-sm rounded-lg mobile-std:mb-4"
+                        class="border-gray-300 h-[150px] 2xl:text-base text-sm rounded-lg mobile-std:mb-4"
                         name="additional_info"
                         id="additional_info"
                         placeholder="Informações adicionais do produto (max. 200 caracteres)"

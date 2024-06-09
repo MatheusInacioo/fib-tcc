@@ -13,15 +13,15 @@
         <div class="min-h-px w-full bg-primary my-4 mobile-std:my-2"></div>
 
         <form @submit.prevent="saveForm" class="w-full h-full">
-            <div class="form-row flex mb-5 mobile-std:flex-col mobile-std:mb-1">
-                <div class="form-field flex flex-col 2xl:mr-6 mr-4 mobile-std:mr-0">
+            <div class="form-row grid grid-cols-4 mobile-std:grid-cols-1 mobile-lg:grid-cols-3 ">
+                <div class="form-field flex flex-col mr-4 mobile-std:mr-0">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Tipo de Transação</span>
                     <select
                         :disabled="transactionExists"
                         v-model="form.type"
                         name="type"
                         id="type"
-                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
                     >
                         <option
                             v-for="(type, index) in types"
@@ -35,7 +35,7 @@
                 </div>
 
                 <div
-                    class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0 relative"
+                    class="form-field flex flex-col mr-4 mobile-std:mr-0 relative"
                     v-if="form.type == 0"
                 >
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Fornecedor</span>
@@ -43,7 +43,7 @@
                         :readonly="transactionExists"
                         v-model="supplierQuery"
                         @input="searchSuppliers()"
-                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
                         type="text"
                         placeholder="Buscar fornecedor..."
                     >
@@ -72,7 +72,7 @@
                 </div>
 
                 <div
-                    class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0 relative"
+                    class="form-field flex flex-col mr-4 mobile-std:mr-0 relative"
                     v-if="form.type == 1"
                 >
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Cliente</span>
@@ -80,7 +80,7 @@
                         :readonly="transactionExists"
                         v-model="customerQuery"
                         @input="searchCustomers()"
-                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
                         type="text"
                         placeholder="Buscar cliente..."
                     >
@@ -109,7 +109,7 @@
                 </div>
 
                 <div
-                    class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0 relative"
+                    class="form-field flex flex-col mr-4 mobile-std:mr-0 relative"
                     v-if="form.customer_id || form.supplier_id"
                 >
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Produto</span>
@@ -117,7 +117,7 @@
                         :readonly="transactionExists"
                         v-model="productQuery"
                         @input="searchProducts()"
-                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
                         type="text"
                         placeholder="Buscar produto..."
                     >
@@ -144,19 +144,17 @@
                     >
                     <div v-if="form.errors.product_id" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.product_id }}</div>
                 </div>
-            </div>
 
-            <div class="form-row flex mb-5 mobile-std:flex-col mobile-std:mb-1">
                 <div
                     v-if="form.product_id"
-                    class="form-field flex flex-col 2xl:mr-6 mr-4 mobile-std:mr-0"
+                    class="form-field flex flex-col mr-4 mobile-std:mr-0"
                 >
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Quantidade</span>
                     <input
                         :readonly="transactionExists"
                         v-model="form.quantity"
                         @input="updateTotalAmount()"
-                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
                         type="number"
                         min="0"
                         name="quantity"
@@ -168,13 +166,13 @@
 
                 <div
                     v-if="form.quantity"
-                    class="form-field flex flex-col 2xl:mr-6 mr-4 mobile-std:mr-0"
+                    class="form-field flex flex-col mr-4 mobile-std:mr-0"
                 >
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">{{ priceText }}</span>
                     <input
                         readonly
                         v-model="form.price"
-                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
                         type="number"
                         step="0.01"
                         name="price"
@@ -186,13 +184,13 @@
 
                 <div
                     v-if="form.quantity"
-                    class="form-field flex flex-col 2xl:mr-6 mr-4 mobile-std:mr-0"
+                    class="form-field flex flex-col mr-4 mobile-std:mr-0"
                 >
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Valor Total</span>
                     <input
                         readonly
                         v-model="form.total_amount"
-                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
                         type="number"
                         step="0.01"
                         name="total_amount"
@@ -204,7 +202,7 @@
 
                 <div
                     v-if="form.quantity"
-                    class="form-field flex flex-col 2xl:mr-6 mr-4 mobile-std:mr-0"
+                    class="form-field flex flex-col mr-4 mobile-std:mr-0"
                 >
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Forma de Pagamento</span>
                     <select
@@ -212,7 +210,7 @@
                         v-model="form.payment_method"
                         name="payment-method"
                         id="payment-method"
-                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
                     >
                         <option
                             v-for="method in paymentMethods"
@@ -230,7 +228,7 @@
                 v-if="form.quantity"
                 class="form-row flex mb-5 mobile-std:flex-col mobile-std:mb-1"
             >
-                <div class="form-field flex flex-col 2xl:mr-6 mr-4 mobile-std:mr-0 w-full">
+                <div class="form-field flex flex-col mobile-std:mr-0 w-full">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Observações</span>
                     <textarea
                         :readonly="transactionExists"

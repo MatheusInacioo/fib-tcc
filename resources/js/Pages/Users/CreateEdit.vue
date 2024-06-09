@@ -16,12 +16,12 @@
             @submit.prevent="saveForm()"
             class="w-full h-full"
         >
-            <div class="form-row flex mb-5 mobile-std:flex-col">
-                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0 mobile-std:mb-4">
+            <div class="form-row grid grid-cols-4 mobile-std:grid-cols-1 mobile-lg:grid-cols-3">
+                <div class="form-field flex flex-col mr-4 mb-4 mobile-std:mr-0">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Nome do usuário</span>
                     <input
                         v-model="form.name"
-                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="name"
                         id="name"
@@ -30,11 +30,11 @@
                     <div v-if="form.errors.name" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.name }}</div>
                 </div>
 
-                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0 mobile-std:mb-4">
+                <div class="form-field flex flex-col mr-4 mb-4 mobile-std:mr-0">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Email do usurário</span>
                     <input
                         v-model="form.email"
-                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:text-base text-sm rounded-xl"
                         type="email"
                         name="email"
                         id="email"
@@ -43,14 +43,14 @@
                     <div v-if="form.errors.email" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.email }}</div>
                 </div>
 
-                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mr-0 mobile-std:mb-4">
+                <div class="form-field flex flex-col mr-4 mb-4 mobile-std:mr-0">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">
                         <p v-if="! user">Senha</p>
                         <p v-else>Nova senha (opcional)</p>
                     </span>
                     <input
                         v-model="form.password"
-                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:text-base text-sm rounded-xl"
                         type="text"
                         name="password"
                         id="password"
@@ -60,7 +60,7 @@
                 </div>
 
                 <div
-                    class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mb-4 mobile-std:mr-0"
+                    class="form-field flex flex-col mr-4 mb-4 mobile-std:mb-4 mobile-std:mr-0"
                     :class="{
                         'hidden' : !userIsAdmin
                     }"
@@ -70,7 +70,7 @@
                         v-model="form.role_id"
                         name="role"
                         id="role"
-                        class="border-gray-300 2xl:w-[370px] mobile-lg:w-[200px] mobile-std:w-full 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:text-base text-sm rounded-xl"
                     >
                         <option
                             v-for="role in roles"
