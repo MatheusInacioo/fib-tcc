@@ -35,13 +35,13 @@
                     </div>
 
                     <div class="flex">
-                        <button
+                        <a
                             v-if="userHasPermission('export', settings.subject)"
-                            @click="toggleExportModal()"
+                            :href="route(settings.routes.export)"
                             class="flex justify-center items-center w-14 h-10 bg-primary rounded-xl text-white p-2 text-base font-semibold shadow-xl hover:scale-105 transition-all mr-2"
                         >
                             <i class="bx bxs-download text-xl font-semibold text-secondary"></i>
-                        </button>
+                        </a>
 
                         <a
                             v-if="userHasPermission('create', settings.subject)"
@@ -65,14 +65,14 @@
             </div>
 
             <div class="flex">
-                <button
+                <a
                     v-if="userHasPermission('export', settings.subject)"
-                    @click="toggleExportModal()"
+                    :href="route(settings.routes.export)"
                     class="flex justify-center items-center w-auto 2xl:h-10 bg-primary rounded-xl text-white p-2 text-base 2xl:text-lg font-semibold shadow-xl hover:scale-105 transition-all mobile-std:hidden mr-2"
                 >
                     <i class="bx bxs-download font-semibold mr-2 text-secondary"></i>
                     <p class="font-medium text-secondary">Exportar</p>
-                </button>
+                </a>
 
                 <a
                     v-if="userHasPermission('create', settings.subject)"
@@ -121,7 +121,7 @@
                     </tr>
                 </thead>
 
-                <tbody class="bg-white divide-y divide-gray-200">
+                <tbody class="bg-white divide-y divide-gray-200 w-full overflow-x-auto">
                     <tr
                         v-for="(item, index) in paginatedData"
                         :key="index"

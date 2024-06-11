@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProductsExport;
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use App\Models\Supplier;
 use Exception;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -72,5 +74,10 @@ class ProductController extends Controller
         } catch(Exception $ex) {
             return redirect()->route('products.index')->with('error', 'Ocorreu um erro ao excluir o produto: ' . $ex->getMessage());
         }
+    }
+
+    public function export()
+    {
+        return Excel::download(new ProductsExport, 'produtos.xlsx');
     }
 }

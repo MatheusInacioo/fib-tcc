@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SuppliersExport;
 use App\Http\Requests\SupplierRequest;
 use App\Http\Resources\SupplierResource;
 use App\Models\Supplier;
 use Exception;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SupplierController extends Controller
 {
@@ -66,5 +68,10 @@ class SupplierController extends Controller
         } catch(Exception $ex) {
             return redirect()->route('suppliers.index')->with('error', 'Ocorreu um erro ao excluir o fornecedor: ' . $ex->getMessage());
         }
+    }
+
+    public function export()
+    {
+        return Excel::download(new SuppliersExport, 'fornecedores.xlsx');
     }
 }

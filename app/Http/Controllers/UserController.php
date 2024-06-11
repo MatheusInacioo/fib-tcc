@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\Role;
 use App\Models\User;
 use Exception;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -75,5 +77,10 @@ class UserController extends Controller
         } catch(Exception $ex) {
             return redirect()->route('users.index')->with('error', 'Ocorreu um erro ao excluir o usuário: ' . $ex->getMessage());
         }
+    }
+
+    public function export()
+    {
+        return Excel::download(new UsersExport, 'usuarios.xlsx');
     }
 }
