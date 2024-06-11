@@ -46,7 +46,7 @@
                 <div class="form-field flex flex-col mr-4 mb-4 mobile-std:mr-0">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">
                         <p v-if="! user">Senha</p>
-                        <p v-else>Nova senha (opcional)</p>
+                        <p v-else>Nova senha <small>(opcional)</small></p>
                     </span>
                     <input
                         v-model="form.password"

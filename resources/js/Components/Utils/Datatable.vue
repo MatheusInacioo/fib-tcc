@@ -67,7 +67,7 @@
             <div class="flex">
                 <a
                     v-if="userHasPermission('export', settings.subject)"
-                    :href="route(settings.routes.create)"
+                    :href="route(settings.routes.export)"
                     class="flex justify-center items-center w-auto 2xl:h-10 bg-primary rounded-xl text-white p-2 text-base 2xl:text-lg font-semibold shadow-xl hover:scale-105 transition-all mobile-std:hidden mr-2"
                 >
                     <i class="bx bxs-download font-semibold mr-2 text-secondary"></i>

@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
     // Customer routes
     Route::resource('/customers', CustomerController::class)->except(['show', 'destroy']);
     Route::post('/customer/destroy/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+    Route::get('/customer/export', [CustomerController::class, 'export'])->name('customers.export');
 
     // CRM routes
     Route::resource('/crm', CrmController::class)->except(['show', 'destroy']);

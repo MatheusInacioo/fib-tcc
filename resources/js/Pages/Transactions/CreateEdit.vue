@@ -43,14 +43,14 @@
                         :readonly="transactionExists"
                         v-model="supplierQuery"
                         @input="searchSuppliers()"
-                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
                         type="text"
                         placeholder="Buscar fornecedor..."
                     >
                     <transition name="searchbar">
                         <div
                             v-if="supplierQuery && filteredSuppliers.length"
-                            class="max-h-[450px] overflow-y-auto absolute top-full mt-1 w-full bg-white border border-gray-300 rounded-xl z-10 scrollbar-thin"
+                            class="max-h-[450px] overflow-y-auto absolute top-[85%] mt-1 w-full bg-white border border-gray-300 rounded-xl z-10 scrollbar-thin"
                         >
                             <div
                                 v-for="supplier in filteredSuppliers"
@@ -80,14 +80,14 @@
                         :readonly="transactionExists"
                         v-model="customerQuery"
                         @input="searchCustomers()"
-                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
                         type="text"
                         placeholder="Buscar cliente..."
                     >
                     <transition name="searchbar">
                         <div
                             v-if="customerQuery && filteredCustomers.length"
-                            class="max-h-[450px] overflow-y-auto absolute top-full mt-1 w-full bg-white border border-gray-300 rounded-xl z-10 scrollbar-thin"
+                            class="max-h-[450px] overflow-y-auto absolute top-[85%] mt-1 w-full bg-white border border-gray-300 rounded-xl z-10 scrollbar-thin"
                         >
                             <div
                                 v-for="customer in filteredCustomers"
@@ -117,14 +117,14 @@
                         :readonly="transactionExists"
                         v-model="productQuery"
                         @input="searchProducts()"
-                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
                         type="text"
                         placeholder="Buscar produto..."
                     >
                     <transition name="searchbar">
                         <div
                             v-if="productQuery && filteredProducts.length"
-                            class="max-h-[450px] overflow-y-auto absolute top-full mt-1 w-full bg-white border border-gray-300 rounded-xl z-10 scrollbar-thin"
+                            class="max-h-[450px] overflow-y-auto absolute top-[85%] mt-1 w-full bg-white border border-gray-300 rounded-xl z-10 scrollbar-thin"
                         >
                             <div
                                 v-for="product in filteredProducts"

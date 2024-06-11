@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CustomersExport;
 use App\Http\Requests\CustomerRequest;
 use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
 use Exception;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
@@ -66,5 +68,10 @@ class CustomerController extends Controller
         } catch(Exception $ex) {
             return redirect()->route('customers.index')->with('error', 'Ocorreu um erro ao excluir o cliente: ' . $ex->getMessage());
         }
+    }
+
+    public function export()
+    {
+        return Excel::download(new CustomersExport, 'clientes.xlsx');
     }
 }
