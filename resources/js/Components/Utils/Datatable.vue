@@ -35,13 +35,13 @@
                     </div>
 
                     <div class="flex">
-                        <a
+                        <button
                             v-if="userHasPermission('export', settings.subject)"
-                            :href="route(settings.routes.create)"
+                            @click="toggleExportModal()"
                             class="flex justify-center items-center w-14 h-10 bg-primary rounded-xl text-white p-2 text-base font-semibold shadow-xl hover:scale-105 transition-all mr-2"
                         >
                             <i class="bx bxs-download text-xl font-semibold text-secondary"></i>
-                        </a>
+                        </button>
 
                         <a
                             v-if="userHasPermission('create', settings.subject)"
@@ -65,14 +65,14 @@
             </div>
 
             <div class="flex">
-                <a
+                <button
                     v-if="userHasPermission('export', settings.subject)"
-                    :href="route(settings.routes.export)"
+                    @click="toggleExportModal()"
                     class="flex justify-center items-center w-auto 2xl:h-10 bg-primary rounded-xl text-white p-2 text-base 2xl:text-lg font-semibold shadow-xl hover:scale-105 transition-all mobile-std:hidden mr-2"
                 >
                     <i class="bx bxs-download font-semibold mr-2 text-secondary"></i>
                     <p class="font-medium text-secondary">Exportar</p>
-                </a>
+                </button>
 
                 <a
                     v-if="userHasPermission('create', settings.subject)"
@@ -252,19 +252,29 @@
         </div>
 
         <ConfirmationModal
-            :show-modal="showModal"
+            :show-modal="showConfirmationModal"
             @confirm-delete="confirmDelete()"
-            @close-modal="toggleModal()"
+            @close-modal="toggleConfirmationModal()"
+        />
+
+        <ExportModal
+            :show-modal="showExportModal"
+            :title="settings.title"
+            :columns="settings.columns"
+            :export-route="settings.routes.export"
+            @close-modal="toggleExportModal()"
         />
     </div>
 </template>
 
 <script>
 import ConfirmationModal from '@/Components/Utils/ConfirmationModal.vue';
+import ExportModal from '@/Components/Utils/ExportModal.vue';
 
 export default {
     components: {
         ConfirmationModal,
+        ExportModal,
     },
 
     props: {
@@ -283,7 +293,8 @@ export default {
 
     data() {
         return {
-            showModal: false,
+            showConfirmationModal: false,
+            showExportModal: false,
             selectedItem: null,
             currentPage: 1,
             sortColumn: null,
@@ -393,7 +404,7 @@ export default {
         },
 
         deleteItem(itemId) {
-            this.toggleModal();
+            this.toggleConfirmationModal();
             this.selectedItem = itemId;
         },
 
@@ -402,7 +413,7 @@ export default {
                 await axios.post(this.route(this.settings.routes.delete, this.selectedItem));
 
                 this.selectedItem = null;
-                this.toggleModal();
+                this.toggleConfirmationModal();
 
                 window.location.reload();
             } catch (error) {
@@ -410,8 +421,12 @@ export default {
             }
         },
 
-        toggleModal() {
-            this.showModal = ! this.showModal;
+        toggleConfirmationModal() {
+            this.showConfirmationModal = ! this.showConfirmationModal;
+        },
+
+        toggleExportModal() {
+            this.showExportModal = ! this.showExportModal;
         },
     },
 };

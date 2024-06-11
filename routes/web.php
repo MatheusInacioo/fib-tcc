@@ -48,8 +48,8 @@ Route::middleware('auth')->group(function () {
 
     // Customer routes
     Route::resource('/customers', CustomerController::class)->except(['show', 'destroy']);
-    Route::post('/customer/destroy/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
-    Route::get('/customer/export', [CustomerController::class, 'export'])->name('customers.export');
+    Route::post('/customers/destroy/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+    Route::post('/customers/export', [CustomerController::class, 'export'])->name('customers.export');
 
     // CRM routes
     Route::resource('/crm', CrmController::class)->except(['show', 'destroy']);
@@ -59,14 +59,17 @@ Route::middleware('auth')->group(function () {
     // Supplier routes
     Route::resource('/suppliers', SupplierController::class)->except(['show', 'destroy']);
     Route::post('/suppliers/destroy/{id}', [SupplierController::class, 'destroy'])->name('suppliers.destroy');
+    Route::get('/suppliers/export', [SupplierController::class, 'export'])->name('suppliers.export');
 
     // Product routes
     Route::resource('/products', ProductController::class)->except(['show', 'destroy']);
     Route::post('/products/destroy/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+    Route::get('/products/export', [ProductController::class, 'export'])->name('products.export');
 
     // User routes
     Route::resource('/users', UserController::class)->except(['show', 'destroy']);
     Route::post('/users/destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/users/export', [UserController::class, 'export'])->name('users.export');
 
     // Settings routes
     Route::controller(SettingsController::class)->group(function () {

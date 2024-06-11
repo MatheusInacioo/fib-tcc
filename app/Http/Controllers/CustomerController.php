@@ -7,6 +7,7 @@ use App\Http\Requests\CustomerRequest;
 use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
 use Exception;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -70,8 +71,10 @@ class CustomerController extends Controller
         }
     }
 
-    public function export()
+    public function export(Request $request)
     {
-        return Excel::download(new CustomersExport, 'clientes.xlsx');
+        $columns = $request->input('selectedColumns');
+
+        return Excel::download(new CustomersExport($columns), 'clientes.xlsx');
     }
 }
