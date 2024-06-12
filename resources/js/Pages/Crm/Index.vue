@@ -50,11 +50,6 @@
             </div>
         </div>
 
-        <CrmModal
-            :show-modal="showCrmModal"
-            @close-modal="toggleCrmModal()"
-        />
-
         <NotificationModal
             :show-modal="showNotificationModal"
             :message="message"
@@ -67,7 +62,6 @@
 import { Head } from '@inertiajs/vue3';
 import BaseLayout from '@/Components/Layout/BaseLayout.vue';
 import Databoard from '@/Components/Utils/Databoard.vue';
-import CrmModal from './CrmModal.vue';
 import NotificationModal from '@/Components/Utils/NotificationModal.vue';
 
 export default {
@@ -75,7 +69,6 @@ export default {
         Head,
         BaseLayout,
         Databoard,
-        CrmModal,
         NotificationModal,
     },
 
@@ -86,7 +79,6 @@ export default {
     data() {
         return {
             message: {},
-            showCrmModal: false,
             showNotificationModal: false,
             boards: [
                 'Contato',
@@ -96,12 +88,6 @@ export default {
                 'Sem Interesse',
             ],
         }
-    },
-
-    methods: {
-        toggleCrmModal() {
-            this.showCrmModal = ! this.showCrmModal;
-        },
     },
 
     created() {

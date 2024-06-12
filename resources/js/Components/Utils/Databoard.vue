@@ -21,25 +21,17 @@
             @confirm-delete="confirmDelete()"
             @close-modal="toggleConfirmationModal()"
         />
-
-        <CrmModal
-            :show-modal="showCrmModal"
-            :item="selectedItem"
-            @close-modal="toggleCrmModal()"
-        />
     </div>
 </template>
 
 <script>
     import Boardcard from '@/Components/Utils/Boardcard.vue';
     import ConfirmationModal from '@/Components/Utils/ConfirmationModal.vue';
-    import CrmModal from '@/Pages/Crm/CrmModal.vue'
 
     export default {
         components: {
             Boardcard,
             ConfirmationModal,
-            CrmModal,
         },
 
         props: {
@@ -50,7 +42,6 @@
         data() {
             return {
                 showConfirmationModal: false,
-                showCrmModal: false,
                 selectedItem: {},
             }
         },
@@ -64,10 +55,6 @@
         methods: {
             toggleConfirmationModal() {
                 this.showConfirmationModal = ! this.showConfirmationModal;
-            },
-
-            toggleCrmModal() {
-                this.showCrmModal = ! this.showCrmModal;
             },
 
             editItem(item) {
