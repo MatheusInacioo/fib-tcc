@@ -58,7 +58,7 @@
                     <div v-if="form.errors.brand" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.brand }}</div>
                 </div>
 
-                <div class="form-field flex flex-col mr-4 mobile-std:mr-0 relative">
+                <div class="form-field flex flex-col relative">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Fornecedor</span>
                     <input
                         v-model="supplierQuery"
