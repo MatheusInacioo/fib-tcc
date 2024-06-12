@@ -16,8 +16,8 @@
             @submit.prevent="saveForm()"
             class="w-full h-full"
         >
-            <div class="form-row grid grid-cols-4 mobile-std:grid-cols-1 mobile-lg:grid-cols-3">
-                <div class="form-field flex flex-col mr-4 mb-4 mobile-std:mr-0">
+            <div class="form-row grid grid-cols-4 mobile-std:grid-cols-1 mobile-lg:grid-cols-3 gap-4 mb-4">
+                <div class="form-field flex flex-col">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Nome da empresa</span>
                     <input
                         v-model="form.name"
@@ -30,7 +30,7 @@
                     <div v-if="form.errors.name" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.name }}</div>
                 </div>
 
-                <div class="form-field flex flex-col mr-4 mb-4 mobile-std:mr-0">
+                <div class="form-field flex flex-col">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">CNPJ</span>
                     <input
                         v-model="form.cnpj"
@@ -45,7 +45,7 @@
                     <div v-if="form.errors.cnpj" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.cnpj }}</div>
                 </div>
 
-                <div class="form-field flex flex-col mr-4 mb-4 mobile-std:mr-0">
+                <div class="form-field flex flex-col">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Email da empresa</span>
                     <input
                         v-model="form.email"
@@ -58,7 +58,7 @@
                     <div v-if="form.errors.email" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.email }}</div>
                 </div>
 
-                <div class="form-field flex flex-col mr-4 mb-4 mobile-std:mr-0">
+                <div class="form-field flex flex-col">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Telefone da empresa</span>
                     <input
                         v-model="form.phone"
@@ -72,7 +72,7 @@
                     >
                     <div v-if="form.errors.phone" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.phone }}</div>
                 </div>
-                <div class="form-field flex flex-col mr-4 mb-4 mobile-std:mr-0">
+                <div class="form-field flex flex-col">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Endereço</span>
                     <input
                         v-model="form.address"
@@ -85,7 +85,7 @@
                     <div v-if="form.errors.address" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.address }}</div>
                 </div>
 
-                <div class="form-field flex flex-col mr-4 mb-4 mobile-std:mr-0">
+                <div class="form-field flex flex-col">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">CEP</span>
                     <input
                         v-model="form.zip_code"
@@ -100,7 +100,7 @@
                     <div v-if="form.errors.zip_code" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.zip_code }}</div>
                 </div>
 
-                <div class="form-field flex flex-col 2lx:mr-6 mr-4 mobile-std:mb-4 mobile-std:mr-0">
+                <div class="form-field flex flex-col">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Segmento de atuação</span>
                     <select
                         v-model="form.segment"
@@ -119,7 +119,7 @@
                     <div v-if="form.errors.segment" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.segment }}</div>
                 </div>
 
-                <div class="form-field flex flex-col mr-4 mb-4 mobile-std:mr-0">
+                <div class="form-field flex flex-col">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Nome do responsável</span>
                     <input
                         v-model="form.responsible"
@@ -132,7 +132,7 @@
                     <div v-if="form.errors.responsible" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.responsible }}</div>
                 </div>
 
-                <div class="form-field flex flex-col mr-4 mb-4 mobile-std:mr-0">
+                <div class="form-field flex flex-col">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Celular do responsável</span>
                     <input
                         v-model="form.responsible_phone"

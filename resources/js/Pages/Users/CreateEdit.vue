@@ -16,8 +16,8 @@
             @submit.prevent="saveForm()"
             class="w-full h-full"
         >
-            <div class="form-row grid grid-cols-4 mobile-std:grid-cols-1 mobile-lg:grid-cols-3">
-                <div class="form-field flex flex-col mr-4 mb-4 mobile-std:mr-0">
+            <div class="form-row grid grid-cols-4 mobile-std:grid-cols-1 mobile-lg:grid-cols-3 gap-4">
+                <div class="form-field flex flex-col">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Nome do usuário</span>
                     <input
                         v-model="form.name"
@@ -30,7 +30,7 @@
                     <div v-if="form.errors.name" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.name }}</div>
                 </div>
 
-                <div class="form-field flex flex-col mr-4 mb-4 mobile-std:mr-0">
+                <div class="form-field flex flex-col">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Email do usurário</span>
                     <input
                         v-model="form.email"
@@ -43,7 +43,7 @@
                     <div v-if="form.errors.email" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.email }}</div>
                 </div>
 
-                <div class="form-field flex flex-col mr-4 mb-4 mobile-std:mr-0">
+                <div class="form-field flex flex-col">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">
                         <p v-if="! user">Senha</p>
                         <p v-else>Nova senha <small>(opcional)</small></p>

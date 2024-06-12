@@ -13,10 +13,10 @@
 
         <div class="min-h-px w-full bg-primary my-4 mobile-std:my-2"></div>
 
-        <div class="grid grid-cols-4 mobile-std:grid-cols-1 mobile-lg:grid-cols-3">
+        <div class="grid grid-cols-4 mobile-std:grid-cols-1 mobile-lg:grid-cols-3 gap-4">
             <a
                 :href="route('users.edit', this.$page.props.auth.user.id)"
-                class="h-[80px] w-[95%] mobile-std:w-full p-4 rounded-xl shadow-lg mb-4 flex items-center border border-gray-200 hover:scale-105 transition-all bg-white"
+                class="h-[80px] mobile-std:w-full p-4 rounded-xl shadow-lg flex items-center border border-gray-200 hover:scale-105 transition-all bg-white"
             >
                 <i class="bx bx-user mr-4 text-2xl text-primary"></i>
                 <span class="text-xl mobile-std:text-lg font-medium text-black">Perfil</span>
@@ -25,7 +25,7 @@
                 v-for="button in buttons"
                 :key="button.id"
                 :href="route(button.route)"
-                class="h-[80px] w-[95%] mobile-std:w-full p-4 rounded-xl shadow-lg mb-4 flex items-center border border-gray-200 hover:scale-105 transition-all bg-white"
+                class="h-[80px] mobile-std:w-full p-4 rounded-xl shadow-lg flex items-center border border-gray-200 hover:scale-105 transition-all bg-white"
                 :class="{
                     'hidden' :
                         button.title == 'Permissões' && !userIsAdmin ||

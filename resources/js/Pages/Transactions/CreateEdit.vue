@@ -13,8 +13,8 @@
         <div class="min-h-px w-full bg-primary my-4 mobile-std:my-2"></div>
 
         <form @submit.prevent="saveForm" class="w-full h-full">
-            <div class="form-row grid grid-cols-4 mobile-std:grid-cols-1 mobile-lg:grid-cols-3 ">
-                <div class="form-field flex flex-col mr-4 mobile-std:mr-0">
+            <div class="form-row grid grid-cols-4 mobile-std:grid-cols-1 mobile-lg:grid-cols-3 gap-y-0 gap-x-4">
+                <div class="form-field flex flex-col">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Tipo de Transação</span>
                     <select
                         :disabled="transactionExists"
@@ -35,7 +35,7 @@
                 </div>
 
                 <div
-                    class="form-field flex flex-col mr-4 mobile-std:mr-0 relative"
+                    class="form-field flex flex-col relative"
                     v-if="form.type == 0"
                 >
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Fornecedor</span>
@@ -72,7 +72,7 @@
                 </div>
 
                 <div
-                    class="form-field flex flex-col mr-4 mobile-std:mr-0 relative"
+                    class="form-field flex flex-col relative"
                     v-if="form.type == 1"
                 >
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Cliente</span>
@@ -109,7 +109,7 @@
                 </div>
 
                 <div
-                    class="form-field flex flex-col mr-4 mobile-std:mr-0 relative"
+                    class="form-field flex flex-col relative"
                     v-if="form.customer_id || form.supplier_id"
                 >
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Produto</span>
@@ -147,7 +147,7 @@
 
                 <div
                     v-if="form.product_id"
-                    class="form-field flex flex-col mr-4 mobile-std:mr-0"
+                    class="form-field flex flex-col"
                 >
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Quantidade</span>
                     <input
@@ -166,7 +166,7 @@
 
                 <div
                     v-if="form.quantity"
-                    class="form-field flex flex-col mr-4 mobile-std:mr-0"
+                    class="form-field flex flex-col"
                 >
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">{{ priceText }}</span>
                     <input
@@ -184,7 +184,7 @@
 
                 <div
                     v-if="form.quantity"
-                    class="form-field flex flex-col mr-4 mobile-std:mr-0"
+                    class="form-field flex flex-col"
                 >
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Valor Total</span>
                     <input
@@ -202,7 +202,7 @@
 
                 <div
                     v-if="form.quantity"
-                    class="form-field flex flex-col mr-4 mobile-std:mr-0"
+                    class="form-field flex flex-col"
                 >
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Forma de Pagamento</span>
                     <select
@@ -210,7 +210,7 @@
                         v-model="form.payment_method"
                         name="payment-method"
                         id="payment-method"
-                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:text-base text-sm rounded-xl"
                     >
                         <option
                             v-for="method in paymentMethods"
