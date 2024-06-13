@@ -1,5 +1,5 @@
 <template>
-    <div class="rounded-xl shadow-lg border border-gray-200 mobile-std:h-full">
+    <div class="rounded-xl shadow-lg border border-gray-200 mobile-std:h-full align-self-center">
         <div class="flex w-full items-center justify-between px-4 py-2">
             <div class="flex items-center mobile-std:hidden">
                 <button
@@ -35,13 +35,13 @@
                     </div>
 
                     <div class="flex">
-                        <a
+                        <button
                             v-if="userHasPermission('export', settings.subject)"
-                            :href="route(settings.routes.export)"
+                            @click="exportData()"
                             class="flex justify-center items-center w-14 h-10 bg-primary rounded-xl text-white p-2 text-base font-semibold shadow-xl hover:scale-105 transition-all mr-2"
                         >
                             <i class="bx bxs-download text-xl font-semibold text-secondary"></i>
-                        </a>
+                        </button>
 
                         <a
                             v-if="userHasPermission('create', settings.subject)"
@@ -65,14 +65,14 @@
             </div>
 
             <div class="flex">
-                <a
+                <button
                     v-if="userHasPermission('export', settings.subject)"
-                    :href="route(settings.routes.export)"
+                    @click="exportData()"
                     class="flex justify-center items-center w-auto 2xl:h-10 bg-primary rounded-xl text-white p-2 text-base 2xl:text-lg font-semibold shadow-xl hover:scale-105 transition-all mobile-std:hidden mr-2"
                 >
                     <i class="bx bxs-download font-semibold mr-2 text-secondary"></i>
                     <p class="font-medium text-secondary">Exportar</p>
-                </a>
+                </button>
 
                 <a
                     v-if="userHasPermission('create', settings.subject)"
@@ -253,28 +253,20 @@
 
         <ConfirmationModal
             :show-modal="showConfirmationModal"
+            :custom-message="message"
             @confirm-delete="confirmDelete()"
+            @confirm-export="confirmExport()"
             @close-modal="toggleConfirmationModal()"
-        />
-
-        <ExportModal
-            :show-modal="showExportModal"
-            :title="settings.title"
-            :columns="settings.columns"
-            :export-route="settings.routes.export"
-            @close-modal="toggleExportModal()"
         />
     </div>
 </template>
 
 <script>
 import ConfirmationModal from '@/Components/Utils/ConfirmationModal.vue';
-import ExportModal from '@/Components/Utils/ExportModal.vue';
 
 export default {
     components: {
         ConfirmationModal,
-        ExportModal,
     },
 
     props: {
@@ -299,7 +291,8 @@ export default {
             currentPage: 1,
             sortColumn: null,
             sortOrder: null,
-            searchQuery: ''
+            searchQuery: '',
+            message: null,
         };
     },
 
@@ -408,6 +401,15 @@ export default {
             this.selectedItem = itemId;
         },
 
+        exportData() {
+            this.toggleConfirmationModal();
+
+            this.message = {
+                subject: 'export-data',
+                content: `Todos os ${this.data.length} registros serão exportados e baixados no arquivo <strong>${this.settings.title}.xlsx</strong>. Deseja prosseguir?`,
+            };
+        },
+
         async confirmDelete() {
             try {
                 await axios.post(this.route(this.settings.routes.delete, this.selectedItem));
@@ -421,13 +423,22 @@ export default {
             }
         },
 
-        toggleConfirmationModal() {
-            this.showConfirmationModal = ! this.showConfirmationModal;
+        // @todo Fix this method's functionality.
+        async confirmExport() {
+            try {
+                await axios.get(this.route(this.settings.routes.export));
+
+                this.toggleConfirmationModal();
+            } catch (error) {
+                console.error(error);
+            }
         },
 
-        toggleExportModal() {
-            this.showExportModal = ! this.showExportModal;
+        toggleConfirmationModal() {
+            this.showConfirmationModal = ! this.showConfirmationModal;
+            this.message = null;
         },
+
     },
 };
 </script>

@@ -41,14 +41,21 @@
                                     Excluir
                                 </button>
                                 <button
-                                    v-if="customMessage.subject == 'close-contract'"
+                                    v-if="customMessage && customMessage.subject == 'close-contract'"
                                     @click="closeContract()"
                                     class="flex justify-center w-24 px-4 py-2 bg-primary text-secondary font-medium rounded-lg hover:scale-110 transition-all"
                                 >
                                     Confirmar
                                 </button>
                                 <button
-                                    v-if="customMessage.subject == 'exit-system'"
+                                    v-if="customMessage && customMessage.subject == 'export-data'"
+                                    @click="confirmExport()"
+                                    class="flex justify-center w-24 px-4 py-2 bg-primary text-secondary font-medium rounded-lg hover:scale-110 transition-all"
+                                >
+                                    Exportar
+                                </button>
+                                <button
+                                    v-if="customMessage && customMessage.subject == 'exit-system'"
                                     @click="exitSystem()"
                                     class="flex justify-center w-24 px-4 py-2 bg-primary text-secondary font-medium rounded-lg hover:scale-110 transition-all"
                                 >
@@ -93,6 +100,10 @@ export default {
 
         closeContract() {
             this.$emit('close-contract');
+        },
+
+        confirmExport() {
+            this.$emit('confirm-export');
         },
 
         exitSystem() {
