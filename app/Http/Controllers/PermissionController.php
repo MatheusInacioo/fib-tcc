@@ -84,23 +84,4 @@ class PermissionController extends Controller
 
         return response()->json($permissions);
     }
-
-    public function createRole(Request $request)
-    {
-        try {
-            $request->validate([
-                'role_name' => 'required|string'
-            ], [
-                'role_name.required' => 'Campo obrigatório'
-            ]);
-
-            Role::create([
-                'name' => $request->input('role_name'),
-            ]);
-
-            return redirect()->route('permissions.index')->with('success', 'Cargo criado com sucesso.');
-        } catch (Exception $ex) {
-            return redirect()->route('permissions.index')->with('error', 'Ocorreu um erro ao criar o cargo: ' . $ex->getMessage());
-        }
-    }
 }

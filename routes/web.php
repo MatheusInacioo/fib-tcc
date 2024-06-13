@@ -6,6 +6,7 @@ use App\Http\Controllers\CrmController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TransactionController;
@@ -82,5 +83,11 @@ Route::middleware('auth')->group(function () {
         Route::post('/permissions', 'store')->name('permissions.store');
         Route::post('/permissions/create-role', 'createRole')->name('permissions.create-role');
         Route::get('/permissions/fetch', 'fetchPermissions')->name('permissions.fetch');
+    });
+
+    Route::controller(RoleController::class)->group(function () {
+        Route::post('/roles', 'store')->name('roles.store');
+        Route::put('/roles/{id}', 'update')->name('roles.update');
+        Route::post('/roles/destroy/{id}', 'destroy')->name('roles.destroy');
     });
 });

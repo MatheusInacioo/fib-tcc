@@ -68,11 +68,6 @@
                         route: 'users.index',
                     },
                     {
-                        title: 'Cargos',
-                        icon: 'bx bx-briefcase',
-                        route: 'permissions.index',
-                    },
-                    {
                         title: 'Permissões',
                         icon: 'bx bx-check-square',
                         route: 'permissions.index',

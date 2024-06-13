@@ -438,7 +438,6 @@ export default {
             this.showConfirmationModal = ! this.showConfirmationModal;
             this.message = null;
         },
-
     },
 };
 </script>

@@ -12,7 +12,7 @@
                     class="flex items-center justify-center h-[400px] px-4 text-center w-[500px]"
                 >
                     <div
-                        class="bg-white rounded-lg shadow-lg w-full h-80 p-4 md:p-5 flex flex-col"
+                        class="bg-white rounded-lg shadow-lg w-full p-4 md:p-5 flex flex-col"
                     >
                         <div class="text-center h-full flex flex-col justify-between">
                             <i class="bx bx-error text-yellow-500 text-8xl"></i>
@@ -34,7 +34,7 @@
                                     Cancelar
                                 </button>
                                 <button
-                                    v-if="! customMessage"
+                                    v-if="! customMessage || customMessage.subject == 'delete-role'"
                                     @click="confirmDelete()"
                                     class="flex justify-center w-24 px-4 py-2 bg-primary text-secondary font-medium rounded-lg hover:scale-110 transition-all"
                                 >

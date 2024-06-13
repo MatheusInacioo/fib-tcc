@@ -12,11 +12,12 @@
             </div>
 
             <button
+                v-if="userIsAdmin"
                 @click="toggleRoleModal()"
-                class="flex justify-center items-center w-40 p-2 h-10 mobile-std:w-14 bg-primary rounded-xl text-secondary text-lg font-semibold shadow-xl hover:scale-105 transition-all"
+                class="flex justify-center items-center p-2 h-10 mobile-std:w-14 bg-primary rounded-xl text-secondary text-lg font-semibold shadow-xl hover:scale-105 transition-all"
             >
-                <i class="bx bx-plus font-semibold mr-2 text-secondary mobile-std:mr-0"></i>
-                <p class="mobile-std:hidden font-medium text-secondary">Novo Cargo</p>
+                <i class="bx bx-briefcase font-semibold mr-2 text-secondary mobile-std:mr-0"></i>
+                <p class="mobile-std:hidden font-medium text-secondary">Gerenciar Cargos</p>
             </button>
         </div>
 
@@ -88,6 +89,7 @@
 
         <RoleModal
             :show-modal="showRoleModal"
+            :roles="roles"
             @close-modal="toggleRoleModal()"
         />
     </BaseLayout>

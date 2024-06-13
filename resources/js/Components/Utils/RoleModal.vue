@@ -9,13 +9,13 @@
             <Transition name="modal-body">
                 <div
                     v-if="showModal"
-                    class="flex items-center px-4 w-[20%] mobile-std:w-full"
+                    class="flex items-center px-4 max-h-[70%] w-[30%] mobile-std:w-full"
                 >
                     <div
                         class="bg-white rounded-lg shadow-lg w-full h-full flex flex-col"
                     >
                         <div class="flex justify-between w-full items-center p-4">
-                            <p class="mobile-std:text-lg text-xl font-medium">Novo Cargo</p>
+                            <p class="mobile-std:text-lg text-xl font-medium">Gerenciar Cargos</p>
                             <button
                                 class="2xl:w-8 2xl:h-8 bg-transparent border-none text-primary 2xl:text-4xl hover:scale-125 transition-all flex justify-center items-center"
                                 @click="closeModal()"
@@ -24,19 +24,51 @@
                             </button>
                         </div>
 
-                        <div class="px-4">
-                            <div class="form-field flex flex-col">
-                                <input
-                                    v-model="form.role_name"
-                                    class="border-gray-300 2xl:text-base text-sm rounded-xl"
-                                    type="text"
-                                    name="role-name"
-                                    id="role-name"
-                                    placeholder="Digite o nome do cargo"
-                                >
-                                <div v-if="form.errors.role_name" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.role_name }}</div>
-                            </div>
+                        <div class="w-full min-h-px bg-primary"></div>
+
+                        <div class="h-full overflow-y-auto scrollbar-thin">
+                            <table class="min-w-full bg-white">
+                                <thead class="bg-gray-200">
+                                    <tr class="font-bold text-gray-500 uppercase tracking-wider mobile-std:text-sm">
+                                        <th class="py-2 px-4 text-left">Cargo</th>
+                                        <th class="py-2 px-4 text-center">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr
+                                        v-for="role in roles"
+                                        :key="role.id"
+                                        class="hover:bg-gray-100 transition-all"
+                                        :class="{
+                                            'hidden' : role.name == 'actions'
+                                        }"
+                                    >
+                                        <td class="py-2 px-4 font-medium mobile-std:text-sm">{{ role.name }}</td>
+                                        <td class="py-2 px-4 flex justify-center">
+                                            <button
+                                                @click="editRole(role)"
+                                                class="hover:scale-125 transition-all mr-2 2xl:mr-3"
+                                                :class="{ 'mr-0 2xl:mr-0' : role.name == 'Administrador' }"
+                                            >
+                                                <i class="bx bxs-edit text-lg 2xl:text-xl text-gray-400"></i>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                @click="deleteRole(role.id)"
+                                                class="hover:scale-125 transition-all text-danger"
+                                                :class="{
+                                                    'hidden' : role.name == 'Administrador'
+                                                }"
+                                            >
+                                                <i class="bx bxs-trash text-lg 2xl:text-xl"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
+
+                        <div class="w-full min-h-px bg-primary"></div>
 
                         <div class="flex justify-between w-full items-center p-4">
                             <button
@@ -44,36 +76,54 @@
                                 class="2xl:h-10 w-24 p-2 rounded-xl text-white font-medium text-sm 2xl:text-base bg-gray-400 hover:scale-105 transition-all"
                                 @click="closeModal()"
                             >
-                                Cancelar
+                                Fechar
                             </button>
                             <button
-                                @click="createRole()"
-                                class="2xl:h-10 w-24 p-2 rounded-xl font-medium text-sm 2xl:text-base ml-3"
-                                :disabled="! form.role_name"
-                                :class="{
-                                    'bg-primary text-secondary hover:scale-105 transition-all' : form.role_name,
-                                    'bg-gray-300 text-white' : ! form.role_name,
-                                }"
+                                type="button"
+                                class="2xl:h-10 p-2 rounded-xl text-secondary font-medium text-sm 2xl:text-base bg-primary hover:scale-105 transition-all"
+                                @click="toggleInputModal()"
                             >
-                                Salvar
+                                Criar Cargo
                             </button>
                         </div>
                     </div>
                 </div>
             </Transition>
+
+            <ConfirmationModal
+                :show-modal="showConfirmationModal"
+                :custom-message="message"
+                @confirm-delete="confirmDelete()"
+                @close-modal="toggleConfirmationModal()"
+            />
+
+            <InputModal
+                :role="selectedRole"
+                :show-modal="showInputModal"
+                @close-modal="this.showInputModal = false"
+            />
         </div>
     </Transition>
 </template>
 
 <script>
 import { useForm } from '@inertiajs/vue3';
+import ConfirmationModal from '@/Components/Utils/ConfirmationModal.vue';
+import InputModal from '@/Components/Utils/InputModal.vue';
 
 export default {
+    components: {
+        ConfirmationModal,
+        InputModal,
+    },
+
     props: {
         showModal: {
             type: Boolean,
             default: false,
         },
+
+        roles: {},
     },
 
     setup() {
@@ -84,16 +134,53 @@ export default {
         return { form }
     },
 
+    data() {
+        return {
+            showConfirmationModal: false,
+            showInputModal: false,
+            message: null,
+            selectedRole: null,
+        }
+    },
+
     methods: {
         closeModal() {
             this.$emit('close-modal');
         },
 
-        async createRole() {
-            try {
-                await this.form.post(route('permissions.create-role'));
+        editRole(role) {
+            this.selectedRole = {
+                id: role.id,
+                name: role.name,
+            };
+            
+            this.toggleInputModal();
+        },
 
-                this.closeModal();
+        deleteRole(roleId) {
+            this.toggleConfirmationModal();
+            this.selectedRole = roleId;
+        },
+
+        toggleConfirmationModal() {
+            this.showConfirmationModal = ! this.showConfirmationModal;
+            this.message = {
+                subject: 'delete-role',
+                content: `Ao excluir esse cargo, <strong>TODOS</strong> os usuários vinculados a ele ficarão sem cargo e não poderão realizar praticamente nenhuma ação no sistema. Certifique-se de atribuir um novo cargo a esses usuários antes de prosseguir.`,
+            };
+        },
+
+        toggleInputModal() {
+            this.showInputModal = ! this.showInputModal;
+        },
+
+        async confirmDelete() {
+            try {
+                await axios.post(this.route('roles.destroy', this.selectedRole));
+
+                this.selectedRole = null;
+                this.toggleConfirmationModal();
+                this.showModal = false;
             } catch (error) {
                 console.error(error);
             }
