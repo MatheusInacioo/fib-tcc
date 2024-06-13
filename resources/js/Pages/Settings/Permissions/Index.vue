@@ -1,13 +1,23 @@
 <template>
     <BaseLayout>
         <Head title="Permissões"/>
-        <div class="flex items-center">
-            <a
-                :href="route('settings.index')"
+        <div class="flex items-center justify-between">
+            <div class="flex">
+                <a
+                    :href="route('settings.index')"
+                >
+                    <i class="bx bx-left-arrow-alt text-3xl hover:scale-110 transition-all mr-2"></i>
+                </a>
+                <span class="text-2xl mobile-std:text-xl font-medium">Permissões</span>
+            </div>
+
+            <button
+                @click="toggleRoleModal()"
+                class="flex justify-center items-center w-40 p-2 h-10 mobile-std:w-14 bg-primary rounded-xl text-secondary text-lg font-semibold shadow-xl hover:scale-105 transition-all"
             >
-                <i class="bx bx-left-arrow-alt text-3xl hover:scale-110 transition-all mr-2"></i>
-            </a>
-            <span class="text-2xl mobile-std:text-xl font-medium">Permissões</span>
+                <i class="bx bx-plus font-semibold mr-2 text-secondary mobile-std:mr-0"></i>
+                <p class="mobile-std:hidden font-medium text-secondary">Novo Cargo</p>
+            </button>
         </div>
 
         <div class="min-h-px w-full bg-primary my-4 mobile-std:my-2"></div>
@@ -75,17 +85,24 @@
                 Salvar
             </button>
         </div>
+
+        <RoleModal
+            :show-modal="showRoleModal"
+            @close-modal="toggleRoleModal()"
+        />
     </BaseLayout>
 </template>
 
 <script>
     import { useForm, Head } from '@inertiajs/vue3';
     import BaseLayout from '@/Components/Layout/BaseLayout.vue';
+    import RoleModal from '@/Components/Utils/RoleModal.vue';
 
     export default {
         components: {
             Head,
             BaseLayout,
+            RoleModal,
         },
 
         props: {
@@ -102,6 +119,7 @@
 
         data() {
             return {
+                showRoleModal: false,
                 items: [
                    {
                         label: 'Transações',
@@ -190,6 +208,10 @@
                 } catch (error) {
                     console.error('Erro ao salvar permissões: ', error)
                 }
+            },
+
+            toggleRoleModal() {
+                this.showRoleModal = ! this.showRoleModal;
             },
         },
 

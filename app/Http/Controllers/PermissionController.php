@@ -26,10 +26,10 @@ class PermissionController extends Controller
             $permissions = $request->input('markedPermissions');
             $groupedPermissions = [];
 
-            if(! $permissions) {
+            if (!$permissions) {
                 $roleIds = Role::pluck('id')->toArray();
 
-                foreach($roleIds as $roleId) {
+                foreach ($roleIds as $roleId) {
                     DB::table('role_permission')->where('role_id', $roleId)->delete();
                 }
 
@@ -83,5 +83,24 @@ class PermissionController extends Controller
         }
 
         return response()->json($permissions);
+    }
+
+    public function createRole(Request $request)
+    {
+        try {
+            $request->validate([
+                'role_name' => 'required|string'
+            ], [
+                'role_name.required' => 'Campo obrigatório'
+            ]);
+
+            Role::create([
+                'name' => $request->input('role_name'),
+            ]);
+
+            return redirect()->route('permissions.index')->with('success', 'Cargo criado com sucesso.');
+        } catch (Exception $ex) {
+            return redirect()->route('permissions.index')->with('error', 'Ocorreu um erro ao criar o cargo: ' . $ex->getMessage());
+        }
     }
 }

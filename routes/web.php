@@ -80,6 +80,7 @@ Route::middleware('auth')->group(function () {
     Route::controller(PermissionController::class)->group(function () {
         Route::get('/permissions', 'index')->name('permissions.index');
         Route::post('/permissions', 'store')->name('permissions.store');
+        Route::post('/permissions/create-role', 'createRole')->name('permissions.create-role');
         Route::get('/permissions/fetch', 'fetchPermissions')->name('permissions.fetch');
     });
 });
