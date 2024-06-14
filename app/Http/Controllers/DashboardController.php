@@ -108,25 +108,39 @@ class DashboardController extends Controller
 
     private function getEntriesData($period)
     {
-        $startDate = now()->subDays($period)->startOfDay();
-        $endDate = now()->endOfDay();
+        $entriesData = [];
 
-        $invoicing = Transaction::whereBetween('created_at', [$startDate, $endDate])
-            ->where('type', 1)
-            ->sum('total_amount');
+        for ($i = 0; $i < $period; $i++) {
+            $startDate = now()->subDays($i)->startOfDay();
+            $endDate = now()->subDays($i)->endOfDay();
 
-        return $invoicing;
+            $entries = Transaction::whereBetween('created_at', [$startDate, $endDate])
+                ->where('type', 0)
+                ->count();
+
+            $date = $startDate->format('d/m');
+            $entriesData[$date] = $entries;
+        }
+
+        return array_reverse($entriesData);
     }
 
     private function getOutputsData($period)
     {
-        $startDate = now()->subDays($period)->startOfDay();
-        $endDate = now()->endOfDay();
+        $outputsData = [];
 
-        $invoicing = Transaction::whereBetween('created_at', [$startDate, $endDate])
-            ->where('type', 1)
-            ->sum('total_amount');
+        for ($i = 0; $i < $period; $i++) {
+            $startDate = now()->subDays($i)->startOfDay();
+            $endDate = now()->subDays($i)->endOfDay();
 
-        return $invoicing;
+            $outputs = Transaction::whereBetween('created_at', [$startDate, $endDate])
+                ->where('type', 1)
+                ->count();
+
+            $date = $startDate->format('d/m');
+            $outputsData[$date] = $outputs;
+        }
+
+        return array_reverse($outputsData);
     }
 }
