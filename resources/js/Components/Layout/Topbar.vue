@@ -127,7 +127,7 @@
 
                         <a
                             @click="toggleConfirmationModal()"
-                            class="flex items-center hover:bg-gray-200 transition-all hover:rounded-b-lg hover:scale-110 px-4 py-2"
+                            class="flex items-center hover:bg-gray-200 transition-all hover:rounded-b-lg hover:scale-110 px-4 py-2 cursor-pointer"
                         >
                             <i class="bx bx-log-out mr-3 text-base 2xl:text-xl text-gray-800 mobile-std:text-2xl"></i>
                             <p class="text-sm 2xl:text-base font-medium text-gray-800 mobile-std:text-lg"> Sair </p>

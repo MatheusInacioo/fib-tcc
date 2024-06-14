@@ -27,14 +27,14 @@
                         <div class="p-4">
                             <div class="form-field flex flex-col">
                                 <input
-                                    v-model="form.role_name"
+                                    v-model="form.name"
                                     class="border-gray-300 2xl:text-base text-sm rounded-xl"
                                     type="text"
                                     name="role-name"
                                     id="role-name"
                                     placeholder="Digite o nome do cargo"
                                 >
-                                <div v-if="form.errors.role_name" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.role_name }}</div>
+                                <div v-if="form.errors.name" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.name }}</div>
                             </div>
                         </div>
 
@@ -49,10 +49,10 @@
                             <button
                                 @click="createRole()"
                                 class="h-8 w-20 rounded-xl font-medium text-sm ml-3"
-                                :disabled="! form.role_name"
+                                :disabled="! form.name"
                                 :class="{
-                                    'bg-primary text-secondary hover:scale-105 transition-all' : form.role_name,
-                                    'bg-gray-300 text-white' : ! form.role_name,
+                                    'bg-primary text-secondary hover:scale-105 transition-all' : form.name,
+                                    'bg-gray-300 text-white' : ! form.name,
                                 }"
                             >
                                 Salvar
@@ -80,8 +80,8 @@ export default {
 
     setup() {
         const form = useForm({
-            role_id: null,
-            role_name: null,
+            id: null,
+            name: null,
         });
 
         return { form }
@@ -89,7 +89,7 @@ export default {
 
     computed: {
         roleExists() {
-            return this.form.role_id
+            return this.form.id
                 ? true
                 : false;
         },
@@ -104,14 +104,14 @@ export default {
     methods: {
         closeModal() {
             this.$emit('close-modal')
-            this.form.role_id = null;
-            this.form.role_name = null;
+            this.form.id = null;
+            this.form.name = null;
         },
 
         async createRole() {
             try {
                 if (this.roleExists) {
-                    await this.form.put(route('roles.update', this.form.role_id));
+                    await this.form.put(route('roles.update', this.form.id));
                 } else {
                     await this.form.post(route('roles.store'));
                 }
@@ -127,11 +127,11 @@ export default {
         role: {
             handler(newRole) {
                 if (newRole) {
-                    this.form.role_id = newRole.id;
-                    this.form.role_name = newRole.name;
+                    this.form.id = newRole.id;
+                    this.form.name = newRole.name;
                 } else {
-                    this.form.role_id = null;
-                    this.form.role_name = null;
+                    this.form.id = null;
+                    this.form.name = null;
                 }
             },
 

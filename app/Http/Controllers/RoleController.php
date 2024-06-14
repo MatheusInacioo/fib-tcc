@@ -14,13 +14,13 @@ class RoleController extends Controller
     {
         try {
             $request->validate([
-                'role_name' => 'required|string|unique:roles'
+                'name' => 'required|string|unique:roles'
             ], [
-                'role_name.required' => 'Campo obrigatório',
-                'role_name.unique' => 'Já existe um cargo com esse nome',
+                'name.required' => 'Campo obrigatório',
+                'name.unique' => 'Já existe um cargo com esse nome',
             ]);
 
-            Role::create(['name' => $request->input('role_name')]);
+            Role::create(['name' => $request->input('name')]);
 
             return redirect()->route('permissions.index')->with('success', 'Cargo criado com sucesso.');
         } catch (Exception $ex) {
@@ -32,15 +32,15 @@ class RoleController extends Controller
     {
         try {
             $request->validate([
-                'role_id' => 'required|int',
-                'role_name' => 'required|string'
+                'id' => 'required|int',
+                'name' => 'required|string'
             ], [
-                'role_name.required' => 'Campo obrigatório',
+                'name.required' => 'Campo obrigatório',
             ]);
 
-            Role::where('id', $request->input('role_id'))
+            Role::where('id', $request->input('id'))
                 ->update([
-                    'name' => $request->input('role_name'),
+                    'name' => $request->input('name'),
                 ]);
 
             return redirect()->route('permissions.index')->with('success', 'Cargo editado com sucesso.');
@@ -52,7 +52,7 @@ class RoleController extends Controller
     public function destroy($roleId)
     {
         try {
-            User::where('role_id', $roleId)->update(['role_id' => null]);
+            User::where('role_id', $roleId)->update(['id' => null]);
 
             DB::table('role_permission')
                 ->where('role_id', $roleId)

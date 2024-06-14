@@ -254,8 +254,8 @@
         <ConfirmationModal
             :show-modal="showConfirmationModal"
             :custom-message="message"
+            :export-route="settings.routes.export"
             @confirm-delete="confirmDelete()"
-            @confirm-export="confirmExport()"
             @close-modal="toggleConfirmationModal()"
         />
     </div>
@@ -406,7 +406,7 @@ export default {
 
             this.message = {
                 subject: 'export-data',
-                content: `Todos os ${this.data.length} registros serão exportados e baixados no arquivo <strong>${this.settings.title}.xlsx</strong>. Deseja prosseguir?`,
+                content: `Ao clicar em "Exportar", todos os ${this.data.length} registros serão baixados no arquivo <strong>${this.settings.title}.xlsx</strong>. Não feche ou atualize a página até a conclusão do download.`,
             };
         },
 
@@ -418,17 +418,6 @@ export default {
                 this.toggleConfirmationModal();
 
                 window.location.reload();
-            } catch (error) {
-                console.error(error);
-            }
-        },
-
-        // @todo Fix this method's functionality.
-        async confirmExport() {
-            try {
-                await axios.get(this.route(this.settings.routes.export));
-
-                this.toggleConfirmationModal();
             } catch (error) {
                 console.error(error);
             }

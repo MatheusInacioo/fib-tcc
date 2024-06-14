@@ -9,20 +9,20 @@
             <Transition name="modal-body">
                 <div
                     v-if="showModal"
-                    class="flex items-center justify-center h-[400px] px-4 text-center w-[500px]"
+                    class="flex items-center justify-center px-4 text-center w-[500px]"
                 >
                     <div
-                        class="bg-white rounded-lg shadow-lg min-h-80 w-full p-4 md:p-5 flex flex-col"
+                        class="bg-white rounded-lg shadow-lg w-full p-4 md:p-5 flex flex-col"
                     >
-                        <div class="text-center min-h-80 flex flex-col justify-between">
+                        <div class="text-center flex flex-col justify-between">
                             <i
-                                class="text-8xl"
+                                class="text-8xl mb-4"
                                 :class="{
                                     'bx bx-check-circle text-success' : message.type == 'success',
                                     'bx bx-x-circle text-danger' : message.type == 'error'
                                 }"
                             ></i>
-                            <h3 class="mb-5 text-lg font-normal text-black">
+                            <h3 class="mb-4 text-lg font-normal text-black">
                                 {{ message.content }}
                             </h3>
                             <div class="flex justify-center w-full">

@@ -107,7 +107,6 @@
 </template>
 
 <script>
-import { useForm } from '@inertiajs/vue3';
 import ConfirmationModal from '@/Components/Utils/ConfirmationModal.vue';
 import InputModal from '@/Components/Utils/InputModal.vue';
 
@@ -124,14 +123,6 @@ export default {
         },
 
         roles: {},
-    },
-
-    setup() {
-        const form = useForm({
-            role_name: null,
-        });
-
-        return { form }
     },
 
     data() {
@@ -153,7 +144,7 @@ export default {
                 id: role.id,
                 name: role.name,
             };
-            
+
             this.toggleInputModal();
         },
 
