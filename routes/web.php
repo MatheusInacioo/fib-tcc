@@ -32,8 +32,11 @@ Route::controller(LoginController::class)->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    // Dashboard main page
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    // Dashboard routes
+    Route::controller(DashboardController::class)->group(function () {
+        Route::get('/dashboard', 'index')->name('dashboard.index');
+        Route::get('/dashboard/filter/{period}/{chartType}', 'filterData')->name('dashboard.filter');
+    });
 
     // Transaction routes
     Route::controller(TransactionController::class)->group(function () {

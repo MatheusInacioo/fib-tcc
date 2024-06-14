@@ -12,9 +12,19 @@
                     <i class="bx bx-dollar text-white text-3xl mobile-std:text-2xl"></i>
                 </div>
 
-                <div class="h-full p-4 flex flex-col justify-between">
-                    <span class="text-2xl mobile-std:text-xl font-medium text-black">R$0,00</span>
-                    <div class="web:text-lg text-sm font-medium text-green-500">+ 0.00% em relação ao dia anterior</div>
+                <div
+                    v-if="dayStats.invoicing"
+                    class="h-full p-4 flex flex-col justify-between"
+                >
+                    <span class="text-2xl mobile-std:text-xl font-medium text-black">{{ dayStats.invoicing.total }}</span>
+                    <div class="web:text-lg text-sm font-medium text-green-500">{{ dayStats.invoicing.change + ' em relação ao dia anterior' }} </div>
+                </div>
+
+                <div
+                    v-else
+                    class="h-full p-4 flex justify-center items-center"
+                >
+                    <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">Nenhuma transação registrada na data atual. Aguardando novos dados...</span>
                 </div>
             </div>
 
@@ -24,10 +34,20 @@
                     <i class="bx bx-bar-chart text-white text-3xl mobile-std:text-2xl"></i>
                 </div>
 
-                <div class="h-full p-4 flex flex-col justify-between">
-                    <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">0 entradas</span>
-                    <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">0 saídas</span>
+                <div
+                    v-if="dayStats.entries > 0 || dayStats.outputs > 0"
+                    class="h-full p-4 flex flex-col justify-between"
+                >
+                    <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">{{ dayStats.entries + ' entradas' }}</span>
+                    <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">{{ dayStats.outputs + ' saídas' }}</span>
                     <div class="web:text-lg text-sm font-medium text-green-500">+ 0.00% em relação ao dia anterior</div>
+                </div>
+
+                <div
+                    v-else
+                    class="h-full p-4 flex justify-center items-center"
+                >
+                    <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">Nenhuma transação registrada na data atual. Aguardando novos dados...</span>
                 </div>
             </div>
             <div class="info-card h-52 rounded-xl shadow-xl flex flex-col border border-gray-200 transition-all hover:scale-105">
@@ -47,8 +67,18 @@
                     <i class="bx bx-error text-white text-3xl mobile-std:text-2xl"></i>
                 </div>
 
-                <div class="h-full p-4 flex flex-col justify-between">
-                    <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">0 produtos com baixa quantidade em estoque</span>
+                <div
+                    v-if="dayStats.low_products > 0"
+                    class="h-full p-4 flex flex-col justify-between"
+                >
+                    <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">{{ dayStats.low_products + ' produtos com baixa quantidade em estoque'}}</span>
+                </div>
+
+                <div
+                    v-else
+                    class="h-full p-4 flex justify-center items-center"
+                >
+                    <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">Nenhum alerta iminente. Tudo certo!</span>
                 </div>
             </div>
         </div>
@@ -87,7 +117,7 @@
 
                     <div class="relative">
                         <button
-                            @click="toggleDropdown('entry')"
+                            @click="toggleDropdown('entries')"
                             class="flex justify-center items-center p-2 h-10 mobile-std:min-w-16 min-w-32 bg-primary rounded-xl text-white text-lg font-semibold shadow-xl hover:scale-105 transition-all"
                         >
                             <i class="bx bx-calendar font-semibold mr-2 text-secondary"></i>
@@ -95,15 +125,15 @@
                             <i class="bx bx-chevron-down font-semibold ml-2 mobile-std:ml-0 text-secondary"></i>
                         </button>
 
-                        <div v-if="dropdowns.entry" class="absolute right-0 w-48 bg-white border rounded shadow-xl">
-                            <a href="#" @click.prevent="filterChart('entry', 7)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 7 dias</a>
-                            <a href="#" @click.prevent="filterChart('entry', 10)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 10 dias</a>
-                            <a href="#" @click.prevent="filterChart('entry', 30)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 30 dias</a>
+                        <div v-if="dropdowns.entries" class="absolute right-0 w-48 bg-white border rounded shadow-xl">
+                            <a href="#" @click.prevent="filterChart('entries', 7)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 7 dias</a>
+                            <a href="#" @click.prevent="filterChart('entries', 10)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 10 dias</a>
+                            <a href="#" @click.prevent="filterChart('entries', 30)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 30 dias</a>
                         </div>
                     </div>
                 </div>
 
-                <canvas class="web:max-h-[95%]" id="entryChart"></canvas>
+                <canvas class="web:max-h-[95%]" id="entriesChart"></canvas>
             </div>
             <div class="flex flex-col web:justify-between rounded-xl shadow-xl 2xl:p-4 p-2 web:min-h-[300px] mobile-std:min-h-[500px] w-[50%] mobile-std:w-full max-w-full border border-gray-200">
                 <div class="flex justify-between">
@@ -111,7 +141,7 @@
 
                     <div class="relative">
                         <button
-                            @click="toggleDropdown('exit')"
+                            @click="toggleDropdown('outputs')"
                             class="flex justify-center items-center p-2 h-10 mobile-std:min-w-16 min-w-32 bg-primary rounded-xl text-white text-lg font-semibold shadow-xl hover:scale-105 transition-all"
                         >
                             <i class="bx bx-calendar font-semibold mr-2 text-secondary"></i>
@@ -119,15 +149,15 @@
                             <i class="bx bx-chevron-down font-semibold ml-2 mobile-std:ml-0 text-secondary"></i>
                         </button>
 
-                        <div v-if="dropdowns.exit" class="absolute right-0 w-48 bg-white border rounded shadow-xl">
-                            <a href="#" @click.prevent="filterChart('exit', 7)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 7 dias</a>
-                            <a href="#" @click.prevent="filterChart('exit', 10)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 10 dias</a>
-                            <a href="#" @click.prevent="filterChart('exit', 30)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 30 dias</a>
+                        <div v-if="dropdowns.outputs" class="absolute right-0 w-48 bg-white border rounded shadow-xl">
+                            <a href="#" @click.prevent="filterChart('outputs', 7)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 7 dias</a>
+                            <a href="#" @click.prevent="filterChart('outputs', 10)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 10 dias</a>
+                            <a href="#" @click.prevent="filterChart('outputs', 30)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 30 dias</a>
                         </div>
                     </div>
                 </div>
 
-                <canvas class="web:max-h-[95%]" id="exitChart"></canvas>
+                <canvas class="web:max-h-[95%]" id="outputsChart"></canvas>
            </div>
         </div>
     </BaseLayout>
@@ -144,14 +174,19 @@
             Head,
         },
 
+        props: {
+            dayStats: [],
+        },
+
         data() {
             return {
                 dropdowns: {
-                    stock: false,
-                    entry: false,
-                    exit: false
+                    invoicing: false,
+                    entries: false,
+                    outputs: false
                 },
-                entryChartSettings: {
+
+                entriesChartSettings: {
                     axis: window.innerWidth <= 1024 ? 'y' : 'x',
                     type: 'bar',
                     name: 'Entradas',
@@ -172,7 +207,7 @@
                     data: [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24],
                 },
 
-                exitChartSettings: {
+                outputsChartSettings: {
                     axis: window.innerWidth <= 1024 ? 'y' : 'x',
                     type: 'bar',
                     name: 'Saídas',
@@ -196,7 +231,7 @@
                 invoicingChartSettings: {
                     axis: window.innerWidth <= 800 ? 'y' : 'x',
                     type: 'line',
-                    name: 'Faturamento',
+                    name: 'Faturamento (R$)',
                     labels: [
                         'Janeiro',
                         'Fevereiro',
@@ -264,30 +299,32 @@
                 this.dropdowns[chartType] = !this.dropdowns[chartType];
             },
 
-            filterChart(chartType, days) {
-                // Here you would normally fetch or calculate the new data based on the 'days' parameter.
-                // For demonstration, we will just slice the existing data.
-                const chartSettings = this[`${chartType}ChartSettings`];
-                const originalData = {
-                    stock: [13, 21, 22, 14, 15, 23, 11, 9, 18, 5, 3, 2],
-                    entry: [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24],
-                    exit: [23, 21, 19, 17, 15, 13, 11, 9, 7, 5, 3, 1]
-                };
+            // @todo fix this method's functionality
+            async filterChart(chartType, days) {
+                let chartSettings = this[`${chartType}ChartSettings`];
 
-                chartSettings.data = originalData[chartType].slice(-days);
-                chartSettings.labels = Array.from({ length: days }, (_, i) => `Dia ${i + 1}`);
+                await axios.get(route('dashboard.filter', {
+                    period: days,
+                    chartType: chartType,
+                }))
+                .then(response => {
+                    chartSettings = response.data;
+                })
+                .catch (error => {
+                    console.error(error);
+                });
 
                 this.buildChart(document.getElementById(`${chartType}Chart`), chartSettings);
             }
         },
 
         mounted() {
-            const entryChart = document.getElementById('entryChart');
-            const exitChart = document.getElementById('exitChart');
+            const entriesChart = document.getElementById('entriesChart');
+            const outputsChart = document.getElementById('outputsChart');
             const invoicingChart = document.getElementById('invoicingChart');
 
-            this.buildChart(entryChart, this.entryChartSettings);
-            this.buildChart(exitChart, this.exitChartSettings);
+            this.buildChart(entriesChart, this.entriesChartSettings);
+            this.buildChart(outputsChart, this.outputsChartSettings);
             this.buildChart(invoicingChart, this.invoicingChartSettings);
         }
     }
