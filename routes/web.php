@@ -48,6 +48,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/transactions/suppliers/{search}', 'searchSuppliers')->name('transactions.suppliers');
         Route::post('/transactions/products', 'searchProducts')->name('transactions.products');
         Route::post('/transactions/destroy/{id}', 'destroy')->name('transactions.destroy');
+        Route::get('/transactions/export', 'export')->name('transactions.export');
     });
 
     // Customer routes

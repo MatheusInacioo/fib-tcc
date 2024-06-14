@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TransactionExport;
 use App\Http\Requests\TransactionRequest;
 use App\Http\Resources\TransactionResource;
 use App\Models\Customer;
@@ -11,6 +12,7 @@ use App\Models\Transaction;
 use Exception;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TransactionController extends Controller
 {
@@ -108,5 +110,10 @@ class TransactionController extends Controller
             : $newQuantity = $product->total_amount - $transaction->quantity;
 
         $product->update(['total_amount' => $newQuantity]);
+    }
+
+    public function export()
+    {
+        return Excel::download(new TransactionExport, 'transacoes.xlsx');
     }
 }

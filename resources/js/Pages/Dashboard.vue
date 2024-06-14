@@ -319,6 +319,7 @@
         },
 
         mounted() {
+            console.log(this.dayStats);
             const entriesChart = document.getElementById('entriesChart');
             const outputsChart = document.getElementById('outputsChart');
             const invoicingChart = document.getElementById('invoicingChart');
