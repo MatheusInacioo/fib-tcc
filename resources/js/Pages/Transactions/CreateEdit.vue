@@ -312,7 +312,7 @@ export default {
                 'Dinheiro',
                 'Cartão de Crédito',
                 'Boleto',
-                'Transferência Bancária'
+                'Transferência'
             ],
             supplierQuery: '',
             customerQuery: '',

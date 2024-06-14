@@ -2,14 +2,14 @@
 
 namespace App\Exports;
 
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Schema;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithMapping;
 
-class UsersExport implements FromCollection, WithHeadings, ShouldAutoSize
+class UsersExport implements FromCollection, WithHeadings, ShouldAutoSize, WithMapping
 {
     protected $columns;
 
@@ -25,23 +25,38 @@ class UsersExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'updated_at',
             ]
         );
-
-        $userRole = Role::where('id', $this->columns[1])->pluck('name');
-        $this->columns['role'] = $userRole;
     }
 
     public function collection()
     {
-        return User::select($this->columns)->get();
+        $columns = array_map(function ($column) {
+            return 'users.' . $column;
+        }, $this->columns);
+
+        $columns[] = 'roles.name as role_name';
+
+        return User::select($columns)
+            ->join('roles', 'users.role_id', '=', 'roles.id')
+            ->get();
     }
 
     public function headings(): array
     {
         return [
             'ID',
-            'Cargo',
             'Nome',
             'Email',
+            'Cargo',
+        ];
+    }
+
+    public function map($user): array
+    {
+        return [
+            $user->id,
+            $user->name,
+            $user->email,
+            $user->role_name,
         ];
     }
 }
