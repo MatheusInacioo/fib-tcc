@@ -7,7 +7,7 @@
 
         <div class="grid grid-cols-4 gap-4 mobile-std:grid-cols-1 mobile-lg:grid-cols-2 mb-4">
             <div class="info-card h-52 rounded-xl shadow-xl flex flex-col border border-gray-200 transition-all hover:scale-105">
-                <div class="flex justify-between items-center h-[33%] bg-green-500 rounded-t-xl p-4">
+                <div class="flex justify-between items-center h-[33%] bg-success rounded-t-xl p-4">
                     <span class="text-2xl mobile-std:text-xl font-medium text-white">Faturamento</span>
                     <i class="bx bx-dollar text-white text-3xl mobile-std:text-2xl"></i>
                 </div>
@@ -17,7 +17,15 @@
                     class="h-full p-4 flex flex-col justify-between"
                 >
                     <span class="text-2xl mobile-std:text-xl font-medium text-black">{{ dayStats.invoicing.total }}</span>
-                    <div class="web:text-lg text-sm font-medium text-green-500">{{ dayStats.invoicing.change + ' em relação ao dia anterior' }} </div>
+                    <div class="flex justify-between items-center">
+                        <div class="web:text-base text-sm font-medium text-success">{{ dayStats.invoicing.change + ' em relação ao dia anterior' }} </div>
+                        <a
+                            :href="route('dashboard.index')"
+                            class="flex justify-center items-center px-4 h-10 bg-success rounded-xl shadow-xl hover:scale-105 transition-all self-end"
+                        >
+                            <p class="font-medium text-white mobile-std:text-sm">VER</p>
+                        </a>
+                    </div>
                 </div>
 
                 <div
@@ -40,7 +48,12 @@
                 >
                     <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">{{ dayStats.entries + ' entradas' }}</span>
                     <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">{{ dayStats.outputs + ' saídas' }}</span>
-                    <div class="web:text-lg text-sm font-medium text-green-500">+ 0.00% em relação ao dia anterior</div>
+                    <a
+                        :href="route('transactions.index')"
+                        class="flex justify-center items-center px-4 h-10 bg-blue-500 rounded-xl shadow-xl hover:scale-105 transition-all self-end"
+                    >
+                        <p class="font-medium text-white mobile-std:text-sm">VER</p>
+                    </a>
                 </div>
 
                 <div
@@ -58,6 +71,12 @@
 
                 <div class="h-full p-4 flex flex-col justify-between">
                     <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">0 pedidos agendados para hoje</span>
+                    <a
+                        :href="route('dashboard.index')"
+                        class="flex justify-center items-center px-4 h-10 bg-yellow-500 rounded-xl shadow-xl hover:scale-105 transition-all self-end"
+                    >
+                        <p class="font-medium text-white mobile-std:text-sm">VER</p>
+                    </a>
                 </div>
             </div>
 
@@ -72,6 +91,12 @@
                     class="h-full p-4 flex flex-col justify-between"
                 >
                     <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">{{ dayStats.low_products + ' produtos com baixa quantidade em estoque'}}</span>
+                    <a
+                        :href="route('dashboard.index')"
+                        class="flex justify-center items-center px-4 h-10 bg-danger rounded-xl shadow-xl hover:scale-105 transition-all self-end"
+                    >
+                        <p class="font-medium text-white mobile-std:text-sm">VER</p>
+                    </a>
                 </div>
 
                 <div
@@ -82,6 +107,10 @@
                 </div>
             </div>
         </div>
+
+        <span class="text-2xl font-medium">Estatísticas</span>
+
+        <div class="min-h-px w-full bg-primary my-4 mobile-std:my-2"></div>
 
         <div class="w-full rounded-xl shadow-lg mb-4 border border-gray-200">
             <div class="flex flex-col web:justify-between rounded-xl shadow-xl 2xl:p-4 p-2 web:max-h-[400px] mobile-std:min-h-[500px] w-full border border-gray-200 mobile-std:mb-4">
@@ -98,10 +127,10 @@
                             <i class="bx bx-chevron-down font-semibold ml-2 mobile-std:ml-0 text-secondary"></i>
                         </button>
 
-                        <div v-if="dropdowns.invoicing" class="absolute right-0 w-48 bg-white border rounded shadow-xl">
-                            <a href="#" @click.prevent="filterChart('invoicing', 7)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 7 dias</a>
-                            <a href="#" @click.prevent="filterChart('invoicing', 10)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 10 dias</a>
-                            <a href="#" @click.prevent="filterChart('invoicing', 30)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 30 dias</a>
+                        <div v-if="dropdowns.invoicing" class="absolute right-0 w-40 text-center bg-white border rounded shadow-xl">
+                            <a @click.prevent="filterChart('invoicing', 7)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 7 dias</a>
+                            <a @click.prevent="filterChart('invoicing', 10)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 10 dias</a>
+                            <a @click.prevent="filterChart('invoicing', 30)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 30 dias</a>
                         </div>
                     </div>
                 </div>
@@ -125,10 +154,10 @@
                             <i class="bx bx-chevron-down font-semibold ml-2 mobile-std:ml-0 text-secondary"></i>
                         </button>
 
-                        <div v-if="dropdowns.entries" class="absolute right-0 w-48 bg-white border rounded shadow-xl">
-                            <a href="#" @click.prevent="filterChart('entries', 7)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 7 dias</a>
-                            <a href="#" @click.prevent="filterChart('entries', 10)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 10 dias</a>
-                            <a href="#" @click.prevent="filterChart('entries', 30)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 30 dias</a>
+                        <div v-if="dropdowns.entries" class="absolute right-0 w-40 text-center bg-white border rounded shadow-xl">
+                            <a @click.prevent="filterChart('entries', 7)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 7 dias</a>
+                            <a @click.prevent="filterChart('entries', 10)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 10 dias</a>
+                            <a @click.prevent="filterChart('entries', 30)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 30 dias</a>
                         </div>
                     </div>
                 </div>
@@ -149,10 +178,10 @@
                             <i class="bx bx-chevron-down font-semibold ml-2 mobile-std:ml-0 text-secondary"></i>
                         </button>
 
-                        <div v-if="dropdowns.outputs" class="absolute right-0 w-48 bg-white border rounded shadow-xl">
-                            <a href="#" @click.prevent="filterChart('outputs', 7)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 7 dias</a>
-                            <a href="#" @click.prevent="filterChart('outputs', 10)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 10 dias</a>
-                            <a href="#" @click.prevent="filterChart('outputs', 30)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 30 dias</a>
+                        <div v-if="dropdowns.outputs" class="absolute right-0 w-40 text-center bg-white border rounded shadow-xl">
+                            <a @click.prevent="filterChart('outputs', 7)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 7 dias</a>
+                            <a @click.prevent="filterChart('outputs', 10)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 10 dias</a>
+                            <a @click.prevent="filterChart('outputs', 30)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 30 dias</a>
                         </div>
                     </div>
                 </div>
@@ -186,82 +215,53 @@
                     outputs: false
                 },
 
+                charts: {
+                    invoicing: null,
+                    entries: null,
+                    outputs: null
+                },
+
                 entriesChartSettings: {
                     axis: window.innerWidth <= 1024 ? 'y' : 'x',
                     type: 'bar',
                     name: 'Entradas',
-                    labels: [
-                        'Janeiro',
-                        'Fevereiro',
-                        'Março',
-                        'Abril',
-                        'Maio',
-                        'Junho',
-                        'Julho',
-                        'Agosto',
-                        'Setembro',
-                        'Outubro',
-                        'Novembro',
-                        'Dezembro'
-                    ],
-                    data: [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24],
+                    labels: [],
+                    data: [],
                 },
 
                 outputsChartSettings: {
                     axis: window.innerWidth <= 1024 ? 'y' : 'x',
                     type: 'bar',
                     name: 'Saídas',
-                    labels: [
-                        'Janeiro',
-                        'Fevereiro',
-                        'Março',
-                        'Abril',
-                        'Maio',
-                        'Junho',
-                        'Julho',
-                        'Agosto',
-                        'Setembro',
-                        'Outubro',
-                        'Novembro',
-                        'Dezembro'
-                    ],
-                    data: [23, 21, 19, 17, 15, 13, 11, 9, 7, 5, 3, 1],
+                    labels: [],
+                    data: [],
                 },
 
                 invoicingChartSettings: {
                     axis: window.innerWidth <= 800 ? 'y' : 'x',
                     type: 'line',
                     name: 'Faturamento (R$)',
-                    labels: [
-                        'Janeiro',
-                        'Fevereiro',
-                        'Março',
-                        'Abril',
-                        'Maio',
-                        'Junho',
-                        'Julho',
-                        'Agosto',
-                        'Setembro',
-                        'Outubro',
-                        'Novembro',
-                        'Dezembro'
-                    ],
-                    data: [13, 21, 22, 14, 15, 23, 11, 9, 18, 5, 3, 2],
+                    labels: [],
+                    data: [],
                 },
             }
         },
 
         methods: {
-            buildChart(ctx, chart) {
-                new Chart(ctx, {
-                    type: chart.type,
+            buildChart(ctx, chartSettings) {
+                if (this.charts[ctx.id]) {
+                    this.charts[ctx.id].destroy();
+                }
+
+                this.charts[ctx.id] = new Chart(ctx, {
+                    type: chartSettings.type,
                     data: {
-                        labels: chart.labels,
+                        labels: chartSettings.labels,
                         datasets: [{
-                            label: chart.name,
-                            data: chart.data,
+                            label: chartSettings.name,
+                            data: chartSettings.data,
                             borderWidth: 1,
-                            maxBarThickness: window.innerWidth <= 1024 ? 15 : 20,
+                            maxBarThickness: 15,
                             aspectRatio: 0.8,
                             tension: 0.1,
                             borderRadius: {
@@ -274,7 +274,7 @@
                         }]
                     },
                     options: {
-                        indexAxis: chart.axis,
+                        indexAxis: chartSettings.axis,
                         responsive: true,
                         aspectRatio: window.innerWidth <= 1024 ? 0.8 : 2,
                         scales: {
@@ -299,7 +299,6 @@
                 this.dropdowns[chartType] = !this.dropdowns[chartType];
             },
 
-            // @todo fix this method's functionality
             async filterChart(chartType, days) {
                 let chartSettings = this[`${chartType}ChartSettings`];
 
@@ -308,25 +307,26 @@
                     chartType: chartType,
                 }))
                 .then(response => {
-                    chartSettings = response.data;
+                    chartSettings.labels = Object.keys(response.data);
+                    chartSettings.data = Object.values(response.data);
                 })
                 .catch (error => {
                     console.error(error);
                 });
 
                 this.buildChart(document.getElementById(`${chartType}Chart`), chartSettings);
-            }
+                this.dropdowns[chartType] = false;
+            },
+
+            async loadDefaultCharts() {
+                await this.filterChart('entries', 7);
+                await this.filterChart('outputs', 7);
+                await this.filterChart('invoicing', 7);
+            },
         },
 
-        mounted() {
-            console.log(this.dayStats);
-            const entriesChart = document.getElementById('entriesChart');
-            const outputsChart = document.getElementById('outputsChart');
-            const invoicingChart = document.getElementById('invoicingChart');
-
-            this.buildChart(entriesChart, this.entriesChartSettings);
-            this.buildChart(outputsChart, this.outputsChartSettings);
-            this.buildChart(invoicingChart, this.invoicingChartSettings);
+        async mounted() {
+            await this.loadDefaultCharts();
         }
     }
 </script>
