@@ -39,7 +39,9 @@ class DashboardController extends Controller
             ->where('type', 1)
             ->count();
 
-        $lowProducts = Product::whereColumn('total_amount', '<=', 'minimum_amount')->count();
+        $lowProducts = Product::whereColumn('total_amount', '<=', 'minimum_amount')->get();
+
+        $expiredProducts = Product::whereDate('expiry_date', '<', $todayStart)->count();
 
         $change = $this->calculatePercentageChange($todayInvoicing, $yesterdayInvoicing);
 
@@ -51,6 +53,7 @@ class DashboardController extends Controller
             'entries' => $entries ?? null,
             'outputs' => $outputs ?? null,
             'low_products' => $lowProducts ?? null,
+            'expired_products' => $expiredProducts ?? null,
         ];
     }
 

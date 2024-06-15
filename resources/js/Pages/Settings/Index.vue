@@ -29,6 +29,7 @@
                 :class="{
                     'hidden' :
                         button.title == 'Permissões' && !userIsAdmin ||
+                        button.title == 'Lojas' && !userIsAdmin ||
                         button.title == 'Usuários' && !userHasPermission('list', 'users')
                 }"
             >
@@ -66,6 +67,11 @@
                         title: 'Usuários',
                         icon: 'bx bx-group',
                         route: 'users.index',
+                    },
+                    {
+                        title: 'Lojas',
+                        icon: 'bx bx-store',
+                        route: 'permissions.index',
                     },
                     {
                         title: 'Permissões',

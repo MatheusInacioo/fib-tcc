@@ -98,6 +98,18 @@ export default {
                         searchable: true,
                     },
                     {
+                        label: 'Quantidade',
+                        name: 'total_amount',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
+                        label: 'Condição',
+                        name: 'condition',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
                         label: 'Ações',
                         name: 'actions',
                         sortable: false,

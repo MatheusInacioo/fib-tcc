@@ -29,6 +29,9 @@ class ProductResource extends JsonResource
             'expiry_date' => $this->expiry_date,
             'description' => $this->description,
             'additional_info' => $this->additional_info,
+            'condition' => $this->expiry_date < now()
+                ? '<span class="font-bold text-danger uppercase"> Vencido </span>'
+                : 'Válido',
         ];
     }
 }

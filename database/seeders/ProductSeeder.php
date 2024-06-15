@@ -26,7 +26,7 @@ class ProductSeeder extends Seeder
                 'total_amount' => fake()->numberBetween(1, 10000),
                 'minimum_amount' => fake()->numberBetween(1, 100),
                 'storage_location' => fake()->streetName(),
-                'expiry_date' => fake()->date(),
+                'expiry_date' => fake()->dateTimeBetween('-6 months', '+1 year')->format('Y-m-d'),
                 'description' => fake()->text(500),
                 'additional_info' => fake()->text(200),
             ]);

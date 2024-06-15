@@ -133,7 +133,7 @@
                             class="px-6 py-1 text-sm 2xl:text-base 2xl:py-3"
                             :class="{ 'text-center' : i > 0 }"
                         >
-                            {{ item[column.name]}}
+                            <span v-html="item[column.name]"></span>
                             <div
                                 v-if="column.name == 'actions'"
                                 class="flex justify-center"

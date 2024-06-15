@@ -13,7 +13,7 @@
                 </div>
 
                 <div
-                    v-if="dayStats.invoicing"
+                    v-if="dayStats.invoicing.total"
                     class="h-full p-4 flex flex-col justify-between"
                 >
                     <span class="text-2xl mobile-std:text-xl font-medium text-black">{{ dayStats.invoicing.total }}</span>
@@ -87,16 +87,17 @@
                 </div>
 
                 <div
-                    v-if="dayStats.low_products > 0"
+                    v-if="dayStats.low_products"
                     class="h-full p-4 flex flex-col justify-between"
                 >
-                    <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">{{ dayStats.low_products + ' produtos com baixa quantidade em estoque'}}</span>
-                    <a
-                        :href="route('dashboard.index')"
+                    <span class="text-lg mobile-std:text-base font-medium mb-2 text-black">{{ dayStats.low_products.length + ' produtos com baixa quantidade em estoque'}}</span>
+                    <span class="text-lg mobile-std:text-base font-medium text-black">{{ dayStats.expired_products + ' produtos vencidos'}}</span>
+                    <button
+                        @click="toggleProductModal()"
                         class="flex justify-center items-center px-4 h-10 bg-danger rounded-xl shadow-xl hover:scale-105 transition-all self-end"
                     >
                         <p class="font-medium text-white mobile-std:text-sm">VER</p>
-                    </a>
+                    </button>
                 </div>
 
                 <div
@@ -122,7 +123,7 @@
                             @click="toggleDropdown('invoicing')"
                             class="flex justify-center items-center p-2 h-10 mobile-std:min-w-16 min-w-32 bg-primary rounded-xl text-white text-lg font-semibold shadow-xl hover:scale-105 transition-all"
                         >
-                            <i class="bx bx-calendar font-semibold mr-2 text-secondary"></i>
+                            <i class="bx bx-calendar mr-2 text-secondary"></i>
                             <p class="font-medium text-secondary mobile-std:hidden">Período</p>
                             <i class="bx bx-chevron-down font-semibold ml-2 mobile-std:ml-0 text-secondary"></i>
                         </button>
@@ -149,7 +150,7 @@
                             @click="toggleDropdown('entries')"
                             class="flex justify-center items-center p-2 h-10 mobile-std:min-w-16 min-w-32 bg-primary rounded-xl text-white text-lg font-semibold shadow-xl hover:scale-105 transition-all"
                         >
-                            <i class="bx bx-calendar font-semibold mr-2 text-secondary"></i>
+                            <i class="bx bx-calendar mr-2 text-secondary"></i>
                             <p class="font-medium text-secondary mobile-std:hidden">Período</p>
                             <i class="bx bx-chevron-down font-semibold ml-2 mobile-std:ml-0 text-secondary"></i>
                         </button>
@@ -173,7 +174,7 @@
                             @click="toggleDropdown('outputs')"
                             class="flex justify-center items-center p-2 h-10 mobile-std:min-w-16 min-w-32 bg-primary rounded-xl text-white text-lg font-semibold shadow-xl hover:scale-105 transition-all"
                         >
-                            <i class="bx bx-calendar font-semibold mr-2 text-secondary"></i>
+                            <i class="bx bx-calendar mr-2 text-secondary"></i>
                             <p class="font-medium text-secondary mobile-std:hidden">Período</p>
                             <i class="bx bx-chevron-down font-semibold ml-2 mobile-std:ml-0 text-secondary"></i>
                         </button>
@@ -189,6 +190,12 @@
                 <canvas class="web:max-h-[95%]" id="outputsChart"></canvas>
            </div>
         </div>
+
+        <ProductModal
+            :show-modal="showProductModal"
+            :products="dayStats.low_products"
+            @close-modal="showProductModal = false"
+        />
     </BaseLayout>
 </template>
 
@@ -196,11 +203,13 @@
     import { Head } from '@inertiajs/vue3'
     import Chart from 'chart.js/auto';
     import BaseLayout from '@/Components/Layout/BaseLayout.vue';
+    import ProductModal from '@/Components/Utils/ProductModal.vue';
 
     export default {
         components: {
             BaseLayout,
             Head,
+            ProductModal,
         },
 
         props: {
@@ -209,6 +218,7 @@
 
         data() {
             return {
+                showProductModal: false,
                 dropdowns: {
                     invoicing: false,
                     entries: false,
@@ -322,6 +332,10 @@
                 await this.filterChart('entries', 7);
                 await this.filterChart('outputs', 7);
                 await this.filterChart('invoicing', 7);
+            },
+
+            toggleProductModal() {
+                this.showProductModal = !this.showProductModal;
             },
         },
 
