@@ -5,6 +5,7 @@ namespace App\Exports;
 use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Number;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -19,10 +20,10 @@ class TransactionExport implements FromCollection, WithHeadings, ShouldAutoSize,
         $this->columns = array_diff(
             Schema::getColumnListing((new Transaction)->getTable()),
             [
-                'customer_id', 
-                'product_id', 
-                'supplier_id', 
-                'user_id', 
+                'customer_id',
+                'product_id',
+                'supplier_id',
+                'user_id',
                 'updated_at',
                 'notes'
             ]
@@ -41,10 +42,10 @@ class TransactionExport implements FromCollection, WithHeadings, ShouldAutoSize,
         $columns[] = 'users.name as user_name';
 
         return Transaction::select($columns)
-            ->join('customers', 'transactions.customer_id', '=', 'customers.id')
-            ->join('suppliers', 'transactions.supplier_id', '=', 'suppliers.id')
-            ->join('products', 'transactions.product_id', '=', 'products.id')
-            ->join('users', 'transactions.user_id', '=', 'users.id')
+            ->leftJoin('customers', 'transactions.customer_id', '=', 'customers.id')
+            ->leftJoin('suppliers', 'transactions.supplier_id', '=', 'suppliers.id')
+            ->leftJoin('products', 'transactions.product_id', '=', 'products.id')
+            ->leftJoin('users', 'transactions.user_id', '=', 'users.id')
             ->get();
     }
 
@@ -74,8 +75,9 @@ class TransactionExport implements FromCollection, WithHeadings, ShouldAutoSize,
             $transaction->supplier_name,
             $transaction->product_name,
             $transaction->quantity,
-            $transaction->price,
-            $transaction->total_amount,
+            Number::currency($transaction->price, 'BRL'),
+            Number::currency($transaction->total_amount, 'BRL'),
+            $transaction->payment_method,
             $transaction->user_name,
             Carbon::parse($transaction->created_at)->format('d/m/Y'),
         ];
