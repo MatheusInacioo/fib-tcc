@@ -1,5 +1,5 @@
 <template>
-    <div class="mobile-std:bg-primary topbar flex justify-between items-center h-16 bg-white 2xl:mb-4 mb-2 px-5 rounded-xl shadow-lg border border-gray-200">
+    <div class="mobile-std:bg-primary topbar flex justify-between items-center h-16 bg-white 2xl:mb-4 mb-2 px-5 rounded-xl mobile-std:rounded-none shadow-lg border border-gray-200">
         <div class="w-[320px] max-w-[500px] searchbar-holder flex flex-col mobile-std:hidden">
             <div class="flex items-center 2xl:w-full my-4 bg-white border-b border-b-primary transition-all">
                 <input
@@ -50,7 +50,7 @@
             <transition name="burger-menu">
                 <div
                     v-if="toggleMenu"
-                    class="absolute top-[75px] left-[0px] flex flex-col min-w-[250px] z-10 bg-white border border-gray-200 shadow-lg rounded-xl mx-2"
+                    class="absolute top-[60px] left-[0px] flex flex-col min-w-[250px] z-10 bg-white border border-gray-200 shadow-lg rounded-xl mx-2"
                 >
                     <div class="px-2">
                         <a
@@ -101,7 +101,7 @@
             <transition name="dropdown">
                 <div
                     v-if="toggleDropdown"
-                    class="absolute top-[75px] right-[30px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl mobile-std:right-[0px] mobile-std:rounded-xl mobile-std:w-[95%] mobile-std:mx-2"
+                    class="absolute web:top-[75px] mobile-std:top-[60px] right-[30px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl mobile-std:right-[0px] mobile-std:rounded-xl mobile-std:w-full"
                 >
                     <div class="flex p-4 border-b border-b-gray-300 bg-primary mobile-std:rounded-t-xl">
                         <a
