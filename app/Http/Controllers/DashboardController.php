@@ -43,6 +43,8 @@ class DashboardController extends Controller
 
         $expiredProducts = Product::whereDate('expiry_date', '<', $todayStart)->count();
 
+        $depletedProducts = Product::where('total_amount', '0')->get();
+
         $change = $this->calculatePercentageChange($todayInvoicing, $yesterdayInvoicing);
 
         return [
@@ -54,6 +56,7 @@ class DashboardController extends Controller
             'outputs' => $outputs ?? null,
             'low_products' => $lowProducts ?? null,
             'expired_products' => $expiredProducts ?? null,
+            'depleted_products' => $depletedProducts ?? null,
         ];
     }
 
@@ -85,7 +88,7 @@ class DashboardController extends Controller
         }
 
         $change = round((($currentValue - $previousValue) / $previousValue) * 100, 2);
-        $sign = $change > 0 ? '+' : '-';
+        $sign = $change > 0 ? '+' : '';
 
         return $sign . $change . '%';
     }

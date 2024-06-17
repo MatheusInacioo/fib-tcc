@@ -15,10 +15,8 @@ class CrmController extends Controller
 {
     public function index()
     {
-        $records = Crm::all();
-
         return Inertia::render('Crm/Index', [
-            'crm' => $records,
+            'crm' => CrmResource::collection(Crm::all())->toArray(request()),
         ]);
     }
 

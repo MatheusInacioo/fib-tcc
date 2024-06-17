@@ -18,8 +18,8 @@ export default {
                 roboto: ['Roboto', 'arial', 'sans-serif'],
             },
             colors: {
-                primary: '#220382',
-                secondary: '#e1fa05',
+                primary: '#243263',
+                secondary: '#42dbcc',
                 danger: '#ef4444',
                 success: '#22c55e',
                 warning: '#eab308',

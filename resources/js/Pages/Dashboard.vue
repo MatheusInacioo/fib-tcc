@@ -18,7 +18,7 @@
                 >
                     <span class="text-2xl mobile-std:text-xl font-medium text-black">{{ dayStats.invoicing.total }}</span>
                     <div class="flex justify-between items-center">
-                        <div class="web:text-base text-sm font-medium text-success">{{ dayStats.invoicing.change + ' em relação ao dia anterior' }} </div>
+                        <div :class="'web:text-base text-sm font-medium ' + invoicingChangeTextColor ">{{ dayStats.invoicing.change + ' em relação ao dia anterior' }} </div>
                         <a
                             :href="route('dashboard.index')"
                             class="flex justify-center items-center px-4 h-10 bg-success rounded-xl shadow-xl hover:scale-105 transition-all self-end"
@@ -69,14 +69,17 @@
                     <i class="bx bx-info-circle text-white text-3xl mobile-std:text-2xl"></i>
                 </div>
 
-                <div class="h-full p-4 flex flex-col justify-between">
-                    <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">0 pedidos agendados para hoje</span>
-                    <a
-                        :href="route('dashboard.index')"
+                <div
+                    v-if="dayStats.low_products && dayStats.low_products.length > 0"
+                    class="h-full p-4 flex flex-col justify-between"
+                >
+                    <span class="text-lg mobile-std:text-base font-medium mb-2 text-black">{{ dayStats.low_products.length + ' produtos com baixa quantidade em estoque'}}</span>
+                    <button
+                        @click="toggleProductModal()"
                         class="flex justify-center items-center px-4 h-10 bg-yellow-500 rounded-xl shadow-xl hover:scale-105 transition-all self-end"
                     >
                         <p class="font-medium text-white mobile-std:text-sm">VER</p>
-                    </a>
+                    </button>
                 </div>
             </div>
 
@@ -87,10 +90,15 @@
                 </div>
 
                 <div
-                    v-if="dayStats.low_products"
+                    v-if="dayStats.depleted_products || dayStats.expired_products"
                     class="h-full p-4 flex flex-col justify-between"
                 >
-                    <span class="text-lg mobile-std:text-base font-medium mb-2 text-black">{{ dayStats.low_products.length + ' produtos com baixa quantidade em estoque'}}</span>
+                    <span
+                        v-if="dayStats.depleted_products.length > 0"
+                        class="text-lg mobile-std:text-base font-medium mb-2 text-black"
+                    >
+                        {{ dayStats.depleted_products.length + ' produtos esgotados'}}
+                    </span>
                     <span class="text-lg mobile-std:text-base font-medium text-black">{{ dayStats.expired_products + ' produtos vencidos'}}</span>
                     <button
                         @click="toggleProductModal()"
@@ -255,6 +263,22 @@
                     data: [],
                 },
             }
+        },
+
+        computed: {
+            invoicingChangeTextColor() {
+                let change = this.dayStats.invoicing.change;
+
+                if (this.dayStats.invoicing.total) {
+                    if(change.startsWith('+')) {
+                        return 'text-success';
+                    } else if (change.startsWith('-')) {
+                        return 'text-danger';
+                    }
+                }
+
+                return '';
+            },
         },
 
         methods: {

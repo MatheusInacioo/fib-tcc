@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -27,6 +28,7 @@ class CrmResource extends JsonResource
             'segment' => $this->segment,
             'type' => $this->type,
             'status' => $this->status,
+            'last_update' => Carbon::parse($this->updated_at)->format('d/m/Y'),
             'attendances' => $this->getAttendances(),
         ];
     }
