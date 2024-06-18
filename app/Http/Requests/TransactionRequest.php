@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
 
 class TransactionRequest extends FormRequest
@@ -23,12 +24,26 @@ class TransactionRequest extends FormRequest
             'notes' => 'nullable',
         ];
 
-        if ($this->input('customer_id') && ! $this->input('supplier_id')) {
+        if ($this->input('customer_id') && !$this->input('supplier_id')) {
             $rules['customer_id'] = 'required|integer';
             $rules['supplier_id'] = 'nullable';
-        } else if ($this->input('supplier_id') && ! $this->input('customer_id')) {
+        } else if ($this->input('supplier_id') && !$this->input('customer_id')) {
             $rules['customer_id'] = 'nullable';
             $rules['supplier_id'] = 'required|integer';
+        }
+
+        if ($this->input('type') == 1) {
+            if (is_string($rules['quantity'])) {
+                $rules['quantity'] = explode('|', $rules['quantity']);
+            }
+
+            $rules['quantity'][] = function ($attribute, $value, $fail) {
+                $product = Product::find($this->input('product_id'));
+
+                if ($product && $value > $product->total_amount) {
+                    $fail('Quantidade indisponível para venda. Disponível: ' . $product->total_amount);
+                }
+            };
         }
 
         return $rules;
