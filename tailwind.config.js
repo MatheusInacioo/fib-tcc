@@ -19,7 +19,7 @@ export default {
             },
             colors: {
                 primary: '#243263',
-                secondary: '#42dbcc',
+                secondary: 'white',
                 danger: '#ef4444',
                 success: '#22c55e',
                 warning: '#eab308',

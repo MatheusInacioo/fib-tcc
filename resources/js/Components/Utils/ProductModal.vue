@@ -9,7 +9,7 @@
             <Transition name="modal-body">
                 <div
                     v-if="showModal"
-                    class="flex items-center px-4 max-h-[70%] w-[30%] mobile-std:w-full"
+                    class="flex items-center px-4 max-h-[70%] w-[30%] mobile-lg:w-[70%] mobile-std:w-full"
                 >
                     <div
                         class="bg-white rounded-lg shadow-lg w-full h-full flex flex-col"
@@ -46,10 +46,9 @@
                                         <td class="py-2 px-4 flex justify-center">
                                             <button
                                                 @click=""
-                                                class="flex justify-center items-center px-4 py-2 bg-primary rounded-xl shadow-xl hover:scale-105 transition-all self-end"
+                                                class="flex justify-center items-center px-4 py-2 bg-primary text-secondary rounded-xl shadow-xl hover:scale-105 transition-all"
                                             >
-                                                <i class="bx bx-cart-add mr-2 text-secondary text-xl mobile-std:mr-0"></i>
-                                                <p class="font-medium text-secondary mobile-std:hidden">Comprar</p>
+                                                <p class="font-medium">REPOR</p>
                                             </button>
                                         </td>
                                     </tr>

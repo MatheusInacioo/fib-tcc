@@ -169,28 +169,28 @@
                         route: 'transactions.index',
                     },
                     {
+                        subject: 'products',
+                        title: 'Estoque',
+                        icon: 'bx bx-package',
+                        route: 'products.index',
+                    },
+                    {
                         subject: 'customers',
                         title: 'Clientes',
                         icon: 'bx bx-group',
                         route: 'customers.index',
                     },
                     {
+                        subject: 'suppliers',
+                        title: 'Fornecedores',
+                        icon: 'bx bxs-truck',
+                        route: 'suppliers.index',
+                    },
+                    {
                         subject: 'crm',
                         title: 'CRM',
                         icon: 'bx bx-clipboard',
                         route: 'crm.index',
-                    },
-                    {
-                        subject: 'suppliers',
-                        title: 'Fornecedores',
-                        icon: 'bx bx-package',
-                        route: 'suppliers.index',
-                    },
-                    {
-                        subject: 'products',
-                        title: 'Produtos',
-                        icon: 'bx bx-purchase-tag-alt',
-                        route: 'products.index',
                     },
                 ],
             }

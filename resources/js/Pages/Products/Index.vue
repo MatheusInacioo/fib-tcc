@@ -1,6 +1,6 @@
 <template>
     <BaseLayout>
-        <Head title="Produtos"/>
+        <Head title="Estoque"/>
         <div
             v-if="products == 0"
             class="h-full w-full flex flex-col items-center justify-center"
@@ -58,7 +58,7 @@ export default {
             showModal: false,
             tableSettings: {
                 subject: 'products',
-                title: 'Produtos',
+                title: 'Estoque',
                 button_title: 'Novo produto',
                 routes: {
                     create: 'products.create',
@@ -74,7 +74,7 @@ export default {
                         searchable: true,
                     },
                     {
-                        label: 'Nome',
+                        label: 'Produto',
                         name: 'name',
                         sortable: true,
                         searchable: true,

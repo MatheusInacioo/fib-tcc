@@ -73,7 +73,7 @@
                     v-if="dayStats.low_products && dayStats.low_products.length > 0"
                     class="h-full p-4 flex flex-col justify-between"
                 >
-                    <span class="text-lg mobile-std:text-base font-medium mb-2 text-black">{{ dayStats.low_products.length + ' produtos com baixa quantidade em estoque'}}</span>
+                    <span class="text-lg mobile-std:text-base font-medium mb-2 text-black">{{ dayStats.low_products.length + ' produtos em baixa quantidade'}}</span>
                     <button
                         @click="toggleProductModal('low')"
                         class="flex justify-center items-center px-4 h-10 bg-yellow-500 rounded-xl shadow-xl hover:scale-105 transition-all self-end"
@@ -243,7 +243,7 @@
                 purchasesChartSettings: {
                     axis: window.innerWidth <= 1024 ? 'y' : 'x',
                     type: 'bar',
-                    name: 'Entradas',
+                    name: 'Compras',
                     labels: [],
                     data: [],
                 },
@@ -251,7 +251,7 @@
                 salesChartSettings: {
                     axis: window.innerWidth <= 1024 ? 'y' : 'x',
                     type: 'bar',
-                    name: 'Saídas',
+                    name: 'Vendas',
                     labels: [],
                     data: [],
                 },
