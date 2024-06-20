@@ -2,8 +2,8 @@
     <div>
         <Head title="Login"/>
         <div class="login-screen w-screen h-screen flex bg-[url('img/app/background.jpg')] bg-center bg-cover">
-            <div class="h-full mobile-std:w-full w-[500px] shadow-2xl bg-black bg-opacity-15 mobile-std:bg-white backdrop-filter backdrop-blur-xl flex flex-col justify-center p-4">
-                <h4 class="text-4xl font-bold mobile-std:text-primary text-secondary mb-4 text-center">LOGIN</h4>
+            <div class="h-full mobile-std:w-full w-[500px] shadow-2xl bg-gray-800 bg-opacity-20 mobile-std:bg-white backdrop-filter backdrop-blur-xl flex flex-col justify-center p-4">
+                <h4 class="text-4xl font-bold mobile-std:text-primary text-white mb-4 text-center">LOGIN</h4>
 
                 <form
                     method="POST"
@@ -14,10 +14,10 @@
 
                         <span v-if="$page.props.errors" class="text-red-500 text-base font-semibold">{{ $page.props.errors.error }}</span>
                         <div class="flex flex-col">
-                            <label class="text-xl font-semibold mb-2 text-secondary mobile-std:text-primary">Email</label>
+                            <label class="text-lg font-semibold mb-2 text-white mobile-std:text-primary">Email</label>
                             <input
                                 v-model="form.email"
-                                class="h-12 text-base rounded-xl bg-transparent border-primary hover:border-secondary focus:border-secondary transition-all text-white mobile-std:text-black"
+                                class="h-12 rounded-xl bg-transparent border-gray-500 mobile-std:border-primary hover:border-white focus:border-white transition-all text-white mobile-std:text-black"
                                 type="text"
                                 name="email"
                                 placeholder="Digite seu email..."
@@ -26,11 +26,11 @@
                         </div>
 
                         <div class="flex flex-col">
-                            <label class="text-xl font-semibold mb-2 text-secondary mobile-std:text-primary">Senha</label>
-                            <div class="flex border border-primary rounded-xl hover:border-secondary focus:border-secondary transition-all">
+                            <label class="text-lg font-semibold mb-2 text-white mobile-std:text-primary">Senha</label>
+                            <div class="flex border border-gray-500 mobile-std:border-primary rounded-xl hover:border-white focus:border-white transition-all">
                                 <input
                                     v-model="form.password"
-                                    class="w-full h-12 text-base rounded-l-xl bg-transparent border-none outline-none text-white mobile-std:text-black"
+                                    class="w-full h-12 rounded-l-xl bg-transparent border-none outline-none text-white mobile-std:text-black"
                                     :type="showPassword ? 'text' : 'password'"
                                     name="password"
                                     placeholder="Digite sua senha..."
@@ -39,7 +39,7 @@
                                     type="button"
                                     @click="showPassword = !showPassword">
                                     <i
-                                        class="text-xl w-10 text-secondary mobile-std:text-primary"
+                                        class="text-xl w-10 text-white mobile-std:text-primary"
                                         :class="{ 'bx bx-hide' : showPassword, 'bx bx-show' : !showPassword }"
                                     ></i>
                                 </button>
@@ -54,14 +54,21 @@
                                 class="bg-transparent rounded-md mr-2 outline-none"
                                 name="remember"
                             >
-                            <span class="text-base font-semibold text-secondary mobile-std:text-primary">Lembrar de mim</span>
+                            <span class="font-semibold text-white mobile-std:text-primary">Lembrar de mim</span>
                         </div>
 
                         <button
                             type="submit"
-                            class="w-full h-10 bg-primary rounded-xl text-secondary text-lg font-roboto font-semibold shadow-xl hover:scale-105 transition-all"
+                            class="w-full h-10 bg-primary rounded-xl text-white text-lg font-roboto font-semibold shadow-xl hover:scale-105 transition-all"
                         >
                             Entrar
+                        </button>
+
+                        <button
+                            type="button"
+                            class="text-white mobile-std:text-primary text-sm font-medium mt-4"
+                        >
+                            Esqueceu sua senha?
                         </button>
                     </div>
                 </form>
