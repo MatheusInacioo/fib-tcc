@@ -42,9 +42,9 @@ class TransactionController extends Controller
         try {
             $data = $request->getTransactionData();
 
-            $transaction = Transaction::create($data);
+            Transaction::create($data);
 
-            $this->updateProductQuantity($transaction);
+            $this->updateProductData($data);
 
             return redirect()->route('transactions.index')->with('success', 'Transação criada com sucesso.');
         } catch (Exception $ex) {
@@ -104,15 +104,22 @@ class TransactionController extends Controller
         }
     }
 
-    public function updateProductQuantity(Transaction $transaction)
+    private function updateProductData($data)
     {
-        $product = Product::find($transaction->product_id);
+        $product = Product::find($data['product_id']);
 
-        $transaction->type == 0
-            ? $newQuantity = $product->total_amount + $transaction->quantity
-            : $newQuantity = $product->total_amount - $transaction->quantity;
+        $data['type'] == 0
+            ? $newQuantity = $product->total_amount + $data['quantity']
+            : $newQuantity = $product->total_amount - $data['quantity'];
 
-        $product->update(['total_amount' => $newQuantity]);
+        if ($data['expiry_date']) {
+            return $product->update([
+                'total_amount' => $newQuantity,
+                'expiry_date' => $data['expiry_date'],
+            ]);
+        }
+
+        return $product->update(['total_amount' => $newQuantity]);
     }
 
     public function export()

@@ -9,7 +9,7 @@
             <Transition name="modal-body">
                 <div
                     v-if="showModal"
-                    class="flex items-center px-4 max-h-[70%] w-[30%] mobile-lg:w-[70%] mobile-std:w-full"
+                    class="flex items-center px-4 max-h-[70%] w-[40%] mobile-lg:w-[70%] mobile-std:w-full"
                 >
                     <div
                         class="bg-white rounded-lg shadow-lg w-full h-full flex flex-col"
@@ -30,8 +30,10 @@
                             <table class="min-w-full bg-white">
                                 <thead class="bg-gray-200">
                                     <tr class="font-bold text-gray-500 uppercase tracking-wider mobile-std:text-sm">
-                                        <th class="py-2 px-4 text-left">Produto</th>
+                                        <th class="py-2 px-4 text-left">ID</th>
+                                        <th class="py-2 px-4 text-center">Nome</th>
                                         <th class="py-2 px-4 text-center">Quantidade</th>
+                                        <th class="py-2 px-4 text-center">Vencimento</th>
                                         <th class="py-2 px-4 text-center">Ações</th>
                                     </tr>
                                 </thead>
@@ -41,15 +43,17 @@
                                         :key="product.id"
                                         class="hover:bg-gray-100 transition-all"
                                     >
-                                        <td class="py-2 px-4 font-medium mobile-std:text-sm">{{ product.name }}</td>
-                                        <td class="py-2 px-4 font-medium mobile-std:text-sm text-center">{{ product.total_amount }}</td>
+                                        <td class="py-2 px-4 mobile-std:text-sm">{{ product.id }}</td>
+                                        <td class="py-2 px-4 mobile-std:text-sm text-center">{{ product.name }}</td>
+                                        <td class="py-2 px-4 mobile-std:text-sm text-center">{{ product.total_amount }}</td>
+                                        <td class="py-2 px-4 mobile-std:text-sm text-center">{{ formatDate(product.expiry_date) }}</td>
                                         <td class="py-2 px-4 flex justify-center">
-                                            <button
-                                                @click=""
+                                            <a
+                                                :href="route('products.replace', product.id)"
                                                 class="flex justify-center items-center px-4 py-2 bg-primary text-secondary rounded-xl shadow-xl hover:scale-105 transition-all"
                                             >
-                                                <p class="font-medium">REPOR</p>
-                                            </button>
+                                                <p class="font-medium text-sm">REPOR</p>
+                                            </a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -91,6 +95,12 @@ export default {
     methods: {
         closeModal() {
             this.$emit('close-modal');
+        },
+
+        formatDate(dateString) {
+            const [year, month, day] = dateString.split('-');
+
+            return `${day}/${month}/${year}`;
         },
     },
 };

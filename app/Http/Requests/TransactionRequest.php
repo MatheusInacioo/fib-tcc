@@ -20,6 +20,7 @@ class TransactionRequest extends FormRequest
             'quantity' => 'required|integer',
             'price' => 'required',
             'total_amount' => 'required',
+            'expiry_date' => 'nullable',
             'payment_method' => 'required|string',
             'notes' => 'nullable',
         ];
@@ -73,6 +74,7 @@ class TransactionRequest extends FormRequest
             'quantity' => $this->input('quantity'),
             'price' => $this->input('price'),
             'total_amount' => $this->input('total_amount'),
+            'expiry_date' => $this->input('expiry_date'),
             'payment_method' => $this->input('payment_method'),
             'notes' => $this->input('notes'),
             'user_id' => auth()->user()->id,

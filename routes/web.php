@@ -70,6 +70,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/products', ProductController::class)->except(['show', 'destroy']);
     Route::post('/products/destroy/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
     Route::get('/products/export', [ProductController::class, 'export'])->name('products.export');
+    Route::get('/products/replace/{id}', [ProductController::class, 'replace'])->name('products.replace');
 
     // User routes
     Route::resource('/users', UserController::class)->except(['show', 'destroy']);

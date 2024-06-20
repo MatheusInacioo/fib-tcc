@@ -13,15 +13,16 @@
         <div class="min-h-px w-full bg-primary my-4 mobile-std:my-2"></div>
 
         <form @submit.prevent="saveForm" class="w-full h-full">
-            <div class="form-row grid grid-cols-4 mobile-std:grid-cols-1 mobile-lg:grid-cols-3 gap-y-0 gap-x-4">
+            <div class="form-row grid grid-cols-4 mobile-std:grid-cols-1 mobile-lg:grid-cols-3 gap-4 mb-4">
                 <div class="form-field flex flex-col">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Tipo de Transação</span>
                     <select
-                        :disabled="transactionExists"
+                        :disabled="transactionExists || replacement != null"
                         v-model="form.type"
                         name="type"
                         id="type"
-                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:text-base text-sm rounded-xl"
+                        :readonly="replacement != null"
                     >
                         <option
                             v-for="(type, index) in types"
@@ -40,17 +41,17 @@
                 >
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Fornecedor</span>
                     <input
-                        :readonly="transactionExists"
+                        :readonly="transactionExists || replacement != null"
                         v-model="supplierQuery"
                         @input="searchSuppliers()"
-                        class="border-gray-300 mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:text-base text-sm rounded-xl"
                         type="text"
                         placeholder="Buscar fornecedor..."
                     >
                     <transition name="searchbar">
                         <div
                             v-if="supplierQuery && filteredSuppliers.length"
-                            class="max-h-[450px] overflow-y-auto absolute top-[85%] mt-1 w-full bg-white border border-gray-300 rounded-xl z-10 scrollbar-thin"
+                            class="max-h-[450px] overflow-y-auto absolute top-[85%] mt-4 w-full bg-white border border-gray-300 rounded-xl z-10 scrollbar-thin"
                         >
                             <div
                                 v-for="supplier in filteredSuppliers"
@@ -80,14 +81,14 @@
                         :readonly="transactionExists"
                         v-model="customerQuery"
                         @input="searchCustomers()"
-                        class="border-gray-300 mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:text-base text-sm rounded-xl"
                         type="text"
                         placeholder="Buscar cliente..."
                     >
                     <transition name="searchbar">
                         <div
                             v-if="customerQuery && filteredCustomers.length"
-                            class="max-h-[450px] overflow-y-auto absolute top-[85%] mt-1 w-full bg-white border border-gray-300 rounded-xl z-10 scrollbar-thin"
+                            class="max-h-[450px] overflow-y-auto absolute top-[85%] mt-4 w-full bg-white border border-gray-300 rounded-xl z-10 scrollbar-thin"
                         >
                             <div
                                 v-for="customer in filteredCustomers"
@@ -114,17 +115,17 @@
                 >
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Produto</span>
                     <input
-                        :readonly="transactionExists"
+                        :readonly="transactionExists || replacement != null"
                         v-model="productQuery"
                         @input="searchProducts()"
-                        class="border-gray-300 mobile-std:mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:text-base text-sm rounded-xl"
                         type="text"
                         placeholder="Buscar produto..."
                     >
                     <transition name="searchbar">
                         <div
                             v-if="productQuery && filteredProducts.length"
-                            class="max-h-[450px] overflow-y-auto absolute top-[85%] mt-1 w-full bg-white border border-gray-300 rounded-xl z-10 scrollbar-thin"
+                            class="max-h-[450px] overflow-y-auto absolute top-[85%] mt-4 w-full bg-white border border-gray-300 rounded-xl z-10 scrollbar-thin"
                         >
                             <div
                                 v-for="product in filteredProducts"
@@ -172,7 +173,7 @@
                     <input
                         readonly
                         v-model="form.price"
-                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:text-base text-sm rounded-xl"
                         type="number"
                         step="0.01"
                         name="price"
@@ -190,7 +191,7 @@
                     <input
                         readonly
                         v-model="form.total_amount"
-                        class="border-gray-300 mb-4 2xl:text-base text-sm rounded-xl"
+                        class="border-gray-300 2xl:text-base text-sm rounded-xl"
                         type="number"
                         step="0.01"
                         name="total_amount"
@@ -198,6 +199,22 @@
                         placeholder="Valor Total"
                     >
                     <div v-if="form.errors.total_amount" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.total_amount }}</div>
+                </div>
+
+                <div
+                    v-if="form.quantity && form.type == 0"
+                    class="form-field flex flex-col"
+                >
+                    <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Data de Validade <small>(se houver)</small></span>
+                    <input
+                        v-model="form.expiry_date"
+                        class="border-gray-300 2xl:text-base text-sm rounded-xl"
+                        type="date"
+                        name="expiry_date"
+                        id="expiry_date"
+                        placeholder="Localização no Estoque"
+                    >
+                    <div v-if="form.errors.expiry_date" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.expiry_date }}</div>
                 </div>
 
                 <div
@@ -226,7 +243,7 @@
 
             <div
                 v-if="form.quantity"
-                class="form-row flex mb-5 mobile-std:flex-col mobile-std:mb-1"
+                class="form-row flex mb-4 mobile-std:flex-col mobile-std:mb-1"
             >
                 <div class="form-field flex flex-col mobile-std:mr-0 w-full">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Observações</span>
@@ -287,6 +304,7 @@ export default {
 
     props: {
         transaction: {},
+        replacement: {},
     },
 
     setup() {
@@ -298,6 +316,7 @@ export default {
             quantity: null,
             price: null,
             total_amount: null,
+            expiry_date: null,
             payment_method: null,
             notes: null,
         });
@@ -357,6 +376,15 @@ export default {
             this.form.total_amount = data.total_amount;
             this.form.payment_method = data.payment_method;
             this.form.notes = data.notes;
+        },
+
+        buildReplacementForm(data) {
+            this.form.type = 0;
+            this.form.supplier_id = data.supplier_id;
+            this.supplierQuery = data.supplier_name;
+            this.form.product_id = data.product_id;
+            this.productQuery = data.product_name;
+            this.form.price = data.price;
         },
 
         async searchSuppliers() {
@@ -449,8 +477,11 @@ export default {
     },
 
     created() {
-        if (this.transactionExists) {
+        console.log(this.replacement);
+        if (this.transactionExists && this.replacement == null) {
             this.buildForm(this.transaction.data);
+        } else if (!this.transactionExists && this.replacement != null) {
+            this.buildReplacementForm(this.replacement);
         }
     },
 };

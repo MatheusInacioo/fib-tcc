@@ -160,7 +160,7 @@
                 </div>
 
                 <div class="form-field flex flex-col">
-                    <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Data de Vencimento <small>(se houver)</small></span>
+                    <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Data de Validade <small>(se houver)</small></span>
                     <input
                         v-model="form.expiry_date"
                         class="border-gray-300 2xl:text-base text-sm rounded-xl"

@@ -86,6 +86,12 @@ export default {
                         searchable: true,
                     },
                     {
+                        label: 'Quantidade',
+                        name: 'quantity',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
                         label: 'Valor',
                         name: 'formatted_amount',
                         sortable: true,

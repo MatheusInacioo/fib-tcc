@@ -80,4 +80,20 @@ class ProductController extends Controller
     {
         return Excel::download(new ProductsExport, 'produtos.xlsx');
     }
+
+    public function replace($productId)
+    {
+        $product = Product::find($productId);
+        $replacementData = [
+            'product_id' => $product->id,
+            'product_name' => $product->name,
+            'supplier_id' => $product->supplier_id,
+            'supplier_name' => $product->getSupplierName(),
+            'price' => $product->purchase_price,
+        ];
+
+        return Inertia::render('Transactions/CreateEdit', [
+            'replacement' => $replacementData,
+        ]);
+    }
 }
