@@ -202,7 +202,7 @@
                 </div>
 
                 <div
-                    v-if="form.quantity && form.type == 0"
+                    v-if="form.quantity && form.type == 0 && !transactionExists"
                     class="form-field flex flex-col"
                 >
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Data de Validade <small>(se houver)</small></span>
