@@ -38,16 +38,16 @@
 
             <div class="info-card h-52 rounded-xl shadow-xl flex flex-col border border-gray-200 transition-all hover:scale-105">
                 <div class="flex justify-between items-center h-[33%] bg-blue-500 rounded-t-xl p-4">
-                    <span class="text-2xl mobile-std:text-xl font-medium text-white">Visão Geral</span>
-                    <i class="bx bx-bar-chart text-white text-3xl mobile-std:text-2xl"></i>
+                    <span class="text-2xl mobile-std:text-xl font-medium text-white">Transações</span>
+                    <i class="bx bx-transfer-alt text-white text-3xl mobile-std:text-2xl"></i>
                 </div>
 
                 <div
-                    v-if="dayStats.entries > 0 || dayStats.outputs > 0"
+                    v-if="dayStats.purchases > 0 || dayStats.sales > 0"
                     class="h-full p-4 flex flex-col justify-between"
                 >
-                    <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">{{ dayStats.entries + ' entradas' }}</span>
-                    <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">{{ dayStats.outputs + ' saídas' }}</span>
+                    <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">{{ dayStats.purchases + ' compras' }}</span>
+                    <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">{{ dayStats.sales + ' vendas' }}</span>
                     <a
                         :href="route('transactions.index')"
                         class="flex justify-center items-center px-4 h-10 bg-blue-500 rounded-xl shadow-xl hover:scale-105 transition-all self-end"
@@ -75,7 +75,7 @@
                 >
                     <span class="text-lg mobile-std:text-base font-medium mb-2 text-black">{{ dayStats.low_products.length + ' produtos com baixa quantidade em estoque'}}</span>
                     <button
-                        @click="toggleProductModal()"
+                        @click="toggleProductModal('low')"
                         class="flex justify-center items-center px-4 h-10 bg-yellow-500 rounded-xl shadow-xl hover:scale-105 transition-all self-end"
                     >
                         <p class="font-medium text-white mobile-std:text-sm">VER</p>
@@ -99,9 +99,9 @@
                     >
                         {{ dayStats.depleted_products.length + ' produtos esgotados'}}
                     </span>
-                    <span class="text-lg mobile-std:text-base font-medium text-black">{{ dayStats.expired_products + ' produtos vencidos'}}</span>
+                    <span class="text-lg mobile-std:text-base font-medium text-black">{{ dayStats.expired_products.length + ' produtos vencidos'}}</span>
                     <button
-                        @click="toggleProductModal()"
+                        @click="toggleProductModal('expired')"
                         class="flex justify-center items-center px-4 h-10 bg-danger rounded-xl shadow-xl hover:scale-105 transition-all self-end"
                     >
                         <p class="font-medium text-white mobile-std:text-sm">VER</p>
@@ -151,11 +151,11 @@
         <div class="flex mobile-std:flex-col w-full">
             <div class="flex flex-col web:justify-between rounded-xl shadow-xl 2xl:p-4 p-2 web:min-h-[300px] mobile-std:min-h-[500px] w-[50%] mobile-std:w-full max-w-full border border-gray-200 mr-4 mobile-std:mb-4">
                 <div class="flex justify-between">
-                    <p class="font-medium 2xl:text-2xl text-xl">Entradas</p>
+                    <p class="font-medium 2xl:text-2xl text-xl">Compras</p>
 
                     <div class="relative">
                         <button
-                            @click="toggleDropdown('entries')"
+                            @click="toggleDropdown('purchases')"
                             class="flex justify-center items-center p-2 h-10 mobile-std:min-w-16 min-w-32 bg-primary rounded-xl text-secondary text-lg font-semibold shadow-xl hover:scale-105 transition-all"
                         >
                             <i class="bx bx-calendar mr-2"></i>
@@ -163,23 +163,23 @@
                             <i class="bx bx-chevron-down font-semibold ml-2 mobile-std:ml-0"></i>
                         </button>
 
-                        <div v-if="dropdowns.entries" class="absolute right-0 w-40 text-center bg-white border rounded shadow-xl">
-                            <a @click.prevent="filterChart('entries', 7)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 7 dias</a>
-                            <a @click.prevent="filterChart('entries', 10)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 10 dias</a>
-                            <a @click.prevent="filterChart('entries', 30)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 30 dias</a>
+                        <div v-if="dropdowns.purchases" class="absolute right-0 w-40 text-center bg-white border rounded shadow-xl">
+                            <a @click.prevent="filterChart('purchases', 7)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 7 dias</a>
+                            <a @click.prevent="filterChart('purchases', 10)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 10 dias</a>
+                            <a @click.prevent="filterChart('purchases', 30)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 30 dias</a>
                         </div>
                     </div>
                 </div>
 
-                <canvas class="web:max-h-[95%]" id="entriesChart"></canvas>
+                <canvas class="web:max-h-[95%]" id="purchasesChart"></canvas>
             </div>
             <div class="flex flex-col web:justify-between rounded-xl shadow-xl 2xl:p-4 p-2 web:min-h-[300px] mobile-std:min-h-[500px] w-[50%] mobile-std:w-full max-w-full border border-gray-200">
                 <div class="flex justify-between">
-                    <p class="font-medium 2xl:text-2xl text-xl">Saídas</p>
+                    <p class="font-medium 2xl:text-2xl text-xl">Vendas</p>
 
                     <div class="relative">
                         <button
-                            @click="toggleDropdown('outputs')"
+                            @click="toggleDropdown('sales')"
                             class="flex justify-center items-center p-2 h-10 mobile-std:min-w-16 min-w-32 bg-primary rounded-xl text-secondary text-lg font-semibold shadow-xl hover:scale-105 transition-all"
                         >
                             <i class="bx bx-calendar mr-2"></i>
@@ -187,21 +187,21 @@
                             <i class="bx bx-chevron-down font-semibold ml-2 mobile-std:ml-0"></i>
                         </button>
 
-                        <div v-if="dropdowns.outputs" class="absolute right-0 w-40 text-center bg-white border rounded shadow-xl">
-                            <a @click.prevent="filterChart('outputs', 7)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 7 dias</a>
-                            <a @click.prevent="filterChart('outputs', 10)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 10 dias</a>
-                            <a @click.prevent="filterChart('outputs', 30)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 30 dias</a>
+                        <div v-if="dropdowns.sales" class="absolute right-0 w-40 text-center bg-white border rounded shadow-xl">
+                            <a @click.prevent="filterChart('sales', 7)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 7 dias</a>
+                            <a @click.prevent="filterChart('sales', 10)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 10 dias</a>
+                            <a @click.prevent="filterChart('sales', 30)" class="block px-4 py-2 text-black hover:bg-gray-200">Últimos 30 dias</a>
                         </div>
                     </div>
                 </div>
 
-                <canvas class="web:max-h-[95%]" id="outputsChart"></canvas>
+                <canvas class="web:max-h-[95%]" id="salesChart"></canvas>
            </div>
         </div>
 
         <ProductModal
             :show-modal="showProductModal"
-            :products="dayStats.low_products"
+            :products="selectedProducts"
             @close-modal="showProductModal = false"
         />
     </BaseLayout>
@@ -227,19 +227,20 @@
         data() {
             return {
                 showProductModal: false,
+                selectedProducts: [],
                 dropdowns: {
                     invoicing: false,
-                    entries: false,
-                    outputs: false
+                    purchases: false,
+                    sales: false
                 },
 
                 charts: {
                     invoicing: null,
-                    entries: null,
-                    outputs: null
+                    purchases: null,
+                    sales: null
                 },
 
-                entriesChartSettings: {
+                purchasesChartSettings: {
                     axis: window.innerWidth <= 1024 ? 'y' : 'x',
                     type: 'bar',
                     name: 'Entradas',
@@ -247,7 +248,7 @@
                     data: [],
                 },
 
-                outputsChartSettings: {
+                salesChartSettings: {
                     axis: window.innerWidth <= 1024 ? 'y' : 'x',
                     type: 'bar',
                     name: 'Saídas',
@@ -353,12 +354,18 @@
             },
 
             async loadDefaultCharts() {
-                await this.filterChart('entries', 7);
-                await this.filterChart('outputs', 7);
+                await this.filterChart('purchases', 7);
+                await this.filterChart('sales', 7);
                 await this.filterChart('invoicing', 7);
             },
 
-            toggleProductModal() {
+            toggleProductModal(type) {
+                if (type == 'low') {
+                    this.selectedProducts = this.dayStats.low_products;
+                } else if (type == 'expired') {
+                    this.selectedProducts = this.dayStats.expired_products;
+                }
+
                 this.showProductModal = !this.showProductModal;
             },
         },

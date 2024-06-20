@@ -81,8 +81,11 @@ class TransactionController extends Controller
                         ->orWhere('id', 'like', '%' . $request['search'] . '%');
                 });
         } else {
-            $query->where('name', 'like', '%' . $request['search'] . '%')
-                  ->orWhere('id', 'like', '%' . $request['search'] . '%');
+            $query->whereDate('expiry_date', '>=', now())
+                ->where(function ($q) use ($request) {
+                    $q->where('name', 'like', '%' . $request['search'] . '%')
+                        ->orWhere('id', 'like', '%' . $request['search'] . '%');
+                });
         }
 
         $products = $query->get();

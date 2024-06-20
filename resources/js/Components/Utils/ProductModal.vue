@@ -26,7 +26,7 @@
 
                         <div class="w-full min-h-px bg-primary"></div>
 
-                        <div class="h-full overflow-y-auto scrollbar-thin">
+                        <div class="max-h-[400px] overflow-y-auto scrollbar-thin">
                             <table class="min-w-full bg-white">
                                 <thead class="bg-gray-200">
                                     <tr class="font-bold text-gray-500 uppercase tracking-wider mobile-std:text-sm">

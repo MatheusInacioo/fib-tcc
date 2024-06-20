@@ -31,17 +31,17 @@ class DashboardController extends Controller
             ->where('type', 1)
             ->sum('total_amount');
 
-        $entries = Transaction::whereBetween('created_at', [$todayStart, $todayEnd])
+        $purchases = Transaction::whereBetween('created_at', [$todayStart, $todayEnd])
             ->where('type', 0)
             ->count();
 
-        $outputs = Transaction::whereBetween('created_at', [$todayStart, $todayEnd])
+        $sales = Transaction::whereBetween('created_at', [$todayStart, $todayEnd])
             ->where('type', 1)
             ->count();
 
         $lowProducts = Product::whereColumn('total_amount', '<=', 'minimum_amount')->get();
 
-        $expiredProducts = Product::whereDate('expiry_date', '<', $todayStart)->count();
+        $expiredProducts = Product::whereDate('expiry_date', '<', $todayStart)->get();
 
         $depletedProducts = Product::where('total_amount', '0')->get();
 
@@ -52,8 +52,8 @@ class DashboardController extends Controller
                 'total' => $todayInvoicing ? Number::currency($todayInvoicing, 'BRL') : null,
                 'change' => $change !== null ? $change : null,
             ],
-            'entries' => $entries ?? null,
-            'outputs' => $outputs ?? null,
+            'purchases' => $purchases ?? null,
+            'sales' => $sales ?? null,
             'low_products' => $lowProducts ?? null,
             'expired_products' => $expiredProducts ?? null,
             'depleted_products' => $depletedProducts ?? null,
@@ -68,11 +68,11 @@ class DashboardController extends Controller
             case 'invoicing':
                 $data = $this->getInvoicingData($period);
                 break;
-            case 'entries':
-                $data = $this->getEntriesData($period);
+            case 'purchases':
+                $data = $this->getPurchasesData($period);
                 break;
-            case 'outputs':
-                $data = $this->getOutputsData($period);
+            case 'sales':
+                $data = $this->getSalesData($period);
                 break;
             default:
                 $data = [];
@@ -112,41 +112,41 @@ class DashboardController extends Controller
         return array_reverse($invoicingData);
     }
 
-    private function getEntriesData($period)
+    private function getPurchasesData($period)
     {
-        $entriesData = [];
+        $purchasesData = [];
 
         for ($i = 0; $i < $period; $i++) {
             $startDate = now()->subDays($i)->startOfDay();
             $endDate = now()->subDays($i)->endOfDay();
 
-            $entries = Transaction::whereBetween('created_at', [$startDate, $endDate])
+            $purchases = Transaction::whereBetween('created_at', [$startDate, $endDate])
                 ->where('type', 0)
                 ->count();
 
             $date = $startDate->format('d/m');
-            $entriesData[$date] = $entries;
+            $purchasesData[$date] = $purchases;
         }
 
-        return array_reverse($entriesData);
+        return array_reverse($purchasesData);
     }
 
-    private function getOutputsData($period)
+    private function getSalesData($period)
     {
-        $outputsData = [];
+        $salesData = [];
 
         for ($i = 0; $i < $period; $i++) {
             $startDate = now()->subDays($i)->startOfDay();
             $endDate = now()->subDays($i)->endOfDay();
 
-            $outputs = Transaction::whereBetween('created_at', [$startDate, $endDate])
+            $sales = Transaction::whereBetween('created_at', [$startDate, $endDate])
                 ->where('type', 1)
                 ->count();
 
             $date = $startDate->format('d/m');
-            $outputsData[$date] = $outputs;
+            $salesData[$date] = $sales;
         }
 
-        return array_reverse($outputsData);
+        return array_reverse($salesData);
     }
 }
