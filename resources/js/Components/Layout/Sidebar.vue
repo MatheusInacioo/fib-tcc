@@ -6,7 +6,7 @@
                 class="sidebar relative 2xl:w-64 h-screen flex flex-col bg-primary shadow-lg"
             >
                 <div class="sidebar-header h-24 px-8 flex justify-center items-center mb-4">
-                    <h4 class="text-2xl 2xl:text-4xl font-bold text-secondary text-center">LOGO</h4>
+                    <img class="mobile-std:hidden" src="img/app/logo/logo-bw.png" alt="logo">
                     <button
                         class="2xl:w-6 2xl:h-6 absolute -right-[0.70rem] top-[2.2rem] bg-secondary text-primary 2xl:text-xl rounded-xl hover:scale-125 transition-all border border-gray-400 flex justify-center items-center"
                         @click="showBar = !showBar"

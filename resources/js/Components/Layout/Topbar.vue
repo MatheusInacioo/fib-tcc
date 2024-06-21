@@ -95,7 +95,7 @@
                 ></i>
                 <p class="text-base 2xl:text-lg font-medium mr-2 mobile-std:hidden">{{ user.name }}</p>
                 <i class="web:hidden mobile-lg:hidden bx bxs-user-circle text-4xl text-secondary"></i>
-                <i class="mobile-std:hidden bx bx-user-circle 2xl:text-4xl text-3xl"></i>
+                <i class="mobile-std:hidden bx bxs-user-circle 2xl:text-4xl text-3xl text-primary"></i>
             </div>
 
             <transition name="dropdown">

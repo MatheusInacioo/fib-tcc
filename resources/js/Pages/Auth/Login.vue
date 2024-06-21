@@ -3,7 +3,10 @@
         <Head title="Login"/>
         <div class="login-screen w-screen h-screen flex bg-[url('img/app/background.jpg')] bg-center bg-cover">
             <div class="h-full mobile-std:w-full w-[500px] shadow-2xl bg-gray-800 bg-opacity-20 mobile-std:bg-white backdrop-filter backdrop-blur-xl flex flex-col justify-center p-4">
-                <h4 class="text-4xl font-bold mobile-std:text-primary text-secondary mb-4 text-center">LOGIN</h4>
+                <div class="flex flex-col justify-center items-center mb-[50px]">
+                    <img class="mobile-std:hidden" width="300" src="img/app/logo/logo-bw.png" alt="logo">
+                    <img class="web:hidden mobile-lg:hidden" width="300" src="img/app/logo/logo.png" alt="logo">
+                </div>
 
                 <form
                     method="POST"
