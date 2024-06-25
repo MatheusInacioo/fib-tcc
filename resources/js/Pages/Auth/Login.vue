@@ -62,9 +62,10 @@
 
                         <button
                             type="submit"
-                            class="w-full h-10 bg-primary rounded-xl text-secondary text-lg font-roboto font-semibold shadow-xl hover:scale-105 transition-all"
+                            class="flex justify-center items-center w-full h-10 bg-primary rounded-xl text-secondary text-lg font-roboto font-semibold shadow-xl hover:scale-105 transition-all"
                         >
-                            Entrar
+                            <i class="bx bx-log-in mr-2 font-medium"></i>
+                            <span>Entrar</span>
                         </button>
 
                         <button

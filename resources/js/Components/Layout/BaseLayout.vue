@@ -6,7 +6,7 @@
             <div class="flex flex-col w-full h-full bg-white rounded-xl shadow-lg web:p-4 p-2 border border-gray-200 overflow-y-auto scrollbar-thin">
                 <slot></slot>
             </div>
-            <span class="text-gray-500 mt-2 text-sm">{{'© ' + $page.props.auth.year + ' | Desenvolvido por - Digistock' }}</span>
+            <span class="text-gray-500 mt-2 text-sm text-center">{{'© ' + $page.props.auth.year + ' | Desenvolvido por - Digistock' }}</span>
         </div>
     </div>
 </template>
