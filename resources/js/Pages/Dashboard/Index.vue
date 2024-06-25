@@ -20,7 +20,7 @@
                     <div class="flex justify-between items-center">
                         <div :class="'web:text-base text-sm font-medium ' + invoicingChangeTextColor ">{{ dayStats.invoicing.change + ' em relação ao dia anterior' }} </div>
                         <a
-                            :href="route('dashboard.index')"
+                            :href="route('dashboard.invoicing')"
                             class="flex justify-center items-center px-4 h-10 bg-success rounded-xl shadow-xl hover:scale-105 transition-all self-end"
                         >
                             <p class="font-medium text-white mobile-std:text-sm">VER</p>
@@ -63,6 +63,7 @@
                     <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">Nenhuma transação registrada na data atual. Aguardando novos dados...</span>
                 </div>
             </div>
+
             <div class="info-card h-52 rounded-xl shadow-xl flex flex-col border border-gray-200 transition-all hover:scale-105">
                 <div class="flex justify-between items-center h-[33%] bg-yellow-500 rounded-t-xl p-4">
                     <span class="text-2xl mobile-std:text-xl font-medium text-white">Notificações</span>
@@ -80,6 +81,12 @@
                     >
                         <p class="font-medium text-white mobile-std:text-sm">VER</p>
                     </button>
+                </div>
+                <div
+                    v-else
+                    class="h-full p-4 flex justify-center items-center"
+                >
+                    <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">Nenhuma notificação iminente.</span>
                 </div>
             </div>
 

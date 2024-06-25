@@ -68,70 +68,75 @@
         <Transition :name="showBar ? 'sidebar-transition-reverse' : 'sidebar-transition'">
             <div
                 v-if="!showBar"
-                class="sidebar w-14 items-center 2xl:w-auto h-screen flex flex-col bg-primary shadow-lg "
+                class="sidebar w-14 items-center 2xl:w-auto h-screen flex flex-col justify-between bg-primary shadow-lg pb-8"
             >
-                <div class="sidebar-header h-24 flex justify-center items-center mb-4">
-                    <button
-                        class="bg-secondary text-primary 2xl:text-xl 2xl:w-6 2xl:h-6 rounded-xl hover:scale-125 transition-all border border-gray-400 flex justify-center items-center"
-                        @click="showBar = !showBar">
-                        <i class="bx bx-chevron-right"></i>
-                    </button>
-                </div>
+                <div class="flex flex-col">
+                    <div class="sidebar-header h-24 flex justify-center items-center mb-4">
+                        <button
+                            class="bg-secondary text-primary 2xl:text-xl 2xl:w-6 2xl:h-6 rounded-xl hover:scale-125 transition-all border border-gray-400 flex justify-center items-center"
+                            @click="showBar = !showBar">
+                            <i class="bx bx-chevron-right"></i>
+                        </button>
+                    </div>
 
-                <div class="menu-item px-4 my-0.5 group relative">
-                    <a
-                        :href="route('dashboard.index')"
-                        class="flex items-center h-8 hover:bg-secondary hover:rounded-lg hover:text-primary transition-all hover:scale-110 p-2"
-                    >
-                        <i class="bx bx-home-alt-2 text-base 2xl:text-xl text-secondary group-hover:text-primary"></i>
-                        <span class="menu-text absolute left-full ml-1 whitespace-nowrap bg-secondary px-2 py-1 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm 2xl:text-base font-medium text-primary">
-                            Início
-                        </span>
-                    </a>
-                </div>
-
-                <div
-                    v-for="button in buttons"
-                    :key="button.id"
-                >
-                    <div
-                        v-if="userHasPermission('list', button.subject)"
-                        class="menu-item px-4 my-0.5 group relative"
-                    >
+                    <div class="menu-item px-4 my-0.5 group relative">
                         <a
-                            :href="route(button.route)"
+                            :href="route('dashboard.index')"
                             class="flex items-center h-8 hover:bg-secondary hover:rounded-lg hover:text-primary transition-all hover:scale-110 p-2"
                         >
-                            <i :class="button.icon + ' text-base 2xl:text-xl text-secondary group-hover:text-primary'"></i>
+                            <i class="bx bx-home-alt-2 text-base 2xl:text-xl text-secondary group-hover:text-primary"></i>
                             <span class="menu-text absolute left-full ml-1 whitespace-nowrap bg-secondary px-2 py-1 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm 2xl:text-base font-medium text-primary">
-                                {{ button.title }}
+                                Início
                             </span>
                         </a>
                     </div>
+
+                    <div
+                        v-for="button in buttons"
+                        :key="button.id"
+                    >
+                        <div
+                            v-if="userHasPermission('list', button.subject)"
+                            class="menu-item px-4 my-0.5 group relative"
+                        >
+                            <a
+                                :href="route(button.route)"
+                                class="flex items-center h-8 hover:bg-secondary hover:rounded-lg hover:text-primary transition-all hover:scale-110 p-2"
+                            >
+                                <i :class="button.icon + ' text-base 2xl:text-xl text-secondary group-hover:text-primary'"></i>
+                                <span class="menu-text absolute left-full ml-1 whitespace-nowrap bg-secondary px-2 py-1 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm 2xl:text-base font-medium text-primary">
+                                    {{ button.title }}
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="menu-item px-4 my-0.5 group relative">
-                    <a
-                        :href="route('settings.index')"
-                        class="flex items-center h-8 hover:bg-secondary hover:rounded-lg hover:text-primary transition-all hover:scale-110 p-2"
-                    >
-                        <i class="bx bxs-cog text-base 2xl:text-xl text-secondary group-hover:text-primary"></i>
-                        <span class="menu-text absolute left-full ml-1 whitespace-nowrap bg-secondary px-2 py-1 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm 2xl:text-base font-medium text-primary">
-                            Configurações
-                        </span>
-                    </a>
-                </div>
+                <div class="flex flex-col">
+                    <div class="menu-item px-4 my-0.5 group relative">
+                        <a
+                            :href="route('settings.index')"
+                            class="flex items-center h-8 hover:bg-secondary hover:rounded-lg hover:text-primary transition-all hover:scale-110 p-2"
+                        >
+                            <i class="bx bxs-cog text-base 2xl:text-xl text-secondary group-hover:text-primary"></i>
+                            <span class="menu-text absolute left-full ml-1 whitespace-nowrap bg-secondary px-2 py-1 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm 2xl:text-base font-medium text-primary">
+                                Configurações
+                            </span>
+                        </a>
+                    </div>
 
-                <div class="menu-item px-4 my-0.5 group relative">
-                    <button
-                        @click="toggleConfirmationModal()"
-                        class="flex items-center h-8 hover:bg-secondary hover:rounded-lg hover:text-primary transition-all hover:scale-110 p-2"
-                    >
-                        <i class="bx bx-log-out text-base 2xl:text-xl text-secondary group-hover:text-primary"></i>
-                        <span class="menu-text absolute left-full ml-1 whitespace-nowrap bg-secondary px-2 py-1 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm 2xl:text-base font-medium text-primary">
-                            Sair
-                        </span>
-                    </button>
+                    <div class="menu-item px-4 my-0.5 group relative">
+                        <button
+                            @click="toggleConfirmationModal()"
+                            class="flex items-center h-8 hover:bg-secondary hover:rounded-lg hover:text-primary transition-all hover:scale-110 p-2"
+                        >
+                            <i class="bx bx-log-out text-base 2xl:text-xl text-secondary group-hover:text-primary"></i>
+                            <span class="menu-text absolute left-full ml-1 whitespace-nowrap bg-secondary px-2 py-1 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm 2xl:text-base font-medium text-primary">
+                                Sair
+                            </span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </Transition>

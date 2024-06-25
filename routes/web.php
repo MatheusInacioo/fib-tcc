@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard.index');
         Route::get('/dashboard/filter/{period}/{chartType}', 'filterData')->name('dashboard.filter');
+        Route::get('/dashboard/invoicing', 'invoicing')->name('dashboard.invoicing');
     });
 
     // Transaction routes
