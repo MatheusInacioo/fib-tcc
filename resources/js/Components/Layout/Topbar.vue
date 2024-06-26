@@ -1,51 +1,11 @@
 <template>
     <div class="mobile-std:bg-primary topbar flex justify-between items-center h-16 bg-white 2xl:mb-4 mb-2 px-5 rounded-xl mobile-std:rounded-none shadow-lg border border-gray-200">
-        <div class="w-[320px] max-w-[500px] searchbar-holder flex flex-col mobile-std:hidden">
-            <div class="flex items-center 2xl:w-full my-4 bg-white border-b border-b-primary transition-all">
-                <input
-                    type="text"
-                    v-model="searchQuery"
-                    placeholder="Buscar na aplicação..."
-                    class="w-full border-none focus:outline-none"
-                >
-                <i class="bx bx-search text-lg 2xl:text-xl mx-2"></i>
-            </div>
-
-            <transition name="searchbar">
-                <div
-                    v-if="searchQuery"
-                    class="absolute top-[75px] flex flex-col min-w-[320px] z-10 bg-white border border-gray-200 shadow-lg"
-                >
-                    <div
-                        v-for="menu in filteredMenus"
-                        :key="menu.id"
-                        class="text-left"
-                    >
-                        <a
-                            v-if="userHasPermission('list', menu.subject)"
-                            :href="route(menu.route)"
-                            class="flex items-center transition-all pl-4 w-full py-2 bg-gray-200"
-                        >
-                            <p class="text-sm 2xl:text-lg hover:scale-105 transition-all font-medium text-gray-800 w-full"> {{ menu.title }} </p>
-                        </a>
-                        <a
-                            v-if="userHasPermission('list', menu.subject)"
-                            v-for="submenu in menu.submenus"
-                            :href="route(submenu.route)"
-                            class="flex items-center transition-all px-4 py-2"
-                        >
-                            <p class="2xl:text-base hover:scale-105 transition-all bg-white text-black w-full"> {{ submenu.title }} </p>
-                        </a>
-                    </div>
-                </div>
-            </transition>
-        </div>
-
-        <!-- Mobile Burger Menu -->
-        <button
+         <!-- Mobile Burger Menu -->
+         <button
             @click="toggleMenu = !toggleMenu"
+            class="web:hidden mobile-lg:hidden"
         >
-            <i class="bx bx-menu text-3xl text-secondary web:hidden mobile-lg:hidden"></i>
+            <i class="bx bx-menu text-3xl text-secondary"></i>
 
             <transition name="burger-menu">
                 <div
@@ -81,15 +41,108 @@
         </button>
         <!--  -->
 
-        <div class="max-w-[500px] dropdown-holder flex flex-col">
+        <div class="dropdown-holder flex flex-col relative">
             <div
-                @click="toggleDropdown = !toggleDropdown"
+                @click="toggleStoreDropdown = !toggleStoreDropdown"
+                class="user-dropdown flex h-10 items-center transition-all hover:scale-110 cursor-pointer"
+            >
+                <i class="mobile-std:hidden bx bxs-store text-3xl text-primary mr-2"></i>
+                <i class="web:hidden mobile-lg:hidden bx bxs-store text-3xl text-secondary"></i>
+                <p class="text-base 2xl:text-lg font-medium mr-2 mobile-std:hidden">Loja 1</p>
+                <i
+                    :class="{
+                        'bx bx-chevron-down' : !toggleStoreDropdown,
+                        'bx bx-chevron-up' : toggleStoreDropdown,
+                    }"
+                    class="text-2xl mobile-std:hidden"
+                ></i>
+            </div>
+
+            <transition name="dropdown">
+                <div
+                    v-if="toggleStoreDropdown"
+                    class="absolute web:top-[50px] -left-[8px] mobile-std:-left-[5rem] mobile-std:top-[60px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl mobile-std:rounded-xl mobile-std:w-full"
+                >
+                    <div class="group px-2">
+                        <button
+                            @click=""
+                            class="w-full flex items-center hover:bg-gray-200 transition-all hover:scale-110 px-4 py-2"
+                        >
+                            <span class="text-lg font-medium text-gray-800"> Loja 2 </span>
+                        </button>
+                        <button
+                            @click=""
+                            class="w-full flex items-center hover:bg-gray-200 transition-all hover:scale-110 px-4 py-2"
+                        >
+                            <span class="text-lg font-medium text-gray-800"> Loja 3 </span>
+                        </button>
+                        <button
+                            @click=""
+                            class="w-full flex items-center hover:bg-gray-200 transition-all hover:scale-110 px-4 py-2"
+                        >
+                            <span class="text-lg font-medium text-gray-800"> Loja 4 </span>
+                        </button>
+                        <button
+                            @click=""
+                            class="w-full flex items-center hover:bg-gray-200 transition-all hover:scale-110 px-4 py-2"
+                        >
+                            <span class="text-lg font-medium text-gray-800"> Loja 5 </span>
+                        </button>
+                    </div>
+                </div>
+            </transition>
+        </div>
+
+        <div class="w-[320px] max-w-[500px] searchbar-holder flex flex-col mobile-std:hidden">
+            <div class="flex items-center 2xl:w-full my-4 bg-white border border-primary transition-all rounded-xl">
+                <input
+                    type="text"
+                    v-model="searchQuery"
+                    placeholder="Buscar na aplicação..."
+                    class="w-full border-none focus:outline-none rounded-l-xl"
+                >
+                <i class="bx bx-search text-lg 2xl:text-xl mx-2"></i>
+            </div>
+
+            <transition name="searchbar">
+                <div
+                    v-if="searchQuery"
+                    class="absolute top-[75px] flex flex-col min-w-[320px] z-10 bg-white border border-gray-200 shadow-lg"
+                >
+                    <div
+                        v-for="menu in filteredMenus"
+                        :key="menu.id"
+                        class="text-left"
+                    >
+                        <a
+                            v-if="userHasPermission('list', menu.subject)"
+                            :href="route(menu.route)"
+                            class="flex items-center transition-all pl-4 w-full py-2 bg-gray-200"
+                        >
+                            <p class="text-sm 2xl:text-lg hover:scale-105 transition-all font-medium text-gray-800 w-full"> {{ menu.title }} </p>
+                        </a>
+                        <a
+                            v-if="userHasPermission('list', menu.subject)"
+                            v-for="submenu in menu.submenus"
+                            :href="route(submenu.route)"
+                            class="flex items-center transition-all px-4 py-2"
+                        >
+                            <p class="2xl:text-base hover:scale-105 transition-all bg-white text-black w-full"> {{ submenu.title }} </p>
+                        </a>
+                    </div>
+                </div>
+            </transition>
+        </div>
+
+        <div class="dropdown-holder flex flex-col">
+            <div
+                @click="toggleUserDropdown = !toggleUserDropdown"
                 class="user-dropdown flex h-10 items-center transition-all hover:scale-110 cursor-pointer"
             >
                 <i
                     :class="{
-                        'bx bx-chevron-down' : !toggleDropdown,
-                        'bx bx-chevron-up' : toggleDropdown,
+                        'bx bx-chevron-down' : !toggleUserDropdown,
+                        'bx bx-chevron-up' : toggleUserDropdown,
                     }"
                     class="mr-1 text-2xl mobile-std:hidden"
                 ></i>
@@ -100,8 +153,8 @@
 
             <transition name="dropdown">
                 <div
-                    v-if="toggleDropdown"
-                    class="absolute web:top-[75px] mobile-std:top-[60px] right-[30px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl mobile-std:right-[0px] mobile-std:rounded-xl mobile-std:w-full"
+                    v-if="toggleUserDropdown"
+                    class="absolute web:top-[80px] mobile-std:top-[60px] right-[30px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl mobile-std:right-[0px] mobile-std:rounded-xl mobile-std:w-full"
                 >
                     <div class="flex p-4 border-b border-b-gray-300 bg-primary mobile-std:rounded-t-xl">
                         <a
@@ -157,7 +210,8 @@
     data() {
         return {
             user: this.$page.props.auth.user,
-            toggleDropdown: false,
+            toggleUserDropdown: false,
+            toggleStoreDropdown: false,
             toggleMenu: false,
             searchQuery: '',
             showModal: false,

@@ -3,11 +3,11 @@
         <Transition :name="showBar ? 'sidebar-transition' : 'sidebar-transition-reverse'">
             <div
                 v-if="showBar"
-                class="sidebar relative 2xl:w-64 h-screen flex flex-col justify-between bg-primary shadow-lg pb-8"
+                class="sidebar relative h-screen flex flex-col justify-between bg-primary shadow-lg pb-8"
             >
                 <div class="flex flex-col">
-                    <div class="sidebar-header h-24 px-8 flex justify-center items-center mb-4">
-                        <img class="mobile-std:hidden" src="img/app/logo/logo-bw.png" alt="logo">
+                    <div class="sidebar-header h-24 px-4 flex justify-center items-center mb-4">
+                        <img class="mobile-std:hidden" width="180" src="img/app/logo/logo-bw.png" alt="logo">
                         <button
                             class="2xl:w-6 2xl:h-6 absolute -right-[0.70rem] top-[2.2rem] bg-secondary text-primary 2xl:text-xl rounded-xl hover:scale-125 transition-all border border-gray-400 flex justify-center items-center"
                             @click="showBar = !showBar"
@@ -72,12 +72,13 @@
         <Transition :name="showBar ? 'sidebar-transition-reverse' : 'sidebar-transition'">
             <div
                 v-if="!showBar"
-                class="sidebar w-14 items-center 2xl:w-auto h-screen flex flex-col justify-between bg-primary shadow-lg pb-8"
+                class="sidebar relative items-center h-screen flex flex-col justify-between bg-primary shadow-lg pb-8"
             >
                 <div class="flex flex-col">
                     <div class="sidebar-header h-24 flex justify-center items-center mb-4">
+                        <img class="mobile-std:hidden" src="img/app/logo/icon-bw.png"  width="40" alt="icon">
                         <button
-                            class="bg-secondary text-primary 2xl:text-xl 2xl:w-6 2xl:h-6 rounded-xl hover:scale-125 transition-all border border-gray-400 flex justify-center items-center"
+                             class="2xl:w-6 2xl:h-6 absolute left-[3.5rem] top-[2.2rem] bg-secondary text-primary 2xl:text-xl rounded-xl hover:scale-125 transition-all border border-gray-400 flex justify-center items-center"
                             @click="showBar = !showBar">
                             <i class="bx bx-chevron-right"></i>
                         </button>
