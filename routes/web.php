@@ -29,6 +29,7 @@ Route::controller(LoginController::class)->group(function () {
     Route::get('/', 'index')->name('login');
     Route::post('/login', 'store')->name('login.store');
     Route::get('/logout', 'destroy')->name('login.destroy');
+    Route::get('/recover', 'recover')->name('login.recover');
 });
 
 Route::middleware('auth')->group(function () {

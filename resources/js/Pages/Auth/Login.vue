@@ -4,8 +4,8 @@
         <div class="login-screen w-screen h-screen flex bg-[url('img/app/background.jpg')] bg-center bg-cover">
             <div class="h-full mobile-std:w-full w-[500px] shadow-2xl bg-gray-800 bg-opacity-20 mobile-std:bg-white backdrop-filter backdrop-blur-xl flex flex-col justify-center p-4">
                 <div class="flex flex-col justify-center items-center mb-[50px]">
-                    <img class="mobile-std:hidden" width="300" src="img/app/logo/logo-bw.png" alt="logo">
-                    <img class="web:hidden mobile-lg:hidden" width="300" src="img/app/logo/logo.png" alt="logo">
+                    <img class="mobile-std:hidden" width="300" src="/img/app/logo/logo-bw.png" alt="logo">
+                    <img class="web:hidden mobile-lg:hidden" width="300" src="/img/app/logo/logo.png" alt="logo">
                 </div>
 
                 <form
@@ -68,12 +68,12 @@
                             <span>Entrar</span>
                         </button>
 
-                        <button
-                            type="button"
-                            class="text-secondary mobile-std:text-primary text-sm font-medium mt-4"
+                        <a
+                            :href="route('login.recover')"
+                            class="flex justify-center items-center text-secondary mobile-std:text-primary text-sm font-medium mt-4"
                         >
                             Esqueceu sua senha?
-                        </button>
+                        </a>
                     </div>
                 </form>
             </div>
