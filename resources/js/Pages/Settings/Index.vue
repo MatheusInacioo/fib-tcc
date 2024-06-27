@@ -79,6 +79,11 @@
                         route: 'permissions.index',
                     },
                     {
+                        title: 'Logs',
+                        icon: 'bx bx-list-ul',
+                        route: 'permissions.index',
+                    },
+                    {
                         title: 'Ajuda e suporte',
                         icon: 'bx bx-help-circle',
                         route: 'dashboard.index',
