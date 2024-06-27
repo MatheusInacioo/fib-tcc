@@ -2,10 +2,22 @@
     <div class="databoard-holder flex flex-col max-h-full min-w-[420px] border border-gray-200 rounded-xl shadow-lg mr-5 mb-4 mobile-std:min-w-[350px]">
         <div class="databoard-header h-1/6 p-4 flex justify-between items-center rounded-t-lg bg-primary">
             <p class="text-2xl font-medium text-secondary">{{ title }}</p>
-            <i class="bx bx-show text-3xl text-secondary"></i>
+            <i
+                class="text-3xl text-secondary bx"
+                :class="{
+                    'bxs-message-dots' : title == 'Contato',
+                    'bxs-briefcase-alt' : title == 'Negociação',
+                    'bxs-edit-alt' : title == 'Assinatura Pendente',
+                    'bxs-stopwatch' : title == 'Standby',
+                    'bx-block' : title == 'Sem Interesse',
+                }"
+            ></i>
         </div>
         <div class="databoard-body flex-nowrap h-full p-4 flex flex-col bg-gray-100 rounded-b-lg overflow-y-auto scrollbar-thin">
-            <div class="max-h-full">
+            <div
+                v-if="filteredItems.length > 0"
+                class="max-h-full"
+            >
                 <Boardcard
                     v-for="item in filteredItems"
                     :key="item.id"
@@ -13,6 +25,13 @@
                     @edit-item="editItem(item)"
                     @delete-item="deleteItem(item.id)"
                 />
+            </div>
+
+            <div
+                v-else
+                class="flex justify-center items-center w-full h-full"
+            >
+                <span class="text-xl font-medium">Nenhum registro encontrado...</span>
             </div>
         </div>
 
