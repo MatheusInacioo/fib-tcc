@@ -41,58 +41,6 @@
         </button>
         <!--  -->
 
-        <div class="dropdown-holder flex flex-col relative">
-            <div
-                @click="toggleStoreDropdown = !toggleStoreDropdown"
-                class="user-dropdown flex h-10 items-center transition-all hover:scale-110 cursor-pointer"
-            >
-                <i class="mobile-std:hidden bx bxs-store text-3xl text-primary mr-2"></i>
-                <i class="web:hidden mobile-lg:hidden bx bxs-store text-3xl text-secondary"></i>
-                <p class="text-base 2xl:text-lg font-medium mr-2 mobile-std:hidden">Loja 1</p>
-                <i
-                    :class="{
-                        'bx bx-chevron-down' : !toggleStoreDropdown,
-                        'bx bx-chevron-up' : toggleStoreDropdown,
-                    }"
-                    class="text-2xl mobile-std:hidden"
-                ></i>
-            </div>
-
-            <transition name="dropdown">
-                <div
-                    v-if="toggleStoreDropdown"
-                    class="absolute web:top-[50px] -left-[8px] mobile-std:-left-[5rem] mobile-std:top-[60px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl mobile-std:rounded-xl mobile-std:w-full"
-                >
-                    <div class="group px-2">
-                        <button
-                            @click=""
-                            class="w-full flex items-center hover:bg-gray-200 transition-all hover:scale-110 px-4 py-2"
-                        >
-                            <span class="text-lg font-medium text-gray-800"> Loja 2 </span>
-                        </button>
-                        <button
-                            @click=""
-                            class="w-full flex items-center hover:bg-gray-200 transition-all hover:scale-110 px-4 py-2"
-                        >
-                            <span class="text-lg font-medium text-gray-800"> Loja 3 </span>
-                        </button>
-                        <button
-                            @click=""
-                            class="w-full flex items-center hover:bg-gray-200 transition-all hover:scale-110 px-4 py-2"
-                        >
-                            <span class="text-lg font-medium text-gray-800"> Loja 4 </span>
-                        </button>
-                        <button
-                            @click=""
-                            class="w-full flex items-center hover:bg-gray-200 transition-all hover:scale-110 px-4 py-2"
-                        >
-                            <span class="text-lg font-medium text-gray-800"> Loja 5 </span>
-                        </button>
-                    </div>
-                </div>
-            </transition>
-        </div>
-
         <div class="w-[320px] max-w-[500px] searchbar-holder flex flex-col mobile-std:hidden">
             <div class="flex items-center 2xl:w-full my-4 bg-white border border-primary transition-all rounded-xl">
                 <input

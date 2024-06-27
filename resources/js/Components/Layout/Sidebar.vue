@@ -7,9 +7,9 @@
             >
                 <div class="flex flex-col">
                     <div class="sidebar-header h-24 px-4 flex justify-center items-center mb-4">
-                        <img class="mobile-std:hidden" width="180" src="img/app/logo/logo-bw.png" alt="logo">
+                        <img class="mobile-std:hidden" width="180" src="/img/app/logo/logo-bw.png" alt="logo">
                         <button
-                            class="2xl:w-6 2xl:h-6 absolute -right-[0.70rem] top-[2.2rem] bg-secondary text-primary 2xl:text-xl rounded-xl hover:scale-125 transition-all border border-gray-400 flex justify-center items-center"
+                            class="2xl:w-6 2xl:h-6 absolute -right-[0.70rem] top-[4.8rem] bg-primary text-secondary 2xl:text-xl rounded-xl hover:scale-125 transition-all border-2 border-gray-100 flex justify-center items-center"
                             @click="showBar = !showBar"
                         >
                             <i class="bx bx-chevron-left"></i>
@@ -76,9 +76,9 @@
             >
                 <div class="flex flex-col">
                     <div class="sidebar-header h-24 flex justify-center items-center mb-4">
-                        <img class="mobile-std:hidden" src="img/app/logo/icon-bw.png"  width="40" alt="icon">
+                        <img class="mobile-std:hidden" src="/img/app/logo/icon-bw.png"  width="40" alt="icon">
                         <button
-                             class="2xl:w-6 2xl:h-6 absolute left-[3.5rem] top-[2.2rem] bg-secondary text-primary 2xl:text-xl rounded-xl hover:scale-125 transition-all border border-gray-400 flex justify-center items-center"
+                             class="2xl:w-6 2xl:h-6 absolute left-[3.5rem] top-[4.8rem] bg-primary text-secondary 2xl:text-xl rounded-xl hover:scale-125 transition-all border-2 border-gray-100 flex justify-center items-center"
                             @click="showBar = !showBar">
                             <i class="bx bx-chevron-right"></i>
                         </button>
@@ -215,6 +215,10 @@
             exitSystem() {
                 this.$inertia.visit(route('login.destroy'));
             },
+
+            trimImageUrl(subject) {
+
+            }
         },
     }
 </script>

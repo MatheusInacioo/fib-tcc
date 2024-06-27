@@ -1,9 +1,7 @@
 <template>
     <BaseLayout>
         <Head title="Dashboard"/>
-        <span class="text-2xl font-medium">Resumo do dia</span>
-
-        <div class="min-h-px w-full bg-primary my-4 mobile-std:my-2"></div>
+        <span class="text-3xl font-bold mb-4">Resumo do dia</span>
 
         <div class="grid grid-cols-4 gap-4 mobile-std:grid-cols-1 mobile-lg:grid-cols-2 mb-4">
             <div class="info-card h-52 rounded-xl shadow-xl flex flex-col border border-gray-200 transition-all hover:scale-105">
@@ -124,9 +122,7 @@
             </div>
         </div>
 
-        <span class="text-2xl font-medium">Estatísticas</span>
-
-        <div class="min-h-px w-full bg-primary my-4 mobile-std:my-2"></div>
+        <span class="text-3xl font-bold my-4">Visão Geral</span>
 
         <div class="w-full rounded-xl shadow-lg mb-4 border border-gray-200">
             <div class="flex flex-col web:justify-between rounded-xl shadow-xl 2xl:p-4 p-2 web:max-h-[400px] mobile-std:min-h-[500px] w-full border border-gray-200 mobile-std:mb-4">
