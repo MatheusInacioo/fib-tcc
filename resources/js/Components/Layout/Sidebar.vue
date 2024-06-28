@@ -3,7 +3,7 @@
         <Transition :name="showBar ? 'sidebar-transition' : 'sidebar-transition-reverse'">
             <div
                 v-if="showBar"
-                class="sidebar relative h-screen flex flex-col justify-between bg-primary shadow-lg pb-8"
+                class="sidebar relative h-screen w-56 flex flex-col justify-between bg-primary shadow-lg pb-8"
             >
                 <div class="flex flex-col">
                     <div class="sidebar-header h-24 px-4 flex justify-center items-center mb-4">
