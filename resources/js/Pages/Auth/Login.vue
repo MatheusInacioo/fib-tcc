@@ -79,7 +79,7 @@
                         </button>
 
                         <a
-                            :href="route('login.recover')"
+                            :href="route('password.request')"
                             class="flex justify-center items-center text-secondary mobile-std:text-primary text-sm font-medium mt-4"
                         >
                             Esqueceu sua senha?

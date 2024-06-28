@@ -43,6 +43,11 @@ class LoginController extends Controller
 
     public function recover()
     {
-        return Inertia::render('Auth/Recover');
+        return Inertia::render('Auth/Reset');
+    }
+
+    public function teste()
+    {
+        return view('emails.password-reset');
     }
 }

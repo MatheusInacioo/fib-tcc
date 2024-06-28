@@ -1,7 +1,7 @@
 <template>
     <div>
         <Head title="Senha"/>
-        <div class="login-screen w-screen h-screen flex justify-center items-center bg-[url('img/app/background.jpg')] bg-center bg-cover font-roboto">
+        <div class="login-screen w-screen h-screen flex justify-center items-center bg-[url('/img/app/background.jpg')] bg-center bg-cover font-roboto">
             <div class="mobile-std:h-full mobile-std:w-full w-[500px] shadow-2xl rounded-xl mobile-std:rounded-none bg-gray-800 bg-opacity-20 mobile-std:bg-white backdrop-filter backdrop-blur-xl flex flex-col justify-center p-4">
                 <div class="flex flex-col justify-center items-center mb-10">
                     <img class="mobile-std:hidden" width="300" src="/img/app/logo/logo-bw.png" alt="logo">
@@ -12,12 +12,12 @@
 
                 <span class="text-secondary mobile-std:text-black mb-4">• Certifique-se de verificar sua caixa de entrada e, se necessário, a pasta de spam ou lixo eletrônico.</span>
 
-                <span class="text-secondary mobile-std:text-black">• O link será válido por 24 horas. Se você não receber o e-mail, tente novamente ou entre em contato com o suporte.</span>
+                <span class="text-secondary mobile-std:text-black">• O link será válido por 60 minutos. Se você não receber o e-mail, tente novamente ou entre em contato com o suporte.</span>
 
                 <form
                     method="POST"
                     class="flex flex-col"
-                    @submit.prevent="form.post(route('login.store'))"
+                    @submit.prevent="form.post(route('password.email'))"
                 >
                     <div class="grid grid-cols-1 gap-4">
 
@@ -27,7 +27,7 @@
                             <input
                                 v-model="form.email"
                                 class="h-12 rounded-xl bg-transparent border-gray-500 mobile-std:border-primary hover:border-secondary focus:border-secondary transition-all text-secondary mobile-std:text-black"
-                                type="text"
+                                type="email"
                                 name="email"
                                 placeholder="Digite seu email..."
                             >
