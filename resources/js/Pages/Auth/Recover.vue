@@ -8,7 +8,7 @@
                     <img class="web:hidden mobile-lg:hidden" width="300" src="/img/app/logo/logo.png" alt="logo">
                 </div>
 
-                <span class="text-secondary mobile-std:text-black mb-4">• Enviaremos um e-mail com um link para redefinir sua senha no endereço informado.</span>
+                <span class="text-secondary mobile-std:text-black mb-4">• Enviaremos um e-mail com um link para redefinir sua senha no endereço informado abaixo.</span>
 
                 <span class="text-secondary mobile-std:text-black mb-4">• Certifique-se de verificar sua caixa de entrada e, se necessário, a pasta de spam ou lixo eletrônico.</span>
 
@@ -17,7 +17,7 @@
                 <form
                     method="POST"
                     class="flex flex-col"
-                    @submit.prevent="form.post(route('password.email'))"
+                    @submit.prevent="sendMail()"
                 >
                     <div class="grid grid-cols-1 gap-4">
 
@@ -32,21 +32,25 @@
                                 placeholder="Digite seu email..."
                             >
                             <span v-if="form.errors.email" class="text-red-500 text-base font-semibold">{{ form.errors.email }}</span>
+                            <span v-if="mailSentMessage" class="text-success text-base font-semibold">{{ mailSentMessage }}</span>
                         </div>
 
                         <button
                             type="submit"
-                            class="flex justify-center items-center w-full h-10 bg-primary rounded-xl text-secondary text-lg font-semibold shadow-xl hover:scale-105 transition-all"
+                            class="flex justify-center items-center w-full h-10 bg-primary rounded-xl text-secondary text-lg font-medium shadow-xl hover:scale-105 transition-all"
                         >
-                            <span>Enviar</span>
+                            <span v-if="!isLoading">Enviar</span>
+                            <i v-if="isLoading" class="bx bx-loader-alt animate-spin text-2xl"></i>
                         </button>
 
-                        <a
-                            :href="route('login')"
-                            class="flex justify-center items-center text-secondary mobile-std:text-primary text-sm font-medium mt-2"
-                        >
-                            Voltar
-                        </a>
+                        <div class="flex justify-center items-center">
+                            <a
+                                :href="route('login')"
+                                class="text-secondary mobile-std:text-primary text-sm font-medium mt-2"
+                            >
+                                Voltar
+                            </a>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -69,6 +73,30 @@
             })
 
             return { form }
+        },
+
+        data() {
+            return {
+                isLoading: false,
+                mailSentMessage: null,
+            }
+        },
+
+        methods: {
+            sendMail() {
+                this.isLoading = true;
+
+                this.form.post(route('password.email'), {
+                    onSuccess: () => {
+                        this.isLoading = false;
+                        this.mailSentMessage = 'Email enviado';
+                    },
+
+                    onError: () => {
+                        this.isLoading = false;
+                    }
+                })
+            }
         },
     }
 </script>

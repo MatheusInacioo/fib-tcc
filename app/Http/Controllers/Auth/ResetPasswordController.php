@@ -11,14 +11,14 @@ class ResetPasswordController extends Controller
 {
     public function showResetForm($token)
     {
-        return Inertia::render('Auth/ResetPassword', [
+        return Inertia::render('Auth/Reset', [
             'token' => $token
         ]);
     }
 
     public function reset(ResetPasswordRequest $request)
     {
-        $credentials = $request->only('password', 'password_confirmation', 'token');
+        $credentials = $request->only('email', 'password', 'password_confirmation', 'token');
 
         $response = Password::reset($credentials, function ($user, $password) {
             $user->forceFill([
@@ -30,7 +30,7 @@ class ResetPasswordController extends Controller
         if ($response == Password::PASSWORD_RESET) {
             return redirect()->route('login')->with('success', 'Senha redefinida com sucesso.');
         } else {
-            return back()->withErrors(['token' => [__($response)]]);
+            return back()->withErrors(['email' => [__($response)]]);
         }
     }
 }

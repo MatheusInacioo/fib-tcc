@@ -34,7 +34,7 @@ class ForgotPasswordController extends Controller
         );
 
         if ($status === Password::RESET_LINK_SENT) {
-            $token = Password::createToken($user());
+            $token = Password::createToken($user);
 
             Mail::to($request->email)->send(new PasswordResetMail($token, $request->email));
 

@@ -13,7 +13,7 @@
             <h2>Redefinição de Senha</h2>
             <p>Você está recebendo este e-mail porque solicitou uma redefinição de senha para sua conta.</p>
             <p>Caso deseje prosseguir, clique no botão abaixo para redefinir sua senha:</p>
-            <a href="#" class="button">Redefinir Senha</a>
+            <a href="{{ $url }}" class="button">Redefinir Senha</a>
             <p>O link irá expirar em 60 minutos. Se você não solicitou uma redefinição de senha, nenhuma ação adicional é necessária.</p>
             <p>Atenciosamente,<br>Equipe {{ config('app.name') }}</p>
         </div>
