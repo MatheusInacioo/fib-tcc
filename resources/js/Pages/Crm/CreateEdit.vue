@@ -241,9 +241,10 @@
                 </a>
                 <button
                     type="submit"
-                    class="w-24 2xl:h-10 p-2 rounded-xl text-secondary font-medium text-sm 2xl:text-base ml-3 bg-primary hover:scale-105 transition-all"
+                    class="flex justify-center items-center w-24 2xl:h-10 p-2 rounded-xl text-secondary font-medium text-sm 2xl:text-base ml-3 bg-primary hover:scale-105 transition-all"
                 >
-                    Salvar
+                    <span v-if="!isLoading">Salvar</span>
+                    <i v-if="isLoading" class="bx bx-loader-alt animate-spin text-2xl"></i>
                 </button>
             </div>
         </form>
@@ -300,6 +301,7 @@ export default {
 
     data() {
         return {
+            isLoading: false,
             showModal: false,
             message: {
                 content: '',
@@ -339,11 +341,25 @@ export default {
         },
 
         createCrm() {
-            return this.form.post(route('crm.store'));
+            this.form.clearErrors();
+            this.isLoading = true;
+
+            return this.form.post(route('crm.store'), {
+                onError: () => {
+                    this.isLoading = false;
+                },
+            });
         },
 
         updateCrm() {
-            return this.form.put(route('crm.update', this.item.data.id));
+            this.form.clearErrors();
+            this.isLoading = true;
+
+            return this.form.put(route('crm.update', this.item.data.id), {
+                onError: () => {
+                    this.isLoading = false;
+                },
+            });
         },
 
         buildForm(data) {

@@ -55,7 +55,8 @@
                                     'bg-gray-300 text-white' : ! form.name,
                                 }"
                             >
-                                Salvar
+                                <span v-if="!isLoading">Salvar</span>
+                                <i v-if="isLoading" class="bx bx-loader-alt animate-spin text-xl"></i>
                             </button>
                         </div>
                     </div>
@@ -87,6 +88,12 @@ export default {
         return { form }
     },
 
+    data() {
+        return {
+            isLoading: false,
+        }
+    },
+
     computed: {
         roleExists() {
             return this.form.id
@@ -109,11 +116,22 @@ export default {
         },
 
         async createRole() {
+            this.form.clearErrors();
+            this.isLoading = true;
+
             try {
                 if (this.roleExists) {
-                    await this.form.put(route('roles.update', this.form.id));
+                    await this.form.put(route('roles.update', this.form.id), {
+                        onError: () => {
+                            this.isLoading = false;
+                        }
+                    });
                 } else {
-                    await this.form.post(route('roles.store'));
+                    await this.form.post(route('roles.store'), {
+                        onError: () => {
+                            this.isLoading = false;
+                        }
+                    });
                 }
 
                 this.closeModal();

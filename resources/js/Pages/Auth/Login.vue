@@ -11,7 +11,7 @@
                 <form
                     method="POST"
                     class="flex flex-col font-roboto"
-                    @submit.prevent="form.post(route('login.store'))"
+                    @submit.prevent="login()"
                 >
                     <div class="grid grid-cols-1 gap-4">
 
@@ -64,8 +64,18 @@
                             type="submit"
                             class="flex justify-center items-center w-full h-10 bg-primary rounded-xl text-secondary text-lg font-roboto font-semibold shadow-xl hover:scale-105 transition-all"
                         >
-                            <i class="bx bx-log-in mr-2 font-medium"></i>
-                            <span>Entrar</span>
+                            <div
+                                v-if="!isLoading"
+                                class="flex justify-center items-center h-full w-full"
+                            >
+                                <i class="bx bx-log-in mr-2 font-medium"></i>
+                                <span>Entrar</span>
+                            </div>
+
+                            <i
+                                v-if="isLoading"
+                                class="bx bx-loader-alt animate-spin text-3xl"
+                            ></i>
                         </button>
 
                         <a
@@ -102,8 +112,22 @@
 
         data() {
             return {
+                isLoading: false,
                 showPassword: false,
             }
-        }
+        },
+
+        methods: {
+            login() {
+                this.form.clearErrors();
+                this.isLoading = true;
+
+                this.form.post(route('login.store'), {
+                    onError: () => {
+                        this.isLoading = false;
+                    }
+                });
+            }
+        },
     }
 </script>

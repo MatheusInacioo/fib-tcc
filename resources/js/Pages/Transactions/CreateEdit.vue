@@ -285,7 +285,8 @@
                         'bg-gray-300 text-white' : ! form.payment_method,
                     }"
                 >
-                    Salvar
+                    <span v-if="!isLoading">Salvar</span>
+                    <i v-if="isLoading" class="bx bx-loader-alt animate-spin text-2xl"></i>
                 </button>
             </div>
         </form>
@@ -326,6 +327,7 @@ export default {
 
     data() {
         return {
+            isLoading: false,
             types: ['Compra', 'Venda'],
             paymentMethods: [
                 'Dinheiro',
@@ -360,7 +362,14 @@ export default {
 
     methods: {
         saveForm() {
-            return this.form.post(this.route('transactions.store'));
+            this.form.clearErrors();
+            this.isLoading = true;
+
+            return this.form.post(this.route('transactions.store'), {
+                onError: () => {
+                    this.isLoading = false;
+                }
+            });
         },
 
         buildForm(data) {

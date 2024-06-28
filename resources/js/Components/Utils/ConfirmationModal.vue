@@ -28,7 +28,7 @@
                             <div class="flex justify-between w-full">
                                 <button
                                     type="button"
-                                    class="flex justify-center w-24 px-2 py-2 bg-gray-400 text-white font-medium rounded-lg hover:scale-110 transition-all"
+                                    class="flex justify-center h-10 w-24 px-2 py-2 bg-gray-400 text-white font-medium rounded-lg hover:scale-110 transition-all"
                                     @click="closeModal()"
                                 >
                                     Cancelar
@@ -36,31 +36,35 @@
                                 <button
                                     v-if="! customMessage || customMessage.subject == 'delete-role'"
                                     @click="confirmDelete()"
-                                    class="flex justify-center w-24 px-4 py-2 bg-primary text-secondary font-medium rounded-lg hover:scale-110 transition-all"
+                                    class="flex justify-center items-center h-10 w-24 px-4 py-2 bg-primary text-secondary font-medium rounded-lg hover:scale-110 transition-all"
                                 >
-                                    Excluir
+                                    <span v-if="!isLoading">Excluir</span>
+                                    <i v-if="isLoading" class="bx bx-loader-alt animate-spin text-2xl"></i>
                                 </button>
                                 <button
                                     v-if="customMessage && customMessage.subject == 'close-contract'"
                                     @click="closeContract()"
-                                    class="flex justify-center w-24 px-4 py-2 bg-primary text-secondary font-medium rounded-lg hover:scale-110 transition-all"
+                                    class="flex justify-center items-center h-10 w-24 px-4 py-2 bg-primary text-secondary font-medium rounded-lg hover:scale-110 transition-all"
                                 >
-                                    Confirmar
+                                    <span v-if="!isLoading">Confirmar</span>
+                                    <i v-if="isLoading" class="bx bx-loader-alt animate-spin text-2xl"></i>
                                 </button>
                                 <a
                                     v-if="customMessage && customMessage.subject == 'export-data'"
                                     :href="route(exportRoute)"
                                     @click="showModal = false"
-                                    class="flex justify-center w-24 px-4 py-2 bg-primary text-secondary font-medium rounded-lg hover:scale-110 transition-all"
+                                    class="flex justify-center items-center h-10 w-24 px-4 py-2 bg-primary text-secondary font-medium rounded-lg hover:scale-110 transition-all"
                                 >
-                                    Exportar
+                                    <span v-if="!isLoading">Exportar</span>
+                                    <i v-if="isLoading" class="bx bx-loader-alt animate-spin text-2xl"></i>
                                 </a>
                                 <button
                                     v-if="customMessage && customMessage.subject == 'exit-system'"
                                     @click="exitSystem()"
-                                    class="flex justify-center w-24 px-4 py-2 bg-primary text-secondary font-medium rounded-lg hover:scale-110 transition-all"
+                                    class="flex justify-center items-center h-10 w-24 px-4 py-2 bg-primary text-secondary font-medium rounded-lg hover:scale-110 transition-all"
                                 >
-                                    Sair
+                                    <span v-if="!isLoading">Sair</span>
+                                    <i v-if="isLoading" class="bx bx-loader-alt animate-spin text-2xl"></i>
                                 </button>
                             </div>
                         </div>
@@ -87,21 +91,30 @@ export default {
         },
     },
 
+    data() {
+        return {
+            isLoading: false,
+        }
+    },
+
     methods: {
         confirmDelete() {
+            this.isLoading = true;
             this.$emit('confirm-delete');
         },
 
-        closeModal() {
-            this.$emit('close-modal');
-        },
-
         closeContract() {
+            this.isLoading = true;
             this.$emit('close-contract');
         },
 
         exitSystem() {
+            this.isLoading = true;
             this.$emit('exit-system');
+        },
+
+        closeModal() {
+            this.$emit('close-modal');
         },
     },
 };

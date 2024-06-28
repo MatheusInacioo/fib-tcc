@@ -81,9 +81,10 @@
             </a>
             <button
                 @click="savePermissions()"
-                class="w-24 2xl:h-10 p-2 rounded-xl text-secondary font-medium text-sm 2xl:text-base ml-3 bg-primary hover:scale-105 transition-all"
+                class="flex justify-center items-center w-24 2xl:h-10 p-2 rounded-xl text-secondary font-medium text-sm 2xl:text-base ml-3 bg-primary hover:scale-105 transition-all"
             >
-                Salvar
+                <span v-if="!isLoading">Salvar</span>
+                <i v-if="isLoading" class="bx bx-loader-alt animate-spin text-2xl"></i>
             </button>
         </div>
 
@@ -121,6 +122,7 @@
 
         data() {
             return {
+                isLoading: false,
                 showRoleModal: false,
                 items: [
                    {
@@ -206,7 +208,13 @@
 
             savePermissions() {
                 try {
-                    return this.form.post(route('permissions.store'));
+                    this.isLoading = true;
+
+                    return this.form.post(route('permissions.store'), {
+                        onError: () => {
+                            this.isLoading = false;
+                        },
+                    });
                 } catch (error) {
                     console.error('Erro ao salvar permissões: ', error)
                 }

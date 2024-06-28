@@ -93,9 +93,10 @@
                 </a>
                 <button
                     type="submit"
-                    class="w-24 2xl:h-10 p-2 rounded-xl text-secondary font-medium text-sm 2xl:text-base ml-3 bg-primary hover:scale-105 transition-all"
+                    class="flex justify-center items-center w-24 2xl:h-10 p-2 rounded-xl text-secondary font-medium text-sm 2xl:text-base ml-3 bg-primary hover:scale-105 transition-all"
                 >
-                    Salvar
+                    <span v-if="!isLoading">Salvar</span>
+                    <i v-if="isLoading" class="bx bx-loader-alt animate-spin text-2xl"></i>
                 </button>
             </div>
         </form>
@@ -128,6 +129,12 @@ export default {
         return { form }
     },
 
+    data() {
+        return {
+            isLoading: false,
+        }
+    },
+
     computed: {
         pageTitle() {
             if(! this.user) {
@@ -150,11 +157,25 @@ export default {
         },
 
         createUser() {
-            return this.form.post(route('users.store'));
+            this.form.clearErrors();
+            this.isLoading = true;
+
+            return this.form.post(route('users.store'), {
+                onError: () => {
+                    this.isLoading = false;
+                }
+            });
         },
 
         updateUser() {
-            return this.form.put(route('users.update', this.user.data.id));
+            this.form.clearErrors();
+            this.isLoading = true;
+
+            return this.form.put(route('users.update', this.user.data.id), {
+                onError: () => {
+                    this.isLoading = false;
+                }
+            });
         },
 
         buildForm(data) {
