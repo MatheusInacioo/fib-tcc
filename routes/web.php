@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CrmController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InvoicingController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
@@ -96,5 +97,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/roles', 'store')->name('roles.store');
         Route::put('/roles/{id}', 'update')->name('roles.update');
         Route::post('/roles/destroy/{id}', 'destroy')->name('roles.destroy');
+    });
+
+    // Invoicing routes
+    Route::controller(InvoicingController::class)->group(function () {
+        Route::get('/invoicing', 'index')->name('invoicing.index');
     });
 });

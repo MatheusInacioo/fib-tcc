@@ -61,7 +61,12 @@
                                 <input
                                     type="checkbox"
                                     class="rounded-lg"
-                                    :class="{ 'hidden' : permission.action == 'edit' && item.subject == 'transactions' }"
+                                    :class="{
+                                        'hidden' : permission.action == 'edit' && item.subject == 'transactions' ||
+                                                   permission.action == 'create' && item.subject == 'invoicing' ||
+                                                   permission.action == 'edit' && item.subject == 'invoicing' ||
+                                                   permission.action == 'delete' && item.subject == 'invoicing'
+                                    }"
                                     :checked="hasPermission(role.id, item.subject, permission.action)"
                                     @change="togglePermission(role.id, item.subject, permission.action)"
                                 >
@@ -125,6 +130,10 @@
                 isLoading: false,
                 showRoleModal: false,
                 items: [
+                   {
+                        label: 'Faturamento',
+                        subject: 'invoicing',
+                   },
                    {
                         label: 'Transações',
                         subject: 'transactions',

@@ -18,7 +18,7 @@
                     <div class="flex justify-between items-center">
                         <div :class="'web:text-base text-sm font-medium ' + invoicingChangeTextColor ">{{ dayStats.invoicing.change + ' em relação ao dia anterior' }} </div>
                         <a
-                            :href="route('dashboard.invoicing')"
+                            :href="route('invoicing.index')"
                             class="flex justify-center items-center px-4 h-10 bg-success rounded-xl shadow-xl hover:scale-105 transition-all self-end"
                         >
                             <p class="font-medium text-white mobile-std:text-sm">VER</p>

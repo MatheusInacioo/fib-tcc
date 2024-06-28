@@ -16,11 +16,6 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function invoicing()
-    {
-        return Inertia::render('Dashboard/Invoicing', []);
-    }
-
     private function getDayStats()
     {
         $todayStart = now()->startOfDay();
