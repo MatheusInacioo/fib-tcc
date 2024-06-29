@@ -36,6 +36,7 @@
                                 <button
                                     v-if="! customMessage || customMessage.subject == 'delete-role'"
                                     @click="confirmDelete()"
+                                    :disabled="isLoading"
                                     class="flex justify-center items-center h-10 w-24 px-4 py-2 bg-primary text-secondary font-medium rounded-lg hover:scale-110 transition-all"
                                 >
                                     <span v-if="!isLoading">Excluir</span>
@@ -44,6 +45,7 @@
                                 <button
                                     v-if="customMessage && customMessage.subject == 'close-contract'"
                                     @click="closeContract()"
+                                    :disabled="isLoading"
                                     class="flex justify-center items-center h-10 w-24 px-4 py-2 bg-primary text-secondary font-medium rounded-lg hover:scale-110 transition-all"
                                 >
                                     <span v-if="!isLoading">Confirmar</span>
@@ -53,6 +55,7 @@
                                     v-if="customMessage && customMessage.subject == 'export-data'"
                                     :href="route(exportRoute)"
                                     @click="showModal = false"
+                                    :disabled="isLoading"
                                     class="flex justify-center items-center h-10 w-24 px-4 py-2 bg-primary text-secondary font-medium rounded-lg hover:scale-110 transition-all"
                                 >
                                     <span v-if="!isLoading">Exportar</span>
@@ -61,6 +64,7 @@
                                 <button
                                     v-if="customMessage && customMessage.subject == 'exit-system'"
                                     @click="exitSystem()"
+                                    :disabled="isLoading"
                                     class="flex justify-center items-center h-10 w-24 px-4 py-2 bg-primary text-secondary font-medium rounded-lg hover:scale-110 transition-all"
                                 >
                                     <span v-if="!isLoading">Sair</span>

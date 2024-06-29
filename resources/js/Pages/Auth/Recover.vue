@@ -32,12 +32,13 @@
                                 placeholder="Digite seu email..."
                             >
                             <span v-if="form.errors.email" class="text-red-500 text-base font-semibold">{{ form.errors.email }}</span>
-                            <span v-if="mailSentMessage" class="text-success text-base font-semibold">{{ mailSentMessage }}</span>
+                            <span v-if="mailSentMessage" class="text-success text-base font-semibold mt-2">{{ mailSentMessage }}</span>
                         </div>
 
                         <button
                             type="submit"
-                            class="flex justify-center items-center w-full h-10 bg-primary rounded-xl text-secondary text-lg font-medium shadow-xl hover:scale-105 transition-all"
+                            :disabled="isLoading"
+                            class="flex justify-center items-center w-full h-10 bg-primary rounded-xl text-secondary font-medium shadow-xl hover:scale-105 transition-all"
                         >
                             <span v-if="!isLoading">Enviar</span>
                             <i v-if="isLoading" class="bx bx-loader-alt animate-spin text-2xl"></i>

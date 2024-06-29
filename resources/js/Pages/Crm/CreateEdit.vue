@@ -241,6 +241,7 @@
                 </a>
                 <button
                     type="submit"
+                    :disabled="isLoading"
                     class="flex justify-center items-center w-24 2xl:h-10 p-2 rounded-xl text-secondary font-medium text-sm 2xl:text-base ml-3 bg-primary hover:scale-105 transition-all"
                 >
                     <span v-if="!isLoading">Salvar</span>

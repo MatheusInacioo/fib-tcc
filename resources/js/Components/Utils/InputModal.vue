@@ -49,7 +49,7 @@
                             <button
                                 @click="createRole()"
                                 class="h-8 w-20 rounded-xl font-medium text-sm ml-3"
-                                :disabled="! form.name"
+                                :disabled="! form.name || isLoading"
                                 :class="{
                                     'bg-primary text-secondary hover:scale-105 transition-all' : form.name,
                                     'bg-gray-300 text-white' : ! form.name,

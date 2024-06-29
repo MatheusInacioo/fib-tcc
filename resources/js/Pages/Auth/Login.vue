@@ -1,7 +1,7 @@
 <template>
     <div>
         <Head title="Login"/>
-        <div class="login-screen w-screen h-screen flex bg-[url('img/app/background.jpg')] bg-center bg-cover">
+        <div class="login-screen w-screen h-screen flex bg-[url('/img/app/background.jpg')] bg-center bg-cover">
             <div class="h-full mobile-std:w-full w-[500px] shadow-2xl bg-gray-800 bg-opacity-20 mobile-std:bg-white backdrop-filter backdrop-blur-xl flex flex-col justify-center p-4">
                 <div class="flex flex-col justify-center items-center mb-[50px]">
                     <img class="mobile-std:hidden" width="300" src="/img/app/logo/logo-bw.png" alt="logo">
@@ -15,7 +15,8 @@
                 >
                     <div class="grid grid-cols-1 gap-4">
 
-                        <span v-if="$page.props.errors" class="text-red-500 text-base font-semibold">{{ $page.props.errors.error }}</span>
+                        <span v-if="$page.props.flash.success" class="text-success text-base font-semibold">{{ $page.props.flash.success }}</span>
+                        <span v-if="$page.props.errors.error" class="text-danger text-base font-semibold">{{ $page.props.errors.error }}</span>
                         <div class="flex flex-col">
                             <label class="text-lg font-semibold mb-2 text-secondary mobile-std:text-primary">Email</label>
                             <input
@@ -25,7 +26,7 @@
                                 name="email"
                                 placeholder="Digite seu email..."
                             >
-                            <span v-if="form.errors.email" class="text-red-500 text-base font-semibold">{{ form.errors.email }}</span>
+                            <span v-if="form.errors.email" class="text-danger text-base font-semibold">{{ form.errors.email }}</span>
                         </div>
 
                         <div class="flex flex-col">
@@ -47,7 +48,7 @@
                                     ></i>
                                 </button>
                             </div>
-                            <span v-if="form.errors.password" class="text-red-500 text-base font-semibold mb-3">{{ form.errors.password }}</span>
+                            <span v-if="form.errors.password" class="text-danger text-base font-semibold mb-3">{{ form.errors.password }}</span>
                         </div>
 
                         <div class="flex items-center">
@@ -62,6 +63,7 @@
 
                         <button
                             type="submit"
+                            :disabled="isLoading"
                             class="flex justify-center items-center w-full h-10 bg-primary rounded-xl text-secondary text-lg font-roboto font-semibold shadow-xl hover:scale-105 transition-all"
                         >
                             <div

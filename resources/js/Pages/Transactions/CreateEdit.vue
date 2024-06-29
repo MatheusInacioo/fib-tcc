@@ -277,7 +277,7 @@
                 </a>
                 <button
                     v-if="!transactionExists"
-                    :disabled="! form.payment_method"
+                    :disabled="! form.payment_method || isLoading"
                     type="submit"
                     class="w-24 2xl:h-10 p-2 rounded-xl text-secondary font-medium text-sm 2xl:text-base ml-3"
                     :class="{
