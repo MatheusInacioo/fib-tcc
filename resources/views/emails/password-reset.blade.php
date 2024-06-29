@@ -7,7 +7,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <img src="{{ asset('img/app/logo/logo.png') }}" alt="Logo" width="300">
+            <img src="{{ asset('/img/app/logo/logo.png') }}" alt="logo" width="250">
         </div>
         <div class="content">
             <h2>Redefinição de Senha</h2>
@@ -18,7 +18,11 @@
             <p>Atenciosamente,<br>Equipe {{ config('app.name') }}</p>
         </div>
         <div class="footer">
-            <p>&copy; {{ date('Y') }} {{ config('app.name') }}. Todos os direitos reservados.</p>
+            <hr>
+            <div>
+                <p class="reset-url">Se você não estiver conseguindo utilizar o botão "Redefinir Senha", clique no link abaixo ou copie e cole no seu navegador: <a href="{{ $url }}">{{ $url }}</a></p>
+            </div>
+            <p class=copyright>&copy; {{ date('Y') }} {{ config('app.name') }}. Todos os direitos reservados.</p>
         </div>
     </div>
 </body>
@@ -57,10 +61,18 @@
         border-radius: 5px;
     }
     .footer {
-        text-align: center;
         padding: 20px;
         font-size: 12px;
         color: #777;
+    }
+    .reset-url {
+        max-width: 100%;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+    }
+    .copyright {
+        text-align: center;
     }
 </style>
 </html>
