@@ -19,6 +19,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email.required' => 'Campo obrigatório.',
+            'email.email' => 'Formato de email inválido',
             'password.required' => 'Campo obrigatório.',
         ];
     }
