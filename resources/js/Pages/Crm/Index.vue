@@ -41,7 +41,7 @@
 
             <div class="min-h-px w-full bg-primary my-4 mobile-std:my-2"></div>
 
-            <div class="flex h-full w-full overflow-x-auto scrollbar-thin">
+            <div class="flex h-full w-full overflow-x-auto">
                 <Databoard
                     v-for="board in boards"
                     :title="board"
