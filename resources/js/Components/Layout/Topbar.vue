@@ -40,6 +40,53 @@
             </transition>
         </button>
         <!--  -->
+        
+        <div class="dropdown-holder flex flex-col relative">
+            <div
+                @click="toggleStoreDropdown = !toggleStoreDropdown"
+                class="user-dropdown flex h-10 items-center transition-all hover:scale-110 cursor-pointer"
+            >
+                <i class="mobile-std:hidden bx bxs-store text-3xl text-primary mr-2"></i>
+                <i class="web:hidden mobile-lg:hidden bx bxs-store text-3xl text-secondary"></i>
+                <p class="text-base 2xl:text-lg font-medium mr-2 mobile-std:hidden">Loja 1</p>
+                <i
+                    :class="{
+                        'bx bx-chevron-down' : !toggleStoreDropdown,
+                        'bx bx-chevron-up' : toggleStoreDropdown,
+                    }"
+                    class="text-2xl mobile-std:hidden"
+                ></i>
+            </div>
+
+            <transition name="dropdown">
+                <div
+                    v-if="toggleStoreDropdown"
+                    class="absolute web:top-[50px] -left-[8px] mobile-std:-left-[5rem] mobile-std:top-[60px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl mobile-std:rounded-xl mobile-std:w-full"
+                >
+                    <div
+                        v-for="menu in filteredMenus"
+                        :key="menu.id"
+                        class="text-left"
+                    >
+                        <a
+                            v-if="userHasPermission('list', menu.subject)"
+                            :href="route(menu.route)"
+                            class="flex items-center transition-all pl-4 w-full py-2 bg-gray-200"
+                        >
+                            <p class="text-sm 2xl:text-lg hover:scale-105 transition-all font-medium text-gray-800 w-full"> {{ menu.title }} </p>
+                        </a>
+                        <a
+                            v-if="userHasPermission('list', menu.subject)"
+                            v-for="submenu in menu.submenus"
+                            :href="route(submenu.route)"
+                            class="flex items-center transition-all px-4 py-2"
+                        >
+                            <p class="2xl:text-base hover:scale-105 transition-all bg-white text-black w-full"> {{ submenu.title }} </p>
+                        </a>
+                    </div>
+                </div>
+            </transition>
+        </div>
 
         <div class="w-[320px] max-w-[500px] searchbar-holder flex flex-col mobile-std:hidden">
             <div class="flex items-center 2xl:w-full my-4 bg-white border border-primary transition-all rounded-xl">
