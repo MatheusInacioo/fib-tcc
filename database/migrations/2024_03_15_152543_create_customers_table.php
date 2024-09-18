@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('responsible');
             $table->string('responsible_phone');
             $table->string('segment');
+            $table->boolean('active');
             $table->timestamps();
         });
     }

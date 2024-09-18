@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('corporate_name');
+            $table->boolean('active');
             $table->timestamps();
         });
     }

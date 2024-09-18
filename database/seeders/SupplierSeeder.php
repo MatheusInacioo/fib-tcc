@@ -23,6 +23,7 @@ class SupplierSeeder extends Seeder
                 'responsible' => fake()->name(),
                 'responsible_phone' => fake()->numerify('(##)#####-####'),
                 'segment' => fake()->randomElement(['Atacado', 'Varejo', 'Transportes', 'Distribuidora', 'Alimentação']),
+                'active' => true,
             ]);
         }
     }

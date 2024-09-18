@@ -48,7 +48,7 @@ class PermissionSeeder extends Seeder
         ];
 
         foreach($permissions as $permissionName) {
-            $createdPermission = Permission::create(['name' => $permissionName]);
+            $createdPermission = Permission::create(['name' => $permissionName, 'active' => true]);
 
             DB::table('role_permission')->insert([
                 'role_id' => 1,

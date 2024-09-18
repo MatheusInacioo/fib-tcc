@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
             'role_id' => 1,
             'email' => 'mtsi1@hotmail.com',
             'password' => bcrypt('senha'),
+            'active' => true,
         ]);
 
         User::factory(9)->create();

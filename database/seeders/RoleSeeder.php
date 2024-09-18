@@ -19,7 +19,7 @@ class RoleSeeder extends Seeder
         ];
 
         foreach($roles as $roleName) {
-            Role::create(['name' => $roleName]);
+            Role::create(['name' => $roleName, 'active' => true]);
         }
     }
 }
