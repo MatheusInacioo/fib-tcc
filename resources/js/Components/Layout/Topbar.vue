@@ -43,7 +43,7 @@
         
         <div class="dropdown-holder flex flex-col relative">
             <div
-                @click="toggleStoreDropdown = !toggleStoreDropdown"
+                @click="toggleShopDropdown = !toggleShopDropdown"
                 class="user-dropdown flex h-10 items-center transition-all hover:scale-110 cursor-pointer"
             >
                 <i class="mobile-std:hidden bx bxs-store text-3xl text-primary mr-2"></i>
@@ -51,8 +51,8 @@
                 <p class="text-base 2xl:text-lg font-medium mr-2 mobile-std:hidden">Loja 1</p>
                 <i
                     :class="{
-                        'bx bx-chevron-down' : !toggleStoreDropdown,
-                        'bx bx-chevron-up' : toggleStoreDropdown,
+                        'bx bx-chevron-down' : !toggleShopDropdown,
+                        'bx bx-chevron-up' : toggleShopDropdown,
                     }"
                     class="text-2xl mobile-std:hidden"
                 ></i>
@@ -60,7 +60,7 @@
 
             <transition name="dropdown">
                 <div
-                    v-if="toggleStoreDropdown"
+                    v-if="toggleShopDropdown"
                     class="absolute web:top-[50px] -left-[8px] mobile-std:-left-[5rem] mobile-std:top-[60px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl mobile-std:rounded-xl mobile-std:w-full"
                 >
                     <div
@@ -206,7 +206,7 @@
         return {
             user: this.$page.props.auth.user,
             toggleUserDropdown: false,
-            toggleStoreDropdown: false,
+            toggleShopDropdown: false,
             toggleMenu: false,
             searchQuery: '',
             showModal: false,
