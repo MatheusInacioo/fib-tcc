@@ -11,6 +11,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\ShopController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
@@ -112,4 +113,8 @@ Route::middleware('auth')->group(function () {
     Route::controller(InvoicingController::class)->group(function () {
         Route::get('/invoicing', 'index')->name('invoicing.index');
     });
+
+    // Shop routes
+    Route::resource('/shops', ShopController::class)->except(['show', 'destroy']);
+    Route::post('/shops/destroy/{id}', [ShopController::class, 'destroy'])->name('shops.destroy');
 });

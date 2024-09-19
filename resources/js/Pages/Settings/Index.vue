@@ -71,7 +71,7 @@
                     {
                         title: 'Lojas',
                         icon: 'bx bx-store',
-                        route: 'permissions.index',
+                        route: 'shops.index',
                     },
                     {
                         title: 'Permissões',

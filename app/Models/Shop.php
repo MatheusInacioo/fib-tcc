@@ -14,4 +14,16 @@ class Shop extends Model
         'location',
         'active',
     ];
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    public function getCompanyName()
+    {
+        $companyName = Company::where('id', $this->company_id)->value('name');
+
+        return $companyName;
+    }
 }

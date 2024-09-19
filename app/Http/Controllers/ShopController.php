@@ -60,7 +60,7 @@ class ShopController extends Controller
     public function destroy($shopId)
     {
         try {
-            Shop::find($shopId)->delete();
+            Shop::find($shopId)->update(['active' => false]);
 
             return redirect()->route('shops.index')->with('success', 'Loja excluída com sucesso.');
         } catch(Exception $ex) {
