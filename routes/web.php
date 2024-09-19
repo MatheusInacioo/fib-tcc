@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CrmController;
 use App\Http\Controllers\DashboardController;
@@ -117,4 +118,8 @@ Route::middleware('auth')->group(function () {
     // Shop routes
     Route::resource('/shops', ShopController::class)->except(['show', 'destroy']);
     Route::post('/shops/destroy/{id}', [ShopController::class, 'destroy'])->name('shops.destroy');
+
+    // Shop routes
+    Route::resource('/companies', CompanyController::class)->except(['show', 'destroy']);
+    Route::post('/companies/destroy/{id}', [CompanyController::class, 'destroy'])->name('shops.destroy');
 });
