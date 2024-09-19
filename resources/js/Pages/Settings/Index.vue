@@ -69,6 +69,11 @@
                         route: 'users.index',
                     },
                     {
+                        title: 'Empresas',
+                        icon: 'bx bx-buildings',
+                        route: 'companies.index',
+                    },
+                    {
                         title: 'Lojas',
                         icon: 'bx bx-store',
                         route: 'shops.index',
