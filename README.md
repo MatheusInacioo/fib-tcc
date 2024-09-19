@@ -16,11 +16,7 @@
 ### Installation Steps
 
 #### 1. Clone the Repository
-
-```bash
-git clone https://github.com/yourusername/digistock.git
-cd digistock
-```
+Clone the project into your local machine and and run `cd digistock` in order to access the correct directory and perform the following steps.
 
 #### 2. Copy `.env.example` to `.env`
 ```bash
@@ -53,19 +49,19 @@ and
 composer update
 ```
 
-#### 7. Install Laravel Sail
+#### 6. Install Laravel Sail
 [Laravel Sail](https://laravel.com/docs/10.x/sail) provides a simple Docker environment for local development. Install it with:
 ```bash
 composer require laravel/sail --dev
 php artisan sail:install
 ```
-#### 8. Generate the Application Key
+#### 7. Generate the Application Key
 To generate your application key, simply run: 
 ```bash
 php artisan key:generate
 ```
 
-#### 9. Start the Application
+#### 8. Start the Application
 To start the application using Sail, run:
 ```bash
 ./vendor/bin/sail up -d
@@ -76,7 +72,7 @@ alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
 ```
 Once done, simply run `sail up -d` instead of the full command.
 
-#### 10. Run Database Migrations
+#### 9. Run Database Migrations
 To create the application database, run: 
 ```bash
 ./vendor/bin/sail artisan migrate
@@ -86,12 +82,12 @@ Or, if you aliased the command:
 sail artisan migrate
 ```
 
-#### 11. Seed Database
+#### 10. Seed Database
 You need to fill your database with data in order to ensure it's correct functioning. To do so, run: 
 ```bash
 sail artisan db:seed
 ```
 #### Additional Commands
-- `sail stop` -> Stops the application
-- `sail start` -> Starts the application (once you've runned `sail up -d`)
-- `sail restart` -> Restarts the apllication (once it has started)
+- `sail stop` - Stops the application
+- `sail start` - Starts the application (once you've runned `sail up -d`)
+- `sail restart` - Restarts the apllication
