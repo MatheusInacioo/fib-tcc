@@ -1,66 +1,97 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## About Digistock
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Digistock** is an ERP system focused on inventory and logistics management. It is designed to streamline the operations of inventory control, product movement, and warehouse management in logistics-focused businesses.
 
-## About Laravel
+## Setup Instructions
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Requirements
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **PHP** (version 8.3.x)
+  - The `php-gd` extension is required for some features.
+- **Node.js** (version 18.x or higher)
+- **npm**
+- **Composer**
+- **Docker** (for Laravel Sail)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Installation Steps
 
-## Learning Laravel
+#### 1. Clone the Repository
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```bash
+git clone https://github.com/yourusername/digistock.git
+cd digistock
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+#### 2. Copy `.env.example` to `.env`
+```bash
+cp .env.example .env
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+#### 3. Install Node.js (if necessary)
+If Node.js is not installed, use the following command to install it via NodeSource:
+```bash
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt install -y nodejs
+```
 
-## Laravel Sponsors
+#### 4. Install npm Packages
+```bash
+npm install
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+#### 5. Install Composer Dependencies
+If Composer is not installed, run: 
+```bash
+sudo apt install composer
+```
+Once installed, run:
+```bash
+composer install
+```
+and 
+```bash
+composer update
+```
 
-### Premium Partners
+#### 7. Install Laravel Sail
+[Laravel Sail](https://laravel.com/docs/10.x/sail) provides a simple Docker environment for local development. Install it with:
+```bash
+composer require laravel/sail --dev
+php artisan sail:install
+```
+#### 8. Generate the Application Key
+To generate your application key, simply run: 
+```bash
+php artisan key:generate
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+#### 9. Start the Application
+To start the application using Sail, run:
+```bash
+./vendor/bin/sail up -d
+```
+You can also give an shell alias to the `./vendor/bin/sail` command instead of repeatedly typing it. To do so, edit your `~/.bashrc` or `~/.zshrc` file and add the following command at the end of the file: 
+```bash
+alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
+```
+Once done, simply run `sail up -d` instead of the full command.
 
-## Contributing
+#### 10. Run Database Migrations
+To create the application database, run: 
+```bash
+./vendor/bin/sail artisan migrate
+```
+Or, if you aliased the command: 
+```bash
+sail artisan migrate
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### 11. Seed Database
+You need to fill your database with data in order to ensure it's correct functioning. To do so, run: 
+```bash
+sail artisan db:seed
+```
+#### Additional Commands
+- `sail stop` -> Stops the application
+- `sail start` -> Starts the application (once you've runned `sail up -d`)
+- `sail restart` -> Restarts the apllication (once it has started)
