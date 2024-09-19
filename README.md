@@ -70,7 +70,7 @@ You can also give an shell alias to the `./vendor/bin/sail` command instead of r
 ```bash
 alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
 ```
-Once done, simply run `sail up -d` instead of the full command.
+Once done, restart your shell and run `sail up -d` instead of the full command.
 
 #### 9. Run Database Migrations
 To create the application database, run: 
