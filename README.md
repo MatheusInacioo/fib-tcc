@@ -62,10 +62,15 @@ php artisan key:generate
 ```
 
 #### 8. Start the Application
-To start the application using Sail, run:
+To start the application, first you should run:
+```bash
+npm run dev
+```
+And then, run: 
 ```bash
 ./vendor/bin/sail up -d
 ```
+
 You can also give an shell alias to the `./vendor/bin/sail` command instead of repeatedly typing it. To do so, edit your `~/.bashrc` or `~/.zshrc` file and add the following command at the end of the file: 
 ```bash
 alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
