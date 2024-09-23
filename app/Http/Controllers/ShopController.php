@@ -15,7 +15,7 @@ class ShopController extends Controller
         $shops = Shop::where('active', true)->get();
 
         return Inertia::render('Shops/Index', [
-            'shops' => $shops,
+            'shops' => ShopResource::collection($shops)->toArray(request()),
         ]);
     }
 

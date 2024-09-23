@@ -16,7 +16,7 @@
             @submit.prevent="saveForm()"
             class="w-full h-full"
         >
-            <div class="form-row grid grid-cols-4 mobile-std:grid-cols-1 mobile-lg:grid-cols-3 gap-4">
+            <div class="form-row grid grid-cols-4 mobile-std:grid-cols-1 mobile-lg:grid-cols-3 gap-4 mb-4">
                 <div class="form-field flex flex-col">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Nome do usuário</span>
                     <input
@@ -60,7 +60,55 @@
                 </div>
 
                 <div
-                    class="form-field flex flex-col mr-4 mb-4 mobile-std:mb-4 mobile-std:mr-0"
+                    class="form-field flex flex-col mobile-std:mb-4 mobile-std:mr-0"
+                    :class="{
+                        'hidden' : !userIsAdmin
+                    }"
+                >
+                    <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Empresa</span>
+                    <select
+                        v-model="form.company_id"
+                        name="company"
+                        id="company"
+                        class="border-gray-300 2xl:text-base text-sm rounded-xl"
+                    >
+                        <option
+                            v-for="company in companies"
+                            :key="company.id"
+                            :value="company.id"
+                        >
+                            {{  company.id + ' - ' + company.name }}
+                        </option>
+                    </select>
+                    <div v-if="form.errors.company_id" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.company_id }}</div>
+                </div>
+
+                <div
+                    class="form-field flex flex-col mobile-std:mb-4 mobile-std:mr-0"
+                    :class="{
+                        'hidden' : !userIsAdmin
+                    }"
+                >
+                    <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Loja</span>
+                    <select
+                        v-model="form.shop_id"
+                        name="shop"
+                        id="shop"
+                        class="border-gray-300 2xl:text-base text-sm rounded-xl"
+                    >
+                        <option
+                            v-for="shop in filteredShops"
+                            :key="shop.id"
+                            :value="shop.id"
+                        >
+                            {{ shop.id + ' - ' + shop.name }}
+                        </option>
+                    </select>
+                    <div v-if="form.errors.shop_id" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.shop_id }}</div>
+                </div>
+
+                <div
+                    class="form-field flex flex-col mobile-std:mb-4 mobile-std:mr-0"
                     :class="{
                         'hidden' : !userIsAdmin
                     }"
@@ -117,6 +165,7 @@ export default {
     props: {
         user: {},
         roles: {},
+        companies: {},
     },
 
     setup() {
@@ -124,6 +173,8 @@ export default {
             name: null,
             email: null,
             password: null,
+            company_id: null,
+            shop_id: null,
             role_id: null,
         });
 
@@ -149,6 +200,12 @@ export default {
 
         userExists() {
             return this.user ? true : false;
+        },
+
+        filteredShops() {
+            const selectedCompany = this.companies.find(company => company.id === this.form.company_id);
+
+            return selectedCompany ? selectedCompany.shops : [];
         }
     },
 
@@ -182,6 +239,8 @@ export default {
         buildForm(data) {
             this.form.name = data.name;
             this.form.email = data.email;
+            this.form.company_id = data.company_id;
+            this.form.shop_id = data.shop_id;
             this.form.role_id = data.role_id;
         },
     },

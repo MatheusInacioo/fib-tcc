@@ -45,6 +45,16 @@ class PermissionSeeder extends Seeder
             'create-users',
             'edit-users',
             'delete-users',
+            'list-shops',
+            'export-shops',
+            'create-shops',
+            'edit-shops',
+            'delete-shops',
+            'list-companies',
+            'export-companies',
+            'create-companies',
+            'edit-companies',
+            'delete-companies',
         ];
 
         foreach($permissions as $permissionName) {

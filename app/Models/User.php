@@ -22,6 +22,9 @@ class User extends Authenticatable
         'email',
         'password',
         'role_id',
+        'company_id',
+        'shop_id',
+        'active',
     ];
 
     /**
@@ -49,11 +52,35 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    public function shop()
+    {
+        return $this->belongsTo(Shop::class);
+    }
+
     public function getRoleName()
     {
         $roleName = Role::where('id', $this->role_id)->value('name');
 
         return $roleName;
+    }
+
+    public function getCompanyName()
+    {
+        $companyName = Company::where('id', $this->company_id)->value('name');
+
+        return $companyName;
+    }
+
+    public function getShopName()
+    {
+        $shopName = Shop::where('id', $this->shop_id)->value('name');
+
+        return $shopName;
     }
 
     public function hasPermission($permission)

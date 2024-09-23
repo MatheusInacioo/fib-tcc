@@ -20,6 +20,10 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'role_id' => $this->role_id,
             'role_name' => $this->getRoleName() ?? 'Sem Cargo',
+            'company_id' => $this->company_id,
+            'company_name' => $this->getCompanyName() ?? 'Não alocado',
+            'shop_id' => $this->shop_id,
+            'shop_name' => $this->getShopName() ?? 'Não alocado',
         ];
     }
 }

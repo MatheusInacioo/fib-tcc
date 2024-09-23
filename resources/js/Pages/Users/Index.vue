@@ -86,6 +86,18 @@ export default {
                         searchable: true,
                     },
                     {
+                        label: 'Empresa',
+                        name: 'company_name',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
+                        label: 'Loja',
+                        name: 'shop_name',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
                         label: 'Cargo',
                         name: 'role_name',
                         sortable: true,

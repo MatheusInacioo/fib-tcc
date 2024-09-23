@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\UsersExport;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
+use App\Models\Company;
 use App\Models\Role;
 use App\Models\User;
 use Exception;
@@ -15,7 +16,9 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::where('id', '<>', auth()->user()->id)->get();
+        $users = User::where('id', '<>', auth()->user()->id)
+                     ->where('active', true)
+                     ->get();
 
         return Inertia::render('Users/Index', [
             'users' => UserResource::collection($users)->toArray(request()),
@@ -25,19 +28,27 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::select('id', 'name')->get();
+        $companies = Company::where('active', true)
+                            ->with(['shops'])
+                            ->get();
 
         return Inertia::render('Users/CreateEdit', [
             'roles' => $roles,
+            'companies' => $companies,
         ]);
     }
 
     public function edit(User $user)
     {
         $roles = Role::select('id', 'name')->get();
+        $companies = Company::where('active', true)
+                            ->with(['shops'])
+                            ->get();
 
         return Inertia::render('Users/CreateEdit', [
             'user' => UserResource::make($user),
             'roles' => $roles,
+            'companies' => $companies,
         ]);
     }
 
@@ -71,7 +82,7 @@ class UserController extends Controller
     public function destroy($userId)
     {
         try {
-            User::find($userId)->delete();
+            User::find($userId)->update(['active' => false]);
 
             return redirect()->route('users.index')->with('success', 'Usuário excluído com sucesso.');
         } catch(Exception $ex) {

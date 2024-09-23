@@ -62,7 +62,6 @@ export default {
                 button_title: 'Nova Loja',
                 routes: {
                     create: 'shops.create',
-                    export: 'shops.export',
                     edit: 'shops.edit',
                     delete: 'shops.destroy',
                 },

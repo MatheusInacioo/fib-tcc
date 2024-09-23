@@ -18,6 +18,8 @@ class UserRequest extends FormRequest
             'email' => 'required|unique:users|email|max:50|regex:/^[a-z0-9._]+@[a-z0-9.-]+\.[a-z]{2,}$/i',
             'password' => 'required',
             'role_id' => 'required|integer',
+            'company_id' => 'required|integer',
+            'shop_id' => 'required|integer',
         ];
 
         if($this->method() == 'PUT') {
@@ -38,6 +40,8 @@ class UserRequest extends FormRequest
             'email.max' => 'O email deve ter no máximo :max caracteres',
             'password.required' => 'Campo obrigatório',
             'role_id.required' => 'Campo obrigatório',
+            'company_id.required' => 'Campo obrigatório',
+            'shop_id.required' => 'Campo obrigatório',
         ];
     }
 
@@ -48,6 +52,9 @@ class UserRequest extends FormRequest
             'email' => $this->input('email'),
             'password' => $this->input('password') ?? null,
             'role_id' => $this->input('role_id') ?? null,
+            'company_id' => $this->input('company_id') ?? null,
+            'shop_id' => $this->input('shop_id') ?? null,
+            'active' => true,
         ];
     }
 }
