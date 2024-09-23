@@ -63,7 +63,7 @@
                     v-if="toggleShopDropdown"
                     class="absolute web:top-[50px] -left-[8px] mobile-std:-left-[5rem] mobile-std:top-[60px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl mobile-std:rounded-xl mobile-std:w-full"
                 >
-                    <div
+                    <!-- <div
                         v-for="menu in filteredMenus"
                         :key="menu.id"
                         class="text-left"
@@ -83,13 +83,13 @@
                         >
                             <p class="2xl:text-base hover:scale-105 transition-all bg-white text-black w-full"> {{ submenu.title }} </p>
                         </a>
-                    </div>
+                    </div> -->
                 </div>
             </transition>
         </div>
 
         <div class="w-[320px] max-w-[500px] searchbar-holder flex flex-col mobile-std:hidden">
-            <div class="flex items-center 2xl:w-full my-4 bg-white border border-primary transition-all rounded-xl">
+            <div class="flex items-center 2xl:w-full my-4 bg-white border border-gray-400 transition-all rounded-xl">
                 <input
                     type="text"
                     v-model="searchQuery"

@@ -45,9 +45,4 @@ class LoginController extends Controller
     {
         return Inertia::render('Auth/Reset');
     }
-
-    public function teste()
-    {
-        return view('emails.password-reset');
-    }
 }

@@ -35,7 +35,6 @@ Route::controller(LoginController::class)->group(function () {
     Route::post('/login', 'store')->name('login.store');
     Route::get('/logout', 'destroy')->name('login.destroy');
     Route::get('/recover', 'recover')->name('login.recover');
-    Route::get('/teste', 'teste')->name('teste');
 });
 
 Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
