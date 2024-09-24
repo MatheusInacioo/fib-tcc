@@ -13,7 +13,10 @@ class PermissionController extends Controller
 {
     public function index()
     {
-        $roles = Role::with('permissions:id,name')->select('id', 'name')->get();
+        $roles = Role::with('permissions:id,name')
+                     ->select('id', 'name')
+                     ->where('active', true)
+                     ->get();
 
         return Inertia::render('Settings/Permissions/Index', [
             'roles' => $roles,

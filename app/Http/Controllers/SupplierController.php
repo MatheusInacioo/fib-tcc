@@ -14,7 +14,7 @@ class SupplierController extends Controller
 {
     public function index()
     {
-        $suppliers = Supplier::all();
+        $suppliers = Supplier::where('active', true)->get();
 
         return Inertia::render('Suppliers/Index', [
             'suppliers' => $suppliers,
@@ -62,7 +62,7 @@ class SupplierController extends Controller
     public function destroy($supplierId)
     {
         try {
-            Supplier::find($supplierId)->delete();
+            Supplier::find($supplierId)->update(['active' => false]);
 
             return redirect()->route('suppliers.index')->with('success', 'Fornecedor excluído com sucesso.');
         } catch(Exception $ex) {

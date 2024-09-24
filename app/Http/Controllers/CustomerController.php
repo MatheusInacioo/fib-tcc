@@ -14,7 +14,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = Customer::all();
+        $customers = Customer::where('active', true)->get();
 
         return Inertia::render('Customers/Index', [
             'customers' => $customers,
@@ -62,7 +62,7 @@ class CustomerController extends Controller
     public function destroy($customerId)
     {
         try {
-            Customer::find($customerId)->delete();
+            Customer::find($customerId)->update(['active' => false]);
 
             return redirect()->route('customers.index')->with('success', 'Cliente excluído com sucesso.');
         } catch(Exception $ex) {
