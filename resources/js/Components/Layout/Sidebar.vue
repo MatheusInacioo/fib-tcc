@@ -108,7 +108,7 @@
                                 :href="route(button.route)"
                                 class="flex items-center h-8 hover:bg-secondary hover:rounded-lg hover:text-primary transition-all hover:scale-110 p-2"
                             >
-                                <i :class="button.icon + ' text-base 2xl:text-xl text-secondary group-hover:text-primary'"></i>
+                                <i :class="button.icon + ' text-lg 2xl:text-xl text-secondary group-hover:text-primary'"></i>
                                 <span class="menu-text absolute left-full ml-1 whitespace-nowrap bg-secondary px-2 py-1 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm 2xl:text-base font-medium text-primary">
                                     {{ button.title }}
                                 </span>

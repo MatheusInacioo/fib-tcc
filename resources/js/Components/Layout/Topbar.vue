@@ -61,7 +61,7 @@
             <transition name="dropdown">
                 <div
                     v-if="toggleShopDropdown"
-                    class="absolute web:top-[50px] -left-[8px] mobile-std:-left-[5rem] mobile-std:top-[60px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl mobile-std:rounded-xl mobile-std:w-full"
+                    class="absolute web:top-[50px] -left-[8px] mobile-std:-left-[5rem] top-[45px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl mobile-std:rounded-xl mobile-std:w-full"
                 >
                     <div
                         v-for="menu in filteredMenus"
@@ -149,7 +149,7 @@
             <transition name="dropdown">
                 <div
                     v-if="toggleUserDropdown"
-                    class="absolute web:top-[80px] mobile-std:top-[60px] right-[30px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl mobile-std:right-[0px] mobile-std:rounded-xl mobile-std:w-full"
+                    class="absolute web:top-[80px] top-[60px] right-[30px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl mobile-std:right-[0px] mobile-std:rounded-xl mobile-std:w-full"
                 >
                     <div class="flex p-4 border-b border-b-gray-300 bg-primary mobile-std:rounded-t-xl">
                         <a
