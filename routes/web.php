@@ -118,7 +118,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/shops', ShopController::class)->except(['show', 'destroy']);
     Route::post('/shops/destroy/{id}', [ShopController::class, 'destroy'])->name('shops.destroy');
 
-    // Shop routes
+    // Company routes
     Route::resource('/companies', CompanyController::class)->except(['show', 'destroy']);
-    Route::post('/companies/destroy/{id}', [CompanyController::class, 'destroy'])->name('shops.destroy');
+    Route::post('/companies/destroy/{id}', [CompanyController::class, 'destroy'])->name('companies.destroy');
 });
