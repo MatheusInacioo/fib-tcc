@@ -16,13 +16,25 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Administrador',
             'role_id' => 1,
-            'email' => 'admin@digistock.com',
-            'password' => bcrypt('senha'),
+            'email' => 'user1@email.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt(123),
             'company_id' => 1,
             'shop_id' => rand(1, 2),
             'active' => true,
         ]);
 
-        User::factory(9)->create();
+        for ($i = 2; $i < 9; $i++) {
+            User::create([
+                'name' => fake()->name(),
+                'role_id' => rand(1, 3),
+                'email' => "user{$i}@email.com",
+                'email_verified_at' => now(),
+                'password' => bcrypt(123),
+                'company_id' => 1,
+                'shop_id' => rand(1, 2),
+                'active' => true,
+            ]);
+        }
     }
 }
