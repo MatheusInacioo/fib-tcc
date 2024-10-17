@@ -30,6 +30,20 @@
                     </button>
                     <span class="text-2xl mobile-std:text-xl font-medium">CRM Dashboard</span>
                 </div>
+
+                <div class="w-[320px] max-w-[500px] searchbar-holder flex flex-col mobile-std:hidden">
+                    <div class="flex items-center 2xl:w-full bg-white border border-gray-400 transition-all rounded-xl">
+                        <input
+                            type="text"
+                            @change='filterCrmData()'
+                            v-model="CrmSearchQuery"
+                            placeholder="Buscar registro..."
+                            class="w-full border-none focus:outline-none rounded-l-xl"
+                        >
+                        <i class="bx bx-search text-lg 2xl:text-xl mx-2"></i>
+                    </div>
+                </div>
+
                 <a
                     :href="route('crm.create')"
                     class="flex justify-center items-center w-40 p-2 h-10 mobile-std:w-14 bg-primary rounded-xl text-secondary text-lg font-semibold shadow-xl hover:scale-105 transition-all"
