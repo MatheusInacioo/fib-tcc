@@ -41,6 +41,7 @@
         </button>
         <!--  -->
         
+        <!-- Session scope dropdown -->
         <div :class="{ 'hidden' : companies == 1 && companies.shops == 1 }">
             <div class="dropdown-holder flex flex-col relative">
                 <div
@@ -49,7 +50,18 @@
                 >
                     <i class="mobile-std:hidden bx bxs-store text-3xl text-primary mr-2"></i>
                     <i class="web:hidden mobile-lg:hidden bx bxs-store text-3xl text-secondary"></i>
-                    <p class="text-base 2xl:text-lg font-medium mr-2 mobile-std:hidden">Loja 1</p>
+                    <p 
+                        v-if="companies.length > 1"
+                        class="text-base 2xl:text-lg font-medium mr-2 mobile-std:hidden"
+                    >
+                        {{ selectedCompany.name + ' - ' + selectedShop.name }}
+                    </p>
+                    <p
+                        v-if="companies.length == 1" 
+                        class="text-base 2xl:text-lg font-medium mr-2 mobile-std:hidden"
+                    >
+                        {{ selectedShop.name }}
+                    </p>
                     <i
                         :class="{
                             'bx bx-chevron-down' : !toggleShopDropdown,
@@ -63,6 +75,7 @@
                     <div
                         v-if="toggleShopDropdown"
                         class="absolute web:top-[50px] -left-[8px] mobile-std:-left-[5rem] top-[45px] flex flex-col min-w-[200px] max-w-[500px] z-10 bg-white border border-gray-200 shadow-lg rounded-b-xl mobile-std:rounded-xl mobile-std:w-full"
+                        @click="toggleShopDropdown = false"
                     >
                         <div
                             v-for="company in companies"
@@ -75,18 +88,21 @@
                             >
                                 <p class="text-sm 2xl:text-lg hover:scale-105 transition-all font-medium text-gray-800 w-full"> {{ company.name }} </p>
                             </a>
-                            <a
+                            <button
                                 v-for="shop in company.shops"
-                                class="flex items-center transition-all px-4 py-2"
+                                class="flex text-left transition-all px-4 py-2 w-full"
+                                @click="setSessionScope(company.id, shop.id, true)"
                             >
                                 <p class="2xl:text-base hover:scale-105 transition-all bg-white text-black w-full"> {{ shop.name }} </p>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </transition>
             </div>
         </div>
+        <!--  -->
 
+        <!-- Searchbar -->
         <div class="w-[320px] max-w-[500px] searchbar-holder flex flex-col mobile-std:hidden">
             <div class="flex items-center 2xl:w-full my-4 bg-white border border-gray-400 transition-all rounded-xl">
                 <input
@@ -127,7 +143,9 @@
                 </div>
             </transition>
         </div>
+        <!--  -->
 
+        <!-- User dropdown -->
         <div class="dropdown-holder flex flex-col">
             <div
                 @click="toggleUserDropdown = !toggleUserDropdown"
@@ -183,6 +201,7 @@
                 </div>
             </transition>
         </div>
+        <!--  -->
 
         <ConfirmationModal
             :show-modal="showModal"
@@ -288,6 +307,8 @@
                 },
             ],
             companies: [],
+            selectedCompany: [],
+            selectedShop: [],
         }
     },
 
@@ -322,10 +343,29 @@
                 console.error('Erro ao buscar permissões:', error);
             }
         },
+
+        setSessionScope(companyId, shopId, isManualRequest) {
+            axios.post(this.route('session.scope'), {
+                company_id: companyId,
+                shop_id: shopId
+            })
+            .then(response => {
+                this.selectedCompany = this.companies.find(c => c.id === response.data.selected_company_id);
+                this.selectedShop = this.companies.find(c => c.id === response.data.selected_company_id).shops.find(s => s.id === response.data.selected_shop_id);
+
+                if (isManualRequest) {
+                    window.location.href = '/dashboard';
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao atualizar sessão:', error);
+            });
+        }
     },
 
     created() {
         this.getCompanies();
+        this.setSessionScope(this.$page.props.auth.selected_company_id, this.$page.props.auth.selected_shop_id, false);
     }
  };
  </script>

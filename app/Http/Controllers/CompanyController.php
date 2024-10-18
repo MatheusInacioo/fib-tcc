@@ -82,6 +82,7 @@ class CompanyController extends Controller
 
             $data = $companies->map(function ($company) {
                 return [
+                    'id' => $company->id,
                     'name' => $company->name,
                     'corporate_name' => $company->corporate_name,
                     'shops' => $company->shops->map(function ($shop) {

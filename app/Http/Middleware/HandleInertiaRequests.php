@@ -36,6 +36,8 @@ class HandleInertiaRequests extends Middleware
                     ? $request->user()->load('role.permissions')
                     : null,
                 'year' => now()->year,
+                'selected_company_id' => session()->get('selected_company_id'),
+                'selected_shop_id' => session()->get('selected_shop_id'),
             ],
             'flash' => [
                 'success' => $request->session()->get('success'),
