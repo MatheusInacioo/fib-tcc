@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Scopes\SessionScope;
-use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Model;
 
 class Shop extends Model
