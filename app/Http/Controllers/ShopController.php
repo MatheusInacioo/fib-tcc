@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ShopRequest;
 use App\Http\Resources\ShopResource;
+use App\Models\Company;
 use App\Models\Shop;
 use Exception;
 use Inertia\Inertia;
@@ -21,13 +22,20 @@ class ShopController extends Controller
 
     public function create()
     {
-        return Inertia::render('Shops/CreateEdit');
+        $companies = Company::where('active', true)->get();
+
+        return Inertia::render('Shops/CreateEdit', [
+            'companies' => $companies
+        ]);
     }
 
     public function edit(Shop $shop)
     {
+        $companies = Company::where('active', true)->get();
+
         return Inertia::render('Shops/CreateEdit', [
             'shop' => ShopResource::make($shop),
+            'companies' => $companies
         ]);
     }
 

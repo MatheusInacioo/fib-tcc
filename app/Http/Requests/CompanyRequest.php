@@ -15,7 +15,7 @@ class CompanyRequest extends FormRequest
     {
         $rules = [
             'name' => 'required|string',
-            'corporate_name' => 'required|int',
+            'corporate_name' => 'required|string',
         ];
 
         return $rules;
@@ -29,7 +29,7 @@ class CompanyRequest extends FormRequest
         ];
     }
 
-    public function getShopData(): array
+    public function getCompanyData(): array
     {
         return [
             'name' => $this->input('name'),

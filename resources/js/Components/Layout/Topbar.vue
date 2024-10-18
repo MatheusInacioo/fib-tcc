@@ -42,7 +42,7 @@
         <!--  -->
         
         <!-- Session scope dropdown -->
-        <div :class="{ 'hidden' : companies == 1 && companies.shops == 1 }">
+        <div :class="{ 'hidden' : companies.length == 1 && companies.shops == 1 }">
             <div class="dropdown-holder flex flex-col relative">
                 <div
                     @click="toggleShopDropdown = !toggleShopDropdown"
