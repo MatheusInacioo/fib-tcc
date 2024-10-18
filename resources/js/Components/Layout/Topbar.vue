@@ -344,15 +344,15 @@
             }
         },
 
-        setSessionScope(companyId, shopId, isManualRequest) {
-            axios.post(this.route('session.scope'), {
+        async setSessionScope(companyId, shopId, isManualRequest) {
+            await axios.post(this.route('session.scope'), {
                 company_id: companyId,
                 shop_id: shopId
             })
             .then(response => {
                 this.selectedCompany = this.companies.find(c => c.id === response.data.selected_company_id);
                 this.selectedShop = this.companies.find(c => c.id === response.data.selected_company_id).shops.find(s => s.id === response.data.selected_shop_id);
-
+                
                 if (isManualRequest) {
                     window.location.href = '/dashboard';
                 }
