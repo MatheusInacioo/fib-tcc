@@ -120,5 +120,6 @@ Route::middleware('auth')->group(function () {
 
     // Company routes
     Route::resource('/companies', CompanyController::class)->except(['show', 'destroy']);
+    Route::get('/companies/list', [CompanyController::class, 'list'])->name('companies.list');
     Route::post('/companies/destroy/{id}', [CompanyController::class, 'destroy'])->name('companies.destroy');
 });

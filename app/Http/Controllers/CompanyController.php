@@ -7,6 +7,7 @@ use App\Http\Resources\CompanyResource;
 use App\Models\Company;
 use Exception;
 use Inertia\Inertia;
+use Symfony\Component\CssSelector\Exception\InternalErrorException;
 
 class CompanyController extends Controller
 {
@@ -38,8 +39,8 @@ class CompanyController extends Controller
 
             Company::create($data);
 
-            return redirect()->route('companies.index')->with('success', 'Empresa cadastrado com sucesso.');
-        } catch(Exception $ex) {
+            return redirect()->route('companies.index')->with('success', 'Empresa cadastrada com sucesso.');
+        } catch (Exception $ex) {
             return redirect()->route('companies.index')->with('error', 'Ocorreu um erro ao cadastrar a empresa: ' . $ex->getMessage());
         }
     }
@@ -52,7 +53,7 @@ class CompanyController extends Controller
             $company->update($data);
 
             return redirect()->route('companies.index')->with('success', 'Empresa atualizada com sucesso.');
-        } catch(Exception $ex) {
+        } catch (Exception $ex) {
             return redirect()->route('companies.index')->with('error', 'Ocorreu um erro ao autalizar os dados da empresa: ' . $ex->getMessage());
         }
     }
@@ -63,8 +64,38 @@ class CompanyController extends Controller
             Company::find($companyId)->update(['active' => false]);
 
             return redirect()->route('companies.index')->with('success', 'Empresa excluída com sucesso.');
-        } catch(Exception $ex) {
+        } catch (Exception $ex) {
             return redirect()->route('companies.index')->with('error', 'Ocorreu um erro ao excluir a empresa: ' . $ex->getMessage());
+        }
+    }
+
+    public function list()
+    {
+        try {
+            $companies = Company::where('active', true)
+                ->with([
+                    'shops' => function ($query) {
+                        $query->where('active', true);
+                    }
+                ])
+                ->get();
+
+            $data = $companies->map(function ($company) {
+                return [
+                    'name' => $company->name,
+                    'corporate_name' => $company->corporate_name,
+                    'shops' => $company->shops->map(function ($shop) {
+                        return [
+                            'id' => $shop->id,
+                            'name' => $shop->name,
+                        ];
+                    })->toArray()
+                ];
+            })->toArray();
+
+            return $data;
+        } catch (Exception $ex) {
+            throw new InternalErrorException('Erro ao listar empresas: ' . $ex->getMessage());
         }
     }
 }
