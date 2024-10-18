@@ -6,7 +6,6 @@ use App\Models\Scopes\SessionScope;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Model;
 
-#[ScopedBy([SessionScope::class])]
 class Shop extends Model
 {
     protected $table = 'shops';
