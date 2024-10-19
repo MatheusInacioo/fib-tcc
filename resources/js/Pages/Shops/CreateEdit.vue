@@ -16,7 +16,7 @@
             @submit.prevent="saveForm()"
             class="w-full h-full"
         >
-            <div class="form-row grid grid-cols-4 mobile-std:grid-cols-1 mobile-lg:grid-cols-3 gap-4">
+            <div class="form-row grid grid-cols-4 mobile-std:grid-cols-1 mobile-lg:grid-cols-3 gap-4 mb-4">
                 <div class="form-field flex flex-col">
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Nome da loja</span>
                     <input
@@ -31,7 +31,8 @@
                 </div>
 
                 <div
-                    class="form-field flex flex-col mr-4 mb-4 mobile-std:mb-4 mobile-std:mr-0"
+                    class="form-field flex flex-col"
+                    :class="{ 'hidden' : companies.length <= 1 }"
                 >
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Empresa</span>
                     <select
