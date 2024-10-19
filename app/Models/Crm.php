@@ -2,13 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class Crm extends Model
+class Crm extends AbstractModel
 {
-    use HasFactory;
-
     protected $table = 'crm_data';
 
     /**

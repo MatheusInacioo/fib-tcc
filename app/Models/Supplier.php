@@ -2,13 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class Supplier extends Model
+class Supplier extends AbstractModel
 {
-    use HasFactory;
-
     /**
      * The attributes that are mass assignable.
      *

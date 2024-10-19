@@ -58,6 +58,8 @@ class TransactionSeeder extends Seeder
 
                 Transaction::create([
                     'type' => 1,
+                    'company_id' => 1,
+                    'shop_id' => rand(1, 2),
                     'customer_id' => $customers->random()->id,
                     'supplier_id' => null,
                     'product_id' => $product->id,

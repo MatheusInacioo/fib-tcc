@@ -23,27 +23,31 @@ class DashboardController extends Controller
         $yesterdayStart = now()->subDay()->startOfDay();
         $yesterdayEnd = now()->subDay()->endOfDay();
 
-        $todayInvoicing = Transaction::whereBetween('created_at', [$todayStart, $todayEnd])
+        $todayInvoicing = Transaction::session()
+            ->whereBetween('created_at', [$todayStart, $todayEnd])
             ->where('type', 1)
             ->sum('total_amount');
 
-        $yesterdayInvoicing = Transaction::whereBetween('created_at', [$yesterdayStart, $yesterdayEnd])
+        $yesterdayInvoicing = Transaction::session()
+            ->whereBetween('created_at', [$yesterdayStart, $yesterdayEnd])
             ->where('type', 1)
             ->sum('total_amount');
 
-        $purchases = Transaction::whereBetween('created_at', [$todayStart, $todayEnd])
+        $purchases = Transaction::session()
+            ->whereBetween('created_at', [$todayStart, $todayEnd])
             ->where('type', 0)
             ->count();
 
-        $sales = Transaction::whereBetween('created_at', [$todayStart, $todayEnd])
+        $sales = Transaction::session()
+            ->whereBetween('created_at', [$todayStart, $todayEnd])
             ->where('type', 1)
             ->count();
 
         $lowProducts = Product::whereColumn('total_amount', '<=', 'minimum_amount')->get();
 
-        $expiredProducts = Product::whereDate('expiry_date', '<', $todayStart)->get();
+        $expiredProducts = Product::session()->whereDate('expiry_date', '<', $todayStart)->get();
 
-        $depletedProducts = Product::where('total_amount', '0')->get();
+        $depletedProducts = Product::session()->where('total_amount', '0')->get();
 
         $change = $this->calculatePercentageChange($todayInvoicing, $yesterdayInvoicing);
 
@@ -101,7 +105,8 @@ class DashboardController extends Controller
             $startDate = now()->subDays($i)->startOfDay();
             $endDate = now()->subDays($i)->endOfDay();
 
-            $invoicing = Transaction::whereBetween('created_at', [$startDate, $endDate])
+            $invoicing = Transaction::session()
+                ->whereBetween('created_at', [$startDate, $endDate])
                 ->where('type', 1)
                 ->sum('total_amount');
 
@@ -120,7 +125,8 @@ class DashboardController extends Controller
             $startDate = now()->subDays($i)->startOfDay();
             $endDate = now()->subDays($i)->endOfDay();
 
-            $purchases = Transaction::whereBetween('created_at', [$startDate, $endDate])
+            $purchases = Transaction::session()
+                ->whereBetween('created_at', [$startDate, $endDate])
                 ->where('type', 0)
                 ->count();
 
@@ -139,7 +145,8 @@ class DashboardController extends Controller
             $startDate = now()->subDays($i)->startOfDay();
             $endDate = now()->subDays($i)->endOfDay();
 
-            $sales = Transaction::whereBetween('created_at', [$startDate, $endDate])
+            $sales = Transaction::session()
+                ->whereBetween('created_at', [$startDate, $endDate])
                 ->where('type', 1)
                 ->count();
 

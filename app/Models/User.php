@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use App\Notifications\ResetPasswordNotification;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Session;
 
 class User extends Authenticatable
 {
@@ -46,6 +48,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function scopeSession(Builder $query): void
+    {
+        $query->where('company_id', Session::get('selected_company_id'))
+                ->where('shop_id', Session::get('selected_shop_id'));
+    }
 
     public function role()
     {
