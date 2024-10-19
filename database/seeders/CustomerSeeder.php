@@ -15,6 +15,8 @@ class CustomerSeeder extends Seeder
         for($i = 0; $i < 100; $i++) {
             Customer::create([
                 'name' => fake()->company(),
+                'company_id' => 1,
+                'shop_id' => rand(1, 2),
                 'cnpj' => fake()->numerify('##.###.###/0001-##'),
                 'email' => fake()->unique()->safeEmail(),
                 'address' => fake()->address(),

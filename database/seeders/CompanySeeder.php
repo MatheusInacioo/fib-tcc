@@ -14,6 +14,8 @@ class CompanySeeder extends Seeder
     {
         Company::create([
             'name' => fake()->lastName(),
+            'company_id' => 1,
+            'shop_id' => rand(1, 2),
             'corporate_name' => fake()->company(),
             'active' => true,
         ]);

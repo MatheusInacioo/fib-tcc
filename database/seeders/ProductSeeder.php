@@ -18,6 +18,8 @@ class ProductSeeder extends Seeder
         for($i = 0; $i < 500; $i++) {
             Product::create([
                 'name' => fake()->lastName(),
+                'company_id' => 1,
+                'shop_id' => rand(1, 2),
                 'sku' => fake()->numerify('P####S#####K##'),
                 'brand' => fake()->company(),
                 'supplier_id' => $suppliers->random()->id,
