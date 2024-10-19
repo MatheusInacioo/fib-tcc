@@ -58,13 +58,14 @@ class CrmRequest extends FormRequest
             'phone.required' => 'Campo obrigatório',
             'responsible.required' => 'Campo obrigatório',
             'responsible_phone.required' => 'Campo obrigatório',
-            'segment.required' => 'Campo obrigatório',
         ];
     }
 
     public function getCrmData(): array
     {
         return [
+            'company_id' => session()->get('selected_company_id'),
+            'shop_id' => session()->get('selected_shop_id'),
             'name' => $this->input('name'),
             'cnpj' => $this->input('cnpj'),
             'email' => $this->input('email'),
@@ -85,6 +86,8 @@ class CrmRequest extends FormRequest
             'crm_id' => $this->route('crm')->id ?? null,
             'description' => $this->input('description') ?? auth()->user()->name . " fez uma alteração no cadastro. Nenhuma descrição registrada.",
             'user' => auth()->user()->name,
+            'company_id' => session()->get('seleceted_company_id'),
+            'shop_id' => session()->get('seleceted_shop_id'),
         ];
     }
 }

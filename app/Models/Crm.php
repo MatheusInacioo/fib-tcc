@@ -12,6 +12,8 @@ class Crm extends AbstractModel
      * @var array<int, string>
      */
     protected $fillable = [
+        'company_id',
+        'shop_id',
         'name',
         'cnpj',
         'email',

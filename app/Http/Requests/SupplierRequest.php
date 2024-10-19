@@ -52,6 +52,8 @@ class SupplierRequest extends FormRequest
     public function getSupplierData(): array
     {
         return [
+            'company_id' => session()->get('selected_company_id'),
+            'shop_id' => session()->get('selected_shop_id'),
             'name' => $this->input('name'),
             'cnpj' => $this->input('cnpj'),
             'email' => $this->input('email'),
@@ -61,6 +63,7 @@ class SupplierRequest extends FormRequest
             'responsible' => $this->input('responsible'),
             'responsible_phone' => $this->input('responsible_phone'),
             'segment' => $this->input('segment'),
+            'active' => true,
         ];
     }
 }

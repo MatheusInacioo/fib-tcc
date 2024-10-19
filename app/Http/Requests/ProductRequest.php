@@ -68,6 +68,8 @@ class ProductRequest extends FormRequest
     public function getProductData(): array
     {
         return [
+            'company_id' => session()->get('selected_company_id'),
+            'shop_id' => session()->get('selected_shop_id'),
             'name' => $this->input('name'),
             'sku' => $this->input('sku'),
             'brand' => $this->input('brand'),

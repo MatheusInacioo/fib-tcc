@@ -11,6 +11,8 @@ class Product extends AbstractModel
     protected $table = 'products';
 
     protected $fillable = [
+        'company_id',
+        'shop_id',
         'name',
         'sku',
         'brand',

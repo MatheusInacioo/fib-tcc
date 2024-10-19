@@ -67,6 +67,8 @@ class TransactionRequest extends FormRequest
     public function getTransactionData(): array
     {
         return [
+            'company_id' => session()->get('selected_company_id'),
+            'shop_id' => session()->get('selected_shop_id'),
             'type' => $this->input('type'),
             'customer_id' => $this->input('customer_id'),
             'supplier_id' => $this->input('supplier_id'),

@@ -83,6 +83,9 @@ class CrmController extends Controller
     {
         try {
             $contract = $request->getCrmData();
+            $contract['active'] = true;
+            $contract['company_id'] = session()->get('selected_company_id');
+            $contract['shop_id'] = session()->get('selected_shop_id');
 
             $contract['type'] == 'Cliente'
                 ? Customer::create($contract)

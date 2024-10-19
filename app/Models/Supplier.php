@@ -10,6 +10,8 @@ class Supplier extends AbstractModel
      * @var array<int, string>
      */
     protected $fillable = [
+        'company_id',
+        'shop_id',
         'name',
         'cnpj',
         'email',
@@ -19,5 +21,6 @@ class Supplier extends AbstractModel
         'responsible',
         'responsible_phone',
         'segment',
+        'active',
     ];
 }

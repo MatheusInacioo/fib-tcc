@@ -7,6 +7,8 @@ class Transaction extends AbstractModel
     protected $table = 'transactions';
 
     protected $fillable = [
+        'company_id',
+        'shop_id',
         'type',
         'customer_id',
         'supplier_id',
