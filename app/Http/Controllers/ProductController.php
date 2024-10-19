@@ -16,13 +16,13 @@ class ProductController extends Controller
     public function index()
     {
         return Inertia::render('Products/Index', [
-            'products' => ProductResource::collection(Product::all())->toArray(request()),
+            'products' => ProductResource::collection(Product::session()->get())->toArray(request()),
         ]);
     }
 
     public function create()
     {
-        $suppliers = Supplier::select('id', 'name')->get();
+        $suppliers = Supplier::session()->select('id', 'name')->get();
 
         return Inertia::render('Products/CreateEdit', [
             'suppliers' => $suppliers,
@@ -31,7 +31,7 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        $suppliers = Supplier::select('id', 'name')->get();
+        $suppliers = Supplier::session()->select('id', 'name')->get();
 
         return Inertia::render('Products/CreateEdit', [
             'product' => ProductResource::make($product),

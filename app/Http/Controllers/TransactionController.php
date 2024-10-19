@@ -19,7 +19,7 @@ class TransactionController extends Controller
     public function index()
     {
         return Inertia::render('Transactions/Index', [
-            'transactions' => TransactionResource::collection(Transaction::all())->toArray(request()),
+            'transactions' => TransactionResource::collection(Transaction::session()->get())->toArray(request()),
         ]);
     }
 
@@ -54,7 +54,8 @@ class TransactionController extends Controller
 
     public function searchSuppliers($search)
     {
-        $suppliers = Supplier::where('name', 'like', '%' . $search . '%')
+        $suppliers = Supplier::session()
+            ->where('name', 'like', '%' . $search . '%')
             ->orWhere('id', 'like', '%' . $search . '%')
             ->get();
 
@@ -63,7 +64,8 @@ class TransactionController extends Controller
 
     public function searchCustomers($search)
     {
-        $customers = Customer::where('name', 'like', '%' . $search . '%')
+        $customers = Customer::session()
+            ->where('name', 'like', '%' . $search . '%')
             ->orWhere('id', 'like', '%' . $search . '%')
             ->get();
 
@@ -72,7 +74,7 @@ class TransactionController extends Controller
 
     public function searchProducts(Request $request)
     {
-        $query = Product::query();
+        $query = Product::session();
 
         if ($request['supplier_id']) {
             $query->where('supplier_id', $request['supplier_id'])

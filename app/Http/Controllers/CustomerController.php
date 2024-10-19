@@ -14,7 +14,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = Customer::where('active', true)->get();
+        $customers = Customer::session()->where('active', true)->get();
 
         return Inertia::render('Customers/Index', [
             'customers' => $customers,

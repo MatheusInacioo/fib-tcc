@@ -16,7 +16,7 @@ class CrmController extends Controller
     public function index()
     {
         return Inertia::render('Crm/Index', [
-            'crm' => CrmResource::collection(Crm::all())->toArray(request()),
+            'crm' => CrmResource::collection(Crm::session()->get())->toArray(request()),
         ]);
     }
 

@@ -14,7 +14,7 @@ class SupplierController extends Controller
 {
     public function index()
     {
-        $suppliers = Supplier::where('active', true)->get();
+        $suppliers = Supplier::session()->where('active', true)->get();
 
         return Inertia::render('Suppliers/Index', [
             'suppliers' => $suppliers,
