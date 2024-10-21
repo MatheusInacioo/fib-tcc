@@ -128,15 +128,27 @@
             <div class="flex flex-col web:justify-between rounded-xl shadow-xl 2xl:p-4 p-2 web:max-h-[400px] mobile-std:min-h-[500px] w-full border border-gray-200 mobile-std:mb-4">
                 <div class="flex justify-between">
                     <p class="font-medium 2xl:text-2xl text-xl">Faturamento</p>
-
                     <div class="relative">
                         <button
                             @click="toggleDropdown('invoicing')"
+                            :disabled="isLoadingInvoicing"
                             class="flex justify-center items-center p-2 h-10 mobile-std:min-w-16 min-w-32 bg-primary rounded-xl text-secondary text-lg font-semibold shadow-xl hover:scale-105 transition-all"
                         >
-                            <i class="bx bx-calendar mr-2 "></i>
-                            <p class="font-medium mobile-std:hidden">Período</p>
-                            <i class="bx bx-chevron-down font-semibold ml-2 mobile-std:ml-0"></i>
+                            <div 
+                                v-if="isLoadingInvoicing" 
+                                class="flex justify-center items-center"
+                            >
+                                <i class="bx bx-loader-alt animate-spin text-xl web:mr-2"></i>
+                                <p class="font-medium mobile-std:hidden">Aguarde...</p>
+                            </div>
+                            <div 
+                                v-else
+                                class="flex justify-center items-center"
+                            >
+                                <i class="bx bx-calendar mr-2"></i>
+                                <p class="font-medium mobile-std:hidden">Período</p>
+                                <i class="bx bx-chevron-down font-semibold ml-2 mobile-std:ml-0"></i>
+                            </div>
                         </button>
 
                         <div v-if="dropdowns.invoicing" class="absolute right-0 w-40 text-center bg-white border rounded shadow-xl">
@@ -159,11 +171,24 @@
                     <div class="relative">
                         <button
                             @click="toggleDropdown('purchases')"
+                            :disabled="isLoadingPurchases"
                             class="flex justify-center items-center p-2 h-10 mobile-std:min-w-16 min-w-32 bg-primary rounded-xl text-secondary text-lg font-semibold shadow-xl hover:scale-105 transition-all"
                         >
-                            <i class="bx bx-calendar mr-2"></i>
-                            <p class="font-medium mobile-std:hidden">Período</p>
-                            <i class="bx bx-chevron-down font-semibold ml-2 mobile-std:ml-0"></i>
+                            <div 
+                                v-if="isLoadingPurchases" 
+                                class="flex justify-center items-center"
+                            >
+                                <i class="bx bx-loader-alt animate-spin text-xl web:mr-2"></i>
+                                <p class="font-medium mobile-std:hidden">Aguarde...</p>
+                            </div>
+                            <div 
+                                v-else
+                                class="flex justify-center items-center"
+                            >
+                                <i class="bx bx-calendar mr-2"></i>
+                                <p class="font-medium mobile-std:hidden">Período</p>
+                                <i class="bx bx-chevron-down font-semibold ml-2 mobile-std:ml-0"></i>
+                            </div>
                         </button>
 
                         <div v-if="dropdowns.purchases" class="absolute right-0 w-40 text-center bg-white border rounded shadow-xl">
@@ -183,11 +208,24 @@
                     <div class="relative">
                         <button
                             @click="toggleDropdown('sales')"
+                            :disabled="isLoadingSales"
                             class="flex justify-center items-center p-2 h-10 mobile-std:min-w-16 min-w-32 bg-primary rounded-xl text-secondary text-lg font-semibold shadow-xl hover:scale-105 transition-all"
                         >
-                            <i class="bx bx-calendar mr-2"></i>
-                            <p class="font-medium mobile-std:hidden">Período</p>
-                            <i class="bx bx-chevron-down font-semibold ml-2 mobile-std:ml-0"></i>
+                            <div 
+                                v-if="isLoadingSales" 
+                                class="flex justify-center items-center"
+                            >
+                                <i class="bx bx-loader-alt animate-spin text-xl web:mr-2"></i>
+                                <p class="font-medium mobile-std:hidden">Aguarde...</p>
+                            </div>
+                            <div 
+                                v-else
+                                class="flex justify-center items-center"
+                            >
+                                <i class="bx bx-calendar mr-2"></i>
+                                <p class="font-medium mobile-std:hidden">Período</p>
+                                <i class="bx bx-chevron-down font-semibold ml-2 mobile-std:ml-0"></i>
+                            </div>
                         </button>
 
                         <div v-if="dropdowns.sales" class="absolute right-0 w-40 text-center bg-white border rounded shadow-xl">
@@ -229,6 +267,9 @@
 
         data() {
             return {
+                isLoadingInvoicing: true,
+                isLoadingPurchases: true,
+                isLoadingSales: true,
                 showProductModal: false,
                 selectedProducts: [],
                 dropdowns: {
@@ -338,6 +379,8 @@
             },
 
             async filterChart(chartType, days) {
+                this.dropdowns[chartType] = false;
+                this[`isLoading${chartType.charAt(0).toUpperCase() + chartType.slice(1)}`] = true;
                 let chartSettings = this[`${chartType}ChartSettings`];
 
                 await axios.get(route('dashboard.filter', {
@@ -353,6 +396,7 @@
                 });
 
                 this.buildChart(document.getElementById(`${chartType}Chart`), chartSettings);
+                this[`isLoading${chartType.charAt(0).toUpperCase() + chartType.slice(1)}`] = false;
                 this.dropdowns[chartType] = false;
             },
 
