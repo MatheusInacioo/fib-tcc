@@ -44,7 +44,15 @@
         <!-- Session scope dropdown -->
         <div :class="{ 'hidden' : companies.length == 1 && companies.shops == 1 }">
             <div class="dropdown-holder flex flex-col relative">
+                <div 
+                    v-if="isLoadingSession" 
+                    class="flex justify-center items-center"
+                >
+                    <i class="bx bx-loader-alt animate-spin text-2xl font-medium web:mr-2 text-primary mobile-std:text-secondary"></i>
+                    <p class="font-medium text-lg mobile-std:hidden">Aguarde...</p>
+                </div>
                 <div
+                    v-else
                     @click="toggleShopDropdown = !toggleShopDropdown"
                     class="user-dropdown flex h-10 items-center transition-all hover:scale-110 cursor-pointer"
                 >
@@ -223,6 +231,7 @@
     data() {
         return {
             user: this.$page.props.auth.user,
+            isLoadingSession: true,
             toggleUserDropdown: false,
             toggleShopDropdown: false,
             toggleMenu: false,
@@ -345,6 +354,8 @@
         },
 
         async setSessionScope(companyId, shopId, isManualRequest) {
+            this.isLoadingSession = true;
+
             await axios.post(this.route('session.scope'), {
                 company_id: companyId,
                 shop_id: shopId
@@ -356,6 +367,8 @@
                 if (isManualRequest) {
                     window.location.href = '/dashboard';
                 }
+                
+                this.isLoadingSession = false;
             })
             .catch(error => {
                 console.error('Erro ao atualizar sessão:', error);
