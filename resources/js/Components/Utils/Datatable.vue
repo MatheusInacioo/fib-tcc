@@ -138,6 +138,14 @@
                                 v-if="column.name == 'actions'"
                                 class="flex justify-center"
                             >
+                                <button
+                                    v-if="settings.subject == 'products'"
+                                    type="button"
+                                    @click="toggleTransferModal()"
+                                    class="hover:scale-125 transition-all"
+                                >
+                                    <i class="bx bx-transfer text-lg mr-2 2xl:mr-3 2xl:text-xl text-gray-400"></i>
+                                </button>
                                 <a
                                     v-if="settings.subject == 'transactions'"
                                     :href="route(settings.routes.view, item.id)"
@@ -258,15 +266,23 @@
             @confirm-delete="confirmDelete()"
             @close-modal="toggleConfirmationModal()"
         />
+
+        <TransferModal
+            :show-modal="showTransferModal"
+            @confirm-transfer="confirmTransfer()"
+            @close-modal="toggleTransferModal()"
+        />
     </div>
 </template>
 
 <script>
 import ConfirmationModal from '@/Components/Utils/ConfirmationModal.vue';
+import TransferModal from '@/Components/Utils/TransferModal.vue';
 
 export default {
     components: {
         ConfirmationModal,
+        TransferModal,
     },
 
     props: {
@@ -286,6 +302,7 @@ export default {
     data() {
         return {
             showConfirmationModal: false,
+            showTransferModal: false,
             showExportModal: false,
             selectedItem: null,
             currentPage: 1,
@@ -423,9 +440,17 @@ export default {
             }
         },
 
+        async confirmTransfer() {
+            
+        },
+
         toggleConfirmationModal() {
             this.showConfirmationModal = ! this.showConfirmationModal;
             this.message = null;
+        },
+
+        toggleTransferModal() {
+            this.showTransferModal = ! this.showTransferModal;
         },
     },
 };
