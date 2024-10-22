@@ -14,15 +14,18 @@ class SessionScopeController extends Controller
         try {
             $validatedData = $request->validate([
                 'company_id' => 'required|integer|exists:companies,id',
-                'shop_id' => 'required|integer|exists:shops,id',
+                'shop_id' => 'nullable|integer|exists:shops,id',
             ]);
 
             $request->session()->put('selected_company_id', $validatedData['company_id']);
-            $request->session()->put('selected_shop_id', $validatedData['shop_id']);
-    
+            
+            $request['shop_id'] == null
+            ? $request->session()->put('selected_shop_id', null)
+            : $request->session()->put('selected_shop_id', $validatedData['shop_id']);
+            
             return response()->json([
                 'selected_company_id' => session()->get('selected_company_id'),
-                'selected_shop_id' => session()->get('selected_shop_id'),
+                'selected_shop_id' => session()->get('selected_shop_id') ?? null,
             ]);
         } catch (Exception $ex) {
             throw new InternalErrorException('Error when setting session scope: ' . $ex->getMessage());

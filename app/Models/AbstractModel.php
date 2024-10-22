@@ -10,7 +10,9 @@ class AbstractModel extends Model
 {
     public function scopeSession(Builder $query): void
     {
-        $query->where('company_id', Session::get('selected_company_id'))
-                ->where('shop_id', Session::get('selected_shop_id'));
+        Session::get('selected_shop_id') == null
+            ? $query->where('company_id', Session::get('selected_company_id'))
+            : $query->where('company_id', Session::get('selected_company_id'))
+                    ->where('shop_id', Session::get('selected_shop_id'));
     }
 }

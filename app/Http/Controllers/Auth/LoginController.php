@@ -32,7 +32,6 @@ class LoginController extends Controller
         }
 
         $request->session()->put('selected_company_id', 1);
-        $request->session()->put('selected_shop_id', 1);
 
         return redirect()->route('dashboard.index');
     }

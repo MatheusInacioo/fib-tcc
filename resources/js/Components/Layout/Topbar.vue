@@ -59,16 +59,16 @@
                     <i class="mobile-std:hidden bx bxs-store text-3xl text-primary mr-2"></i>
                     <i class="web:hidden mobile-lg:hidden bx bxs-store text-3xl text-secondary"></i>
                     <p 
-                        v-if="companies.length > 1"
+                        v-if="currentShop != null"
                         class="text-base 2xl:text-lg font-medium mr-2 mobile-std:hidden"
                     >
                         {{ selectedCompany.name + ' - ' + selectedShop.name }}
                     </p>
                     <p
-                        v-if="companies.length == 1" 
+                        v-if="currentShop == null" 
                         class="text-base 2xl:text-lg font-medium mr-2 mobile-std:hidden"
                     >
-                        {{ selectedShop.name }}
+                        {{ selectedCompany.name }}
                     </p>
                     <i
                         :class="{
@@ -90,12 +90,12 @@
                             :key="company.id"
                             class="text-left"
                         >
-                            <a
-                                v-if="companies > 1"
-                                class="flex items-center transition-all pl-4 w-full py-2 bg-gray-200"
+                            <button
+                                @click="setSessionScope(company.id, null, true)"
+                                class="flex text-left transition-all px-4 w-full py-2 bg-gray-200"
                             >
                                 <p class="text-sm 2xl:text-lg hover:scale-105 transition-all font-medium text-gray-800 w-full"> {{ company.name }} </p>
-                            </a>
+                            </button>
                             <button
                                 v-for="shop in company.shops"
                                 class="flex text-left transition-all px-4 py-2 w-full"
@@ -231,6 +231,8 @@
     data() {
         return {
             user: this.$page.props.auth.user,
+            currentCompany: this.$page.props.auth.selected_company_id,
+            currentShop: this.$page.props.auth.selected_shop_id ?? null,
             isLoadingSession: true,
             toggleUserDropdown: false,
             toggleShopDropdown: false,
@@ -358,11 +360,14 @@
 
             await axios.post(this.route('session.scope'), {
                 company_id: companyId,
-                shop_id: shopId
+                shop_id: shopId ? shopId : null,
             })
             .then(response => {
                 this.selectedCompany = this.companies.find(c => c.id === response.data.selected_company_id);
-                this.selectedShop = this.companies.find(c => c.id === response.data.selected_company_id).shops.find(s => s.id === response.data.selected_shop_id);
+
+                if (shopId != null) {
+                    this.selectedShop = this.companies.find(c => c.id === response.data.selected_company_id).shops.find(s => s.id === response.data.selected_shop_id);
+                }
                 
                 if (isManualRequest) {
                     window.location.href = '/dashboard';
@@ -378,7 +383,7 @@
 
     created() {
         this.getCompanies();
-        this.setSessionScope(this.$page.props.auth.selected_company_id, this.$page.props.auth.selected_shop_id, false);
+        this.setSessionScope(this.currentCompany, this.currentShop, false);
     }
  };
  </script>
