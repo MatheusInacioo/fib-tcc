@@ -59,7 +59,7 @@
                     @click="toggleShopDropdown = !toggleShopDropdown"
                     class="user-dropdown flex h-10 items-center transition-all hover:scale-110 cursor-pointer"
                 >
-                    <i class="mobile-std:hidden bx bxs-store text-3xl text-primary mr-2"></i>
+                    <i class="mobile-std:hidden bx bxs-buildings text-3xl text-primary mr-2"></i>
                     <i class="web:hidden mobile-lg:hidden bx bxs-store text-3xl text-secondary"></i>
                     <p 
                         v-if="currentShop != null"
