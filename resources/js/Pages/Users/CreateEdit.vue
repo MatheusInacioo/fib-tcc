@@ -65,6 +65,30 @@
                         'hidden' : !userIsAdmin
                     }"
                 >
+                    <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Cargo</span>
+                    <select
+                        v-model="form.role_id"
+                        name="role"
+                        id="role"
+                        class="border-gray-300 2xl:text-base text-sm rounded-xl"
+                    >
+                        <option
+                            v-for="role in roles"
+                            :key="role.id"
+                            :value="role.id"
+                        >
+                            {{ role.name }}
+                        </option>
+                    </select>
+                    <div v-if="form.errors.role_id" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.role_id }}</div>
+                </div>
+
+                <div
+                    class="form-field flex flex-col mobile-std:mb-4 mobile-std:mr-0"
+                    :class="{
+                        'hidden' : companies.length == 1
+                    }"
+                >
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Empresa</span>
                     <select
                         v-model="form.company_id"
@@ -105,30 +129,6 @@
                         </option>
                     </select>
                     <div v-if="form.errors.shop_id" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.shop_id }}</div>
-                </div>
-
-                <div
-                    class="form-field flex flex-col mobile-std:mb-4 mobile-std:mr-0"
-                    :class="{
-                        'hidden' : !userIsAdmin
-                    }"
-                >
-                    <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Cargo</span>
-                    <select
-                        v-model="form.role_id"
-                        name="role"
-                        id="role"
-                        class="border-gray-300 2xl:text-base text-sm rounded-xl"
-                    >
-                        <option
-                            v-for="role in roles"
-                            :key="role.id"
-                            :value="role.id"
-                        >
-                            {{ role.name }}
-                        </option>
-                    </select>
-                    <div v-if="form.errors.role_id" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.role_id }}</div>
                 </div>
             </div>
 
@@ -203,10 +203,10 @@ export default {
         },
 
         filteredShops() {
-            const selectedCompany = this.companies.find(company => company.id === this.form.company_id);
+            const selectedCompany = this.companies.length == 1 ? this.companies[0] : this.companies.find(company => company.id === this.form.company_id);
 
             return selectedCompany ? selectedCompany.shops : [];
-        }
+        },
     },
 
     methods: {
