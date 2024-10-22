@@ -42,7 +42,10 @@
         <!--  -->
         
         <!-- Session scope dropdown -->
-        <div :class="{ 'hidden' : companies.length == 1 && companies.shops == 1 }">
+        <div :class="{ 
+            'hidden' : companies.length == 1 && companies.shops == 1 ||
+                       !userHasPermission('manage', 'companies') && !userHasPermission('manage', 'shops')
+        }">
             <div class="dropdown-holder flex flex-col relative">
                 <div 
                     v-if="isLoadingSession" 
@@ -93,13 +96,15 @@
                             <button
                                 @click="setSessionScope(company.id, null, true)"
                                 class="flex text-left transition-all px-4 w-full py-2 bg-gray-200"
+                                :class="{ 'hidden' : !userHasPermission('manage', 'companies') }"
                             >
                                 <p class="text-sm 2xl:text-lg hover:scale-105 transition-all font-medium text-gray-800 w-full"> {{ company.name }} </p>
                             </button>
                             <button
+                                @click="setSessionScope(company.id, shop.id, true)"
                                 v-for="shop in company.shops"
                                 class="flex text-left transition-all px-4 py-2 w-full"
-                                @click="setSessionScope(company.id, shop.id, true)"
+                                :class="{ 'hidden' : !userHasPermission('manage', 'shops') }"
                             >
                                 <p class="2xl:text-base hover:scale-105 transition-all bg-white text-black w-full"> {{ shop.name }} </p>
                             </button>

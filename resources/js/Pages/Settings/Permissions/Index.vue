@@ -63,9 +63,8 @@
                                     class="rounded-lg"
                                     :class="{
                                         'hidden' : permission.action == 'edit' && item.subject == 'transactions' ||
-                                                   permission.action == 'create' && item.subject == 'invoicing' ||
-                                                   permission.action == 'edit' && item.subject == 'invoicing' ||
-                                                   permission.action == 'delete' && item.subject == 'invoicing'
+                                                   ['create', 'edit', 'delete'].includes(permission.action) && item.subject == 'invoicing' ||
+                                                   permission.action == 'manage' && !['companies', 'shops'].includes(item.subject)
                                     }"
                                     :checked="hasPermission(role.id, item.subject, permission.action)"
                                     @change="togglePermission(role.id, item.subject, permission.action)"
@@ -159,11 +158,23 @@
                         label: 'Usuários',
                         subject: 'users',
                    },
+                   {
+                        label: 'Empresas',
+                        subject: 'companies',
+                   },
+                   {
+                        label: 'Lojas',
+                        subject: 'shops',
+                   },
                 ],
                 permissions: [
                    {
                         label: 'Listar',
                         action: 'list',
+                   },
+                   {
+                        label: 'Gerenciar',
+                        action: 'manage',
                    },
                    {
                         label: 'Exportar',

@@ -4,16 +4,12 @@ export default {
             return this.$page.props.auth.user.role.permissions.map(permission => permission.name) || [];
         },
 
+        userRole() {
+            return this.$page.props.auth.user.role.name;
+        },
+
         userIsAdmin() {
             return this.$page.props.auth.user.role.name == 'Administrador';
-        },
-
-        userIsFinancial() {
-            return this.$page.props.auth.user.role.name == 'Financeiro';
-        },
-
-        userIsSupport() {
-            return this.$page.props.auth.user.role.name == 'Suporte';
         },
     },
 
@@ -22,6 +18,10 @@ export default {
             const permission = `${action}-${subject}`;
 
             return this.userPermissions.includes(permission);
+        },
+
+        userHasRole(roleName) {
+            return this.userRole.includes(roleName);
         },
     }
 };
