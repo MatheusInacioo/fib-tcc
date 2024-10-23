@@ -16,7 +16,11 @@
 ### Installation Steps
 
 #### 1. Clone the Repository
-Clone the project into your local machine and and run `cd digistock` in order to access the correct directory and perform the following steps.
+Clone the project into your local machine by running the following command:
+```bash
+git clone git@github.com:MatheusInacioo/digistock.git
+```
+Next, run `cd digistock` in order to access the correct directory and perform the following steps.
 
 #### 2. Copy `.env.example` to `.env`
 ```bash
