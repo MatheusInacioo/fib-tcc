@@ -481,7 +481,9 @@ export default {
         },
 
         updateTotalAmount() {
-            this.form.total_amount = this.form.quantity * this.form.price;
+            let total_amount = this.form.quantity * this.form.price;
+
+            this.form.total_amount = total_amount.toFixed(2);
         },
     },
 
