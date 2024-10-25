@@ -14,7 +14,8 @@
 
         <form
             @submit.prevent="saveForm()"
-            class="w-full h-full"
+            class="w-full"
+            :class="{ 'h-full' : !company}"
         >
             <div class="form-row grid grid-cols-4 mobile-std:grid-cols-1 mobile-lg:grid-cols-3 gap-4 mb-4">
                 <div class="form-field flex flex-col">
@@ -61,21 +62,60 @@
                 </button>
             </div>
         </form>
+
+        <div v-if="company">
+            <div class="min-h-px w-full bg-primary my-4 mobile-std:my-2"></div>
+    
+            <div
+                v-if="shops.length <= 0"
+                class="h-full w-full flex flex-col items-center justify-center"
+            >
+                <p class="font-medium text-2xl mb-5">Nenhuma loja cadastrada para essa empresa</p>
+                <a
+                    :href="route('shops.create')"
+                    class="flex justify-center items-center min-w-40 p-2 h-10 bg-primary rounded-xl text-secondary text-lg font-semibold shadow-xl hover:scale-105 transition-all"
+                >
+                    <i class="bx bx-plus font-semibold"></i>
+                    <i class="bx bxs-store mr-2"></i>
+                    <p class="font-medium">Nova Loja</p>
+                </a>
+            </div>
+            <div
+                v-else
+                class="h-full w-full flex flex-col"
+            >
+                <Datatable
+                    :settings="tableSettings"
+                    :data="shops"
+                />
+            </div>
+    
+            <NotificationModal
+                :show-modal="showModal"
+                :message="message"
+                @close-modal="toggleModal()"
+            />
+        </div>
     </BaseLayout>
 </template>
 
 <script>
 import BaseLayout from '@/Components/Layout/BaseLayout.vue';
 import { useForm, Head } from '@inertiajs/vue3';
+import Datatable from '@/Components/Utils/Datatable.vue';
+import NotificationModal from '@/Components/Utils/NotificationModal.vue';
 
 export default {
     components: {
         Head,
         BaseLayout,
+        Datatable,
+        NotificationModal,
     },
 
     props: {
         company: {},
+        shops: [],
     },
 
     setup() {
@@ -91,6 +131,42 @@ export default {
     data() {
         return {
             isLoading: false,
+            tableSettings: {
+                subject: 'shops',
+                title: 'Lojas',
+                button_title: 'Nova Loja',
+                routes: {
+                    create: 'shops.create',
+                    edit: 'shops.edit',
+                    delete: 'shops.destroy',
+                },
+                columns: [
+                    {
+                        label: 'ID',
+                        name: 'id',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
+                        label: 'Nome',
+                        name: 'name',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
+                        label: 'Local',
+                        name: 'location',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
+                        label: 'Ações',
+                        name: 'actions',
+                        sortable: false,
+                        searchable: false,
+                    },
+                ],
+            },
         }
     },
 

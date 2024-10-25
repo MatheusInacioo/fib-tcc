@@ -3,42 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ShopRequest;
-use App\Http\Resources\ShopResource;
-use App\Models\Company;
 use App\Models\Shop;
 use Exception;
-use Inertia\Inertia;
 
 class ShopController extends Controller
 {
-    public function index()
-    {
-        $shops = Shop::where('active', true)->get();
-
-        return Inertia::render('Shops/Index', [
-            'shops' => ShopResource::collection($shops)->toArray(request()),
-        ]);
-    }
-
-    public function create()
-    {
-        $companies = Company::where('active', true)->get();
-
-        return Inertia::render('Shops/CreateEdit', [
-            'companies' => $companies
-        ]);
-    }
-
-    public function edit(Shop $shop)
-    {
-        $companies = Company::where('active', true)->get();
-
-        return Inertia::render('Shops/CreateEdit', [
-            'shop' => ShopResource::make($shop),
-            'companies' => $companies
-        ]);
-    }
-
     public function store(ShopRequest $request)
     {
         try {
@@ -46,9 +15,9 @@ class ShopController extends Controller
 
             Shop::create($data);
 
-            return redirect()->route('shops.index')->with('success', 'Loja cadastrado com sucesso.');
+            return redirect()->route('companies.index')->with('success', 'Loja cadastrada com sucesso.');
         } catch(Exception $ex) {
-            return redirect()->route('shops.index')->with('error', 'Ocorreu um erro ao cadastrar a loja: ' . $ex->getMessage());
+            return redirect()->route('companies.index')->with('error', 'Ocorreu um erro ao cadastrar a loja: ' . $ex->getMessage());
         }
     }
 
@@ -59,9 +28,9 @@ class ShopController extends Controller
 
             $shop->update($data);
 
-            return redirect()->route('shops.index')->with('success', 'Loja atualizada com sucesso.');
+            return redirect()->route('companies.index')->with('success', 'Loja atualizada com sucesso.');
         } catch(Exception $ex) {
-            return redirect()->route('shops.index')->with('error', 'Ocorreu um erro ao autalizar os dados da loja: ' . $ex->getMessage());
+            return redirect()->route('companies.index')->with('error', 'Ocorreu um erro ao autalizar os dados da loja: ' . $ex->getMessage());
         }
     }
 
@@ -70,9 +39,9 @@ class ShopController extends Controller
         try {
             Shop::find($shopId)->update(['active' => false]);
 
-            return redirect()->route('shops.index')->with('success', 'Loja excluída com sucesso.');
+            return redirect()->route('companies.index')->with('success', 'Loja excluída com sucesso.');
         } catch(Exception $ex) {
-            return redirect()->route('shops.index')->with('error', 'Ocorreu um erro ao excluir a loja: ' . $ex->getMessage());
+            return redirect()->route('companies.index')->with('error', 'Ocorreu um erro ao excluir a loja: ' . $ex->getMessage());
         }
     }
 }

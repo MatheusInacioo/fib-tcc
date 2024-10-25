@@ -1,8 +1,9 @@
 <template>
     <div class="rounded-xl shadow-lg border border-gray-200 mobile-std:h-full align-self-center">
         <div class="flex w-full items-center justify-between px-4 py-2">
-            <div class="flex items-center mobile-std:hidden">
+            <div class="flex items-center mobile-std:hidden my-4">
                 <button
+                    v-if="settings.subject != 'shops'"
                     type="button"
                     @click="goBack()"
                 >
@@ -10,7 +11,10 @@
                 </button>
                 <p class="font-medium 2xl:text-2xl text-xl mr-4">{{ settings.title }}</p>
 
-                <div class="flex items-center 2xl:w-80 w-64 ml-4 my-4 bg-white rounded-lg border border-gray-200 hover:border-gray-500 transition-all">
+                <div 
+                    v-if="data.length > 10"
+                    class="flex items-center 2xl:w-80 w-64 ml-4 bg-white rounded-lg border border-gray-200 hover:border-gray-500 transition-all"
+                >
                     <input
                         type="text"
                         v-model="searchQuery"
@@ -25,6 +29,7 @@
                 <div class="flex w-full items-center justify-between mb-4">
                     <div class="flex items-center">
                         <button
+                            v-if="settings.subject != 'shops'"
                             type="button"
                             @click="goBack()"
                         >
@@ -36,7 +41,7 @@
 
                     <div class="flex">
                         <button
-                            v-if="userHasPermission('export', settings.subject)"
+                            v-if="userHasPermission('export', settings.subject) && settings.subject != 'shops'"
                             @click="exportData()"
                             class="flex justify-center items-center w-14 h-10 bg-primary rounded-xl text-white p-2 text-base font-semibold shadow-xl hover:scale-105 transition-all mr-2"
                         >
@@ -44,16 +49,27 @@
                         </button>
 
                         <a
-                            v-if="userHasPermission('create', settings.subject)"
+                            v-if="userHasPermission('create', settings.subject) && settings.subject != 'shops'"
                             :href="route(settings.routes.create)"
                             class="flex justify-center items-center w-14 h-10 bg-primary rounded-xl text-white p-2 text-base font-semibold shadow-xl hover:scale-105 transition-all"
                         >
                             <i class="bx bx-plus text-xl font-semibold text-secondary"></i>
                         </a>
+
+                        <button
+                            v-if="userHasPermission('create', settings.subject) && settings.subject == 'shops'"
+                            @click="toggleShopModal(null)"
+                            class="flex justify-center items-center w-14 h-10 bg-primary rounded-xl text-white p-2 text-base font-semibold shadow-xl hover:scale-105 transition-all"
+                        >
+                            <i class="bx bx-plus text-xl font-semibold text-secondary"></i>
+                        </button>
                     </div>
                 </div>
 
-                <div class="flex items-center w-full bg-white rounded-lg border border-gray-200 hover:border-gray-500 transition-all">
+                <div 
+                    v-if="data.length > 10"
+                    class="flex items-center w-full bg-white rounded-lg border border-gray-200 hover:border-gray-500 transition-all"
+                >
                     <input
                         type="text"
                         v-model="searchQuery"
@@ -66,7 +82,7 @@
 
             <div class="flex">
                 <button
-                    v-if="userHasPermission('export', settings.subject)"
+                    v-if="userHasPermission('export', settings.subject) && (settings.subject != 'companies' && settings.subject != 'shops')"
                     @click="exportData()"
                     class="flex justify-center items-center w-auto 2xl:h-10 bg-primary rounded-xl text-white p-2 text-base 2xl:text-lg font-semibold shadow-xl hover:scale-105 transition-all mobile-std:hidden mr-2"
                 >
@@ -75,13 +91,22 @@
                 </button>
 
                 <a
-                    v-if="userHasPermission('create', settings.subject)"
+                    v-if="userHasPermission('create', settings.subject) && settings.subject != 'shops'"
                     :href="route(settings.routes.create)"
                     class="flex justify-center items-center w-auto 2xl:h-10 bg-primary rounded-xl text-white p-2 text-base 2xl:text-lg font-semibold shadow-xl hover:scale-105 transition-all mobile-std:hidden"
                 >
                     <i class="bx bx-plus font-semibold mr-2 text-secondary"></i>
                     <p class="font-medium text-secondary">{{ settings.button_title }}</p>
                 </a>
+
+                <button
+                    v-if="userHasPermission('create', settings.subject) && settings.subject == 'shops'"
+                    @click="toggleShopModal(null)"
+                    class="flex justify-center items-center w-auto 2xl:h-10 bg-primary rounded-xl text-white p-2 text-base 2xl:text-lg font-semibold shadow-xl hover:scale-105 transition-all mobile-std:hidden"
+                >
+                    <i class="bx bx-plus font-semibold mr-2 text-secondary"></i>
+                    <p class="font-medium text-secondary">{{ settings.button_title }}</p>
+                </button>
             </div>
         </div>
 
@@ -154,12 +179,19 @@
                                     <i class="bx bx-show text-lg mr-2 2xl:mr-3 2xl:text-xl text-gray-400"></i>
                                 </a>
                                 <a
-                                    v-if="settings.subject != 'transactions' && userHasPermission('edit', settings.subject)"
+                                    v-if="(settings.subject != 'transactions' && settings.subject != 'shops') && userHasPermission('edit', settings.subject)"
                                     :href="route(settings.routes.edit, item.id)"
                                     class="hover:scale-125 transition-all"
                                 >
                                     <i class="bx bxs-edit text-lg mr-2 2xl:mr-3 2xl:text-xl text-gray-400"></i>
                                 </a>
+                                <button
+                                    v-if="settings.subject == 'shops' && userHasPermission('edit', settings.subject)"
+                                    @click="toggleShopModal(item)"
+                                    class="hover:scale-125 transition-all"
+                                >
+                                    <i class="bx bxs-edit text-lg mr-2 2xl:mr-3 2xl:text-xl text-gray-400"></i>
+                                </button>
                                 <button
                                     v-if="userHasPermission('delete', settings.subject)"
                                     type="button"
@@ -272,17 +304,25 @@
             @confirm-transfer="confirmTransfer()"
             @close-modal="toggleTransferModal()"
         />
+
+        <ShopModal
+            :show-modal="showShopModal"
+            :shop="selectedItem"
+            @close-modal="toggleShopModal()"
+        />
     </div>
 </template>
 
 <script>
 import ConfirmationModal from '@/Components/Utils/ConfirmationModal.vue';
 import TransferModal from '@/Components/Utils/TransferModal.vue';
+import ShopModal from '@/Components/Utils/ShopModal.vue';
 
 export default {
     components: {
         ConfirmationModal,
         TransferModal,
+        ShopModal,
     },
 
     props: {
@@ -303,6 +343,7 @@ export default {
         return {
             showConfirmationModal: false,
             showTransferModal: false,
+            showShopModal: false,
             showExportModal: false,
             selectedItem: null,
             currentPage: 1,
@@ -451,6 +492,14 @@ export default {
 
         toggleTransferModal() {
             this.showTransferModal = ! this.showTransferModal;
+        },
+
+        toggleShopModal(shop) {
+            if (shop) {
+                this.selectedItem = shop; 
+            }
+            
+            this.showShopModal = ! this.showShopModal;
         },
     },
 };

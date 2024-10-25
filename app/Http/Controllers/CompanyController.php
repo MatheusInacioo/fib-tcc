@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CompanyRequest;
 use App\Http\Resources\CompanyResource;
 use App\Models\Company;
+use App\Models\Shop;
 use Exception;
 use Inertia\Inertia;
 use Symfony\Component\CssSelector\Exception\InternalErrorException;
@@ -27,8 +28,13 @@ class CompanyController extends Controller
 
     public function edit(Company $company)
     {
+        $shops = Shop::where('company_id', $company->id)
+                     ->where('active', true)
+                     ->get();
+
         return Inertia::render('Companies/CreateEdit', [
             'company' => CompanyResource::make($company),
+            'shops' => $shops,
         ]);
     }
 
@@ -61,6 +67,7 @@ class CompanyController extends Controller
     public function destroy($companyId)
     {
         try {
+            Shop::where('company_id', $companyId)->update(['active' => false]);
             Company::find($companyId)->update(['active' => false]);
 
             return redirect()->route('companies.index')->with('success', 'Empresa excluída com sucesso.');
