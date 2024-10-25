@@ -74,11 +74,6 @@
                         route: 'companies.index',
                     },
                     {
-                        title: 'Lojas',
-                        icon: 'bx bx-store',
-                        route: 'shops.index',
-                    },
-                    {
                         title: 'Permissões',
                         icon: 'bx bx-check-square',
                         route: 'permissions.index',
