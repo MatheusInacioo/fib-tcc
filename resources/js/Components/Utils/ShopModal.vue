@@ -9,7 +9,7 @@
             <Transition name="modal-body">
                 <div
                     v-if="showModal"
-                    class="flex items-center px-4 w-[40%] mobile-std:w-full"
+                    class="flex items-center px-4 w-[40%] mobile-std:w-full mobile-lg:w-[70%]"
                 >
                     <div
                         class="bg-white rounded-lg shadow-lg w-full h-full flex flex-col"
