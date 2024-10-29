@@ -250,14 +250,14 @@
             },
             menus: [
                 {
-                    subject: 'invoicing',
+                    subject: 'finances',
                     title: 'Faturamento',
                     icon: 'bx bx-dollar-circle',
-                    route: 'invoicing.index',
+                    route: 'finances.index',
                     submenus: [
                         {
                             title: 'Consultar',
-                            route: 'invoicing.index',
+                            route: 'finances.index',
                         }
                     ],
                 },

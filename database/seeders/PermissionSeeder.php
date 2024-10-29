@@ -14,8 +14,8 @@ class PermissionSeeder extends Seeder
     public function run(): void
     {
         $permissions = [
-            'list-invoicing',
-            'export-invoicing',
+            'list-finances',
+            'export-finances',
             'list-transactions',
             'create-transactions',
             'export-transactions',

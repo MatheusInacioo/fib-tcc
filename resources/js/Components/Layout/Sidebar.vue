@@ -172,10 +172,10 @@
                 },
                 buttons: [
                     {
-                        subject: 'invoicing',
-                        title: 'Faturamento',
+                        subject: 'finances',
+                        title: 'Finanças',
                         icon: 'bx bx-dollar-circle',
-                        route: 'invoicing.index',
+                        route: 'finances.index',
                     },
                     {
                         subject: 'transactions',

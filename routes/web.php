@@ -7,7 +7,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CrmController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\InvoicingController;
+use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\ResetPasswordController;
@@ -114,8 +114,8 @@ Route::middleware('auth')->group(function () {
     });
 
     // Invoicing routes
-    Route::controller(InvoicingController::class)->group(function () {
-        Route::get('/invoicing', 'index')->name('invoicing.index');
+    Route::controller(FinanceController::class)->group(function () {
+        Route::get('/finances', 'index')->name('finances.index');
     });
 
     // Shop routes

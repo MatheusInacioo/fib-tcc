@@ -63,7 +63,7 @@
                                     class="rounded-lg"
                                     :class="{
                                         'hidden' : permission.action == 'edit' && item.subject == 'transactions' ||
-                                                   ['create', 'edit', 'delete'].includes(permission.action) && item.subject == 'invoicing' ||
+                                                   ['create', 'edit', 'delete'].includes(permission.action) && item.subject == 'finances' ||
                                                    permission.action == 'manage' && !['companies', 'shops'].includes(item.subject)
                                     }"
                                     :checked="hasPermission(role.id, item.subject, permission.action)"
@@ -131,8 +131,8 @@
                 showRoleModal: false,
                 items: [
                    {
-                        label: 'Faturamento',
-                        subject: 'invoicing',
+                        label: 'Finanças',
+                        subject: 'finances',
                    },
                    {
                         label: 'Transações',
