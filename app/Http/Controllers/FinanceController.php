@@ -45,11 +45,11 @@ class FinanceController extends Controller
 
             $financialData[] = [
                 'period' => $startOfMonth->format('m/Y'),
-                'invoicing' => NumericUtil::formatToCurrency($invoicing, 'R$'),
-                'expenses' => NumericUtil::formatToCurrency($expenses, 'R$'),
-                'gross_profit' => NumericUtil::formatToCurrency($grossProfit, 'R$'),
+                'invoicing' => NumericUtil::formatToCurrency($invoicing),
+                'expenses' => NumericUtil::formatToCurrency($expenses),
+                'gross_profit' => NumericUtil::formatToCurrency($grossProfit),
                 'profit_margin' => NumericUtil::getProfitMarginValue($invoicing, $grossProfit),
-                'average_ticket' => NumericUtil::formatToCurrency($averageTicket, 'R$'),
+                'average_ticket' => NumericUtil::formatToCurrency($averageTicket),
                 'sales_count' => $salesCount,
             ];
         }

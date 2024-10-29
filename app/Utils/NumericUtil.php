@@ -3,7 +3,7 @@
 namespace App\Utils;
 
 class NumericUtil {
-    public static function formatToCurrency(float $value, string $currency)
+    public static function formatToCurrency(float $value, string $currency = 'R$')
     {
         return $currency . number_format($value, 2, ',', '.');
     }

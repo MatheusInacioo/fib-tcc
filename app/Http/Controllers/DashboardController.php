@@ -53,7 +53,7 @@ class DashboardController extends Controller
 
         return [
             'invoicing' => [
-                'total' => $todayInvoicing ? NumericUtil::formatToCurrency($todayInvoicing, 'R$') : null,
+                'total' => $todayInvoicing ? NumericUtil::formatToCurrency($todayInvoicing) : null,
                 'change' => $change !== null ? $change : null,
             ],
             'purchases' => $purchases ?? null,

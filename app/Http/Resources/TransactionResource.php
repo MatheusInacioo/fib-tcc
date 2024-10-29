@@ -29,7 +29,7 @@ class TransactionResource extends JsonResource
             'quantity' => $this->quantity,
             'price' => $this->price,
             'total_amount' => $this->total_amount,
-            'formatted_amount' => NumericUtil::formatToCurrency($this->total_amount, 'R$'),
+            'formatted_amount' => NumericUtil::formatToCurrency($this->total_amount),
             'payment_method' => $this->payment_method,
             'notes' => $this->notes,
             'user_id' => $this->user_id,
