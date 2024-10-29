@@ -116,6 +116,7 @@ Route::middleware('auth')->group(function () {
     // Invoicing routes
     Route::controller(FinanceController::class)->group(function () {
         Route::get('/finances', 'index')->name('finances.index');
+        Route::get('/finances/export', 'export')->name('finances.export');
     });
 
     // Shop routes

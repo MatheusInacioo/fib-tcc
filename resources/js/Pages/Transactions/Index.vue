@@ -110,7 +110,7 @@ export default {
                         searchable: true,
                     },
                     {
-                        label: 'Usuário',
+                        label: 'Responsável',
                         name: 'user_name',
                         sortable: true,
                         searchable: true,

@@ -2,10 +2,10 @@
 
 namespace App\Exports;
 
+use App\Utils\NumericUtil;
 use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Number;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -75,8 +75,8 @@ class TransactionExport implements FromCollection, WithHeadings, ShouldAutoSize,
             $transaction->supplier_name,
             $transaction->product_name,
             $transaction->quantity,
-            Number::currency($transaction->price, 'BRL'),
-            Number::currency($transaction->total_amount, 'BRL'),
+            NumericUtil::formatToCurrency($transaction->price, 'R$'),
+            NumericUtil::formatToCurrency($transaction->total_amount, 'R$'),
             $transaction->payment_method,
             $transaction->user_name,
             Carbon::parse($transaction->created_at)->format('d/m/Y'),

@@ -2,10 +2,10 @@
 
 namespace App\Http\Resources;
 
+use App\Utils\NumericUtil;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Number;
 
 class TransactionResource extends JsonResource
 {
@@ -29,7 +29,7 @@ class TransactionResource extends JsonResource
             'quantity' => $this->quantity,
             'price' => $this->price,
             'total_amount' => $this->total_amount,
-            'formatted_amount' => Number::currency($this->total_amount, 'BRL'),
+            'formatted_amount' => NumericUtil::formatToCurrency($this->total_amount, 'R$'),
             'payment_method' => $this->payment_method,
             'notes' => $this->notes,
             'user_id' => $this->user_id,

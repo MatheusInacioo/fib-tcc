@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Utils\NumericUtil;
 use App\Models\Product;
 use App\Models\Transaction;
-use Illuminate\Support\Number;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
@@ -53,7 +53,7 @@ class DashboardController extends Controller
 
         return [
             'invoicing' => [
-                'total' => $todayInvoicing ? Number::currency($todayInvoicing, 'BRL') : null,
+                'total' => $todayInvoicing ? NumericUtil::formatToCurrency($todayInvoicing, 'R$') : null,
                 'change' => $change !== null ? $change : null,
             ],
             'purchases' => $purchases ?? null,

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Utils\NumericUtil;
+use App\Models\Expense;
 use App\Models\Transaction;
-use Illuminate\Support\Number;
 use Inertia\Inertia;
 
 class FinanceController extends Controller
@@ -44,15 +45,20 @@ class FinanceController extends Controller
 
             $financialData[] = [
                 'period' => $startOfMonth->format('m/Y'),
-                'invoicing' => Number::currency($invoicing, 'BRL'),
-                'expenses' => Number::currency($expenses, 'BRL'),
-                'gross_profit' => Number::currency($grossProfit, 'BRL'),
-                'profit_margin' => $invoicing > 0 ? round(($grossProfit / $invoicing) * 100, 2) : 0,
-                'average_ticket' => Number::currency($averageTicket, 'BRL'),
+                'invoicing' => NumericUtil::formatToCurrency($invoicing, 'R$'),
+                'expenses' => NumericUtil::formatToCurrency($expenses, 'R$'),
+                'gross_profit' => NumericUtil::formatToCurrency($grossProfit, 'R$'),
+                'profit_margin' => NumericUtil::getProfitMarginValue($invoicing, $grossProfit),
+                'average_ticket' => NumericUtil::formatToCurrency($averageTicket, 'R$'),
                 'sales_count' => $salesCount,
             ];
         }
 
         return $financialData;
+    }
+
+    public function export()
+    {
+        // 
     }
 }

@@ -50,18 +50,18 @@ export default {
             message: {},
             showModal: false,
             tableSettings: {
-                subject: 'financial',
-                title: 'Financeiro',
+                subject: 'finances',
+                title: 'Finanças',
                 button_title: null,
                 routes: {
                     create: null,
-                    export: 'financial.export',
+                    export: 'finances.export',
                     edit: null,
                     delete: null,
                 },
                 columns: [
                     {
-                        label: 'mês/ano',
+                        label: 'Período',
                         name: 'period',
                         sortable: true,
                         searchable: true,
@@ -91,7 +91,7 @@ export default {
                         searchable: true,
                     },
                     {
-                        label: 'Margem lucro',
+                        label: 'Margem de lucro',
                         name: 'profit_margin',
                         sortable: true,
                         searchable: true,
