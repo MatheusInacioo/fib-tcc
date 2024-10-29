@@ -2,60 +2,57 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
+use Illuminate\Support\Number;
 use Inertia\Inertia;
 
 class FinanceController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Finances/Index', []);
+        return Inertia::render('Finances/Index', [
+            'financialData' => $this->getFinancialData(),
+        ]);
     }
 
     private function getFinancialData()
     {
-        $todayStart = now()->startOfDay();
-        $todayEnd = now()->endOfDay();
-        $yesterdayStart = now()->subDay()->startOfDay();
-        $yesterdayEnd = now()->subDay()->endOfDay();
+        $currentYear = now()->year;
+        $financialData = [];
 
-        $todayInvoicing = Transaction::session()
-            ->whereBetween('created_at', [$todayStart, $todayEnd])
-            ->where('type', 1)
-            ->sum('total_amount');
+        for ($month = 1; $month <= 12; $month++) {
+            $startOfMonth = now()->setYear($currentYear)->setMonth($month)->startOfMonth();
+            $endOfMonth = now()->setYear($currentYear)->setMonth($month)->endOfMonth();
 
-        $yesterdayInvoicing = Transaction::session()
-            ->whereBetween('created_at', [$yesterdayStart, $yesterdayEnd])
-            ->where('type', 1)
-            ->sum('total_amount');
+            $invoicing = Transaction::session()
+                ->whereBetween('created_at', [$startOfMonth, $endOfMonth])
+                ->where('type', 1)
+                ->sum('total_amount');
 
-        $purchases = Transaction::session()
-            ->whereBetween('created_at', [$todayStart, $todayEnd])
-            ->where('type', 0)
-            ->count();
+            $expenses = Expense::session()
+                ->whereBetween('created_at', [$startOfMonth, $endOfMonth])
+                ->sum('amount');
 
-        $sales = Transaction::session()
-            ->whereBetween('created_at', [$todayStart, $todayEnd])
-            ->where('type', 1)
-            ->count();
+            $grossProfit = $invoicing - $expenses;
 
-        $lowProducts = Product::whereColumn('total_amount', '<=', 'minimum_amount')->get();
+            $salesCount = Transaction::session()
+                ->whereBetween('created_at', [$startOfMonth, $endOfMonth])
+                ->where('type', 1)
+                ->count();
 
-        $expiredProducts = Product::session()->whereDate('expiry_date', '<', $todayStart)->get();
+            $averageTicket = $salesCount > 0 ? $invoicing / $salesCount : 0;
 
-        $depletedProducts = Product::session()->where('total_amount', '0')->get();
+            $financialData[] = [
+                'period' => $startOfMonth->format('m/Y'),
+                'invoicing' => Number::currency($invoicing, 'BRL'),
+                'expenses' => Number::currency($expenses, 'BRL'),
+                'gross_profit' => Number::currency($grossProfit, 'BRL'),
+                'profit_margin' => $invoicing > 0 ? round(($grossProfit / $invoicing) * 100, 2) : 0,
+                'average_ticket' => Number::currency($averageTicket, 'BRL'),
+                'sales_count' => $salesCount,
+            ];
+        }
 
-        $change = $this->calculatePercentageChange($todayInvoicing, $yesterdayInvoicing);
-
-        return [
-            'invoicing' => [
-                'total' => $todayInvoicing ? Number::currency($todayInvoicing, 'BRL') : null,
-                'change' => $change !== null ? $change : null,
-            ],
-            'purchases' => $purchases ?? null,
-            'sales' => $sales ?? null,
-            'low_products' => $lowProducts ?? null,
-            'expired_products' => $expiredProducts ?? null,
-            'depleted_products' => $depletedProducts ?? null,
-        ];
+        return $financialData;
     }
 }

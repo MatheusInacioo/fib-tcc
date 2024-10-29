@@ -52,6 +52,7 @@
                             v-if="userHasPermission('create', settings.subject) && settings.subject != 'shops'"
                             :href="route(settings.routes.create)"
                             class="flex justify-center items-center w-14 h-10 bg-primary rounded-xl text-white p-2 text-base font-semibold shadow-xl hover:scale-105 transition-all"
+                            :class="{ 'hidden' : settings.subject == 'finances'}"
                         >
                             <i class="bx bx-plus text-xl font-semibold text-secondary"></i>
                         </a>
@@ -94,6 +95,7 @@
                     v-if="userHasPermission('create', settings.subject) && settings.subject != 'shops'"
                     :href="route(settings.routes.create)"
                     class="flex justify-center items-center w-auto 2xl:h-10 bg-primary rounded-xl text-white p-2 text-base 2xl:text-lg font-semibold shadow-xl hover:scale-105 transition-all mobile-std:hidden"
+                    :class="{ 'hidden' : settings.subject == 'finances'}"
                 >
                     <i class="bx bx-plus font-semibold mr-2 text-secondary"></i>
                     <p class="font-medium text-secondary">{{ settings.button_title }}</p>
