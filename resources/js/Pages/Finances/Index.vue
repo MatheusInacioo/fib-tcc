@@ -15,7 +15,7 @@
         >
             <Datatable
                 :settings="tableSettings"
-                :data="financialData"
+                :data="tableData"
             />
         </div>
 
@@ -47,6 +47,7 @@ export default {
 
     data() {
         return {
+            tableData: this.financialData,
             message: {},
             showModal: false,
             tableSettings: {
@@ -110,6 +111,24 @@ export default {
     methods: {
         toggleModal() {
             this.showModal = ! this.showModal;
+        },
+
+        async fetchFinancialData(period, interval, startDate, endDate) {
+            let params = {
+                group_by: period,
+                interval: interval,
+                start_date: startDate ? startDate : null,
+                end_date: endDate ? endDate : null
+            };
+
+            await axios.get(this.route('finances.fetch', params))
+                .then(response => {
+                    console.log(response.data);
+                    this.tableData = response.data;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         },
     },
 
