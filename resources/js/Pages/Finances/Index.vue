@@ -13,6 +13,43 @@
             v-else
             class="h-full w-full flex flex-col"
         >
+            <div class="flex items-center justify-between p-3 w-full rounded-xl shadow-xl border border-gray-200 mb-4">
+                <p class="font-medium text-xl">Filtros de busca</p>
+                <div class="flex justify-between items-center">
+                    <select
+                        v-model="filters.period"
+                        name="period"
+                        id="period"
+                        class="border-gray-300 2xl:text-base text-sm rounded-xl mr-2"
+                    >
+                        <option selected disabled :value="null">Período</option>
+                        <option
+                            v-for="period in periods"
+                            :key="period.id"
+                            :value="period.value"
+                        >
+                            {{ period.label }}
+                        </option>
+                    </select>                  
+                    <select
+                        v-model="filters.group_by"
+                        name="group-by"
+                        id="group-by"
+                        class="border-gray-300 2xl:text-base text-sm rounded-xl mr-2"
+                    >
+                        <option selected disabled :value="null">Agrupar por</option>
+                        <option :value="1">Dia</option>
+                        <option :value="2">Mês</option>
+                    </select>                  
+                    <button
+                        @click="fetchFinancialData()"
+                        class="flex justify-center items-center 2xl:h-10 bg-primary rounded-xl text-white p-2 text-base 2xl:text-lg font-semibold shadow-xl hover:scale-105 transition-all mobile-std:hidden mr-2"
+                    >
+                        <i class="bx bxs-filter-alt mr-2 text-secondary"></i>
+                        <p class="font-medium text-secondary">Filtrar</p>
+                    </button>
+                </div>
+            </div>
             <Datatable
                 :settings="tableSettings"
                 :data="tableData"
@@ -104,6 +141,24 @@ export default {
                         searchable: true,
                     },
                 ],
+            },
+            periods: [
+                {
+                    label: 'Últimos 30 dias',
+                    value: 1,
+                },
+                {
+                    label: 'Últimos 6 meses',
+                    value: 2,
+                },
+                {
+                    label: 'Últimos 12 meses',
+                    value: 3,
+                },
+            ],
+            filters: {
+                period: null,
+                group_by: null,
             },
         }
     },
