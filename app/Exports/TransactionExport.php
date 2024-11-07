@@ -20,6 +20,8 @@ class TransactionExport implements FromCollection, WithHeadings, ShouldAutoSize,
         $this->columns = array_diff(
             Schema::getColumnListing((new Transaction)->getTable()),
             [
+                'company_id',
+                'shop_id',
                 'customer_id',
                 'product_id',
                 'supplier_id',

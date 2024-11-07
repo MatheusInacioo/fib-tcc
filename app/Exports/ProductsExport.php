@@ -18,7 +18,16 @@ class ProductsExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
     {
         $this->columns = array_diff(
             Schema::getColumnListing((new Product)->getTable()),
-            ['description', 'supplier_id', 'additional_info', 'created_at', 'updated_at']
+            [
+                'shop_id',
+                'company_id',
+                'description', 
+                'supplier_id', 
+                'additional_info', 
+                'created_at', 
+                'updated_at',
+                'active'
+            ]
         );
     }
 
@@ -30,7 +39,8 @@ class ProductsExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
 
         $columns[] = 'suppliers.name as supplier_name';
 
-        return Product::select($columns)
+        return Product::session()
+            ->select($columns)
             ->join('suppliers', 'products.supplier_id', '=', 'suppliers.id')
             ->get();
     }

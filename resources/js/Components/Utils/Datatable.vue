@@ -165,14 +165,14 @@
                                 v-if="column.name == 'actions'"
                                 class="flex justify-center"
                             >
-                                <button
+                                <!-- <button
                                     v-if="settings.subject == 'products'"
                                     type="button"
                                     @click="toggleTransferModal()"
                                     class="hover:scale-125 transition-all"
                                 >
                                     <i class="bx bx-transfer text-lg mr-2 2xl:mr-3 2xl:text-xl text-gray-400"></i>
-                                </button>
+                                </button> -->
                                 <a
                                     v-if="settings.subject == 'transactions'"
                                     :href="route(settings.routes.view, item.id)"

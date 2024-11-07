@@ -16,13 +16,19 @@ class SuppliersExport implements FromCollection, WithHeadings, ShouldAutoSize
     {
         $this->columns = array_diff(
             Schema::getColumnListing((new Supplier)->getTable()),
-            ['created_at', 'updated_at']
+            [
+                'company_id',
+                'shop_id',
+                'created_at', 
+                'updated_at',
+                'active',
+            ]
         );
     }
 
     public function collection()
     {
-        return Supplier::select($this->columns)->get();
+        return Supplier::session()->select($this->columns)->get();
     }
 
     public function headings(): array

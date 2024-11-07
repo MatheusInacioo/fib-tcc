@@ -16,13 +16,19 @@ class CustomersExport implements FromCollection, WithHeadings, ShouldAutoSize
     {
         $this->columns = array_diff(
             Schema::getColumnListing((new Customer)->getTable()),
-            ['created_at', 'updated_at']
+            [
+                'shop_id',
+                'company_id',
+                'created_at', 
+                'updated_at',
+                'active',
+            ]
         );
     }
 
     public function collection()
     {
-        return Customer::select($this->columns)->get();
+        return Customer::session()->select($this->columns)->get();
     }
 
     public function headings(): array

@@ -45,7 +45,7 @@
                         @click="fetchFinancialData()"
                         class="flex justify-center items-center 2xl:h-10 bg-primary rounded-xl text-white p-2 text-base 2xl:text-lg font-semibold shadow-xl hover:scale-105 transition-all mobile-std:hidden mr-2"
                     >
-                        <i class="bx bxs-filter-alt mr-2 text-secondary"></i>
+                        <i class="bx bx-filter mr-2 text-secondary"></i>
                         <p class="font-medium text-secondary">Filtrar</p>
                     </button>
                 </div>

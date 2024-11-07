@@ -18,11 +18,14 @@ class UsersExport implements FromCollection, WithHeadings, ShouldAutoSize, WithM
         $this->columns = array_diff(
             Schema::getColumnListing((new User)->getTable()),
             [
+                'company_id',
+                'shop_id',
                 'email_verified_at',
                 'password',
                 'remember_token',
                 'created_at',
                 'updated_at',
+                'active'
             ]
         );
     }
@@ -35,7 +38,8 @@ class UsersExport implements FromCollection, WithHeadings, ShouldAutoSize, WithM
 
         $columns[] = 'roles.name as role_name';
 
-        return User::select($columns)
+        return User::session()
+            ->select($columns)
             ->join('roles', 'users.role_id', '=', 'roles.id')
             ->get();
     }
