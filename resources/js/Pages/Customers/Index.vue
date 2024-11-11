@@ -118,9 +118,21 @@ export default {
         toggleModal() {
             this.showModal = ! this.showModal;
         },
+
+        async fetchCustomers() {
+            await axios.get(route('api.customers.fetch'))
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    console.error(error);
+                })
+        }
     },
 
     created() {
+        this.fetchCustomers();
+        
         setTimeout(() => {
             var flashMessage = this.$page.props.flash;
 

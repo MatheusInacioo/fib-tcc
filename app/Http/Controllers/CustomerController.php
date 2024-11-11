@@ -41,7 +41,7 @@ class CustomerController extends Controller
             Customer::create($data);
 
             return redirect()->route('customers.index')->with('success', 'Cliente cadastrado com sucesso.');
-        } catch(Exception $ex) {
+        } catch (Exception $ex) {
             return redirect()->route('customers.index')->with('error', 'Ocorreu um erro ao cadastrar o cliente: ' . $ex->getMessage());
         }
     }
@@ -54,7 +54,7 @@ class CustomerController extends Controller
             $customer->update($data);
 
             return redirect()->route('customers.index')->with('success', 'Cliente atualizado com sucesso.');
-        } catch(Exception $ex) {
+        } catch (Exception $ex) {
             return redirect()->route('customers.index')->with('error', 'Ocorreu um erro ao autalizar os dados do cliente: ' . $ex->getMessage());
         }
     }
@@ -65,7 +65,7 @@ class CustomerController extends Controller
             Customer::find($customerId)->update(['active' => false]);
 
             return redirect()->route('customers.index')->with('success', 'Cliente excluído com sucesso.');
-        } catch(Exception $ex) {
+        } catch (Exception $ex) {
             return redirect()->route('customers.index')->with('error', 'Ocorreu um erro ao excluir o cliente: ' . $ex->getMessage());
         }
     }
@@ -73,5 +73,37 @@ class CustomerController extends Controller
     public function export()
     {
         return Excel::download(new CustomersExport, 'clientes.xlsx');
+    }
+
+    public function fetch()
+    {
+        $url = 'https://tcc-abcwcefdhghvcjdq.brazilsouth-01.azurewebsites.net/api/Category/GetAll';
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+
+        $response = curl_exec($ch);
+
+        if (curl_errno($ch)) {
+            echo 'Erro na requisição: ' . curl_error($ch);
+        } else {
+            $formattedData = [];
+            $apiResponse = json_decode($response, true);
+
+            foreach ($apiResponse as $key => $data) {
+                $formattedData[] = [
+                    'id' => $key + 1,
+                    'uuid' => $data['id'],
+                    'desc' => $data['description'],
+                    'act' => $data['active']
+                ];
+            }
+            curl_close($ch);
+
+            return $formattedData;
+        }
     }
 }
