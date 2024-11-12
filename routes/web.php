@@ -72,7 +72,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('/customers', CustomerController::class)->except(['show', 'destroy']);
     Route::post('/customers/destroy/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
     Route::get('/customers/export', [CustomerController::class, 'export'])->name('customers.export');
-    Route::get('/customers/fetch', [CustomerController::class, 'fetch'])->name('api.customers.fetch');
 
     // CRM routes
     Route::resource('/crm', CrmController::class)->except(['show', 'destroy']);
@@ -83,20 +82,17 @@ Route::middleware('auth')->group(function () {
     Route::resource('/suppliers', SupplierController::class)->except(['show', 'destroy']);
     Route::post('/suppliers/destroy/{id}', [SupplierController::class, 'destroy'])->name('suppliers.destroy');
     Route::get('/suppliers/export', [SupplierController::class, 'export'])->name('suppliers.export');
-    Route::get('/suppliers/fetch', [SupplierController::class, 'fetch'])->name('api.suppliers.fetch');
 
     // Product routes
     Route::resource('/products', ProductController::class)->except(['show', 'destroy']);
     Route::post('/products/destroy/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
     Route::get('/products/export', [ProductController::class, 'export'])->name('products.export');
     Route::get('/products/replace/{id}', [ProductController::class, 'replace'])->name('products.replace');
-    Route::get('/products/fetch', [ProductController::class, 'fetch'])->name('api.products.fetch');
 
     // User routes
     Route::resource('/users', UserController::class)->except(['show', 'destroy']);
     Route::post('/users/destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy');
     Route::get('/users/export', [UserController::class, 'export'])->name('users.export');
-    Route::get('/users/fetch', [UserController::class, 'fetch'])->name('api.users.fetch');
 
     // Settings routes
     Route::controller(SettingsController::class)->group(function () {

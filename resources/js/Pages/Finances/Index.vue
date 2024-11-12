@@ -178,7 +178,6 @@ export default {
 
             await axios.get(this.route('finances.fetch', params))
                 .then(response => {
-                    console.log(response.data);
                     this.tableData = response.data;
                 })
                 .catch(error => {

@@ -74,36 +74,4 @@ class CustomerController extends Controller
     {
         return Excel::download(new CustomersExport, 'clientes.xlsx');
     }
-
-    public function fetch()
-    {
-        $url = 'https://tcc-abcwcefdhghvcjdq.brazilsouth-01.azurewebsites.net/api/Category/GetAll';
-
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPGET, true);
-
-        $response = curl_exec($ch);
-
-        if (curl_errno($ch)) {
-            echo 'Erro na requisição: ' . curl_error($ch);
-        } else {
-            $formattedData = [];
-            $apiResponse = json_decode($response, true);
-
-            foreach ($apiResponse as $key => $data) {
-                $formattedData[] = [
-                    'id' => $key + 1,
-                    'uuid' => $data['id'],
-                    'desc' => $data['description'],
-                    'act' => $data['active']
-                ];
-            }
-            curl_close($ch);
-
-            return $formattedData;
-        }
-    }
 }
