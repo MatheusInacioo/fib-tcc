@@ -20,6 +20,7 @@ class TransactionResource extends JsonResource
             'id' => $this->id,
             'type_id' => $this->type,
             'type' => $this->type == 0 ? 'Compra' : 'Venda',
+            'counterparty' => $this->type == 0 ? $this->getSupplierName() : $this->getCustomerName(),
             'customer_id' => $this->customer_id,
             'supplier_id' => $this->supplier_id,
             'product_id' => $this->product_id,

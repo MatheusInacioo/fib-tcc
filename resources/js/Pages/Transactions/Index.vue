@@ -80,6 +80,12 @@ export default {
                         searchable: true,
                     },
                     {
+                        label: 'Contraparte',
+                        name: 'counterparty',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
                         label: 'Produto',
                         name: 'product_name',
                         sortable: true,
