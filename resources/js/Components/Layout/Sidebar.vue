@@ -171,12 +171,12 @@
                     subject: 'exit-system',
                 },
                 buttons: [
-                   {
-                     subject: 'finances',
-                       title: 'Finanças',
-                       icon: 'bx bx-dollar-circle',
-                       route: 'finances.index',
-                   },
+                //    {
+                //      subject: 'finances',
+                //        title: 'Finanças',
+                //        icon: 'bx bx-dollar-circle',
+                //        route: 'finances.index',
+                //    },
                     {
                         subject: 'transactions',
                         title: 'Transações',
