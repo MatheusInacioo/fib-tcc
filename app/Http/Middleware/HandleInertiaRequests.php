@@ -30,8 +30,6 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        $companyController = new CompanyController;
-
         return [
             ...parent::share($request),
             'auth' => [
@@ -47,7 +45,7 @@ class HandleInertiaRequests extends Middleware
                 'error' => $request->session()->get('error'),
             ],
             'scope' => [
-                'companies' => $companyController->list(),
+                'companies' => (new CompanyController)->list(),
             ]
         ];
     }
