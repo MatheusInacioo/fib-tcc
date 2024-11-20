@@ -43,7 +43,7 @@ class DashboardController extends Controller
             ->where('type', 1)
             ->count();
 
-        $lowProducts = Product::whereColumn('total_amount', '<=', 'minimum_amount')->get();
+        $lowProducts = Product::session()->whereColumn('total_amount', '<=', 'minimum_amount')->get();
 
         $expiredProducts = Product::session()->whereDate('expiry_date', '<', $todayStart)->get();
 

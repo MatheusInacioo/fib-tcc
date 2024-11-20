@@ -95,7 +95,7 @@
                 </div>
 
                 <div
-                    v-if="dayStats.depleted_products || dayStats.expired_products"
+                    v-if="dayStats.depleted_products.length > 0 || dayStats.expired_products.length > 0"
                     class="h-full p-4 flex flex-col justify-between"
                 >
                     <span
@@ -104,7 +104,12 @@
                     >
                         {{ dayStats.depleted_products.length + ' produtos esgotados'}}
                     </span>
-                    <span class="text-lg mobile-std:text-base font-medium text-black">{{ dayStats.expired_products.length + ' produtos vencidos'}}</span>
+                    <span 
+                        v-if="dayStats.expired_products.length > 0"
+                        class="text-lg mobile-std:text-base font-medium text-black"
+                    >
+                        {{ dayStats.expired_products.length + ' produtos vencidos'}}
+                    </span>
                     <button
                         @click="toggleProductModal('expired')"
                         class="flex justify-center items-center px-4 h-10 bg-danger rounded-xl shadow-xl hover:scale-105 transition-all self-end"
@@ -117,7 +122,7 @@
                     v-else
                     class="h-full p-4 flex justify-center items-center"
                 >
-                    <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">Nenhum alerta iminente. Tudo certo!</span>
+                    <span class="text-xl mobile-std:text-lg font-medium mb-2 text-black">Nenhum alerta iminente.</span>
                 </div>
             </div>
         </div>

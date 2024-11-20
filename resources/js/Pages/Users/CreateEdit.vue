@@ -110,7 +110,7 @@
                 <div
                     class="form-field flex flex-col mobile-std:mb-4 mobile-std:mr-0"
                     :class="{
-                        'hidden' : !userIsAdmin
+                        'hidden' : !userIsAdmin || $page.props.auth.user.id == user.data.id
                     }"
                 >
                     <span class="font-medium 2xlg:text-lg text-base ml-1 mb-2">Loja</span>

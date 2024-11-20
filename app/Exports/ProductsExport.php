@@ -39,10 +39,15 @@ class ProductsExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
 
         $columns[] = 'suppliers.name as supplier_name';
 
-        return Product::session()
-            ->select($columns)
-            ->join('suppliers', 'products.supplier_id', '=', 'suppliers.id')
-            ->get();
+        $query = Product::select($columns)->where('products.company_id', session()->get('selected_company_id'));
+
+        if (session()->get('selected_shop_id') != null) {
+            $query->where('products.shop_id', session()->get('selected_shop_id'));
+        }
+
+        $query->join('suppliers', 'products.supplier_id', '=', 'suppliers.id');
+        
+        return $query->orderBy('id')->get();
     }
 
     public function headings(): array

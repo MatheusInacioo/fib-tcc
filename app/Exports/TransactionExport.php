@@ -43,12 +43,18 @@ class TransactionExport implements FromCollection, WithHeadings, ShouldAutoSize,
         $columns[] = 'products.name as product_name';
         $columns[] = 'users.name as user_name';
 
-        return Transaction::select($columns)
-            ->leftJoin('customers', 'transactions.customer_id', '=', 'customers.id')
-            ->leftJoin('suppliers', 'transactions.supplier_id', '=', 'suppliers.id')
-            ->leftJoin('products', 'transactions.product_id', '=', 'products.id')
-            ->leftJoin('users', 'transactions.user_id', '=', 'users.id')
-            ->get();
+        $query = Transaction::select($columns)->where('transactions.company_id', session()->get('selected_company_id'));
+
+        if (session()->get('selected_shop_id') != null) {
+            $query->where('transactions.shop_id', session()->get('selected_shop_id'));
+        }
+
+        $query->leftJoin('customers', 'transactions.customer_id', '=', 'customers.id')
+              ->leftJoin('suppliers', 'transactions.supplier_id', '=', 'suppliers.id')
+              ->leftJoin('products', 'transactions.product_id', '=', 'products.id')
+              ->leftJoin('users', 'transactions.user_id', '=', 'users.id');
+
+        return $query->orderBy('id')->get();
     }
 
     public function headings(): array
