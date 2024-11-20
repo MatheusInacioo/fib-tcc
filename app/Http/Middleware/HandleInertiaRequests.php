@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Controllers\CompanyController;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -29,6 +30,8 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $companyController = new CompanyController;
+
         return [
             ...parent::share($request),
             'auth' => [
@@ -42,6 +45,9 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'success' => $request->session()->get('success'),
                 'error' => $request->session()->get('error'),
+            ],
+            'scope' => [
+                'companies' => $companyController->list(),
             ]
         ];
     }

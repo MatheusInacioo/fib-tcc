@@ -322,7 +322,7 @@
                     ],
                 },
             ],
-            companies: [],
+            companies: this.$page.props.scope.companies,
             selectedCompany: [],
             selectedShop: [],
         }
@@ -348,16 +348,6 @@
 
         exitSystem() {
             this.$inertia.visit(route('login.destroy'));
-        },
-
-        async getCompanies() {
-            try {
-                const response = await axios.get(this.route('companies.list'));
-
-                this.companies = response.data;
-            } catch (error) {
-                console.error('Erro ao buscar permissões:', error);
-            }
         },
 
         async setSessionScope(companyId, shopId, isManualRequest) {
@@ -387,7 +377,6 @@
     },
 
     created() {
-        this.getCompanies();
         this.setSessionScope(this.currentCompany, this.currentShop, false);
     }
  };
