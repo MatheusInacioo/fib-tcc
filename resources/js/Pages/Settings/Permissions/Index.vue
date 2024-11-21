@@ -130,10 +130,10 @@
                 isLoading: false,
                 showRoleModal: false,
                 items: [
-                   {
-                        label: 'Finanças',
-                        subject: 'finances',
-                   },
+                //    {
+                //         label: 'Finanças',
+                //         subject: 'finances',
+                //    },
                    {
                         label: 'Transações',
                         subject: 'transactions',
