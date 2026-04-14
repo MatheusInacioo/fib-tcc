@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\TransactionTypeEnum;
 use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 class TransactionRequest extends FormRequest
 {
@@ -14,8 +16,8 @@ class TransactionRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = [
-            'type' => 'required',
+        $RULES = [
+            'type' => ['required', new Enum(TransactionTypeEnum::class)],
             'product_id' => 'required|integer',
             'quantity' => 'required|integer',
             'price' => 'required',
@@ -25,29 +27,29 @@ class TransactionRequest extends FormRequest
             'notes' => 'nullable',
         ];
 
-        if ($this->input('customer_id') && !$this->input('supplier_id')) {
-            $rules['customer_id'] = 'required|integer';
-            $rules['supplier_id'] = 'nullable';
-        } else if ($this->input('supplier_id') && !$this->input('customer_id')) {
-            $rules['customer_id'] = 'nullable';
-            $rules['supplier_id'] = 'required|integer';
+        if ($this->input('customer_id') && ! $this->input('supplier_id')) {
+            $RULES['customer_id'] = 'required|integer';
+            $RULES['supplier_id'] = 'nullable';
+        } elseif ($this->input('supplier_id') && ! $this->input('customer_id')) {
+            $RULES['customer_id'] = 'nullable';
+            $RULES['supplier_id'] = 'required|integer';
         }
 
-        if ($this->input('type') == 1) {
-            if (is_string($rules['quantity'])) {
-                $rules['quantity'] = explode('|', $rules['quantity']);
+        if (TransactionTypeEnum::tryFrom((int) $this->input('type')) === TransactionTypeEnum::SALE) {
+            if (is_string($RULES['quantity'])) {
+                $RULES['quantity'] = explode('|', $RULES['quantity']);
             }
 
-            $rules['quantity'][] = function ($attribute, $value, $fail) {
-                $product = Product::find($this->input('product_id'));
+            $RULES['quantity'][] = function ($ATTRIBUTE, $VALUE, $FAIL) {
+                $PRODUCT = Product::find($this->input('product_id'));
 
-                if ($product && $value > $product->total_amount) {
-                    $fail('Quantidade indisponível para venda. Disponível: ' . $product->total_amount);
+                if ($PRODUCT && $VALUE > $PRODUCT->total_amount) {
+                    $FAIL('Quantidade indisponível para venda. Disponível: '.$PRODUCT->total_amount);
                 }
             };
         }
 
-        return $rules;
+        return $RULES;
     }
 
     public function messages(): array
@@ -69,7 +71,7 @@ class TransactionRequest extends FormRequest
         return [
             'company_id' => session()->get('selected_company_id'),
             'shop_id' => session()->get('selected_shop_id'),
-            'type' => $this->input('type'),
+            'type' => TransactionTypeEnum::from((int) $this->input('type')),
             'customer_id' => $this->input('customer_id'),
             'supplier_id' => $this->input('supplier_id'),
             'product_id' => $this->input('product_id'),

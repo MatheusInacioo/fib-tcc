@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\TransactionTypeEnum;
 use App\Exports\TransactionExport;
 use App\Http\Requests\TransactionRequest;
 use App\Http\Resources\TransactionResource;
@@ -48,15 +49,15 @@ class TransactionController extends Controller
 
             return redirect()->route('transactions.index')->with('success', 'Transação criada com sucesso.');
         } catch (Exception $ex) {
-            return redirect()->route('transactions.index')->with('error', 'Ocorreu um erro ao criar a transação: ' . $ex->getMessage());
+            return redirect()->route('transactions.index')->with('error', 'Ocorreu um erro ao criar a transação: '.$ex->getMessage());
         }
     }
 
     public function searchSuppliers($search)
     {
         $suppliers = Supplier::session()
-            ->where('name', 'like', '%' . $search . '%')
-            ->orWhere('id', 'like', '%' . $search . '%')
+            ->where('name', 'like', '%'.$search.'%')
+            ->orWhere('id', 'like', '%'.$search.'%')
             ->get();
 
         return $suppliers;
@@ -65,8 +66,8 @@ class TransactionController extends Controller
     public function searchCustomers($search)
     {
         $customers = Customer::session()
-            ->where('name', 'like', '%' . $search . '%')
-            ->orWhere('id', 'like', '%' . $search . '%')
+            ->where('name', 'like', '%'.$search.'%')
+            ->orWhere('id', 'like', '%'.$search.'%')
             ->get();
 
         return $customers;
@@ -79,14 +80,14 @@ class TransactionController extends Controller
         if ($request['supplier_id']) {
             $query->where('supplier_id', $request['supplier_id'])
                 ->where(function ($q) use ($request) {
-                    $q->where('name', 'like', '%' . $request['search'] . '%')
-                        ->orWhere('id', 'like', '%' . $request['search'] . '%');
+                    $q->where('name', 'like', '%'.$request['search'].'%')
+                        ->orWhere('id', 'like', '%'.$request['search'].'%');
                 });
         } else {
             $query->whereDate('expiry_date', '>=', now())
                 ->where(function ($q) use ($request) {
-                    $q->where('name', 'like', '%' . $request['search'] . '%')
-                        ->orWhere('id', 'like', '%' . $request['search'] . '%');
+                    $q->where('name', 'like', '%'.$request['search'].'%')
+                        ->orWhere('id', 'like', '%'.$request['search'].'%');
                 });
         }
 
@@ -102,26 +103,26 @@ class TransactionController extends Controller
 
             return redirect()->route('transactions.index')->with('success', 'Transação excluída com sucesso.');
         } catch (Exception $ex) {
-            return redirect()->route('transactions.index')->with('error', 'Ocorreu um erro ao excluir a transação: ' . $ex->getMessage());
+            return redirect()->route('transactions.index')->with('error', 'Ocorreu um erro ao excluir a transação: '.$ex->getMessage());
         }
     }
 
-    private function updateProductData($data)
+    private function updateProductData($DATA)
     {
-        $product = Product::find($data['product_id']);
+        $PRODUCT = Product::find($DATA['product_id']);
 
-        $data['type'] == 0
-            ? $newQuantity = $product->total_amount + $data['quantity']
-            : $newQuantity = $product->total_amount - $data['quantity'];
+        $NEW_QUANTITY = $DATA['type'] === TransactionTypeEnum::PURCHASE
+            ? $PRODUCT->total_amount + $DATA['quantity']
+            : $PRODUCT->total_amount - $DATA['quantity'];
 
-        if ($data['expiry_date']) {
-            return $product->update([
-                'total_amount' => $newQuantity,
-                'expiry_date' => $data['expiry_date'],
+        if ($DATA['expiry_date']) {
+            return $PRODUCT->update([
+                'total_amount' => $NEW_QUANTITY,
+                'expiry_date' => $DATA['expiry_date'],
             ]);
         }
 
-        return $product->update(['total_amount' => $newQuantity]);
+        return $PRODUCT->update(['total_amount' => $NEW_QUANTITY]);
     }
 
     public function export()

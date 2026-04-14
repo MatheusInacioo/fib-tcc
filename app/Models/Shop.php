@@ -2,11 +2,16 @@
 
 namespace App\Models;
 
+use App\Enums\ActivationStatusEnum;
 use Illuminate\Database\Eloquent\Model;
 
 class Shop extends Model
 {
     protected $table = 'shops';
+
+    protected $casts = [
+        'active' => ActivationStatusEnum::class,
+    ];
 
     protected $fillable = [
         'name',

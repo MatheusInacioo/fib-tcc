@@ -58,7 +58,9 @@
             <div class="flex h-full w-full overflow-x-auto">
                 <Databoard
                     v-for="board in boards"
-                    :title="board"
+                    :key="board.value"
+                    :title="board.title"
+                    :status-value="board.value"
                     :crm="crm"
                 />
             </div>
@@ -95,11 +97,11 @@ export default {
             message: {},
             showNotificationModal: false,
             boards: [
-                'Contato',
-                'Negociação',
-                'Assinatura Pendente',
-                'Standby',
-                'Sem Interesse',
+                { title: 'Contato', value: 0 },
+                { title: 'Negociação', value: 1 },
+                { title: 'Assinatura Pendente', value: 2 },
+                { title: 'Standby', value: 3 },
+                { title: 'Sem Interesse', value: 4 },
             ],
         }
     },

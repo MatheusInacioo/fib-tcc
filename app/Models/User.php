@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ActivationStatusEnum;
 use App\Notifications\ResetPasswordNotification;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -47,12 +48,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'active' => ActivationStatusEnum::class,
     ];
 
     public function scopeSession(Builder $query): void
     {
         $query->where('company_id', Session::get('selected_company_id'))
-                ->where('shop_id', Session::get('selected_shop_id'));
+            ->where('shop_id', Session::get('selected_shop_id'));
     }
 
     public function role()

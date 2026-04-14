@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ActivationStatusEnum;
 use App\Models\Permission;
 use App\Models\Role;
 use Exception;
@@ -14,9 +15,9 @@ class PermissionController extends Controller
     public function index()
     {
         $roles = Role::with('permissions:id,name')
-                     ->select('id', 'name')
-                     ->where('active', true)
-                     ->get();
+            ->select('id', 'name')
+            ->where('active', ActivationStatusEnum::ACTIVE)
+            ->get();
 
         return Inertia::render('Settings/Permissions/Index', [
             'roles' => $roles,
@@ -29,7 +30,7 @@ class PermissionController extends Controller
             $permissions = $request->input('markedPermissions');
             $groupedPermissions = [];
 
-            if (!$permissions) {
+            if (! $permissions) {
                 $roleIds = Role::pluck('id')->toArray();
 
                 foreach ($roleIds as $roleId) {
@@ -60,7 +61,7 @@ class PermissionController extends Controller
 
             return redirect()->route('settings.index')->with('success', 'Permissões atualizadas com sucesso.');
         } catch (Exception $ex) {
-            return redirect()->route('settings.index')->with('error', 'Ocorreu um erro ao salvar as permissões: ' . $ex->getMessage());
+            return redirect()->route('settings.index')->with('error', 'Ocorreu um erro ao salvar as permissões: '.$ex->getMessage());
         }
     }
 

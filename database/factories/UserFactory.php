@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\ActivationStatusEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -32,7 +33,7 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'company_id' => 1,
             'shop_id' => rand(1, 2),
-            'active' => true,
+            'active' => ActivationStatusEnum::ACTIVE,
         ];
     }
 

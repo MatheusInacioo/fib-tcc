@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ActivationStatusEnum;
 use App\Models\Supplier;
 use Illuminate\Database\Seeder;
 
@@ -12,7 +13,7 @@ class SupplierSeeder extends Seeder
      */
     public function run(): void
     {
-        for($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             Supplier::create([
                 'name' => fake()->company(),
                 'company_id' => 1,
@@ -25,7 +26,7 @@ class SupplierSeeder extends Seeder
                 'responsible' => fake()->name(),
                 'responsible_phone' => fake()->numerify('(##)#####-####'),
                 'segment' => fake()->randomElement(['Atacado', 'Varejo', 'Transportes', 'Distribuidora', 'Alimentação']),
-                'active' => true,
+                'active' => ActivationStatusEnum::ACTIVE,
             ]);
         }
     }

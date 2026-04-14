@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ActivationStatusEnum;
 use App\Exports\UsersExport;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
@@ -17,8 +18,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::where('id', '<>', auth()->user()->id)
-                     ->where('active', true)
-                     ->get();
+            ->where('active', ActivationStatusEnum::ACTIVE)
+            ->get();
 
         return Inertia::render('Users/Index', [
             'users' => UserResource::collection($users)->toArray(request()),
@@ -28,9 +29,9 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::select('id', 'name')->get();
-        $companies = Company::where('active', true)
-                            ->with(['shops'])
-                            ->get();
+        $companies = Company::where('active', ActivationStatusEnum::ACTIVE)
+            ->with(['shops'])
+            ->get();
 
         return Inertia::render('Users/CreateEdit', [
             'roles' => $roles,
@@ -41,9 +42,9 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roles = Role::select('id', 'name')->get();
-        $companies = Company::where('active', true)
-                            ->with(['shops'])
-                            ->get();
+        $companies = Company::where('active', ActivationStatusEnum::ACTIVE)
+            ->with(['shops'])
+            ->get();
 
         return Inertia::render('Users/CreateEdit', [
             'user' => UserResource::make($user),
@@ -60,8 +61,8 @@ class UserController extends Controller
             User::create($data);
 
             return redirect()->route('users.index')->with('success', 'Usuário cadastrado com sucesso.');
-        } catch(Exception $ex) {
-            return redirect()->route('users.index')->with('error', 'Ocorreu um erro ao cadastrar o usuário: ' . $ex->getMessage());
+        } catch (Exception $ex) {
+            return redirect()->route('users.index')->with('error', 'Ocorreu um erro ao cadastrar o usuário: '.$ex->getMessage());
         }
     }
 
@@ -74,19 +75,19 @@ class UserController extends Controller
             $user->update($data);
 
             return redirect()->route('users.index')->with('success', 'Usuário atualizado com sucesso.');
-        } catch(Exception $ex) {
-            return redirect()->route('users.index')->with('error', 'Ocorreu um erro ao autalizar os dados do usuário: ' . $ex->getMessage());
+        } catch (Exception $ex) {
+            return redirect()->route('users.index')->with('error', 'Ocorreu um erro ao autalizar os dados do usuário: '.$ex->getMessage());
         }
     }
 
     public function destroy($userId)
     {
         try {
-            User::find($userId)->update(['active' => false]);
+            User::find($userId)->update(['active' => ActivationStatusEnum::INACTIVE]);
 
             return redirect()->route('users.index')->with('success', 'Usuário excluído com sucesso.');
-        } catch(Exception $ex) {
-            return redirect()->route('users.index')->with('error', 'Ocorreu um erro ao excluir o usuário: ' . $ex->getMessage());
+        } catch (Exception $ex) {
+            return redirect()->route('users.index')->with('error', 'Ocorreu um erro ao excluir o usuário: '.$ex->getMessage());
         }
     }
 

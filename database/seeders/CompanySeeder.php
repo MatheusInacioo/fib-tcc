@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ActivationStatusEnum;
 use App\Models\Company;
 use Illuminate\Database\Seeder;
 
@@ -15,7 +16,7 @@ class CompanySeeder extends Seeder
         Company::create([
             'name' => fake()->lastName(),
             'corporate_name' => fake()->company(),
-            'active' => true,
+            'active' => ActivationStatusEnum::ACTIVE,
         ]);
     }
 }

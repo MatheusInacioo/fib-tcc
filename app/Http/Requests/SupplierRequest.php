@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\ActivationStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SupplierRequest extends FormRequest
@@ -25,7 +26,7 @@ class SupplierRequest extends FormRequest
             'segment' => 'required|string',
         ];
 
-        if($this->method() == 'PUT') {
+        if ($this->method() == 'PUT') {
             $rules['cnpj'] = 'required|string';
         }
 
@@ -63,7 +64,7 @@ class SupplierRequest extends FormRequest
             'responsible' => $this->input('responsible'),
             'responsible_phone' => $this->input('responsible_phone'),
             'segment' => $this->input('segment'),
-            'active' => true,
+            'active' => ActivationStatusEnum::ACTIVE,
         ];
     }
 }

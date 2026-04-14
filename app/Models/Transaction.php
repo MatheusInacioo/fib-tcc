@@ -2,9 +2,15 @@
 
 namespace App\Models;
 
+use App\Enums\TransactionTypeEnum;
+
 class Transaction extends AbstractModel
 {
     protected $table = 'transactions';
+
+    protected $casts = [
+        'type' => TransactionTypeEnum::class,
+    ];
 
     protected $fillable = [
         'company_id',

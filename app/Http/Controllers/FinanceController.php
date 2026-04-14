@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Utils\NumericUtil;
+use App\Enums\FinanceGroupByEnum;
+use App\Enums\FinanceReportIntervalEnum;
+use App\Enums\TransactionTypeEnum;
 use App\Models\Expense;
 use App\Models\Transaction;
+use App\Utils\NumericUtil;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -36,84 +39,89 @@ class FinanceController extends Controller
     }
 
     private function getFinancialData(
-        $groupBy = 1, 
-        $interval = 1,
-        $startDate = null, 
-        $endDate = null, 
+        int $groupBy = 1,
+        int $interval = 1,
+        $startDate = null,
+        $endDate = null,
     ) {
-        switch ($groupBy) {
-            case 1: // per day
+        $GROUP_BY_ENUM = FinanceGroupByEnum::tryFrom($groupBy) ?? FinanceGroupByEnum::LAST_30_DAYS;
+        $INTERVAL_ENUM = FinanceReportIntervalEnum::tryFrom($interval) ?? FinanceReportIntervalEnum::DAILY;
+
+        switch ($GROUP_BY_ENUM) {
+            case FinanceGroupByEnum::LAST_30_DAYS:
                 $startDate = Carbon::now()->subDays(30);
                 $endDate = Carbon::now();
                 break;
 
-            case 2: // per month
+            case FinanceGroupByEnum::LAST_6_MONTHS:
                 $startDate = Carbon::now()->subMonths(6)->startOfMonth();
                 $endDate = Carbon::now()->endOfMonth();
                 break;
 
-            case 3: // per year
+            case FinanceGroupByEnum::LAST_12_MONTHS:
                 $startDate = Carbon::now()->subYear()->startOfMonth();
                 $endDate = Carbon::now()->endOfMonth();
                 break;
 
-            case 4: // custom
+            case FinanceGroupByEnum::CUSTOM_RANGE:
                 if ($startDate && $endDate) {
                     $startDate = Carbon::parse($startDate)->startOfDay();
                     $endDate = Carbon::parse($endDate)->endOfDay();
                 } else {
-                    throw new \Exception("As datas de início e fim são obrigatórias para o período personalizado.");
+                    throw new \Exception('As datas de início e fim são obrigatórias para o período personalizado.');
                 }
                 break;
         }
 
-        $interlvalPeriod = $interval === 1 ? new \DateInterval('P1D') : new \DateInterval('P1M');
-        $periods = new \DatePeriod(
+        $INTERVAL_PERIOD = $INTERVAL_ENUM === FinanceReportIntervalEnum::DAILY
+            ? new \DateInterval('P1D')
+            : new \DateInterval('P1M');
+        $PERIODS = new \DatePeriod(
             new \DateTime($startDate),
-            $interlvalPeriod,
-            (new \DateTime($endDate))->modify('+1 ' . ($interval === 1 ? 'day' : 'month'))
+            $INTERVAL_PERIOD,
+            (new \DateTime($endDate))->modify('+1 '.($INTERVAL_ENUM === FinanceReportIntervalEnum::DAILY ? 'day' : 'month'))
         );
 
-        $financialData = [];
+        $FINANCIAL_DATA = [];
 
-        foreach ($periods as $date) {
-            $startOfPeriod = Carbon::instance($date)->startOf($interval === 1 ? 'day' : 'month');
-            $endOfPeriod = Carbon::instance($date)->endOf($interval === 1 ? 'day' : 'month');
+        foreach ($PERIODS as $DATE) {
+            $START_OF_PERIOD = Carbon::instance($DATE)->startOf($INTERVAL_ENUM === FinanceReportIntervalEnum::DAILY ? 'day' : 'month');
+            $END_OF_PERIOD = Carbon::instance($DATE)->endOf($INTERVAL_ENUM === FinanceReportIntervalEnum::DAILY ? 'day' : 'month');
 
-            $invoicing = Transaction::session()
-                ->whereBetween('created_at', [$startOfPeriod, $endOfPeriod])
-                ->where('type', 1)
+            $INVOICING = Transaction::session()
+                ->whereBetween('created_at', [$START_OF_PERIOD, $END_OF_PERIOD])
+                ->where('type', TransactionTypeEnum::SALE)
                 ->sum('total_amount');
 
-            $expenses = Expense::session()
-                ->whereBetween('created_at', [$startOfPeriod, $endOfPeriod])
+            $EXPENSES = Expense::session()
+                ->whereBetween('created_at', [$START_OF_PERIOD, $END_OF_PERIOD])
                 ->sum('amount');
 
-            $grossProfit = $invoicing - $expenses;
+            $GROSS_PROFIT = $INVOICING - $EXPENSES;
 
-            $salesCount = Transaction::session()
-                ->whereBetween('created_at', [$startOfPeriod, $endOfPeriod])
-                ->where('type', 1)
+            $SALES_COUNT = Transaction::session()
+                ->whereBetween('created_at', [$START_OF_PERIOD, $END_OF_PERIOD])
+                ->where('type', TransactionTypeEnum::SALE)
                 ->count();
 
-            $averageTicket = $salesCount > 0 ? $invoicing / $salesCount : 0;
+            $AVERAGE_TICKET = $SALES_COUNT > 0 ? $INVOICING / $SALES_COUNT : 0;
 
-            $financialData[] = [
-                'period' => $startOfPeriod->format($interval === 1 ? 'd/m/Y' : 'm/Y'),
-                'invoicing' => NumericUtil::formatToCurrency($invoicing, 'R$'),
-                'expenses' => NumericUtil::formatToCurrency($expenses, 'R$'),
-                'gross_profit' => NumericUtil::formatToCurrency($grossProfit, 'R$'),
-                'profit_margin' => NumericUtil::getProfitMarginValue($invoicing, $grossProfit),
-                'average_ticket' => NumericUtil::formatToCurrency($averageTicket, 'R$'),
-                'sales_count' => $salesCount,
+            $FINANCIAL_DATA[] = [
+                'period' => $START_OF_PERIOD->format($INTERVAL_ENUM === FinanceReportIntervalEnum::DAILY ? 'd/m/Y' : 'm/Y'),
+                'invoicing' => NumericUtil::formatToCurrency($INVOICING, 'R$'),
+                'expenses' => NumericUtil::formatToCurrency($EXPENSES, 'R$'),
+                'gross_profit' => NumericUtil::formatToCurrency($GROSS_PROFIT, 'R$'),
+                'profit_margin' => NumericUtil::getProfitMarginValue($INVOICING, $GROSS_PROFIT),
+                'average_ticket' => NumericUtil::formatToCurrency($AVERAGE_TICKET, 'R$'),
+                'sales_count' => $SALES_COUNT,
             ];
         }
 
-        return $financialData;
+        return $FINANCIAL_DATA;
     }
 
     public function export()
     {
-        // 
+        //
     }
 }

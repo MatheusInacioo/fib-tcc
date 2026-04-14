@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Enums\TransactionTypeEnum;
 use App\Utils\NumericUtil;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,11 +17,15 @@ class TransactionResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $TYPE = $this->type instanceof TransactionTypeEnum
+            ? $this->type
+            : TransactionTypeEnum::from((int) $this->type);
+
         return [
             'id' => $this->id,
-            'type_id' => $this->type,
-            'type' => $this->type == 0 ? 'Compra' : 'Venda',
-            'counterparty' => $this->type == 0 ? $this->getSupplierName() : $this->getCustomerName(),
+            'type_id' => $TYPE->value,
+            'type' => $TYPE->label(),
+            'counterparty' => $TYPE->isPurchase() ? $this->getSupplierName() : $this->getCustomerName(),
             'customer_id' => $this->customer_id,
             'supplier_id' => $this->supplier_id,
             'product_id' => $this->product_id,

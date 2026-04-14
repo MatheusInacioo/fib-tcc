@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Utils\NumericUtil;
+use App\Enums\TransactionTypeEnum;
 use App\Models\Product;
 use App\Models\Transaction;
+use App\Utils\NumericUtil;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
@@ -25,22 +26,22 @@ class DashboardController extends Controller
 
         $todayInvoicing = Transaction::session()
             ->whereBetween('created_at', [$todayStart, $todayEnd])
-            ->where('type', 1)
+            ->where('type', TransactionTypeEnum::SALE)
             ->sum('total_amount');
 
         $yesterdayInvoicing = Transaction::session()
             ->whereBetween('created_at', [$yesterdayStart, $yesterdayEnd])
-            ->where('type', 1)
+            ->where('type', TransactionTypeEnum::SALE)
             ->sum('total_amount');
 
         $purchases = Transaction::session()
             ->whereBetween('created_at', [$todayStart, $todayEnd])
-            ->where('type', 0)
+            ->where('type', TransactionTypeEnum::PURCHASE)
             ->count();
 
         $sales = Transaction::session()
             ->whereBetween('created_at', [$todayStart, $todayEnd])
-            ->where('type', 1)
+            ->where('type', TransactionTypeEnum::SALE)
             ->count();
 
         $lowProducts = Product::session()->whereColumn('total_amount', '<=', 'minimum_amount')->get();
@@ -94,7 +95,7 @@ class DashboardController extends Controller
         $change = round((($currentValue - $previousValue) / $previousValue) * 100, 2);
         $sign = $change > 0 ? '+' : '';
 
-        return $sign . $change . '%';
+        return $sign.$change.'%';
     }
 
     private function getInvoicingData($period)
@@ -107,7 +108,7 @@ class DashboardController extends Controller
 
             $invoicing = Transaction::session()
                 ->whereBetween('created_at', [$startDate, $endDate])
-                ->where('type', 1)
+                ->where('type', TransactionTypeEnum::SALE)
                 ->sum('total_amount');
 
             $date = $startDate->format('d/m');
@@ -127,7 +128,7 @@ class DashboardController extends Controller
 
             $purchases = Transaction::session()
                 ->whereBetween('created_at', [$startDate, $endDate])
-                ->where('type', 0)
+                ->where('type', TransactionTypeEnum::PURCHASE)
                 ->count();
 
             $date = $startDate->format('d/m');
@@ -147,7 +148,7 @@ class DashboardController extends Controller
 
             $sales = Transaction::session()
                 ->whereBetween('created_at', [$startDate, $endDate])
-                ->where('type', 1)
+                ->where('type', TransactionTypeEnum::SALE)
                 ->count();
 
             $date = $startDate->format('d/m');

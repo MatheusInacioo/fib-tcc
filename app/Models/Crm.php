@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\CrmLeadStatusEnum;
+use App\Enums\CrmPartyTypeEnum;
+
 class Crm extends AbstractModel
 {
     protected $table = 'crm_data';
@@ -11,6 +14,11 @@ class Crm extends AbstractModel
      *
      * @var array<int, string>
      */
+    protected $casts = [
+        'type' => CrmPartyTypeEnum::class,
+        'status' => CrmLeadStatusEnum::class,
+    ];
+
     protected $fillable = [
         'company_id',
         'shop_id',

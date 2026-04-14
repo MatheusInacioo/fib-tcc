@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\ActivationStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ShopRequest extends FormRequest
@@ -37,7 +38,7 @@ class ShopRequest extends FormRequest
             'name' => $this->input('name'),
             'company_id' => $this->input('company_id'),
             'location' => $this->input('location'),
-            'active' => true,
+            'active' => ActivationStatusEnum::ACTIVE,
         ];
     }
 }

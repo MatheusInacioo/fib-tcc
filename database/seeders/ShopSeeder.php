@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ActivationStatusEnum;
 use App\Models\Shop;
 use Illuminate\Database\Seeder;
 
@@ -17,7 +18,7 @@ class ShopSeeder extends Seeder
                 'name' => fake()->word(),
                 'company_id' => 1,
                 'location' => fake()->address(),
-                'active' => true,
+                'active' => ActivationStatusEnum::ACTIVE,
             ]);
         }
     }

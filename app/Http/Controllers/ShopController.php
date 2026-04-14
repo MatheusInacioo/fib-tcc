@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ActivationStatusEnum;
 use App\Http\Requests\ShopRequest;
 use App\Models\Shop;
 use Exception;
@@ -16,8 +17,8 @@ class ShopController extends Controller
             Shop::create($data);
 
             return redirect()->route('companies.index')->with('success', 'Loja cadastrada com sucesso.');
-        } catch(Exception $ex) {
-            return redirect()->route('companies.index')->with('error', 'Ocorreu um erro ao cadastrar a loja: ' . $ex->getMessage());
+        } catch (Exception $ex) {
+            return redirect()->route('companies.index')->with('error', 'Ocorreu um erro ao cadastrar a loja: '.$ex->getMessage());
         }
     }
 
@@ -29,19 +30,19 @@ class ShopController extends Controller
             $shop->update($data);
 
             return redirect()->route('companies.index')->with('success', 'Loja atualizada com sucesso.');
-        } catch(Exception $ex) {
-            return redirect()->route('companies.index')->with('error', 'Ocorreu um erro ao autalizar os dados da loja: ' . $ex->getMessage());
+        } catch (Exception $ex) {
+            return redirect()->route('companies.index')->with('error', 'Ocorreu um erro ao autalizar os dados da loja: '.$ex->getMessage());
         }
     }
 
     public function destroy($shopId)
     {
         try {
-            Shop::find($shopId)->update(['active' => false]);
+            Shop::find($shopId)->update(['active' => ActivationStatusEnum::INACTIVE]);
 
             return redirect()->route('companies.index')->with('success', 'Loja excluída com sucesso.');
-        } catch(Exception $ex) {
-            return redirect()->route('companies.index')->with('error', 'Ocorreu um erro ao excluir a loja: ' . $ex->getMessage());
+        } catch (Exception $ex) {
+            return redirect()->route('companies.index')->with('error', 'Ocorreu um erro ao excluir a loja: '.$ex->getMessage());
         }
     }
 }

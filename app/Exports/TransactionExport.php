@@ -2,8 +2,9 @@
 
 namespace App\Exports;
 
-use App\Utils\NumericUtil;
+use App\Enums\TransactionTypeEnum;
 use App\Models\Transaction;
+use App\Utils\NumericUtil;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -11,7 +12,7 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class TransactionExport implements FromCollection, WithHeadings, ShouldAutoSize, WithMapping
+class TransactionExport implements FromCollection, ShouldAutoSize, WithHeadings, WithMapping
 {
     protected $columns;
 
@@ -27,7 +28,7 @@ class TransactionExport implements FromCollection, WithHeadings, ShouldAutoSize,
                 'supplier_id',
                 'user_id',
                 'updated_at',
-                'notes'
+                'notes',
             ]
         );
     }
@@ -35,7 +36,7 @@ class TransactionExport implements FromCollection, WithHeadings, ShouldAutoSize,
     public function collection()
     {
         $columns = array_map(function ($column) {
-            return 'transactions.' . $column;
+            return 'transactions.'.$column;
         }, $this->columns);
 
         $columns[] = 'customers.name as customer_name';
@@ -50,9 +51,9 @@ class TransactionExport implements FromCollection, WithHeadings, ShouldAutoSize,
         }
 
         $query->leftJoin('customers', 'transactions.customer_id', '=', 'customers.id')
-              ->leftJoin('suppliers', 'transactions.supplier_id', '=', 'suppliers.id')
-              ->leftJoin('products', 'transactions.product_id', '=', 'products.id')
-              ->leftJoin('users', 'transactions.user_id', '=', 'users.id');
+            ->leftJoin('suppliers', 'transactions.supplier_id', '=', 'suppliers.id')
+            ->leftJoin('products', 'transactions.product_id', '=', 'products.id')
+            ->leftJoin('users', 'transactions.user_id', '=', 'users.id');
 
         return $query->orderBy('id')->get();
     }
@@ -76,9 +77,13 @@ class TransactionExport implements FromCollection, WithHeadings, ShouldAutoSize,
 
     public function map($transaction): array
     {
+        $TYPE = $transaction->type instanceof TransactionTypeEnum
+            ? $transaction->type
+            : TransactionTypeEnum::from((int) $transaction->type);
+
         return [
             $transaction->id,
-            $transaction->type == 0 ? 'Compra' : 'Venda',
+            $TYPE->label(),
             $transaction->customer_name,
             $transaction->supplier_name,
             $transaction->product_name,

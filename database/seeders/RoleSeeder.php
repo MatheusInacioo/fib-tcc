@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ActivationStatusEnum;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
 
@@ -18,8 +19,8 @@ class RoleSeeder extends Seeder
             'Financeiro',
         ];
 
-        foreach($roles as $roleName) {
-            Role::create(['name' => $roleName, 'active' => true]);
+        foreach ($roles as $roleName) {
+            Role::create(['name' => $roleName, 'active' => ActivationStatusEnum::ACTIVE]);
         }
     }
 }

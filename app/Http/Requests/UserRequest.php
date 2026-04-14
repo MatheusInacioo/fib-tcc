@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\ActivationStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends FormRequest
@@ -13,7 +14,7 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules =  [
+        $rules = [
             'name' => 'required|string',
             'email' => 'required|unique:users|email|max:50|regex:/^[a-z0-9._]+@[a-z0-9.-]+\.[a-z]{2,}$/i',
             'password' => 'required',
@@ -22,7 +23,7 @@ class UserRequest extends FormRequest
             'shop_id' => 'required|integer',
         ];
 
-        if($this->method() == 'PUT') {
+        if ($this->method() == 'PUT') {
             $rules['password'] = 'nullable';
             $rules['role_id'] = 'nullable';
             $rules['email'] = 'required|email|max:50|regex:/^[a-z0-9._]+@[a-z0-9.-]+\.[a-z]{2,}$/i';
@@ -54,7 +55,7 @@ class UserRequest extends FormRequest
             'role_id' => $this->input('role_id') ?? null,
             'company_id' => $this->input('company_id') ?? null,
             'shop_id' => $this->input('shop_id') ?? null,
-            'active' => true,
+            'active' => ActivationStatusEnum::ACTIVE,
         ];
     }
 }

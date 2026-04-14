@@ -54,8 +54,18 @@
         },
 
         props: {
-            title: '',
-            crm: {},
+            title: {
+                type: String,
+                default: '',
+            },
+            statusValue: {
+                type: Number,
+                required: true,
+            },
+            crm: {
+                type: Array,
+                default: () => [],
+            },
         },
 
         data() {
@@ -67,7 +77,7 @@
 
         computed: {
             filteredItems() {
-                return this.crm.filter(item => item.status === this.title);
+                return this.crm.filter((item) => Number(item.status) === Number(this.statusValue));
             },
         },
 

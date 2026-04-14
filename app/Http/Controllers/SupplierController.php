@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ActivationStatusEnum;
 use App\Exports\SuppliersExport;
 use App\Http\Requests\SupplierRequest;
 use App\Http\Resources\SupplierResource;
@@ -14,7 +15,7 @@ class SupplierController extends Controller
 {
     public function index()
     {
-        $suppliers = Supplier::session()->where('active', true)->get();
+        $suppliers = Supplier::session()->where('active', ActivationStatusEnum::ACTIVE)->get();
 
         return Inertia::render('Suppliers/Index', [
             'suppliers' => $suppliers,
@@ -41,8 +42,8 @@ class SupplierController extends Controller
             Supplier::create($data);
 
             return redirect()->route('suppliers.index')->with('success', 'Fornecedor cadastrado com sucesso.');
-        } catch(Exception $ex) {
-            return redirect()->route('suppliers.index')->with('error', 'Ocorreu um erro ao cadastrar o fornecedor: ' . $ex->getMessage());
+        } catch (Exception $ex) {
+            return redirect()->route('suppliers.index')->with('error', 'Ocorreu um erro ao cadastrar o fornecedor: '.$ex->getMessage());
         }
     }
 
@@ -54,19 +55,19 @@ class SupplierController extends Controller
             $supplier->update($data);
 
             return redirect()->route('suppliers.index')->with('success', 'Fornecedor atualizado com sucesso.');
-        } catch(Exception $ex) {
-            return redirect()->route('suppliers.index')->with('error', 'Ocorreu um erro ao autalizar os dados do fornecedor: ' . $ex->getMessage());
+        } catch (Exception $ex) {
+            return redirect()->route('suppliers.index')->with('error', 'Ocorreu um erro ao autalizar os dados do fornecedor: '.$ex->getMessage());
         }
     }
 
     public function destroy($supplierId)
     {
         try {
-            Supplier::find($supplierId)->update(['active' => false]);
+            Supplier::find($supplierId)->update(['active' => ActivationStatusEnum::INACTIVE]);
 
             return redirect()->route('suppliers.index')->with('success', 'Fornecedor excluído com sucesso.');
-        } catch(Exception $ex) {
-            return redirect()->route('suppliers.index')->with('error', 'Ocorreu um erro ao excluir o fornecedor: ' . $ex->getMessage());
+        } catch (Exception $ex) {
+            return redirect()->route('suppliers.index')->with('error', 'Ocorreu um erro ao excluir o fornecedor: '.$ex->getMessage());
         }
     }
 

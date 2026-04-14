@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('responsible')->nullable();
             $table->string('responsible_phone')->nullable();
             $table->string('segment')->nullable();
-            $table->string('type');
-            $table->string('status');
+            $table->unsignedTinyInteger('type')->default(0);
+            $table->unsignedTinyInteger('status')->default(0);
             $table->timestamps();
         });
     }

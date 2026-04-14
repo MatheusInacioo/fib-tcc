@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\ActivationStatusEnum;
+
 class Supplier extends AbstractModel
 {
     /**
@@ -9,6 +11,10 @@ class Supplier extends AbstractModel
      *
      * @var array<int, string>
      */
+    protected $casts = [
+        'active' => ActivationStatusEnum::class,
+    ];
+
     protected $fillable = [
         'company_id',
         'shop_id',

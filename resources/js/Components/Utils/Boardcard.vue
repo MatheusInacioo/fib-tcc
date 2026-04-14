@@ -42,7 +42,7 @@
                     {{ item.responsible_phone }}
                 </p>
                 <div class="flex">
-                    <p class="mr-2 p-1 max-w-24 text-xs font-semibold bg-blue-500 rounded-md text-white uppercase">{{ item.type }}</p>
+                    <p class="mr-2 p-1 max-w-24 text-xs font-semibold bg-blue-500 rounded-md text-white uppercase">{{ item.type_label }}</p>
                     <p class="mr-2 p-1 max-w-24 text-xs font-semibold bg-success rounded-md text-white uppercase">{{ item.segment }}</p>
                     <p class="mr-2 p-1 max-w-20 text-xs font-semibold bg-danger rounded-md text-white uppercase">{{ item.last_update }}</p>
                 </div>

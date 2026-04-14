@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ActivationStatusEnum;
 use App\Models\Permission;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -59,8 +60,8 @@ class PermissionSeeder extends Seeder
             'delete-companies',
         ];
 
-        foreach($permissions as $permissionName) {
-            $createdPermission = Permission::create(['name' => $permissionName, 'active' => true]);
+        foreach ($permissions as $permissionName) {
+            $createdPermission = Permission::create(['name' => $permissionName, 'active' => ActivationStatusEnum::ACTIVE]);
 
             DB::table('role_permission')->insert([
                 'role_id' => 1,

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ActivationStatusEnum;
+use App\Enums\CrmPartyTypeEnum;
 use App\Http\Requests\CrmRequest;
 use App\Http\Resources\CrmResource;
 use App\Models\Crm;
@@ -46,8 +48,8 @@ class CrmController extends Controller
             CrmAttendance::create($attendanceData);
 
             return redirect()->route('crm.index')->with('success', 'Cadastro realizado com sucesso.');
-        } catch(Exception $ex) {
-            return redirect()->route('crm.index')->with('error', 'Ocorreu um erro ao realizar o cadastro: ' . $ex->getMessage());
+        } catch (Exception $ex) {
+            return redirect()->route('crm.index')->with('error', 'Ocorreu um erro ao realizar o cadastro: '.$ex->getMessage());
         }
     }
 
@@ -61,8 +63,8 @@ class CrmController extends Controller
             CrmAttendance::create($attendanceData);
 
             return redirect()->route('crm.index')->with('success', 'Cadastro atualizado com sucesso.');
-        } catch(Exception $ex) {
-            return redirect()->route('crm.index')->with('error', 'Ocorreu um erro ao autalizar o cadastro: ' . $ex->getMessage());
+        } catch (Exception $ex) {
+            return redirect()->route('crm.index')->with('error', 'Ocorreu um erro ao autalizar o cadastro: '.$ex->getMessage());
         }
     }
 
@@ -74,29 +76,33 @@ class CrmController extends Controller
             Crm::find($crmId)->delete();
 
             return redirect()->route('crm.index')->with('success', 'Cadastro excluído com sucesso.');
-        } catch(Exception $ex) {
-            return redirect()->route('crm.index')->with('error', 'Ocorreu um erro ao excluir o cadastro: ' . $ex->getMessage());
+        } catch (Exception $ex) {
+            return redirect()->route('crm.index')->with('error', 'Ocorreu um erro ao excluir o cadastro: '.$ex->getMessage());
         }
     }
 
     public function closeContract(CrmRequest $request, Crm $crm)
     {
         try {
-            $contract = $request->getCrmData();
-            $contract['active'] = true;
-            $contract['company_id'] = session()->get('selected_company_id');
-            $contract['shop_id'] = session()->get('selected_shop_id');
+            $CONTRACT = $request->getCrmData();
+            $CONTRACT['active'] = ActivationStatusEnum::ACTIVE;
+            $CONTRACT['company_id'] = session()->get('selected_company_id');
+            $CONTRACT['shop_id'] = session()->get('selected_shop_id');
 
-            $contract['type'] == 'Cliente'
-                ? Customer::create($contract)
-                : Supplier::create($contract);
+            $PARTY_TYPE = $CONTRACT['type'] instanceof CrmPartyTypeEnum
+                ? $CONTRACT['type']
+                : CrmPartyTypeEnum::from((int) $CONTRACT['type']);
+
+            $PARTY_TYPE->isCustomer()
+                ? Customer::create($CONTRACT)
+                : Supplier::create($CONTRACT);
 
             CrmAttendance::where('crm_id', $crm->id)->delete();
             $crm->find($crm->id)->delete();
 
             return redirect()->route('crm.index')->with('success', 'Contrato fechado com sucesso.');
-        } catch(Exception $ex) {
-            return redirect()->route('crm.index')->with('error', 'Ocorreu um erro ao fechar o contrato: ' . $ex->getMessage());
+        } catch (Exception $ex) {
+            return redirect()->route('crm.index')->with('error', 'Ocorreu um erro ao fechar o contrato: '.$ex->getMessage());
         }
     }
 }

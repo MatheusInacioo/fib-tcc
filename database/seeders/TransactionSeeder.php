@@ -2,12 +2,13 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\Supplier;
+use App\Enums\TransactionTypeEnum;
 use App\Models\Customer;
 use App\Models\Product;
+use App\Models\Supplier;
 use App\Models\Transaction;
 use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class TransactionSeeder extends Seeder
 {
@@ -27,17 +28,17 @@ class TransactionSeeder extends Seeder
         ];
 
         for ($i = 0; $i < 100; $i++) {
-            $transactionType = fake()->randomElement([0, 1]);
+            $transactionType = fake()->randomElement(TransactionTypeEnum::cases());
             $quantity = fake()->numberBetween(1, 100);
             $date = fake()->dateTimeBetween('-30 days', 'now');
 
-            if ($transactionType === 0) {
+            if ($transactionType === TransactionTypeEnum::PURCHASE) {
                 $supplier = $suppliers->random();
                 $products = Product::where('supplier_id', $supplier->id)->get();
                 $product = $products->random();
 
                 Transaction::create([
-                    'type' => 0,
+                    'type' => TransactionTypeEnum::PURCHASE,
                     'company_id' => 1,
                     'shop_id' => rand(1, 2),
                     'customer_id' => null,
@@ -57,7 +58,7 @@ class TransactionSeeder extends Seeder
                 $product = $products->random();
 
                 Transaction::create([
-                    'type' => 1,
+                    'type' => TransactionTypeEnum::SALE,
                     'company_id' => 1,
                     'shop_id' => rand(1, 2),
                     'customer_id' => $customers->random()->id,

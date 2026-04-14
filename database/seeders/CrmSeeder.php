@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Enums\CrmLeadStatusEnum;
+use App\Enums\CrmPartyTypeEnum;
 use App\Models\Crm;
 use Illuminate\Database\Seeder;
 
@@ -25,14 +27,8 @@ class CrmSeeder extends Seeder
                 'responsible' => fake()->name(),
                 'responsible_phone' => fake()->numerify('(##)#####-####'),
                 'segment' => fake()->randomElement(['Atacado', 'Varejo', 'Transportes', 'Distribuidora', 'Alimentação']),
-                'type' => fake()->randomElement(['Fornecedor', 'Cliente']),
-                'status' => fake()->randomElement([
-                    'Contato',
-                    'Negociação',
-                    'Assinatura Pendente',
-                    'Standby',
-                    'Sem Interesse',
-                ]),
+                'type' => fake()->randomElement(CrmPartyTypeEnum::cases()),
+                'status' => fake()->randomElement(CrmLeadStatusEnum::cases()),
             ]);
         }
     }

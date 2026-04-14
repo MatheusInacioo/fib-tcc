@@ -157,11 +157,11 @@
                         class="border-gray-300 2xl:text-base text-sm rounded-xl"
                     >
                         <option
-                            v-for="type in types"
-                            :key="type.id"
-                            :value="type"
+                            v-for="typeOption in types"
+                            :key="typeOption.value"
+                            :value="typeOption.value"
                         >
-                            {{ type }}
+                            {{ typeOption.label }}
                         </option>
                     </select>
                     <div v-if="form.errors.phone" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.type }}</div>
@@ -176,11 +176,11 @@
                         class="border-gray-300 2xl:text-base text-sm rounded-xl"
                     >
                         <option
-                            v-for="status in statuses"
-                            :key="status.id"
-                            :value="status"
+                            v-for="statusOption in statuses"
+                            :key="statusOption.value"
+                            :value="statusOption.value"
                         >
-                            {{ status }}
+                            {{ statusOption.label }}
                         </option>
                     </select>
                     <div v-if="form.errors.status" class="form-error font-medium text-red-500 text-sm 2xl:text-base">{{ form.errors.status }}</div>
@@ -308,13 +308,16 @@ export default {
                 content: '',
                 subject: 'close-contract',
             },
-            types: ['Cliente', 'Fornecedor'],
+            types: [
+                { value: 0, label: 'Cliente' },
+                { value: 1, label: 'Fornecedor' },
+            ],
             statuses: [
-                'Contato',
-                'Negociação',
-                'Assinatura Pendente',
-                'Standby',
-                'Sem Interesse',
+                { value: 0, label: 'Contato' },
+                { value: 1, label: 'Negociação' },
+                { value: 2, label: 'Assinatura Pendente' },
+                { value: 3, label: 'Standby' },
+                { value: 4, label: 'Sem Interesse' },
             ],
             segments: [
                 'Alimentação',
@@ -333,7 +336,13 @@ export default {
 
         itemExists() {
             return this.item.data.id ? true : false;
-        }
+        },
+
+        selectedTypeLabel() {
+            const OPTION = this.types.find((T) => T.value === this.form.type);
+
+            return OPTION ? OPTION.label : '';
+        },
     },
 
     methods: {
@@ -401,7 +410,7 @@ export default {
         },
 
         toggleConfirmationModal() {
-            this.message.content = `Ao clicar em confirmar, o atendimento #${this.item.data.id} será encerrado e cadastrado como <span class="uppercase font-bold">${this.form.type}</span>. <br/> Deseja continuar?`;
+            this.message.content = `Ao clicar em confirmar, o atendimento #${this.item.data.id} será encerrado e cadastrado como <span class="uppercase font-bold">${this.selectedTypeLabel}</span>. <br/> Deseja continuar?`;
 
             this.showModal = ! this.showModal;
         },

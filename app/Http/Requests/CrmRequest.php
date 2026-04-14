@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\CrmLeadStatusEnum;
+use App\Enums\CrmPartyTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 class CrmRequest extends FormRequest
 {
@@ -23,8 +26,8 @@ class CrmRequest extends FormRequest
             'responsible' => 'nullable',
             'responsible_phone' => 'nullable',
             'segment' => 'nullable',
-            'type' => 'required|string',
-            'status' => 'required|string',
+            'type' => ['required', new Enum(CrmPartyTypeEnum::class)],
+            'status' => ['required', new Enum(CrmLeadStatusEnum::class)],
             'description' => 'nullable',
         ];
 
@@ -75,8 +78,8 @@ class CrmRequest extends FormRequest
             'responsible' => $this->input('responsible'),
             'responsible_phone' => $this->input('responsible_phone'),
             'segment' => $this->input('segment'),
-            'type' => $this->input('type'),
-            'status' => $this->input('status'),
+            'type' => CrmPartyTypeEnum::from((int) $this->input('type')),
+            'status' => CrmLeadStatusEnum::from((int) $this->input('status')),
         ];
     }
 
@@ -84,7 +87,7 @@ class CrmRequest extends FormRequest
     {
         return [
             'crm_id' => $this->route('crm')->id ?? null,
-            'description' => $this->input('description') ?? auth()->user()->name . " fez uma alteração no cadastro. Nenhuma descrição registrada.",
+            'description' => $this->input('description') ?? auth()->user()->name.' fez uma alteração no cadastro. Nenhuma descrição registrada.',
             'user' => auth()->user()->name,
             'company_id' => session()->get('seleceted_company_id'),
             'shop_id' => session()->get('seleceted_shop_id'),

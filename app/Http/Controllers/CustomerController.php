@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ActivationStatusEnum;
 use App\Exports\CustomersExport;
 use App\Http\Requests\CustomerRequest;
 use App\Http\Resources\CustomerResource;
@@ -14,7 +15,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = Customer::session()->where('active', true)->get();
+        $customers = Customer::session()->where('active', ActivationStatusEnum::ACTIVE)->get();
 
         return Inertia::render('Customers/Index', [
             'customers' => $customers,
@@ -42,7 +43,7 @@ class CustomerController extends Controller
 
             return redirect()->route('customers.index')->with('success', 'Cliente cadastrado com sucesso.');
         } catch (Exception $ex) {
-            return redirect()->route('customers.index')->with('error', 'Ocorreu um erro ao cadastrar o cliente: ' . $ex->getMessage());
+            return redirect()->route('customers.index')->with('error', 'Ocorreu um erro ao cadastrar o cliente: '.$ex->getMessage());
         }
     }
 
@@ -55,18 +56,18 @@ class CustomerController extends Controller
 
             return redirect()->route('customers.index')->with('success', 'Cliente atualizado com sucesso.');
         } catch (Exception $ex) {
-            return redirect()->route('customers.index')->with('error', 'Ocorreu um erro ao autalizar os dados do cliente: ' . $ex->getMessage());
+            return redirect()->route('customers.index')->with('error', 'Ocorreu um erro ao autalizar os dados do cliente: '.$ex->getMessage());
         }
     }
 
     public function destroy($customerId)
     {
         try {
-            Customer::find($customerId)->update(['active' => false]);
+            Customer::find($customerId)->update(['active' => ActivationStatusEnum::INACTIVE]);
 
             return redirect()->route('customers.index')->with('success', 'Cliente excluído com sucesso.');
         } catch (Exception $ex) {
-            return redirect()->route('customers.index')->with('error', 'Ocorreu um erro ao excluir o cliente: ' . $ex->getMessage());
+            return redirect()->route('customers.index')->with('error', 'Ocorreu um erro ao excluir o cliente: '.$ex->getMessage());
         }
     }
 

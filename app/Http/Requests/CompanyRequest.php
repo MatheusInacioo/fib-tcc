@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\ActivationStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CompanyRequest extends FormRequest
@@ -34,7 +35,7 @@ class CompanyRequest extends FormRequest
         return [
             'name' => $this->input('name'),
             'corporate_name' => $this->input('corporate_name'),
-            'active' => true,
+            'active' => ActivationStatusEnum::ACTIVE,
         ];
     }
 }

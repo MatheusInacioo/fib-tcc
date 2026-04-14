@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
+use App\Enums\ActivationStatusEnum;
 use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
@@ -20,7 +21,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt(123),
             'company_id' => 1,
             'shop_id' => rand(1, 2),
-            'active' => true,
+            'active' => ActivationStatusEnum::ACTIVE,
         ]);
 
         for ($i = 2; $i < 9; $i++) {
@@ -32,7 +33,7 @@ class UserSeeder extends Seeder
                 'password' => bcrypt(123),
                 'company_id' => 1,
                 'shop_id' => rand(1, 2),
-                'active' => true,
+                'active' => ActivationStatusEnum::ACTIVE,
             ]);
         }
     }
